@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧲 IronForge — Launch Your Meme Coin in Under 10 Minutes</title>
-    <meta name="description" content="No code, no waiting, super cheap & easy on Base + $BNKR. Launch your meme coin for $10-$35.">
+    <meta name="description" content="No code, no waiting, super cheap & easy on Base + $BNKR. Launch your meme coin for $49-$199.">
     <meta property="og:title" content="🧲 IronForge — Launch Your Meme Coin in Under 10 Minutes">
-    <meta property="og:description" content="Affordable no-code meme coin launcher on Base + $BNKR. Starter $10, Growth $25, Viral $35.">
+    <meta property="og:description" content="Affordable no-code meme coin launcher on Base + $BNKR. Starter $49, Growth $99, Viral $199.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         
@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
         
-        /* Animated Background */
         body::before {
             content: '';
             position: fixed;
@@ -44,7 +43,6 @@
         
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
         
-        /* Header */
         header {
             padding: 1.25rem 0;
             display: flex;
@@ -68,11 +66,7 @@
         .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
         .nav-links a:hover { color: var(--cyan); }
         
-        /* Hero */
-        .hero {
-            padding: 4rem 0;
-            text-align: center;
-        }
+        .hero { padding: 4rem 0; text-align: center; }
         
         .hero h1 {
             font-size: clamp(2rem, 5vw, 3.5rem);
@@ -111,12 +105,8 @@
             box-shadow: 0 4px 25px rgba(139, 92, 246, 0.4);
         }
         
-        .cta-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 35px rgba(139, 92, 246, 0.5);
-        }
+        .cta-main:hover { transform: translateY(-2px); box-shadow: 0 6px 35px rgba(139, 92, 246, 0.5); }
         
-        /* Packages */
         .packages { padding: 3rem 0; }
         
         .section-title {
@@ -163,12 +153,7 @@
         
         .pkg-name { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.25rem; }
         
-        .pkg-price {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.25rem;
-        }
-        
+        .pkg-price { font-size: 2rem; font-weight: 800; margin-bottom: 0.25rem; }
         .pkg-price span { font-size: 0.9rem; font-weight: 400; color: var(--text-dim); }
         
         .pkg-features {
@@ -185,12 +170,7 @@
             gap: 0.5rem;
         }
         
-        .pkg-features li::before {
-            content: '✓';
-            color: var(--green);
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
+        .pkg-features li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.8rem; }
         
         .pkg-btn {
             width: 100%;
@@ -207,7 +187,6 @@
         
         .pkg-btn:hover { background: var(--purple); border-color: var(--purple); }
         
-        /* Features Grid */
         .features { padding: 2rem 0; }
         
         .features-grid {
@@ -216,16 +195,9 @@
             gap: 1rem;
         }
         
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.9rem;
-        }
-        
+        .feature { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
         .feature-icon { font-size: 1.25rem; }
         
-        /* Form */
         .form-section { padding: 2rem 0; }
         
         .launch-form {
@@ -277,10 +249,7 @@
         
         .form-group input:focus,
         .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--purple);
-        }
+        .form-group select:focus { outline: none; border-color: var(--purple); }
         
         .form-group input::placeholder { color: var(--text-dim); opacity: 0.6; }
         
@@ -299,7 +268,6 @@
         
         .submit-btn:hover { transform: scale(1.02); }
         
-        /* Payment Methods */
         .payment-methods {
             display: flex;
             justify-content: center;
@@ -309,9 +277,6 @@
             color: var(--text-dim);
         }
         
-        .payment-methods span { display: flex; align-items: center; gap: 0.25rem; }
-        
-        /* FAQ */
         .faq { padding: 2rem 0; }
         
         .faq-item {
@@ -322,12 +287,7 @@
             cursor: pointer;
         }
         
-        .faq-question {
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.95rem;
-        }
+        .faq-question { font-weight: 600; display: flex; justify-content: space-between; font-size: 0.95rem; }
         
         .faq-answer {
             color: var(--text-dim);
@@ -338,7 +298,6 @@
         
         .faq-item.open .faq-answer { display: block; }
         
-        /* Footer */
         footer {
             padding: 2rem 0;
             text-align: center;
@@ -383,24 +342,24 @@
                 <!-- Starter -->
                 <div class="package">
                     <div class="pkg-name">🆕 Starter</div>
-                    <div class="pkg-price">$10<span> one-time</span></div>
+                    <div class="pkg-price">$49<span> one-time</span></div>
                     <ul class="pkg-features">
                         <li>Token on Base (ERC-20)</li>
                         <li>$500 liquidity on Base</li>
                         <li>X template setup</li>
                         <li>Telegram bot (basic)</li>
-                        <li>One-page website</li>
+                        <li>One-page website + buy button</li>
                         <li>Simple price dashboard</li>
                         <li>7-day starter content</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Starter', 10)">Select Starter — $10</button>
+                    <button class="pkg-btn" onclick="selectPkg('Starter', 49)">Select Starter — $49</button>
                 </div>
                 
                 <!-- Growth -->
                 <div class="package popular">
                     <div class="popular-badge">🔥 MOST POPULAR</div>
                     <div class="pkg-name">📈 Growth</div>
-                    <div class="pkg-price">$25<span> + $3/mo</span></div>
+                    <div class="pkg-price">$99<span> + $19/mo</span></div>
                     <ul class="pkg-features">
                         <li>Everything in Starter</li>
                         <li>$2,000 liquidity</li>
@@ -411,13 +370,13 @@
                         <li>Auto price updates</li>
                         <li>$BNKR liquidity boost</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Growth', 25)">Select Growth — $25/mo</button>
+                    <button class="pkg-btn" onclick="selectPkg('Growth', 99)">Select Growth — $99/mo</button>
                 </div>
                 
                 <!-- Viral -->
                 <div class="package">
                     <div class="pkg-name">🚀 Viral</div>
-                    <div class="pkg-price">$35<span> + $5/mo</span></div>
+                    <div class="pkg-price">$199<span> + $39/mo</span></div>
                     <ul class="pkg-features">
                         <li>Everything in Growth</li>
                         <li>$5,000 liquidity</li>
@@ -427,7 +386,7 @@
                         <li>Dedicated Discord</li>
                         <li>White-glove support</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Viral', 35)">Select Viral — $35/mo</button>
+                    <button class="pkg-btn" onclick="selectPkg('Viral', 199)">Select Viral — $199/mo</button>
                 </div>
             </div>
         </div>
@@ -482,9 +441,9 @@
                     <div class="form-group">
                         <label>Package</label>
                         <select name="package" id="packageSelect">
-                            <option value="Starter">🆕 Starter — $10</option>
-                            <option value="Growth" selected>📈 Growth — $25 + $3/mo</option>
-                            <option value="Viral">🚀 Viral — $35 + $5/mo</option>
+                            <option value="Starter">🆕 Starter — $49</option>
+                            <option value="Growth" selected>📈 Growth — $99 + $19/mo</option>
+                            <option value="Viral">🚀 Viral — $199 + $39/mo</option>
                         </select>
                     </div>
                     
@@ -538,14 +497,12 @@
     </footer>
 
     <script>
-        // Package selection
         function selectPkg(name, price) {
             document.getElementById('packageSelect').value = name;
             document.getElementById('launch').scrollIntoView({behavior: 'smooth'});
             document.getElementById('progress').style.width = '15%';
         }
         
-        // Form progress
         const form = document.getElementById('launchForm');
         const inputs = form.querySelectorAll('input, select');
         const progress = document.getElementById('progress');
@@ -557,13 +514,11 @@
             });
         });
         
-        // Form submit
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const data = new FormData(form);
             const info = Object.fromEntries(data.entries());
-            
-            alert(`Thanks ${info.memeName}! We'll process your ${info.package} package. Payment links coming to your wallet shortly!`);
+            alert(`Thanks ${info.memeName}! We'll process your ${info.package} package. Payment links coming shortly!`);
         });
     </script>
 </body>

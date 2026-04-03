@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧲 IronForge — Launch Your Meme Coin in Under 10 Minutes</title>
-    <meta name="description" content="No code, no waiting, super cheap & easy on Base + $BNKR. Launch your meme coin for $49-$199.">
-    <meta property="og:title" content="🧲 IronForge — Launch Your Meme Coin in Under 10 Minutes">
-    <meta property="og:description" content="Affordable no-code meme coin launcher on Base + $BNKR. Starter $49, Growth $99, Viral $199.">
+    <meta name="description" content="No code, no waiting, super cheap & easy on Base + $BNKR. Launch your meme coin for $10-$35.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         
@@ -19,7 +17,6 @@
             --pink: #ec4899;
             --text: #f8fafc;
             --text-dim: #94a3b8;
-            --accent: #22d3ee;
         }
         
         body {
@@ -63,7 +60,7 @@
         }
         
         .nav-links { display: flex; gap: 1.5rem; }
-        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; }
         .nav-links a:hover { color: var(--cyan); }
         
         .hero { padding: 4rem 0; text-align: center; }
@@ -130,7 +127,7 @@
             border-radius: 1rem;
             border: 1px solid rgba(255,255,255,0.05);
             position: relative;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s;
         }
         
         .package:hover { transform: translateY(-3px); }
@@ -152,7 +149,6 @@
         }
         
         .pkg-name { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.25rem; }
-        
         .pkg-price { font-size: 2rem; font-weight: 800; margin-bottom: 0.25rem; }
         .pkg-price span { font-size: 0.9rem; font-weight: 400; color: var(--text-dim); }
         
@@ -196,7 +192,6 @@
         }
         
         .feature { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
-        .feature-icon { font-size: 1.25rem; }
         
         .form-section { padding: 2rem 0; }
         
@@ -235,7 +230,6 @@
         }
         
         .form-group input,
-        .form-group textarea,
         .form-group select {
             width: 100%;
             padding: 0.7rem 0.9rem;
@@ -244,12 +238,9 @@
             border-radius: 0.5rem;
             color: var(--text);
             font-size: 0.95rem;
-            transition: border-color 0.2s;
         }
         
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus { outline: none; border-color: var(--purple); }
+        .form-group input:focus { outline: none; border-color: var(--purple); }
         
         .form-group input::placeholder { color: var(--text-dim); opacity: 0.6; }
         
@@ -263,7 +254,6 @@
             border: none;
             border-radius: 0.5rem;
             cursor: pointer;
-            transition: transform 0.2s;
         }
         
         .submit-btn:hover { transform: scale(1.02); }
@@ -287,7 +277,7 @@
             cursor: pointer;
         }
         
-        .faq-question { font-weight: 600; display: flex; justify-content: space-between; font-size: 0.95rem; }
+        .faq-question { font-weight: 600; display: flex; justify-content: space-between; }
         
         .faq-answer {
             color: var(--text-dim);
@@ -321,7 +311,7 @@
             <div class="logo"><span>🧲</span> IronForge</div>
             <nav class="nav-links">
                 <a href="#packages">Packages</a>
-                <a href="#features">What's Included</a>
+                <a href="#features">Features</a>
                 <a href="#launch">Launch</a>
             </nav>
         </div>
@@ -330,7 +320,7 @@
     <section class="hero">
         <div class="container">
             <h1>Launch Your Meme Coin<br>in <span class="highlight">Under 10 Minutes</span></h1>
-            <p>No code, no waiting, super cheap & easy on Base + $BNKR. Everything pre-packed for beginners.</p>
+            <p>No code, no waiting, super cheap & easy on Base + $BNKR. Everything pre-packed for absolute beginners.</p>
             <a href="#packages" class="cta-main">🚀 Choose Your Package</a>
         </div>
     </section>
@@ -339,27 +329,27 @@
         <div class="container">
             <h2 class="section-title">Choose Your Package</h2>
             <div class="packages-grid">
-                <!-- Starter -->
+                <!-- Starter $10 -->
                 <div class="package">
                     <div class="pkg-name">🆕 Starter</div>
-                    <div class="pkg-price">$49<span> one-time</span></div>
+                    <div class="pkg-price">$10<span> one-time</span></div>
                     <ul class="pkg-features">
                         <li>Token on Base (ERC-20)</li>
-                        <li>$500 liquidity on Base</li>
+                        <li>$500 liquidity pool</li>
                         <li>X template setup</li>
                         <li>Telegram bot (basic)</li>
                         <li>One-page website + buy button</li>
                         <li>Simple price dashboard</li>
                         <li>7-day starter content</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Starter', 49)">Select Starter — $49</button>
+                    <button class="pkg-btn" onclick="selectPkg('Starter')">Select Starter — $10</button>
                 </div>
                 
-                <!-- Growth -->
+                <!-- Growth $25 -->
                 <div class="package popular">
                     <div class="popular-badge">🔥 MOST POPULAR</div>
                     <div class="pkg-name">📈 Growth</div>
-                    <div class="pkg-price">$99<span> + $19/mo</span></div>
+                    <div class="pkg-price">$25<span> + $3/mo</span></div>
                     <ul class="pkg-features">
                         <li>Everything in Starter</li>
                         <li>$2,000 liquidity</li>
@@ -370,13 +360,13 @@
                         <li>Auto price updates</li>
                         <li>$BNKR liquidity boost</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Growth', 99)">Select Growth — $99/mo</button>
+                    <button class="pkg-btn" onclick="selectPkg('Growth')">Select Growth — $25/mo</button>
                 </div>
                 
-                <!-- Viral -->
+                <!-- Viral $35 -->
                 <div class="package">
                     <div class="pkg-name">🚀 Viral</div>
-                    <div class="pkg-price">$199<span> + $39/mo</span></div>
+                    <div class="pkg-price">$35<span> + $5/mo</span></div>
                     <ul class="pkg-features">
                         <li>Everything in Growth</li>
                         <li>$5,000 liquidity</li>
@@ -386,7 +376,7 @@
                         <li>Dedicated Discord</li>
                         <li>White-glove support</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Viral', 199)">Select Viral — $199/mo</button>
+                    <button class="pkg-btn" onclick="selectPkg('Viral')">Select Viral — $35/mo</button>
                 </div>
             </div>
         </div>
@@ -396,16 +386,16 @@
         <div class="container">
             <h2 class="section-title">What's Included</h2>
             <div class="features-grid">
-                <div class="feature"><span class="feature-icon">🪙</span>Token on Base</div>
-                <div class="feature"><span class="feature-icon">💰</span>Liquidity Pool</div>
-                <div class="feature"><span class="feature-icon">🌐</span>Your Website</div>
-                <div class="feature"><span class="feature-icon">📊</span>Live Dashboard</div>
-                <div class="feature"><span class="feature-icon">🤖</span>X + Telegram Bots</div>
-                <div class="feature"><span class="feature-icon">💬</span>Discord Setup</div>
-                <div class="feature"><span class="feature-icon">🎭</span>Farcaster</div>
-                <div class="feature"><span class="feature-icon">🛡️</span>Safety First</div>
-                <div class="feature"><span class="feature-icon">💎</span>$BNKR Boost</div>
-                <div class="feature"><span class="feature-icon">📈</span>Auto Updates</div>
+                <div class="feature">🪙 Token on Base</div>
+                <div class="feature">💰 Liquidity Pool</div>
+                <div class="feature">🌐 Your Website</div>
+                <div class="feature">📊 Live Dashboard</div>
+                <div class="feature">🤖 X + Telegram Bots</div>
+                <div class="feature">💬 Discord Setup</div>
+                <div class="feature">🎭 Farrcaster</div>
+                <div class="feature">🛡️ Safety First</div>
+                <div class="feature">💎 $BNKR Boost</div>
+                <div class="feature">📈 Auto Updates</div>
             </div>
         </div>
     </section>
@@ -441,9 +431,9 @@
                     <div class="form-group">
                         <label>Package</label>
                         <select name="package" id="packageSelect">
-                            <option value="Starter">🆕 Starter — $49</option>
-                            <option value="Growth" selected>📈 Growth — $99 + $19/mo</option>
-                            <option value="Viral">🚀 Viral — $199 + $39/mo</option>
+                            <option value="Starter">🆕 Starter — $10</option>
+                            <option value="Growth" selected>📈 Growth — $25 + $3/mo</option>
+                            <option value="Viral">🚀 Viral — $35 + $5/mo</option>
                         </select>
                     </div>
                     
@@ -497,7 +487,7 @@
     </footer>
 
     <script>
-        function selectPkg(name, price) {
+        function selectPkg(name) {
             document.getElementById('packageSelect').value = name;
             document.getElementById('launch').scrollIntoView({behavior: 'smooth'});
             document.getElementById('progress').style.width = '15%';

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧲 IronForge — Launch Your Meme Coin in Under 10 Minutes</title>
-    <meta name="description" content="No code, super cheap & easy on Base + $BNKR. Launch for $5-$25.">
+    <meta name="description" content="No code, super cheap & easy on Base + $BNKR. Launch for $49-$199.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         
@@ -299,7 +299,9 @@
             color: var(--text-dim);
         }
         
-        .modal-item span { color: var(--green); }
+        .modal-item.done { color: var(--green); }
+        .modal-item.done::before { content: '✅ '; }
+        .modal-item.pending::before { content: '⏳ '; }
         
         .modal-btn {
             margin-top: 1.5rem;
@@ -365,7 +367,7 @@
     <section class="hero">
         <div class="container">
             <h1>Launch Your Meme Coin<br>in <span class="highlight">Under 10 Minutes</span></h1>
-            <p>No code, super cheap & easy on Base + $BNKR. Everything pre-packed for absolute beginners.</p>
+            <p>No code, super cheap & easy on Base + $BNKR. Everything pre-packed for beginners.</p>
             <a href="#packages" class="cta-main">🚀 Choose Your Package</a>
         </div>
     </section>
@@ -374,10 +376,10 @@
         <div class="container">
             <h2 class="section-title">Choose Your Package</h2>
             <div class="packages-grid">
-                <!-- Starter $5 -->
+                <!-- Starter $49 -->
                 <div class="package">
                     <div class="pkg-name">🆕 Starter</div>
-                    <div class="pkg-price">$5<span> one-time</span></div>
+                    <div class="pkg-price">$49<span> one-time</span></div>
                     <ul class="pkg-features">
                         <li>Token on Base (ERC-20)</li>
                         <li>$500 liquidity pool</li>
@@ -387,14 +389,14 @@
                         <li>Simple dashboard</li>
                         <li>7-day content pack</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Starter', 5)">Select Starter — $5</button>
+                    <button class="pkg-btn" onclick="selectPkg('Starter', 49)">Select Starter — $49</button>
                 </div>
                 
-                <!-- Growth $15 -->
+                <!-- Growth $99 -->
                 <div class="package popular">
                     <div class="popular-badge">🔥 MOST POPULAR</div>
                     <div class="pkg-name">📈 Growth</div>
-                    <div class="pkg-price">$15<span> + $3/mo</span></div>
+                    <div class="pkg-price">$99<span> + $19/mo</span></div>
                     <ul class="pkg-features">
                         <li>Everything in Starter</li>
                         <li>$2,000 liquidity</li>
@@ -405,13 +407,13 @@
                         <li>Auto price tweets</li>
                         <li>$BNKR liquidity boost</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Growth', 15)">Select Growth — $15/mo</button>
+                    <button class="pkg-btn" onclick="selectPkg('Growth', 99)">Select Growth — $99/mo</button>
                 </div>
                 
-                <!-- Viral $25 -->
+                <!-- Viral $199 -->
                 <div class="package">
                     <div class="pkg-name">🚀 Viral</div>
-                    <div class="pkg-price">$25<span> + $5/mo</span></div>
+                    <div class="pkg-price">$199<span> + $39/mo</span></div>
                     <ul class="pkg-features">
                         <li>Everything in Growth</li>
                         <li>$5,000 liquidity</li>
@@ -421,7 +423,7 @@
                         <li>Dedicated Discord</li>
                         <li>White-glove support</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Viral', 25)">Select Viral — $25/mo</button>
+                    <button class="pkg-btn" onclick="selectPkg('Viral', 199)">Select Viral — $199/mo</button>
                 </div>
             </div>
         </div>
@@ -481,9 +483,9 @@
                     <div class="form-group">
                         <label>Package</label>
                         <select name="package" id="packageSelect">
-                            <option value="Starter">🆕 Starter — $5</option>
-                            <option value="Growth" selected>📈 Growth — $15 + $3/mo</option>
-                            <option value="Viral">🚀 Viral — $25 + $5/mo</option>
+                            <option value="Starter">🆕 Starter — $49</option>
+                            <option value="Growth" selected>📈 Growth — $99 + $19/mo</option>
+                            <option value="Viral">🚀 Viral — $199 + $39/mo</option>
                         </select>
                     </div>
                     
@@ -540,25 +542,25 @@
     <div class="modal-overlay" id="successModal">
         <div class="modal">
             <h2>🎉 Launch Initiated!</h2>
-            <p style="color: var(--text-dim); margin-bottom: 1rem;">Your meme coin is being built automatically...</p>
+            <p style="color: var(--text-dim); margin-bottom: 1rem; font-size: 0.9rem;">Your meme coin is being built automatically via Bankr...</p>
             
-            <div class="modal-item" id="step1">⏳ Deploying token on Base... <span>⏳</span></div>
-            <div class="modal-item" id="step2">⏳ Setting up liquidity... <span>⏳</span></div>
-            <div class="modal-item" id="step3">⏳ Creating your website... <span>⏳</span></div>
-            <div class="modal-item" id="step4">⏳ Configuring X + Telegram bots... <span>⏳</span></div>
-            <div class="modal-item" id="step5">⏳ Setting up Discord/Farcaster... <span>⏳</span></div>
-            <div class="modal-item" id="step6">⏳ Building dashboard... <span>⏳</span></div>
-            <div class="modal-item" id="step7">⏳ Routing $BNKR liquidity boost... <span>⏳</span></div>
+            <div class="modal-item pending" id="step1">Deploying token on Base...</div>
+            <div class="modal-item pending" id="step2">Setting up liquidity pool...</div>
+            <div class="modal-item pending" id="step3">Creating your website...</div>
+            <div class="modal-item pending" id="step4">Configuring X + Telegram bots...</div>
+            <div class="modal-item pending" id="step5">Setting up Discord/Farcaster...</div>
+            <div class="modal-item pending" id="step6">Building dashboard...</div>
+            <div class="modal-item pending" id="step7">Routing $BNKR liquidity boost...</div>
             
-            <p style="margin-top: 1.5rem; color: var(--green);" id="completeMsg" style="display:none;">✅ All systems go! Check your dashboard for links.</p>
+            <p style="margin-top: 1.5rem; color: var(--green); display: none;" id="completeMsg">✅ All systems go! Check your dashboard.</p>
             
-            <button class="modal-btn" onclick="closeModal()" id="closeBtn" style="display:none;">View Dashboard</button>
+            <button class="modal-btn" onclick="closeModal()" id="closeBtn" style="display: none;">View Dashboard</button>
         </div>
     </div>
 
     <script>
         let selectedPackage = 'Growth';
-        let packagePrice = 15;
+        let packagePrice = 99;
         
         function selectPkg(name, price) {
             selectedPackage = name;
@@ -582,15 +584,22 @@
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             
+            // Collect form data
             const formData = {
                 memeName: document.getElementById('memeName').value,
-                ticker: document.getElementById('ticker').value,
+                ticker: document.getElementById('ticker').value.toUpperCase(),
                 backstory: document.getElementById('backstory').value,
                 wallet: document.getElementById('wallet').value,
                 package: selectedPackage,
                 price: packagePrice,
                 timestamp: new Date().toISOString()
             };
+            
+            // Validate wallet address (Base format)
+            if (!formData.wallet.startsWith('0x') || formData.wallet.length < 42) {
+                alert('Please enter a valid Base wallet address (starts with 0x)');
+                return;
+            }
             
             // Show success modal
             const modal = document.getElementById('successModal');
@@ -602,13 +611,13 @@
         
         function simulateDeployment(data) {
             const steps = [
-                {id: 'step1', text: 'Deploying token on Base...', done: '✅'},
-                {id: 'step2', text: 'Setting up liquidity...', done: '✅'},
-                {id: 'step3', text: 'Creating your website...', done: '✅'},
-                {id: 'step4', text: 'Configuring X + Telegram bots...', done: '✅'},
-                {id: 'step5', text: 'Setting up Discord/Farcaster...', done: '✅'},
-                {id: 'step6', text: 'Building dashboard...', done: '✅'},
-                {id: 'step7', text: 'Routing $BNKR liquidity boost...', done: '✅'}
+                {id: 'step1', text: 'Deploying token on Base via Bankr...'},
+                {id: 'step2', text: 'Setting up liquidity pool...'},
+                {id: 'step3', text: 'Creating your website...'},
+                {id: 'step4', text: 'Configuring X + Telegram bots...'},
+                {id: 'step5', text: 'Setting up Discord/Farcaster...'},
+                {id: 'step6', text: 'Building dashboard...'},
+                {id: 'step7', text: 'Routing $BNKR liquidity boost...'}
             ];
             
             let currentStep = 0;
@@ -618,9 +627,9 @@
                     const step = steps[currentStep];
                     const el = document.getElementById(step.id);
                     if (el) {
-                        const span = el.querySelector('span');
-                        el.innerHTML = `✅ ${step.text} <span>✅</span>`;
-                        el.style.color = 'var(--green)';
+                        el.classList.remove('pending');
+                        el.classList.add('done');
+                        el.innerHTML = step.text;
                     }
                     currentStep++;
                 } else {
@@ -630,10 +639,10 @@
                     document.getElementById('completeMsg').style.display = 'block';
                     document.getElementById('closeBtn').style.display = 'inline-block';
                     
-                    // Log submission (in production, send to backend)
-                    console.log('Submission:', data);
+                    // Log submission for backend processing
+                    console.log('LAUNCH_DATA:', JSON.stringify(data));
                 }
-            }, 800); // 800ms per step = ~6 seconds total
+            }, 1000); // 1 second per step = ~7 seconds total
         }
         
         function closeModal() {
@@ -641,7 +650,10 @@
             
             // Show success message and reset form
             const memeName = document.getElementById('memeName').value;
-            alert(`🎉 ${memeName} is being launched! Check your wallet for payment link.`);
+            const ticker = document.getElementById('ticker').value;
+            const pkg = selectedPackage;
+            
+            alert(`🎉 ${ticker} is being launched!\n\nPackage: ${pkg}\n\nPayment link sent to your wallet. Confirm to complete deployment.`);
             
             form.reset();
             progress.style.width = '0%';

@@ -30,6 +30,7 @@ Automatic scans by @solvrbot and @bankrbot before any token action. You always g
 - 📧 Communication — AgentMail + Net Protocol
 - 🔍 Reputation — Helixa + Checkr + NovaProof
 - 🎨 Creative Brain — AmberVibe + Lumen Research & Critic
+- 📈 Trading Mode — Generate signals, auto-trade safely, copy top traders on Base, rebalance portfolio, and link $SOLVR points for BNKR score boost. One-tap to enable.
 - 🛠️ Advanced Tools — bankr-router, x402 Cloud, 0xWork, 💼 Atelier Gigs
 - 🚀 Clanker Token Launcher — One-tap launch your agent's own memecoin on Base
 - 🤝 Virtuals Agent Tokenization — Turn your agent into a tradable asset

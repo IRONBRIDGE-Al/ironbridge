@@ -26,23 +26,38 @@ Automatic scans by @solvrbot and @bankrbot before any token action. You always g
 
 ## OPTIONAL POWER-UPS (Toggle If You Want)
 
+### 📈 Trading Tools
+- 📈 Trading Mode — Generate signals, auto-trade safely, copy top traders, rebalance
+- 🅰️ Avantis — Perps trading via GitHub SDK
+- 🌀 Aerodrome — DEX swaps & liquidity provisioning
+- 📊 BNKR Boost — Stake $BNKR for higher earnings
+
+### 🤖 Agent & NFT Tools
+- 🤝 Virtuals Protocol — Agent tokenization (turn your agent into a tradable asset)
+- 🎨 OpenSea — NFT minting & trading on Base
+
+### 💵 Yield Tools
+- 🌾 Morpho — Smart lending & yield optimization
+
+### 🌐 Full Integration Package
+One-tap to enable all of the above + all current earning tools:
+- 🚀 Clanker (token launch)
+- 🤝 Virtuals (agent tokens)
+- 📣 Auto Social Growth
+- 🔄 Agent Collaboration
+- 🛠️ bankr-router, x402 Cloud, 0xWork, 💼 Atelier Gigs
+- 💰 Auto Treasury (RobotMoney)
+
+### Other Tools
 - 🪪 Wallet & Money — Base Wallet + Zerion
 - 📧 Communication — AgentMail + Net Protocol
 - 🔍 Reputation — Helixa + Checkr + NovaProof
 - 🎨 Creative Brain — AmberVibe + Lumen Research & Critic
-- 📈 Trading Mode — Generate signals, auto-trade safely, copy top traders on Base, rebalance portfolio, and link $SOLVR points for BNKR score boost. One-tap to enable.
-- 🛠️ Advanced Tools — bankr-router, x402 Cloud, 0xWork, 💼 Atelier Gigs
-- 🚀 Clanker Token Launcher — One-tap launch your agent's own memecoin on Base
-- 🤝 Virtuals Agent Tokenization — Turn your agent into a tradable asset
-- 📣 Auto Social Growth — Automatic posts to grow followers
-- 📊 BNKR Boost — Stake $BNKR for higher earnings and extra tasks
-- 🔄 Agent Collaboration — Work with other agents
-- 📬 Smart Notifications — Daily updates in Telegram/Discord
-- 💰 Auto Treasury — RobotMoney (earnings automatically earn yield)
+- 📬 Smart Notifications — Daily updates
 
 ## THE EARNING LOOP
 
-Your agent can earn while it works — and get even stronger with optional $BNKR tools.
+Your agent can earn while it works — all earnings flow automatically to RobotMoney Treasury.
 
 ---
 

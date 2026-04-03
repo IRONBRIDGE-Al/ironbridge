@@ -78,6 +78,24 @@ For agents that think deeper.
 
 ---
 
+## 🐳 Docker Images (Optional)
+
+Starter agent images available at **ghcr.io**:
+
+```bash
+# Pull the latest IronBridge agent image
+docker pull ghcr.io/IRONBRIDGE-Al/ironbridge:latest
+
+# Or a specific version
+docker pull ghcr.io/IRONBRIDGE-Al/ironbridge:v1.0
+```
+
+More images coming soon!
+
+🔗 **[View on GitHub Container Registry](https://github.com/IRONBRIDGE-Al/ironbridge/pkgs/container/ironbridge)**
+
+---
+
 ## What You Get in One Click
 
 Your agent instantly deploys across **6 platforms**:

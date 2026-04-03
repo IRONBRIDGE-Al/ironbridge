@@ -31,11 +31,17 @@ Automatic scans by @solvrbot and @bankrbot before any token action. You always g
 - 🔍 Reputation — Helixa + Checkr + NovaProof
 - 🎨 Creative Brain — AmberVibe + Lumen Research & Critic
 - 🛠️ Advanced Tools — bankr-router, x402 Cloud, 0xWork, 💼 Atelier Gigs
-- 💰 Auto Treasury — RobotMoney
+- 🚀 Clanker Token Launcher — One-tap launch your agent's own memecoin on Base
+- 🤝 Virtuals Agent Tokenization — Turn your agent into a tradable asset
+- 📣 Auto Social Growth — Automatic posts to grow followers
+- 📊 BNKR Boost — Stake $BNKR for higher earnings and extra tasks
+- 🔄 Agent Collaboration — Work with other agents
+- 📬 Smart Notifications — Daily updates in Telegram/Discord
+- 💰 Auto Treasury — RobotMoney (earnings automatically earn yield)
 
 ## THE EARNING LOOP
 
-Your agent can earn while it works — including by hiring help or completing simple tasks on Atelier.
+Your agent can earn while it works — and get even stronger with optional $BNKR tools.
 
 ---
 

@@ -1,0 +1,65 @@
+   public/index.html
+
+`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronForge • Meme Coin Launcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: system-ui, sans-serif; }
+        .neon { text-shadow: 0 0 20px #a855f7, 0 0 30px #22d3ee; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
+    <div class="max-w-5xl mx-auto px-6 py-12">
+        <div class="flex justify-between items-center mb-12">
+            <div class="flex items-center gap-3">
+                <div class="text-4xl">🔨</div>
+                <h1 class="text-4xl font-bold neon">IRONFORGE</h1>
+            </div>
+            <div class="text-purple-400 font-medium">by IronBridge • Bankr on Base</div>
+        </div>
+        <h1 class="text-6xl font-bold text-center mb-6">Launch Your Meme Coin<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">in under 10 minutes</span></h1>
+        <p class="text-2xl text-center text-zinc-400 max-w-2xl mx-auto mb-12">No code. Super cheap. Everything pre-built.</p>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 hover:border-purple-400">
+                <h3 class="text-2xl font-bold">Starter</h3>
+                <p class="text-6xl font-bold my-6">$49</p>
+                <ul class="space-y-4 text-zinc-300">
+                    <li>✅ Token + LP on Base</li>
+                    <li>✅ X + Telegram</li>
+                    <li>✅ Website + Dashboard</li>
+                </ul>
+                <button onclick="selectPackage(49)" class="mt-8 w-full bg-white text-black py-4 rounded-2xl font-semibold">Choose $49</button>
+            </div>
+            <div class="bg-zinc-900 border-2 border-purple-400 rounded-3xl p-8 relative">
+                <div class="absolute -top-3 right-8 bg-purple-400 text-black text-xs px-4 py-1 rounded-full font-bold">POPULAR</div>
+                <h3 class="text-2xl font-bold">Growth</h3>
+                <p class="text-6xl font-bold my-6">$99</p>
+                <ul class="space-y-4 text-zinc-300">
+                    <li>✅ Everything in Starter</li>
+                    <li>✅ Discord + Farrcaster</li>
+                    <li>✅ $BNKR boost</li>
+                </ul>
+                <button onclick="selectPackage(99)" class="mt-8 w-full bg-purple-500 py-4 rounded-2xl font-semibold">Choose $99</button>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 hover:border-cyan-400">
+                <h3 class="text-2xl font-bold">Viral</h3>
+                <p class="text-6xl font-bold my-6">$199</p>
+                <ul class="space-y-4 text-zinc-300">
+                    <li>✅ Everything in Growth</li>
+                    <li>✅ Meme art + Multi-chain</li>
+                </ul>
+                <button onclick="selectPackage(199)" class="mt-8 w-full bg-cyan-400 text-black py-4 rounded-2xl font-semibold">Choose $199</button>
+            </div>
+        </div>
+    </div>
+    <script>function selectPackage(p){alert("Package: $"+p)}</script>
+</body>
+</html>
+`
+
+---

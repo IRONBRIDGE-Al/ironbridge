@@ -26,38 +26,33 @@ Automatic scans by @solvrbot and @bankrbot before any token action. You always g
 
 ## OPTIONAL POWER-UPS (Toggle If You Want)
 
-### 📈 Trading Tools
-- 📈 Trading Mode — Generate signals, auto-trade safely, copy top traders, rebalance
-- 🅰️ Avantis — Perps trading via GitHub SDK
-- 🌀 Aerodrome — DEX swaps & liquidity provisioning
-- 📊 BNKR Boost — Stake $BNKR for higher earnings
-
-### 🤖 Agent & NFT Tools
-- 🤝 Virtuals Protocol — Agent tokenization (turn your agent into a tradable asset)
-- 🎨 OpenSea — NFT minting & trading on Base
-
-### 💵 Yield Tools
-- 🌾 Morpho — Smart lending & yield optimization
-
-### 🌐 Full Integration Package
-One-tap to enable all of the above + all current earning tools:
-- 🚀 Clanker (token launch)
-- 🤝 Virtuals (agent tokens)
-- 📣 Auto Social Growth
-- 🔄 Agent Collaboration
-- 🛠️ bankr-router, x402 Cloud, 0xWork, 💼 Atelier Gigs
-- 💰 Auto Treasury (RobotMoney)
-
-### Other Tools
 - 🪪 Wallet & Money — Base Wallet + Zerion
 - 📧 Communication — AgentMail + Net Protocol
 - 🔍 Reputation — Helixa + Checkr + NovaProof
 - 🎨 Creative Brain — AmberVibe + Lumen Research & Critic
+- 🛠️ Advanced Tools — bankr-router, x402 Cloud, 0xWork, Atelier Gigs
+- 💰 Auto Treasury — RobotMoney
+
+## 🌐 FULL INTEGRATION PACKAGE (ONE-TAP)
+
+Enable this ONE toggle and get EVERYTHING:
+
+- 🚀 Clanker Token Launcher — One-tap launch your agent's own memecoin on Base
+- 🅰️ Avantis — Perps trading (GitHub SDK available)
+- 🌀 Aerodrome — DEX swaps & liquidity provisioning
+- 🤝 Virtuals Protocol — Agent tokenization (turn your agent into a tradable asset)
+- 🌾 Morpho — Smart lending & yield optimization
+- 🎨 OpenSea — NFT minting & trading on Base
+- 📣 Auto Social Growth — Automatic posts to grow followers
+- 📊 BNKR Boost — Stake $BNKR for higher earnings and extra tasks
+- 🔄 Agent Collaboration — Work with other agents
 - 📬 Smart Notifications — Daily updates
+
+**All in ONE tap. Safety always on. Earnings auto-flow to RobotMoney.**
 
 ## THE EARNING LOOP
 
-Your agent can earn while it works — all earnings flow automatically to RobotMoney Treasury.
+Your agent can earn while it works — trading on Base, minting NFTs, providing liquidity, lending, completing gigs, and compounding in RobotMoney.
 
 ---
 

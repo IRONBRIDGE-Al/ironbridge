@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧲 IronForge — Launch Your Meme Coin in Under 10 Minutes</title>
-    <meta name="description" content="No code, no waiting, super cheap & easy on Base + $BNKR. Launch your meme coin for $10-$35.">
+    <meta name="description" content="No code, super cheap & easy on Base + $BNKR. Launch for $5-$25.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
         
@@ -152,11 +152,7 @@
         .pkg-price { font-size: 2rem; font-weight: 800; margin-bottom: 0.25rem; }
         .pkg-price span { font-size: 0.9rem; font-weight: 400; color: var(--text-dim); }
         
-        .pkg-features {
-            list-style: none;
-            margin: 1rem 0;
-            font-size: 0.85rem;
-        }
+        .pkg-features { list-style: none; margin: 1rem 0; font-size: 0.85rem; }
         
         .pkg-features li {
             padding: 0.35rem 0;
@@ -185,12 +181,7 @@
         
         .features { padding: 2rem 0; }
         
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-        }
-        
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
         .feature { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
         
         .form-section { padding: 2rem 0; }
@@ -222,14 +213,10 @@
         
         .form-group { margin-bottom: 1.25rem; }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
         
         .form-group input,
+        .form-group textarea,
         .form-group select {
             width: 100%;
             padding: 0.7rem 0.9rem;
@@ -240,9 +227,21 @@
             font-size: 0.95rem;
         }
         
-        .form-group input:focus { outline: none; border-color: var(--purple); }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus { outline: none; border-color: var(--purple); }
         
         .form-group input::placeholder { color: var(--text-dim); opacity: 0.6; }
+        
+        .file-input {
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px dashed var(--text-dim);
+            border-radius: 0.5rem;
+            text-align: center;
+            color: var(--text-dim);
+            cursor: pointer;
+        }
         
         .submit-btn {
             width: 100%;
@@ -254,6 +253,7 @@
             border: none;
             border-radius: 0.5rem;
             cursor: pointer;
+            transition: transform 0.2s;
         }
         
         .submit-btn:hover { transform: scale(1.02); }
@@ -265,6 +265,51 @@
             margin-top: 1rem;
             font-size: 0.85rem;
             color: var(--text-dim);
+        }
+        
+        /* Success Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-overlay.show { display: flex; }
+        
+        .modal {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .modal h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+        
+        .modal-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            text-align: left;
+            color: var(--text-dim);
+        }
+        
+        .modal-item span { color: var(--green); }
+        
+        .modal-btn {
+            margin-top: 1.5rem;
+            background: var(--green);
+            color: var(--bg);
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
         }
         
         .faq { padding: 2rem 0; }
@@ -320,7 +365,7 @@
     <section class="hero">
         <div class="container">
             <h1>Launch Your Meme Coin<br>in <span class="highlight">Under 10 Minutes</span></h1>
-            <p>No code, no waiting, super cheap & easy on Base + $BNKR. Everything pre-packed for absolute beginners.</p>
+            <p>No code, super cheap & easy on Base + $BNKR. Everything pre-packed for absolute beginners.</p>
             <a href="#packages" class="cta-main">🚀 Choose Your Package</a>
         </div>
     </section>
@@ -329,44 +374,44 @@
         <div class="container">
             <h2 class="section-title">Choose Your Package</h2>
             <div class="packages-grid">
-                <!-- Starter $10 -->
+                <!-- Starter $5 -->
                 <div class="package">
                     <div class="pkg-name">🆕 Starter</div>
-                    <div class="pkg-price">$10<span> one-time</span></div>
+                    <div class="pkg-price">$5<span> one-time</span></div>
                     <ul class="pkg-features">
                         <li>Token on Base (ERC-20)</li>
                         <li>$500 liquidity pool</li>
-                        <li>X template setup</li>
+                        <li>X template + bio</li>
                         <li>Telegram bot (basic)</li>
-                        <li>One-page website + buy button</li>
-                        <li>Simple price dashboard</li>
-                        <li>7-day starter content</li>
+                        <li>One-page website</li>
+                        <li>Simple dashboard</li>
+                        <li>7-day content pack</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Starter')">Select Starter — $10</button>
+                    <button class="pkg-btn" onclick="selectPkg('Starter', 5)">Select Starter — $5</button>
                 </div>
                 
-                <!-- Growth $25 -->
+                <!-- Growth $15 -->
                 <div class="package popular">
                     <div class="popular-badge">🔥 MOST POPULAR</div>
                     <div class="pkg-name">📈 Growth</div>
-                    <div class="pkg-price">$25<span> + $3/mo</span></div>
+                    <div class="pkg-price">$15<span> + $3/mo</span></div>
                     <ul class="pkg-features">
                         <li>Everything in Starter</li>
                         <li>$2,000 liquidity</li>
-                        <li>Discord server setup</li>
+                        <li>Discord server</li>
                         <li>Farcaster profile</li>
                         <li>Live chart dashboard</li>
-                        <li>30-day marketing calendar</li>
-                        <li>Auto price updates</li>
+                        <li>30-day marketing</li>
+                        <li>Auto price tweets</li>
                         <li>$BNKR liquidity boost</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Growth')">Select Growth — $25/mo</button>
+                    <button class="pkg-btn" onclick="selectPkg('Growth', 15)">Select Growth — $15/mo</button>
                 </div>
                 
-                <!-- Viral $35 -->
+                <!-- Viral $25 -->
                 <div class="package">
                     <div class="pkg-name">🚀 Viral</div>
-                    <div class="pkg-price">$35<span> + $5/mo</span></div>
+                    <div class="pkg-price">$25<span> + $5/mo</span></div>
                     <ul class="pkg-features">
                         <li>Everything in Growth</li>
                         <li>$5,000 liquidity</li>
@@ -376,7 +421,7 @@
                         <li>Dedicated Discord</li>
                         <li>White-glove support</li>
                     </ul>
-                    <button class="pkg-btn" onclick="selectPkg('Viral')">Select Viral — $35/mo</button>
+                    <button class="pkg-btn" onclick="selectPkg('Viral', 25)">Select Viral — $25/mo</button>
                 </div>
             </div>
         </div>
@@ -410,34 +455,39 @@
                 <form id="launchForm">
                     <div class="form-group">
                         <label>Meme Name *</label>
-                        <input type="text" name="memeName" placeholder="e.g. IronForge" required>
+                        <input type="text" name="memeName" id="memeName" placeholder="e.g. IronForge" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Ticker Symbol * (with $)</label>
-                        <input type="text" name="ticker" placeholder="$FORGE" required maxlength="10">
+                        <input type="text" name="ticker" id="ticker" placeholder="$FORGE" required maxlength="10">
                     </div>
                     
                     <div class="form-group">
                         <label>Short Backstory / Vibe *</label>
-                        <input type="text" name="backstory" placeholder="e.g. The coin that launches memes" required>
+                        <input type="text" name="backstory" id="backstory" placeholder="e.g. The coin that launches memes" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Meme Image / Logo</label>
+                        <input type="file" name="memeImage" id="memeImage" accept="image/*" class="file-input">
                     </div>
                     
                     <div class="form-group">
                         <label>Wallet Address (Base) *</label>
-                        <input type="text" name="wallet" placeholder="0x..." required>
+                        <input type="text" name="wallet" id="wallet" placeholder="0x..." required>
                     </div>
                     
                     <div class="form-group">
                         <label>Package</label>
                         <select name="package" id="packageSelect">
-                            <option value="Starter">🆕 Starter — $10</option>
-                            <option value="Growth" selected>📈 Growth — $25 + $3/mo</option>
-                            <option value="Viral">🚀 Viral — $35 + $5/mo</option>
+                            <option value="Starter">🆕 Starter — $5</option>
+                            <option value="Growth" selected>📈 Growth — $15 + $3/mo</option>
+                            <option value="Viral">🚀 Viral — $25 + $5/mo</option>
                         </select>
                     </div>
                     
-                    <button type="submit" class="submit-btn">🚀 Launch My Coin</button>
+                    <button type="submit" class="submit-btn" id="submitBtn">🚀 Launch My Coin</button>
                     
                     <div class="payment-methods">
                         <span>💳 Stripe</span>
@@ -468,8 +518,8 @@
             </div>
             
             <div class="faq-item" onclick="this.classList.toggle('open')">
-                <div class="faq-question">What's included in liquidity? <span>+</span></div>
-                <div class="faq-answer">Pre-funded Base liquidity. $500-$5000 depending on your package.</div>
+                <div class="faq-question">What's in the liquidity? <span>+</span></div>
+                <div class="faq-answer">Pre-funded Base liquidity. $500-$5000 depending on package.</div>
             </div>
             
             <div class="faq-item" onclick="this.classList.toggle('open')">
@@ -486,15 +536,40 @@
         </div>
     </footer>
 
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <h2>🎉 Launch Initiated!</h2>
+            <p style="color: var(--text-dim); margin-bottom: 1rem;">Your meme coin is being built automatically...</p>
+            
+            <div class="modal-item" id="step1">⏳ Deploying token on Base... <span>⏳</span></div>
+            <div class="modal-item" id="step2">⏳ Setting up liquidity... <span>⏳</span></div>
+            <div class="modal-item" id="step3">⏳ Creating your website... <span>⏳</span></div>
+            <div class="modal-item" id="step4">⏳ Configuring X + Telegram bots... <span>⏳</span></div>
+            <div class="modal-item" id="step5">⏳ Setting up Discord/Farcaster... <span>⏳</span></div>
+            <div class="modal-item" id="step6">⏳ Building dashboard... <span>⏳</span></div>
+            <div class="modal-item" id="step7">⏳ Routing $BNKR liquidity boost... <span>⏳</span></div>
+            
+            <p style="margin-top: 1.5rem; color: var(--green);" id="completeMsg" style="display:none;">✅ All systems go! Check your dashboard for links.</p>
+            
+            <button class="modal-btn" onclick="closeModal()" id="closeBtn" style="display:none;">View Dashboard</button>
+        </div>
+    </div>
+
     <script>
-        function selectPkg(name) {
+        let selectedPackage = 'Growth';
+        let packagePrice = 15;
+        
+        function selectPkg(name, price) {
+            selectedPackage = name;
+            packagePrice = price;
             document.getElementById('packageSelect').value = name;
             document.getElementById('launch').scrollIntoView({behavior: 'smooth'});
             document.getElementById('progress').style.width = '15%';
         }
         
         const form = document.getElementById('launchForm');
-        const inputs = form.querySelectorAll('input, select');
+        const inputs = form.querySelectorAll('input, select, textarea');
         const progress = document.getElementById('progress');
         
         inputs.forEach(input => {
@@ -506,10 +581,71 @@
         
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const data = new FormData(form);
-            const info = Object.fromEntries(data.entries());
-            alert(`Thanks ${info.memeName}! We'll process your ${info.package} package. Payment links coming shortly!`);
+            
+            const formData = {
+                memeName: document.getElementById('memeName').value,
+                ticker: document.getElementById('ticker').value,
+                backstory: document.getElementById('backstory').value,
+                wallet: document.getElementById('wallet').value,
+                package: selectedPackage,
+                price: packagePrice,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Show success modal
+            const modal = document.getElementById('successModal');
+            modal.classList.add('show');
+            
+            // Simulate the deployment steps
+            simulateDeployment(formData);
         });
+        
+        function simulateDeployment(data) {
+            const steps = [
+                {id: 'step1', text: 'Deploying token on Base...', done: '✅'},
+                {id: 'step2', text: 'Setting up liquidity...', done: '✅'},
+                {id: 'step3', text: 'Creating your website...', done: '✅'},
+                {id: 'step4', text: 'Configuring X + Telegram bots...', done: '✅'},
+                {id: 'step5', text: 'Setting up Discord/Farcaster...', done: '✅'},
+                {id: 'step6', text: 'Building dashboard...', done: '✅'},
+                {id: 'step7', text: 'Routing $BNKR liquidity boost...', done: '✅'}
+            ];
+            
+            let currentStep = 0;
+            
+            const interval = setInterval(() => {
+                if (currentStep < steps.length) {
+                    const step = steps[currentStep];
+                    const el = document.getElementById(step.id);
+                    if (el) {
+                        const span = el.querySelector('span');
+                        el.innerHTML = `✅ ${step.text} <span>✅</span>`;
+                        el.style.color = 'var(--green)';
+                    }
+                    currentStep++;
+                } else {
+                    clearInterval(interval);
+                    
+                    // Show completion
+                    document.getElementById('completeMsg').style.display = 'block';
+                    document.getElementById('closeBtn').style.display = 'inline-block';
+                    
+                    // Log submission (in production, send to backend)
+                    console.log('Submission:', data);
+                }
+            }, 800); // 800ms per step = ~6 seconds total
+        }
+        
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('show');
+            
+            // Show success message and reset form
+            const memeName = document.getElementById('memeName').value;
+            alert(`🎉 ${memeName} is being launched! Check your wallet for payment link.`);
+            
+            form.reset();
+            progress.style.width = '0%';
+        }
     </script>
 </body>
 </html>

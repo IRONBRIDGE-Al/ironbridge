@@ -17,8 +17,7 @@
         .package-card:hover { transform: translateY(-16px); box-shadow: 0 40px 70px -20px rgb(249 115 22); }
         .mascot-glow { filter: drop-shadow(0 0 80px rgba(249, 115, 22, 0.75)); animation: glowPulse 4.5s ease-in-out infinite; }
         @keyframes glowPulse { 0%, 100% { filter: drop-shadow(0 0 80px rgba(249, 115, 22, 0.75)); } 50% { filter: drop-shadow(0 0 120px rgba(249, 115, 22, 0.95)); } }
-        .x-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .x-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgb(249 115 22); }
+        .integration-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgb(249 115 22); }
     </style>
 </head>
 <body class="tail-container bg-[#0a0a0a] text-white">
@@ -40,8 +39,7 @@
                 <a href="#how" class="hover:text-orange-400">How It Works</a>
             </div>
             
-            <button id="connectBtn" onclick="connectWallet()" 
-                    class="bg-orange-600 hover:bg-orange-500 px-8 py-3.5 rounded-3xl font-semibold flex items-center gap-3 min-w-[180px] justify-center">
+            <button id="connectBtn" onclick="connectWallet()" class="bg-orange-600 hover:bg-orange-500 px-8 py-3.5 rounded-3xl font-semibold flex items-center gap-3 min-w-[180px] justify-center">
                 <i class="fa-solid fa-wallet"></i>
                 <span id="connectText">CONNECT WALLET</span>
             </button>
@@ -76,9 +74,8 @@
                     Super Easy
                 </h1>
                 <p class="text-2xl md:text-3xl text-white/80 max-w-xl mx-auto lg:mx-0 mb-10">
-                    Prebuilt for humans &amp; agents.<br>
-                    All 16 integrations already done for you.<br>
-                    No setup. No confusion.
+                    All 16 integrations are prebuilt and aligned.<br>
+                    No setup needed. Everything is ready for humans & agents.
                 </p>
                 <a href="#packages" class="bg-orange-600 hover:bg-orange-700 text-xl font-bold px-14 py-7 rounded-3xl inline-flex items-center gap-4 shadow-2xl">
                     <i class="fa-solid fa-rocket"></i>
@@ -95,7 +92,7 @@
         </div>
     </section>
 
-    <!-- PACKAGES - Tabbed -->
+    <!-- PACKAGES -->
     <section id="packages" class="py-24 bg-[#111111]">
         <div class="max-w-7xl mx-auto px-8">
             <div class="text-center mb-12">
@@ -114,77 +111,122 @@
         </div>
     </section>
 
-    <!-- ALL 16 INTEGRATIONS - EVERY ONE IS A CLICKABLE X CARD -->
+    <!-- ALL 16 INTEGRATIONS - CLEAN ALIGNED FORMAT -->
     <section id="tools" class="py-24 bg-black">
         <div class="max-w-7xl mx-auto px-8">
-            <h2 class="heading-font text-6xl text-center mb-4">All 16 Integrations — Prebuilt In</h2>
-            <p class="text-center text-white/70 mb-16">$BNKR aligned • Already done for humans &amp; agents</p>
+            <h2 class="heading-font text-6xl text-center mb-4">All 16 Integrations — Prebuilt & Aligned</h2>
+            <p class="text-center text-white/70 mb-16">$BNKR aligned • Already done for humans & agents</p>
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <a href="https://x.com/RobotMoneyAgent" target="_blank" class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <div>@RobotMoneyAgent <span class="text-green-400 text-xs block">Autonomous Treasury</span></div>
+                <a href="https://x.com/RobotMoneyAgent" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @RobotMoneyAgent</div>
+                    <div class="text-xs text-green-400">RobotMoney Treasury</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @RobotMoneyAgent</div>
                 </a>
-                <a href="https://x.com/LexSokolin" target="_blank" class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <div>@LexSokolin <span class="text-green-400 text-xs block">Generative Ventures</span></div>
+
+                <a href="https://x.com/LexSokolin" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @LexSokolin</div>
+                    <div class="text-xs text-green-400">Generative Ventures</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @LexSokolin</div>
                 </a>
-                <a href="https://x.com/bankrbot" target="_blank" class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <div>@bankrbot <span class="text-green-400 text-xs block">Liquidity &amp; Verification</span></div>
+
+                <a href="https://x.com/bankrbot" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @bankrbot</div>
+                    <div class="text-xs text-green-400">Bankr Liquidity</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @AspynPalatnick</div>
                 </a>
-                <a href="https://x.com/openx402" target="_blank" class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <div>@openx402 <span class="text-green-400 text-xs block">x402 Cloud Payments</span></div>
+
+                <a href="https://x.com/openx402" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @openx402</div>
+                    <div class="text-xs text-green-400">x402 Cloud</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @openx402</div>
                 </a>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-telegram text-2xl"></i>
-                    <div>Telegram <span class="text-green-400 text-xs block">Bot &amp; Messaging</span></div>
-                </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-discord text-2xl"></i>
-                    <div>Discord <span class="text-green-400 text-xs block">Community Server</span></div>
-                </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <div>X (Twitter) <span class="text-green-400 text-xs block">Automation</span></div>
-                </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <div>Farcaster <span class="text-green-400 text-xs block">Frames &amp; Casting</span></div>
-                </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <div>Bluesky <span class="text-green-400 text-xs block">Fediverse</span></div>
-                </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-mastodon text-2xl"></i>
-                    <div>Mastodon <span class="text-green-400 text-xs block">Fediverse</span></div>
-                </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-link text-2xl"></i>
-                    <div>Moltbook <span class="text-green-400 text-xs block">Discovery Platform</span></div>
-                </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-cube text-2xl"></i>
-                    <div>Base Chain <span class="text-green-400 text-xs block">Token Deployment</span></div>
-                </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-coins text-2xl"></i>
-                    <div>$BNKR <span class="text-green-400 text-xs block">Rewards &amp; Liquidity</span></div>
-                </div>
-                <a href="https://x.com/solvrbot" target="_blank" class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <div>@solvrbot <span class="text-green-400 text-xs block">Pre-deployment Safety</span></div>
+
+                <a href="https://x.com/solvrbot" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @solvrbot</div>
+                    <div class="text-xs text-green-400">Safety Scanner</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @ccryptoji</div>
                 </a>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-shield-halved text-2xl"></i>
-                    <div>Clerk Agents <span class="text-green-400 text-xs block">Authentication</span></div>
+
+                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-telegram text-2xl"></i> Telegram</div>
+                    <div class="text-xs text-green-400">Bot & Messaging</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
                 </div>
-                <div class="x-card bg-[#1a1a1a] p-6 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-treasury text-2xl"></i>
-                    <div>RobotMoney Treasury <span class="text-green-400 text-xs block">Auto-routing Earnings</span></div>
+
+                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-discord text-2xl"></i> Discord</div>
+                    <div class="text-xs text-green-400">Community Server</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
                 </div>
+
+                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> X (Twitter)</div>
+                    <div class="text-xs text-green-400">Automation</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                </div>
+
+                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> Farcaster</div>
+                    <div class="text-xs text-green-400">Frames & Casting</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                </div>
+
+                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> Bluesky</div>
+                    <div class="text-xs text-green-400">Fediverse</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                </div>
+
+                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-mastodon text-2xl"></i> Mastodon</div>
+                    <div class="text-xs text-green-400">Fediverse</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                </div>
+
+                <a href="https://x.com/moltbook" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-link text-2xl"></i> Moltbook</div>
+                    <div class="text-xs text-green-400">Discovery Platform</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @MattPRD</div>
+                </a>
+
+                <a href="https://x.com/base" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-cube text-2xl"></i> Base Chain</div>
+                    <div class="text-xs text-green-400">Token Deployment</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @brian_armstrong</div>
+                </a>
+
+                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-coins text-2xl"></i> $BNKR</div>
+                    <div class="text-xs text-green-400">Rewards & Liquidity</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                </div>
+
+                <a href="https://x.com/ccryptoji" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-shield-halved text-2xl"></i> Clerk Agents</div>
+                    <div class="text-xs text-green-400">Authentication</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @ccryptoji</div>
+                </a>
+
+                <a href="https://x.com/netprotocolapp" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-treasury text-2xl"></i> RobotMoney Treasury</div>
+                    <div class="text-xs text-green-400">Auto-routing Earnings</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @netprotocolapp</div>
+                </a>
+
+                <!-- NEW ADDITION -->
+                <a href="https://x.com/useAtelier" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-link text-2xl"></i> Atelier</div>
+                    <div class="text-xs text-green-400">Token Studio / Design</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @remp0x</div>
+                </a>
+
+                <!-- YOUR LATEST ADDITION -->
+                <a href="https://x.com/thatambervibe" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
+                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @thatambervibe</div>
+                    <div class="text-xs text-green-400">AmberVibe</div>
+                    <div class="text-[10px] text-white/60 mt-auto">Built by @HelloBenWhite</div>
+                </a>
             </div>
         </div>
     </section>
@@ -229,7 +271,7 @@
         }
         function selectPackage(price) {
             if (!userAddress) { alert("Please connect your wallet first!"); return; }
-            alert(`✅ ${price} package selected!\nAll 16 integrations (including $BNKR) are now active for you.`);
+            alert(`✅ ${price} package selected!\nAll 16 integrations are now active for you.`);
         }
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
@@ -240,7 +282,7 @@
         }
         // === END WALLET CODE ===
 
-        // Tab system (unchanged)
+        // Tab system
         const packagesData = [
             {price:5, name:"Starter $5", desc:"Perfect first token", features:["Token on Base","Liquidity pool","X + Telegram","Safety scan","+15 $BNKR"]},
             {price:15, name:"Growth $15", desc:"Best for most people", popular:true, features:["Token on Base","Liquidity pool","X + Telegram + Discord + Farcaster","Safety + Bankr","+65 $BNKR"]},

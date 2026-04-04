@@ -6,363 +6,78 @@
     <title>IRONFORGE • IRONBRIDGE | Easy Token Launcher</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-        
-        :root { --accent: #f97316; }
-        
-        * { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        
-        .tail-container * { font-family: 'Inter', system_ui, sans-serif; }
-        .heading-font { font-family: 'Space Grotesk', sans-serif; }
-        
-        .hero-bg {
-            background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.98) 100%), #0a0a0a;
-        }
-        
-        .package-card:hover {
-            transform: translateY(-16px);
-            box-shadow: 0 40px 70px -20px rgb(249 115 22);
-        }
-        
-        .mascot-glow {
-            filter: drop-shadow(0 0 80px rgba(249, 115, 22, 0.75));
-            animation: glowPulse 4.5s ease-in-out infinite;
-        }
-        
-        @keyframes glowPulse {
-            0%, 100% { filter: drop-shadow(0 0 80px rgba(249, 115, 22, 0.75)); }
-            50% { filter: drop-shadow(0 0 120px rgba(249, 115, 22, 0.95)); }
-        }
-        
-        .matrix-bg {
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(74,222,128,0.1) 3px, rgba(74,222,128,0.1) 5px);
-            animation: matrixRain 25s linear infinite;
-            pointer-events: none;
-            opacity: 0.25;
-            z-index: -1;
-        }
-        
-        @keyframes matrixRain { 0% { background-position: 0 0; } 100% { background-position: 0 500px; } }
+        @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap");
+        .heading-font { font-family: "Space Grotesk", sans-serif; }
     </style>
 </head>
-<body class="tail-container bg-[#0a0a0a] text-white">
-
-    <!-- NAVBAR - REAL WALLET CONNECT -->
-    <nav class="bg-black/95 backdrop-blur-2xl border-b border-white/10 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-orange-600 rounded-2xl flex items-center justify-center text-3xl shadow-inner">⚒️</div>
-                <div>
-                    <h1 class="heading-font text-4xl tracking-[-2px]">IRONFORGE</h1>
-                    <p class="text-[10px] tracking-[3px] text-orange-400 -mt-1">IRONBRIDGE</p>
-                </div>
-            </div>
-            
-            <div class="hidden md:flex items-center gap-10 text-sm font-medium uppercase tracking-widest">
-                <a href="#packages" class="hover:text-orange-400">Launch Options</a>
-                <a href="#tools" class="hover:text-orange-400">All 16 Tools</a>
-                <a href="#how" class="hover:text-orange-400">How It Works</a>
-            </div>
-            
-            <button id="connectBtn" onclick="connectWallet()" 
-                    class="bg-orange-600 hover:bg-orange-500 px-8 py-3.5 rounded-3xl font-semibold flex items-center gap-3 min-w-[180px] justify-center">
-                <i class="fa-solid fa-wallet"></i>
-                <span id="connectText">CONNECT WALLET</span>
-            </button>
-            
-            <button onclick="toggleMobileMenu()" class="md:hidden text-3xl">
-                <i id="hamburger" class="fa-solid fa-bars"></i>
-            </button>
+<body class="bg-[#0a0a0a] text-white">
+    <nav class="sticky top-0 bg-black/90 p-6 flex justify-between items-center border-b border-white/10">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-orange-600 rounded-2xl flex items-center justify-center text-3xl">⚒️</div>
+            <div><h1 class="heading-font text-4xl">IRONFORGE</h1><p class="text-xs text-orange-400">IRONBRIDGE</p></div>
         </div>
-        
-        <div id="mobileMenu" class="hidden md:hidden bg-black/95 border-t border-white/10 px-8 py-8">
-            <div class="flex flex-col gap-6 text-center text-lg">
-                <a href="#packages" onclick="toggleMobileMenu()" class="py-3">Launch Options</a>
-                <a href="#tools" onclick="toggleMobileMenu()" class="py-3">All 16 Tools</a>
-                <a href="#how" onclick="toggleMobileMenu()" class="py-3">How It Works</a>
-                <button onclick="toggleMobileMenu();connectWallet()" class="mt-6 py-5 bg-orange-600 rounded-3xl font-semibold">CONNECT WALLET</button>
-            </div>
-        </div>
+        <button id="connectBtn" onclick="connectWallet()" class="bg-orange-600 px-8 py-3 rounded-3xl font-bold">CONNECT WALLET</button>
     </nav>
-
-    <!-- HERO -->
-    <section class="hero-bg min-h-screen flex items-center relative overflow-hidden">
-        <div class="matrix-bg"></div>
-        
-        <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-12 gap-16 items-center z-10">
-            <div class="lg:col-span-7 text-center lg:text-left">
-                <div class="inline-flex items-center gap-3 bg-black/70 backdrop-blur px-7 py-3 rounded-3xl text-orange-400 text-sm font-medium mb-8">
-                    <i class="fa-solid fa-bolt"></i>
-                    BUILT BY IRONBRIDGE • POWERED BY x402 CLOUD
-                </div>
-                
-                <h1 class="heading-font text-6xl md:text-7xl lg:text-[88px] leading-none tracking-[-4px] mb-6">
-                    Create Your Own<br>
-                    <span class="text-orange-400">Token</span><br>
-                    Super Easy
-                </h1>
-                
-                <p class="text-2xl md:text-3xl text-white/80 max-w-xl mx-auto lg:mx-0 mb-10">
-                    No coding. No confusion.<br>
-                    Everything is shown clearly so you know exactly what you get.
-                </p>
-                
-                <a href="#packages" class="bg-orange-600 hover:bg-orange-700 text-xl font-bold px-14 py-7 rounded-3xl inline-flex items-center gap-4 shadow-2xl">
-                    <i class="fa-solid fa-rocket"></i>
-                    SEE LAUNCH OPTIONS
-                </a>
+    <section class="min-h-screen flex items-center py-24" style="background:linear-gradient(180deg,#0a0a0a,#111)">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <div class="inline-block bg-orange-500/20 text-orange-400 px-4 py-2 rounded-full text-sm mb-8">BUILT BY IRONBRIDGE • POWERED BY x402 CLOUD</div>
+                <h1 class="heading-font text-6xl mb-6">Create Your Own<br><span class="text-orange-400">Token</span></h1>
+                <p class="text-xl text-white/70 mb-10">No coding. Everything shown clearly.</p>
+                <a href="#packages" class="bg-orange-600 px-10 py-5 rounded-3xl font-bold inline-block">SEE PACKAGES</a>
             </div>
-            
-            <div class="lg:col-span-5 flex justify-center lg:justify-end">
-                <div class="relative">
-                    <img src="ironbridge-mascot.jpeg" 
-                         alt="IRONFORGE Guardian"
-                         class="mascot-glow w-80 md:w-96 lg:w-[440px] rounded-full border-8 border-orange-400/30 object-cover">
-                </div>
-            </div>
-        </div>
-        
-        <div class="absolute bottom-12 left-1/2 text-xs tracking-widest text-white/50 flex flex-col items-center">
-            SCROLL TO SEE YOUR OPTIONS
-            <i class="fa-solid fa-chevron-down mt-2 animate-bounce text-orange-400"></i>
+            <div class="text-center text-9xl">⚒️</div>
         </div>
     </section>
-
-    <!-- PACKAGES -->
-    <section id="packages" class="py-24 bg-[#111111]">
+    <section id="packages" class="py-24 bg-[#111]">
         <div class="max-w-7xl mx-auto px-8">
-            <div class="text-center mb-16">
-                <span class="uppercase text-orange-400 text-sm font-medium tracking-widest">BEGINNER FRIENDLY OPTIONS</span>
-                <h2 class="heading-font text-6xl mt-3">Choose How You Want to Launch</h2>
-                <p class="text-white/70 mt-4 max-w-md mx-auto">Every package includes real tools. Everything is listed so you can see exactly what you get.</p>
-            </div>
-            
+            <h2 class="heading-font text-5xl text-center mb-12">Choose Package</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="package-card bg-[#1a1a1a] rounded-3xl p-10 border border-white/10">
-                    <div class="text-7xl mb-6">⚡</div>
-                    <h3 class="heading-font text-5xl">$5</h3>
-                    <p class="text-orange-400 text-xl font-medium">Starter Launch</p>
-                    <p class="text-white/70 text-sm mt-1 mb-8">Perfect first token</p>
-                    <div class="space-y-4 text-sm">
-                        <div class="flex justify-between"><span class="text-white/80">Token created on Base</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">Liquidity pool</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">X + Telegram setup</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">Safety scan</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">$BNKR reward boost</span><span class="font-mono">+15 $BNKR</span></div>
-                    </div>
-                    <button onclick="selectPackage(5)" class="mt-12 w-full py-6 bg-orange-600 hover:bg-orange-500 rounded-3xl font-semibold text-lg">CHOOSE $5 STARTER</button>
+                <div class="bg-[#1a1a1a] p-10 rounded-3xl border border-white/10 hover:-translate-y-4 transition">
+                    <div class="text-6xl mb-4">⚡</div>
+                    <h3 class="text-5xl">$5</h3>
+                    <p class="text-orange-400 mt-2">Starter</p>
+                    <button onclick="selectPackage(5)" class="mt-8 w-full py-4 bg-orange-600 rounded-2xl font-bold">CHOOSE</button>
                 </div>
-
-                <div class="package-card bg-[#1a1a1a] rounded-3xl p-10 border-2 border-orange-400 relative">
-                    <div class="absolute -top-4 right-8 bg-orange-400 text-black text-xs font-bold px-7 py-1 rounded-3xl">MOST POPULAR</div>
-                    <div class="text-7xl mb-6">🔥</div>
-                    <h3 class="heading-font text-5xl">$15</h3>
-                    <p class="text-orange-400 text-xl font-medium">Growth Launch</p>
-                    <p class="text-white/70 text-sm mt-1 mb-8">Best for most people</p>
-                    <div class="space-y-4 text-sm">
-                        <div class="flex justify-between"><span class="text-white/80">Token created on Base</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">Liquidity pool</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">X + Telegram + Discord + Farcaster</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">Safety scan + Bankr liquidity</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">$BNKR reward boost</span><span class="font-mono">+65 $BNKR</span></div>
-                    </div>
-                    <button onclick="selectPackage(15)" class="mt-12 w-full py-6 bg-orange-600 hover:bg-orange-500 rounded-3xl font-semibold text-lg">CHOOSE $15 GROWTH</button>
+                <div class="bg-[#1a1a1a] p-10 rounded-3xl border-2 border-orange-400">
+                    <div class="text-xs bg-orange-400 text-black px-3 py-1 rounded-full inline-block mb-4">POPULAR</div>
+                    <div class="text-6xl mb-4">🔥</div>
+                    <h3 class="text-5xl">$15</h3>
+                    <p class="text-orange-400 mt-2">Growth</p>
+                    <button onclick="selectPackage(15)" class="mt-8 w-full py-4 bg-orange-600 rounded-2xl font-bold">CHOOSE</button>
                 </div>
-
-                <div class="package-card bg-[#1a1a1a] rounded-3xl p-10 border border-white/10">
-                    <div class="text-7xl mb-6">⚒️</div>
-                    <h3 class="heading-font text-5xl">$25</h3>
-                    <p class="text-orange-400 text-xl font-medium">Complete Launch</p>
-                    <p class="text-white/70 text-sm mt-1 mb-8">Everything unlocked</p>
-                    <div class="space-y-4 text-sm">
-                        <div class="flex justify-between"><span class="text-white/80">Token created on Base</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">Liquidity pool</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">Full socials + custom art help</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">All safety + Agent tools + Treasury</span><span class="text-green-400">✓</span></div>
-                        <div class="flex justify-between"><span class="text-white/80">$BNKR reward boost</span><span class="font-mono">+140 $BNKR</span></div>
-                    </div>
-                    <button onclick="selectPackage(25)" class="mt-12 w-full py-6 bg-orange-600 hover:bg-orange-500 rounded-3xl font-semibold text-lg">CHOOSE $25 COMPLETE</button>
+                <div class="bg-[#1a1a1a] p-10 rounded-3xl border border-white/10 hover:-translate-y-4 transition">
+                    <div class="text-6xl mb-4">⚒️</div>
+                    <h3 class="text-5xl">$25</h3>
+                    <p class="text-orange-400 mt-2">Complete</p>
+                    <button onclick="selectPackage(25)" class="mt-8 w-full py-4 bg-orange-600 rounded-2xl font-bold">CHOOSE</button>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- ALL 16 TOOLS -->
-    <section id="tools" class="py-24 bg-black">
-        <div class="max-w-7xl mx-auto px-8">
-            <h2 class="heading-font text-6xl text-center mb-4">All 16 Tools</h2>
-            <p class="text-center text-white/70 mb-16">Click any X account to go straight to the profile</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-                <a href="https://x.com/bankrbot" target="_blank" class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4 hover:bg-orange-900/30">
-                    <i class="fa-brands fa-x-twitter text-xl"></i>
-                    <div>@bankrbot <span class="text-green-400 text-xs block">Liquidity &amp; Verification</span></div>
-                </a>
-                <a href="https://x.com/openx402" target="_blank" class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4 hover:bg-orange-900/30">
-                    <i class="fa-brands fa-x-twitter text-xl"></i>
-                    <div>@openx402 <span class="text-green-400 text-xs block">x402 Cloud</span></div>
-                </a>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-xl"></i>
-                    <div>X Setup <span class="text-green-400 text-xs block">Automated posting</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-telegram text-xl"></i>
-                    <div>Telegram Bot <span class="text-green-400 text-xs block">Messaging</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-discord text-xl"></i>
-                    <div>Discord <span class="text-green-400 text-xs block">Community</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-xl"></i>
-                    <div>Farcaster <span class="text-green-400 text-xs block">Frames &amp; casting</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-xl"></i>
-                    <div>Bluesky <span class="text-green-400 text-xs block">Fediverse</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-mastodon text-xl"></i>
-                    <div>Mastodon <span class="text-green-400 text-xs block">Fediverse</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-link text-xl"></i>
-                    <div>Moltbook <span class="text-green-400 text-xs block">Discovery</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-cube text-xl"></i>
-                    <div>Base Chain <span class="text-green-400 text-xs block">Token deployment</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-coins text-xl"></i>
-                    <div>$BNKR Rewards <span class="text-green-400 text-xs block">Native rewards</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-brands fa-x-twitter text-xl"></i>
-                    <div>@solvrbot <span class="text-green-400 text-xs block">Safety scan</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-shield-halved text-xl"></i>
-                    <div>Clerk Agents <span class="text-green-400 text-xs block">Authentication</span></div>
-                </div>
-                <div class="bg-[#1a1a1a] p-5 rounded-3xl flex items-center gap-4">
-                    <i class="fa-solid fa-treasury text-xl"></i>
-                    <div>RobotMoney Treasury <span class="text-green-400 text-xs block">Earnings routing</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section id="how" class="py-24 bg-[#111111]">
-        <div class="max-w-7xl mx-auto px-8">
-            <h2 class="heading-font text-6xl text-center mb-16">How Easy It Is</h2>
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="text-center">
-                    <div class="mx-auto w-20 h-20 rounded-3xl bg-orange-600/10 flex items-center justify-center text-6xl mb-8">1</div>
-                    <h4 class="text-3xl mb-4">Connect Wallet</h4>
-                    <p class="text-white/70">Takes 10 seconds on Base chain</p>
-                </div>
-                <div class="text-center">
-                    <div class="mx-auto w-20 h-20 rounded-3xl bg-orange-600/10 flex items-center justify-center text-6xl mb-8">2</div>
-                    <h4 class="text-3xl mb-4">Pick Your Option</h4>
-                    <p class="text-white/70">See everything you get before paying</p>
-                </div>
-                <div class="text-center">
-                    <div class="mx-auto w-20 h-20 rounded-3xl bg-orange-600/10 flex items-center justify-center text-6xl mb-8">3</div>
-                    <h4 class="text-3xl mb-4">Your Token Goes Live</h4>
-                    <p class="text-white/70">All tools start working for you</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <footer class="bg-black py-8 text-center text-white/50">
+        <p>16 Tools Ready • Built by IronBridge • x402 Cloud Powered</p>
+    </footer>
     <script>
         let userAddress = null;
-
         async function connectWallet() {
-            const btn = document.getElementById('connectBtn');
-            const text = document.getElementById('connectText');
-            
-            try {
-                if (!window.ethereum) {
-                    alert("No wallet detected.\n\nPlease install MetaMask, Coinbase Wallet, or any wallet that supports Base and try again.");
-                    return;
-                }
-
-                text.textContent = "CONNECTING...";
-                btn.disabled = true;
-
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
-                
-                const provider = new ethers.BrowserProvider(window.ethereum);
-                const signer = await provider.getSigner();
-                userAddress = await signer.getAddress();
-
-                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                if (chainId.toLowerCase() !== '0x2105') {
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: '0x2105' }]
-                        });
-                    } catch {
-                        await window.ethereum.request({
-                            method: 'wallet_addEthereumChain',
-                            params: [{
-                                chainId: '0x2105',
-                                chainName: 'Base',
-                                nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-                                rpcUrls: ['https://mainnet.base.org'],
-                                blockExplorerUrls: ['https://basescan.org']
-                            }]
-                        });
-                    }
-                }
-
-                const shortAddr = userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
-                text.innerHTML = `✅ ${shortAddr} <span class="text-xs text-green-400">(Base)</span>`;
-                btn.classList.add('!bg-green-600', '!hover:bg-green-500');
-
-            } catch (error) {
-                console.error(error);
-                text.textContent = "CONNECT WALLET";
-                btn.disabled = false;
-                alert("Connection cancelled or failed. Please try again.");
-            }
+            const btn = document.getElementById("connectBtn");
+            if (!window.ethereum) { alert("No wallet. Install MetaMask."); return; }
+            btn.textContent = "CONNECTING...";
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+            userAddress = await signer.getAddress();
+            btn.textContent = "✅ " + userAddress.slice(0,6) + "...";
+            btn.classList.remove("bg-orange-600");
+            btn.classList.add("bg-green-600");
+            alert("Connected: " + userAddress);
         }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const icon = document.getElementById('hamburger');
-            menu.classList.toggle('hidden');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-        }
-
         function selectPackage(price) {
-            if (!userAddress) {
-                alert("Please connect your wallet first using the button at the top.");
-                return;
-            }
-            alert(`✅ ${price} package selected!\n\nConnected wallet: ${userAddress}\nYour token launch tools will now be set up.`);
+            if (!userAddress) { alert("Connect wallet first!"); return; }
+            alert(price + " package selected!");
         }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
     </script>
 </body>
 </html>

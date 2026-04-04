@@ -3,301 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IRONFORGE • IRONBRIDGE | Easy Token Launcher</title>
+    <title>IronBridge — Deploy AI Agents to 6 Platforms in One Click</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-        :root { --accent: #f97316; }
-        * { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .tail-container * { font-family: 'Inter', system_ui, sans-serif; }
-        .heading-font { font-family: 'Space Grotesk', sans-serif; }
-        .hero-bg { background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.98) 100%), #0a0a0a; }
-        .package-card:hover { transform: translateY(-16px); box-shadow: 0 40px 70px -20px rgb(249 115 22); }
-        .mascot-glow { filter: drop-shadow(0 0 80px rgba(249, 115, 22, 0.75)); animation: glowPulse 4.5s ease-in-out infinite; }
-        @keyframes glowPulse { 0%, 100% { filter: drop-shadow(0 0 80px rgba(249, 115, 22, 0.75)); } 50% { filter: drop-shadow(0 0 120px rgba(249, 115, 22, 0.95)); } }
-        .integration-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgb(249 115 22); }
-        .tab-active { border-bottom: 4px solid #f97316; color: #f97316; font-weight: 600; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text { background: linear-gradient(135deg, #a855f7, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glow { box-shadow: 0 0 60px rgba(168, 85, 247, 0.4); }
+        .platform-hover { transition: all 0.3s ease; }
+        .platform-hover:hover { transform: translateY(-8px); }
     </style>
 </head>
-<body class="tail-container bg-[#0a0a0a] text-white">
-
-    <!-- NAVBAR - YOUR REAL WALLET CODE (100% UNCHANGED) -->
-    <nav class="bg-black/95 backdrop-blur-2xl border-b border-white/10 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-orange-600 rounded-2xl flex items-center justify-center text-3xl shadow-inner">⚒️</div>
-                <div>
-                    <h1 class="heading-font text-4xl tracking-[-2px]">IRONFORGE</h1>
-                    <p class="text-[10px] tracking-[3px] text-orange-400 -mt-1">IRONBRIDGE</p>
-                </div>
+<body class="bg-black text-white">
+    <!-- NAV -->
+    <nav class="fixed top-0 w-full bg-black/80 backdrop-blur-xl border-b border-white/10 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-xl flex items-center justify-center text-2xl">🔗</div>
+                <span class="text-2xl font-bold gradient-text">IronBridge</span>
             </div>
-            
-            <div class="hidden md:flex items-center gap-10 text-sm font-medium uppercase tracking-widest">
-                <a href="#packages" class="hover:text-orange-400">Launch Options</a>
-                <a href="#tools" class="hover:text-orange-400">All 16 Tools</a>
-                <a href="#how" class="hover:text-orange-400">How It Works</a>
-            </div>
-            
-            <button id="connectBtn" onclick="connectWallet()" class="bg-orange-600 hover:bg-orange-500 px-8 py-3.5 rounded-3xl font-semibold flex items-center gap-3 min-w-[180px] justify-center">
-                <i class="fa-solid fa-wallet"></i>
-                <span id="connectText">CONNECT WALLET</span>
-            </button>
-            
-            <button onclick="toggleMobileMenu()" class="md:hidden text-3xl">
-                <i id="hamburger" class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-        
-        <div id="mobileMenu" class="hidden md:hidden bg-black/95 border-t border-white/10 px-8 py-8">
-            <div class="flex flex-col gap-6 text-center text-lg">
-                <a href="#packages" onclick="toggleMobileMenu()" class="py-3">Launch Options</a>
-                <a href="#tools" onclick="toggleMobileMenu()" class="py-3">All 16 Tools</a>
-                <a href="#how" onclick="toggleMobileMenu()" class="py-3">How It Works</a>
-                <button onclick="toggleMobileMenu();connectWallet()" class="mt-6 py-5 bg-orange-600 rounded-3xl font-semibold">CONNECT WALLET</button>
-            </div>
+            <a href="#platforms" class="text-white/70 hover:text-white transition">Platforms</a>
+            <a href="#safety" class="text-white/70 hover:text-white transition">Safety</a>
+            <a href="#powerups" class="text-white/70 hover:text-white transition">Power-ups</a>
+            <a href="#pricing" class="bg-purple-600 hover:bg-purple-500 px-6 py-2 rounded-full font-semibold">GET STARTED</a>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="hero-bg min-h-screen flex items-center relative overflow-hidden">
-        <div class="matrix-bg"></div>
-        <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-12 gap-16 items-center z-10">
-            <div class="lg:col-span-7 text-center lg:text-left">
-                <div class="inline-flex items-center gap-3 bg-black/70 backdrop-blur px-7 py-3 rounded-3xl text-orange-400 text-sm font-medium mb-8">
-                    <i class="fa-solid fa-bolt"></i>
-                    BUILT BY IRONBRIDGE • POWERED BY x402 CLOUD
-                </div>
-                <h1 class="heading-font text-6xl md:text-7xl lg:text-[88px] leading-none tracking-[-4px] mb-6">
-                    Create Your Own<br>
-                    <span class="text-orange-400">Token</span><br>
-                    Super Easy
-                </h1>
-                <p class="text-2xl md:text-3xl text-white/80 max-w-xl mx-auto lg:mx-0 mb-10">
-                    Prebuilt for humans &amp; agents.<br>
-                    All 16 integrations already done for you.<br>
-                    Launch in minutes — no setup needed.
-                </p>
-                <a href="#packages" class="bg-orange-600 hover:bg-orange-700 text-xl font-bold px-14 py-7 rounded-3xl inline-flex items-center gap-4 shadow-2xl">
-                    <i class="fa-solid fa-rocket"></i>
-                    SEE LAUNCH OPTIONS
+    <section class="min-h-screen flex items-center justify-center pt-20">
+        <div class="text-center max-w-4xl mx-auto px-6">
+            <div class="inline-block bg-purple-500/20 text-purple-400 px-4 py-2 rounded-full text-sm mb-8">
+                🚀 ONE CLICK DEPLOYS TO 6 PLATFORMS
+            </div>
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+                Deploy Your AI Agent<br>
+                <span class="gradient-text">Everywhere at Once</span>
+            </h1>
+            <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto">
+                Zero code. Zero stress. Telegram, Discord, X, Farrcaster, Bluesky, Mastodon — 
+                all connected automatically with safety scanning and x402 payments built in.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#pricing" class="bg-gradient-to-r from-purple-600 to-pink-500 px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition glow">
+                    🚀 GET STARTED — ONE CLICK
+                </a>
+                <a href="#platforms" class="border border-white/20 px-10 py-4 rounded-full font-semibold hover:bg-white/10 transition">
+                    See All Platforms
                 </a>
             </div>
-            <div class="lg:col-span-5 flex justify-center lg:justify-end">
-                <img src="ironbridge-mascot.jpeg" alt="IRONFORGE Guardian" class="mascot-glow w-80 md:w-96 lg:w-[440px] rounded-full border-8 border-orange-400/30 object-cover">
-            </div>
-        </div>
-        <div class="absolute bottom-12 left-1/2 text-xs tracking-widest text-white/50 flex flex-col items-center">
-            SCROLL TO SEE YOUR OPTIONS
-            <i class="fa-solid fa-chevron-down mt-2 animate-bounce text-orange-400"></i>
+            <p class="text-white/40 text-sm mt-6">Powered by Bankr • Built on Base • x402 Ready</p>
         </div>
     </section>
 
-    <!-- PACKAGES - Tabbed (HyperUI-inspired clean pricing) -->
-    <section id="packages" class="py-24 bg-[#111111]">
-        <div class="max-w-7xl mx-auto px-8">
-            <div class="text-center mb-12">
-                <span class="uppercase text-orange-400 text-sm font-medium tracking-widest">BEGINNER FRIENDLY OPTIONS</span>
-                <h2 class="heading-font text-6xl mt-3">Choose Your Launch Package</h2>
-                <p class="text-white/70 mt-4">Click a tab. Every feature is listed so you know exactly what you get.</p>
-            </div>
-
-            <div class="flex justify-center mb-10 border-b border-white/10">
-                <button onclick="switchTab(0)" id="tab0" class="tab-active px-10 py-4 text-lg">Starter $5</button>
-                <button onclick="switchTab(1)" id="tab1" class="px-10 py-4 text-lg">Growth $15</button>
-                <button onclick="switchTab(2)" id="tab2" class="px-10 py-4 text-lg">Complete $25</button>
-            </div>
-
-            <div id="tabContent" class="grid md:grid-cols-3 gap-8"></div>
-        </div>
-    </section>
-
-    <!-- ALL 16 INTEGRATIONS - Clean aligned cards -->
-    <section id="tools" class="py-24 bg-black">
-        <div class="max-w-7xl mx-auto px-8">
-            <h2 class="heading-font text-6xl text-center mb-4">All 16 Integrations — Prebuilt & Aligned</h2>
-            <p class="text-center text-white/70 mb-16">$BNKR aligned • Already done for humans & agents</p>
+    <!-- 6 PLATFORMS -->
+    <section id="platforms" class="py-24 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">6 Platforms — One Deploy</h2>
+            <p class="text-white/60 text-center mb-16">Every platform connected automatically</p>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <a href="https://x.com/RobotMoneyAgent" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @RobotMoneyAgent</div>
-                    <div class="text-xs text-green-400">RobotMoney Treasury</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @LexSokolin</div>
-                </a>
-
-                <a href="https://x.com/netprotocolapp" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-treasury text-2xl"></i> @netprotocolapp</div>
-                    <div class="text-xs text-green-400">RobotMoney Treasury</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @AspynPalatnick</div>
-                </a>
-
-                <a href="https://x.com/bankrbot" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @bankrbot</div>
-                    <div class="text-xs text-green-400">Bankr Liquidity</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @0xDeployer</div>
-                </a>
-
-                <a href="https://x.com/openx402" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @openx402</div>
-                    <div class="text-xs text-green-400">x402 Cloud</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @openx402</div>
-                </a>
-
-                <a href="https://x.com/solvrbot" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @solvrbot</div>
-                    <div class="text-xs text-green-400">Safety Scanner</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @ccryptoji</div>
-                </a>
-
-                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-telegram text-2xl"></i> Telegram</div>
-                    <div class="text-xs text-green-400">Bot & Messaging</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Telegram -->
+                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                    <div class="text-4xl mb-3">📱</div>
+                    <h3 class="font-bold mb-2">Telegram</h3>
+                    <p class="text-white/50 text-sm">Bot + Group</p>
                 </div>
-
-                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-discord text-2xl"></i> Discord</div>
-                    <div class="text-xs text-green-400">Community Server</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                <!-- Discord -->
+                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                    <div class="text-4xl mb-3">💬</div>
+                    <h3 class="font-bold mb-2">Discord</h3>
+                    <p class="text-white/50 text-sm">Server + Bot</p>
                 </div>
-
-                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> X (Twitter)</div>
-                    <div class="text-xs text-green-400">Automation</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                <!-- X -->
+                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                    <div class="text-4xl mb-3">𝕏</div>
+                    <h3 class="font-bold mb-2">X (Twitter)</h3>
+                    <p class="text-white/50 text-sm">Profile + Auto</p>
                 </div>
-
-                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> Farcaster</div>
-                    <div class="text-xs text-green-400">Frames & Casting</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                <!-- Farrcaster -->
+                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                    <div class="text-4xl mb-3">🌐</div>
+                    <h3 class="font-bold mb-2">Farcaster</h3>
+                    <p class="text-white/50 text-sm">Frame + Cast</p>
                 </div>
-
-                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> Bluesky</div>
-                    <div class="text-xs text-green-400">Fediverse</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                <!-- Bluesky -->
+                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                    <div class="text-4xl mb-3">💙</div>
+                    <h3 class="font-bold mb-2">Bluesky</h3>
+                    <p class="text-white/50 text-sm">Fediverse</p>
                 </div>
-
-                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-mastodon text-2xl"></i> Mastodon</div>
-                    <div class="text-xs text-green-400">Fediverse</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
+                <!-- Mastodon -->
+                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                    <div class="text-4xl mb-3">🐘</div>
+                    <h3 class="font-bold mb-2">Mastodon</h3>
+                    <p class="text-white/50 text-sm">Fediverse</p>
                 </div>
-
-                <a href="https://x.com/moltbook" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-link text-2xl"></i> Moltbook</div>
-                    <div class="text-xs text-green-400">Discovery Platform</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @MattPRD</div>
-                </a>
-
-                <a href="https://x.com/base" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-cube text-2xl"></i> Base Chain</div>
-                    <div class="text-xs text-green-400">Token Deployment</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @brian_armstrong</div>
-                </a>
-
-                <div class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-coins text-2xl"></i> $BNKR</div>
-                    <div class="text-xs text-green-400">Rewards & Liquidity</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by IronBridge</div>
-                </div>
-
-                <a href="https://x.com/ccryptoji" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-shield-halved text-2xl"></i> Clerk Agents</div>
-                    <div class="text-xs text-green-400">Authentication</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @ccryptoji</div>
-                </a>
-
-                <a href="https://x.com/thatambervibe" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-brands fa-x-twitter text-2xl"></i> @thatambervibe</div>
-                    <div class="text-xs text-green-400">AmberVibe</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @HelloBenWhite</div>
-                </a>
-
-                <a href="https://x.com/useAtelier" target="_blank" class="integration-card bg-[#1a1a1a] p-6 rounded-3xl flex flex-col">
-                    <div class="flex items-center gap-4 mb-2"><i class="fa-solid fa-link text-2xl"></i> Atelier</div>
-                    <div class="text-xs text-green-400">Token Studio / Design</div>
-                    <div class="text-[10px] text-white/60 mt-auto">Built by @remp0x</div>
-                </a>
             </div>
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section id="how" class="py-24 bg-[#111111]">
-        <div class="max-w-7xl mx-auto px-8">
-            <h2 class="heading-font text-6xl text-center mb-16">3 Simple Steps</h2>
-            <div class="grid md:grid-cols-3 gap-12 text-center">
-                <div><div class="text-6xl mb-6">1️⃣</div><h4 class="text-2xl">Connect Wallet</h4><p class="text-white/70">Takes 10 seconds on Base</p></div>
-                <div><div class="text-6xl mb-6">2️⃣</div><h4 class="text-2xl">Pick Package</h4><p class="text-white/70">See every tool listed</p></div>
-                <div><div class="text-6xl mb-6">3️⃣</div><h4 class="text-2xl">Your Token Goes Live</h4><p class="text-white/70">All 16 integrations active</p></div>
+    <!-- SAFETY -->
+    <section id="safety" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">Safety First — Always On</h2>
+            <p class="text-white/60 text-center mb-16">Every deploy runs through security checks</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-purple-500/30">
+                    <div class="text-4xl mb-4">🛡️</div>
+                    <h3 class="text-xl font-bold mb-2">@solvrbot</h3>
+                    <p class="text-white/60">Pre-deployment safety scanning. Checks for malicious code, vulnerabilities, and suspicious patterns before your agent goes live.</p>
+                </div>
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-cyan-500/30">
+                    <div class="text-4xl mb-4">🔒</div>
+                    <h3 class="text-xl font-bold mb-2">@bankrbot</h3>
+                    <p class="text-white/60">Bankr ecosystem verification. Ensures your agent meets all compliance requirements for the $BNKR ecosystem.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <script>
-        // === YOUR REAL WALLET CODE (100% UNCHANGED) ===
-        let userAddress = null;
-        async function connectWallet() {
-            const btn = document.getElementById('connectBtn');
-            const text = document.getElementById('connectText');
-            try {
-                if (!window.ethereum) { alert("No wallet detected. Install MetaMask or Coinbase Wallet."); return; }
-                text.textContent = "CONNECTING...";
-                btn.disabled = true;
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const provider = new ethers.BrowserProvider(window.ethereum);
-                const signer = await provider.getSigner();
-                userAddress = await signer.getAddress();
-                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                if (chainId.toLowerCase() !== '0x2105') {
-                    await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x2105' }] });
-                }
-                const short = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
-                text.innerHTML = `✅ ${short} <span class="text-xs text-green-400">(Base)</span>`;
-                btn.classList.add('!bg-green-600');
-            } catch {
-                text.textContent = "CONNECT WALLET";
-                btn.disabled = false;
-            }
-        }
-        function selectPackage(price) {
-            if (!userAddress) { alert("Please connect your wallet first!"); return; }
-            alert(`✅ ${price} package selected!\nAll 16 integrations are now active for you.`);
-        }
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const icon = document.getElementById('hamburger');
-            menu.classList.toggle('hidden');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-        }
-        // === END WALLET CODE ===
+    <!-- POWER-UPS -->
+    <section id="powerups" class="py-24 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">Power-ups — Optional & Toggle-Only</h3>
+            <p class="text-white/60 text-center mb-16">Everything below is optional — never required</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
+                    <div class="text-2xl mb-2">💎</div>
+                    <h3 class="font-bold">Full Integration Package</h3>
+                    <p class="text-white/50 text-sm mt-2">Complete cross-platform sync + analytics dashboard</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
+                    <div class="text-2xl mb-2">🎨</div>
+                    <h3 class="font-bold">Atelier Gigs</h3>
+                    <p class="text-white/50 text-sm mt-2">Custom avatar, banner, and branding assets</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
+                    <div class="text-2xl mb-2">💡</div>
+                    <h3 class="font-bold">Lumen</h3>
+                    <p class="text-white/50 text-sm mt-2">AI-powered content generation & scheduling</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
+                    <div class="text-2xl mb-2">🤖</div>
+                    <h3 class="font-bold">0xSMC</h3>
+                    <p class="text-white/50 text-sm mt-2">Smart contract deployment & management</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
+                    <div class="text-2xl mb-2">💰</div>
+                    <h3 class="font-bold">0xWork</h3>
+                    <p class="text-white/50 text-sm mt-2">Freelance marketplace integration</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
+                    <div class="text-2xl mb-2">☁️</div>
+                    <h3 class="font-bold">x402 Cloud</h3>
+                    <p class="text-white/50 text-sm mt-2">Micropayments — agents can pay to use your agent</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Tab system
-        const packagesData = [
-            {price:5, name:"Starter $5", desc:"Perfect first token", features:["Token on Base","Liquidity pool","X + Telegram","Safety scan","+15 $BNKR"]},
-            {price:15, name:"Growth $15", desc:"Best for most people", popular:true, features:["Token on Base","Liquidity pool","X + Telegram + Discord + Farcaster","Safety + Bankr","+65 $BNKR"]},
-            {price:25, name:"Complete $25", desc:"Everything unlocked", features:["Token on Base","Liquidity pool","Full socials + custom art","All safety + agents + treasury","+140 $BNKR"]}
-        ];
+    <!-- EARNING LOOP -->
+    <section class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-4">Earn While You Sleep</h2>
+            <p class="text-white/60 mb-12 max-w-2xl mx-auto">x402 Cloud lets other AI agents pay tiny fees to use your deployed agent. Every interaction = automatic earnings.</p>
+            
+            <div class="bg-gradient-to-r from-purple-900/50 to-cyan-900/50 p-8 rounded-3xl max-w-2xl mx-auto border border-purple-500/20">
+                <div class="text-6xl mb-4">💰 → 🤖 → 💰</div>
+                <p class="text-xl font-semibold">Other agents → Use your agent → You get paid</p>
+                <p class="text-white/50 mt-4">All routing handled by Bankr + x402 Cloud automatically</p>
+            </div>
+        </div>
+    </section>
 
-        function switchTab(n) {
-            document.querySelectorAll('button[id^="tab"]').forEach(b => b.classList.remove('tab-active'));
-            document.getElementById('tab'+n).classList.add('tab-active');
-            const html = packagesData[n].features.map(f => `<li class="flex justify-between py-2"><span class="text-white/80">${f}</span><span class="text-green-400">✓</span></li>`).join('');
-            document.getElementById('tabContent').innerHTML = `
-                <div class="package-card bg-[#1a1a1a] rounded-3xl p-10 border ${n===1?'border-orange-400':''}">
-                    <div class="text-7xl mb-6">${n===0?'⚡':n===1?'🔥':'⚒️'}</div>
-                    <h3 class="heading-font text-5xl">${packagesData[n].name}</h3>
-                    <p class="text-white/70 text-sm mt-1 mb-8">${packagesData[n].desc}</p>
-                    <ul class="space-y-4 text-sm">${html}</ul>
-                    <button onclick="selectPackage(${packagesData[n].price})" class="mt-12 w-full py-6 bg-orange-600 hover:bg-orange-500 rounded-3xl font-semibold text-lg">CHOOSE THIS PACKAGE</button>
-                </div>`;
-        }
+    <!-- AGENT TYPES -->
+    <section class="py-24 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">One Platform — Infinite Agents</h2>
+            <p class="text-white/60 text-center mb-16">Choose your agent type</p>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-zinc-800 p-8 rounded-2xl border border-zinc-700 hover:border-purple-500 transition cursor-pointer">
+                    <div class="text-4xl mb-4">🪙</div>
+                    <h3 class="text-xl font-bold">Meme Coin Agent</h3>
+                    <p class="text-white/50 mt-2">Launch tokens, manage communities, track trends</p>
+                    <span class="inline-block mt-4 text-purple-400 text-sm">Try IronForge →</span>
+                </div>
+                <div class="bg-zinc-800 p-8 rounded-2xl border border-zinc-700 hover:border-cyan-500 transition cursor-pointer">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-xl font-bold">Trading Agent</h3>
+                    <p class="text-white/50 mt-2">Monitor markets, execute trades, manage portfolio</p>
+                </div>
+                <div class="bg-zinc-800 p-8 rounded-2xl border border-zinc-700 hover:border-green-500 transition cursor-pointer">
+                    <div class="text-4xl mb-4">💬</div>
+                    <h3 class="text-xl font-bold">Support Agent</h3>
+                    <p class="text-white/50 mt-2">Customer service, FAQ, community management</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        window.onload = () => switchTab(0);
-    </script>
+    <!-- PRICING -->
+    <section id="pricing" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">Simple Pricing</h2>
+            <p class="text-white/60 text-center mb-16">One fee — everything included</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-700">
+                    <div class="text-3xl font-bold mb-2">Starter</div>
+                    <div class="text-5xl font-bold mb-4">$9<span class="text-lg text-white/50">/mo</span></div>
+                    <ul class="text-white/60 space-y-2 mb-6">
+                        <li>✅ 1 Agent</li>
+                        <li>✅ 3 Platforms</li>
+                        <li>✅ Basic Analytics</li>
+                    </ul>
+                    <button class="w-full bg-white text-black py-3 rounded-xl font-bold">START</button>
+                </div>
+                <div class="bg-zinc-900 p-8 rounded-2xl border-2 border-purple-500 relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-500 text-black text-xs px-4 py-1 rounded-full font-bold">POPULAR</div>
+                    <div class="text-3xl font-bold mb-2">Growth</div>
+                    <div class="text-5xl font-bold mb-4">$29<span class="text-lg text-white/50">/mo</span></div>
+                    <ul class="text-white/60 space-y-2 mb-6">
+                        <li>✅ 3 Agents</li>
+                        <li>✅ 6 Platforms</li>
+                        <li>✅ Advanced Analytics</li>
+                        <li>✅ x402 Cloud</li>
+                    </ul>
+                    <button class="w-full bg-purple-600 py-3 rounded-xl font-bold">START</button>
+                </div>
+                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-700">
+                    <div class="text-3xl font-bold mb-2">Pro</div>
+                    <div class="text-5xl font-bold mb-4">$99<span class="text-lg text-white/50">/mo</span></div>
+                    <ul class="text-white/60 space-y-2 mb-6">
+                        <li>✅ Unlimited Agents</li>
+                        <li>✅ All Platforms</li>
+                        <li>✅ Priority Support</li>
+                        <li>✅ Custom Integrations</li>
+                    </ul>
+                    <button class="w-full bg-cyan-600 py-3 rounded-xl font-bold">START</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 bg-gradient-to-b from-black to-purple-900/30">
+        <div class="text-center max-w-2xl mx-auto px-6">
+            <h2 class="text-5xl font-bold mb-6">Ready to Deploy?</h2>
+            <p class="text-white/60 mb-10">One click. Six platforms. Zero code.</p>
+            <a href="#" class="bg-gradient-to-r from-purple-600 to-pink-500 px-12 py-5 rounded-full font-bold text-xl hover:scale-105 transition glow">
+                🚀 GET STARTED — ONE CLICK
+            </a>
+            <p class="text-white/40 text-sm mt-6">No credit card required to start</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center items-center gap-3 mb-4">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-lg flex items-center justify-center">🔗</div>
+                <span class="text-xl font-bold">IronBridge</span>
+            </div>
+            <p class="text-white/40">Built for the Bankr ecosystem • Powered by x402 Cloud • Running on Base</p>
+            <p class="text-white/20 text-sm mt-4">© 2025 IronBridge. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,12 +9,16 @@
     <style>
         body { font-family: system-ui, sans-serif; }
         .neon { text-shadow: 0 0 25px #a855f7, 0 0 40px #22d3ee; }
+        .platform-icon { font-size: 28px; }
     </style>
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
+
     <div class="max-w-6xl mx-auto px-6 py-8">
+        <!-- Header -->
         <div class="flex justify-between items-center mb-10">
             <div class="flex items-center gap-3">
+                <!-- IronBridge Profile Picture / Logo -->
                 <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-cyan-400 rounded-2xl flex items-center justify-center text-3xl shadow-lg">🔨</div>
                 <h1 class="text-4xl font-bold neon">IRONFORGE</h1>
             </div>
@@ -22,49 +27,65 @@
                 <span class="font-bold">IRONBRIDGE</span>
             </div>
         </div>
-        <h1 class="text-6xl font-bold text-center leading-none mb-4">Launch Your First Meme Coin<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">for only $5</span></h1>
-        <p class="text-2xl text-center text-zinc-400 max-w-2xl mx-auto mb-12">No code. No stress. Everything automatic on Base + $BNKR.<br>Powered by IronBridge.</p>
+
+        <h1 class="text-6xl font-bold text-center leading-none mb-4">
+            Launch Your First Meme Coin<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">for only $5</span>
+        </h1>
+        <p class="text-2xl text-center text-zinc-400 max-w-2xl mx-auto mb-12">
+            No code. No stress. Everything automatic on Base + $BNKR.<br>
+            Powered by IronBridge.
+        </p>
+
+        <!-- Packages -->
         <div class="grid md:grid-cols-3 gap-8 mb-20">
+            <!-- Starter -->
             <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 hover:border-purple-400 transition">
                 <h3 class="text-2xl font-bold">Starter</h3>
                 <p class="text-6xl font-bold my-6">$5 <span class="text-base font-normal text-zinc-400">one-time</span></p>
                 <p class="text-zinc-400 mb-6">Great for testing your idea</p>
                 <ul class="space-y-4 text-zinc-300">
-                    <li class="flex items-center gap-3"><span style="font-size:28px">🪙</span> Token + LP on Bankr</li>
-                    <li class="flex items-center gap-3"><span style="font-size:28px">𝕏</span> X + Telegram</li>
-                    <li class="flex items-center gap-3"><span style="font-size:28px">📊</span> Basic website + dashboard</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">🪙</span> Token + LP on Bankr</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">𝕏</span> X + Telegram</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">📊</span> Basic website + dashboard</li>
                     <li class="flex items-center gap-3"><span class="text-cyan-400">🔗</span> x402 Ready badge</li>
                 </ul>
                 <button onclick="selectPackage('Starter', 5)" class="mt-10 w-full bg-white text-black py-4 rounded-2xl font-semibold hover:bg-purple-400 hover:text-white">Choose $5 Starter</button>
             </div>
+
+            <!-- Growth -->
             <div class="bg-zinc-900 border-2 border-purple-400 rounded-3xl p-8 relative">
                 <div class="absolute -top-3 right-8 bg-gradient-to-r from-purple-400 to-cyan-400 text-black text-xs px-6 py-1 rounded-full font-bold">BEST VALUE</div>
                 <h3 class="text-2xl font-bold">Growth</h3>
                 <p class="text-6xl font-bold my-6">$15 <span class="text-base font-normal text-zinc-400">one-time + $5/mo</span></p>
                 <p class="text-zinc-400 mb-6">Best choice for most people</p>
                 <ul class="space-y-4 text-zinc-300">
-                    <li class="flex items-center gap-3"><span style="font-size:28px">🪙</span> Token + LP on Bankr</li>
-                    <li class="flex items-center gap-3"><span style="font-size:28px">𝕏</span> X + Telegram</li>
-                    <li class="flex items-center gap-3"><span style="font-size:28px">📱</span> Discord + Farrcaster</li>
-                    <li class="flex items-center gap-3"><span style="font-size:28px">📊</span> Advanced dashboard + $BNKR boost</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">🪙</span> Token + LP on Bankr</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">𝕏</span> X + Telegram</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">📱</span> Discord + Farcaster</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">📊</span> Advanced dashboard + $BNKR boost</li>
                     <li class="flex items-center gap-3"><span class="text-cyan-400">🔗</span> x402 micropayments</li>
                 </ul>
                 <button onclick="selectPackage('Growth', 15)" class="mt-10 w-full bg-purple-500 py-4 rounded-2xl font-semibold">Choose $15 Growth</button>
             </div>
+
+            <!-- Viral -->
             <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 hover:border-cyan-400 transition">
                 <h3 class="text-2xl font-bold">Viral</h3>
                 <p class="text-6xl font-bold my-6">$25 <span class="text-base font-normal text-zinc-400">one-time + $9/mo</span></p>
                 <p class="text-zinc-400 mb-6">Maximum reach + earnings</p>
                 <ul class="space-y-4 text-zinc-300">
-                    <li class="flex items-center gap-3"><span style="font-size:28px">🪙</span> Token + LP on Bankr</li>
-                    <li class="flex items-center gap-3"><span style="font-size:28px">𝕏</span> X + Telegram</li>
-                    <li class="flex items-center gap-3"><span style="font-size:28px">📱</span> Discord + Farrcaster</li>
-                    <li class="flex items-center gap-3"><span style="font-size:28px">🎨</span> Custom meme art + multi-chain</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">🪙</span> Token + LP on Bankr</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">𝕏</span> X + Telegram</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">📱</span> Discord + Farcaster</li>
+                    <li class="flex items-center gap-3"><span class="platform-icon">🎨</span> Custom meme art + multi-chain</li>
                     <li class="flex items-center gap-3"><span class="text-cyan-400">🔗</span> x402 micropayments</li>
                 </ul>
                 <button onclick="selectPackage('Viral', 25)" class="mt-10 w-full bg-cyan-400 text-black py-4 rounded-2xl font-semibold">Choose $25 Viral</button>
             </div>
         </div>
+
+        <!-- Platforms Integrated -->
         <div class="bg-zinc-900 rounded-3xl p-10 mb-16">
             <h3 class="text-2xl font-bold text-center mb-8">IronBridge Integrates All of This Automatically</h3>
             <div class="grid grid-cols-3 md:grid-cols-6 gap-8 text-center">
@@ -77,14 +98,22 @@
             </div>
             <p class="text-center text-zinc-400 text-sm mt-8">IronBridge handles cross-platform posting, engagement, volume routing, and more — all automatic.</p>
         </div>
+
+        <!-- Trust Bar -->
         <div class="bg-zinc-900 rounded-3xl p-6 flex flex-wrap justify-center gap-8 text-sm text-zinc-400 mb-16">
             <div>🏆 Over 1,200 memes launched</div>
             <div>🔒 Automatic LP lock on every launch</div>
             <div>🔗 Built on Bankr • Base</div>
             <div>🔨 Powered by IronBridge</div>
         </div>
-        <div class="text-center text-xs text-zinc-500">Beginner friendly • No code • Real integrations • Regular updates from IronBridge</div>
+
+        <!-- Footer -->
+        <div class="text-center text-xs text-zinc-500">
+            Beginner friendly • No code • Real integrations • Regular updates from IronBridge
+        </div>
     </div>
+
+    <!-- Simple Modal (kept light) -->
     <div id="modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
         <div class="bg-zinc-900 rounded-3xl p-8 max-w-md w-full mx-4 text-center">
             <div class="text-5xl mb-4">🎉</div>
@@ -93,12 +122,17 @@
             <button onclick="closeModal()" class="mt-8 w-full bg-green-500 text-black py-4 rounded-2xl font-bold">View My Dashboard</button>
         </div>
     </div>
+
     <script>
         function selectPackage(name, price) {
-            document.getElementById('modal').classList.remove('hidden');
-            document.getElementById('modalText').innerHTML = name + ' Package ($' + price + ') launched!<br>Your meme is now x402 Ready and fully integrated by IronBridge.';
+            const modal = document.getElementById('modal');
+            const modalText = document.getElementById('modalText');
+            modal.classList.remove('hidden');
+            modalText.innerHTML = `${name} Package ($${price}) launched!<br>Your meme is now x402 Ready and fully integrated by IronBridge.`;
         }
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
     </script>
 </body>
 </html>

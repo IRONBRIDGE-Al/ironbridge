@@ -5,36 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IronForge • Launch Your First Meme Coin for Only $5</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <meta name="description" content="Launch your meme coin for only $5. No code, no stress, everything done for you on Base + $BNKR.">
+    <meta name="description" content="Launch your meme coin for only $5. No code, no stress. Built for beginners on Base + $BNKR.">
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; }
-        .neon { text-shadow: 0 0 20px #a855f7, 0 0 30px #22d3ee; }
-        .popular-badge { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
+        .neon { text-shadow: 0 0 30px #a855f7, 0 0 50px #22d3ee; }
+        .popular-badge { box-shadow: 0 0 30px rgba(168, 85, 247, 0.6); }
     </style>
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
     <!-- Trust Bar -->
     <div class="bg-zinc-900/50 border-b border-zinc-800 py-3">
-        <div class="max-w-5xl mx-auto px-4 flex flex-wrap justify-center gap-6 text-sm text-zinc-400">
-            <span class="flex items-center gap-1">🔒 <span class="text-zinc-300">Secured by IronBridge + Bankr</span></span>
-            <span class="flex items-center gap-1">🔒 <span class="text-zinc-300">LP lock by default</span></span>
-            <span class="flex items-center gap-1">🔒 <span class="text-zinc-300">Regular updates</span></span>
+        <div class="max-w-5xl mx-auto px-4 flex flex-wrap justify-center gap-6 text-sm">
+            <span class="text-purple-400 font-medium">🏆 Built for beginners — over 1,200 memes launched</span>
+            <span class="text-zinc-400">🔒 LP lock by default</span>
+            <span class="text-zinc-400">🔒 x402 Ready</span>
         </div>
     </div>
 
     <div class="max-w-5xl mx-auto px-4 py-8">
         <!-- Hero Section -->
         <div class="text-center mb-16">
-            <div class="text-6xl mb-6">🔨</div>
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <div class="text-7xl mb-6">🔨</div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
                 Launch Your First Meme Coin<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">for Only $5</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 neon">for Only $5</span>
             </h1>
-            <p class="text-xl text-zinc-400 max-w-xl mx-auto mb-8">
-                No code • No stress • Everything done for you<br>
+            <p class="text-xl md:text-2xl text-zinc-300 max-w-xl mx-auto mb-8">
+                No code • No wallet stress • Everything automatic<br>
                 <span class="text-cyan-400 font-semibold">x402 Ready</span> from day one
             </p>
-            <a href="#packages" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition">
+            <a href="#packages" class="inline-block bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 text-white px-10 py-5 rounded-full font-bold text-xl hover:scale-105 transition shadow-lg shadow-purple-500/30">
                 🚀 Start Now — Only $5
             </a>
         </div>
@@ -42,55 +42,55 @@
         <!-- Packages -->
         <div id="packages" class="grid md:grid-cols-3 gap-6 mb-16">
             <!-- Starter $5 -->
-            <div class="bg-zinc-900 border-2 border-zinc-700 rounded-2xl p-6 hover:border-purple-400 transition-all">
-                <h3 class="text-lg font-bold mb-2">🆕 Starter</h3>
-                <p class="text-5xl font-bold text-white mb-1">$5</p>
-                <p class="text-zinc-400 text-sm mb-4">one-time</p>
-                <p class="text-purple-300 text-sm mb-4">✨ Perfect for your first try</p>
-                <ul class="space-y-2 text-zinc-300 text-sm mb-6">
+            <div id="pkg-starter" class="bg-zinc-900 border-2 border-zinc-700 rounded-2xl p-6 hover:border-purple-400 transition-all cursor-pointer" onclick="openForm('Starter', 5)">
+                <h3 class="text-xl font-bold mb-2">🆕 Starter</h3>
+                <p class="text-5xl font-extrabold text-white mb-1">$5</p>
+                <p class="text-zinc-400 text-sm mb-2">one-time</p>
+                <p class="text-purple-300 font-medium mb-4">✨ Great for testing your idea</p>
+                <ul class="space-y-2 text-zinc-300 text-sm mb-4">
                     <li>✅ Token + LP on Base</li>
                     <li>✅ X + Telegram setup</li>
-                    <li>✅ Basic website + dashboard</li>
+                    <li>✅ Website + dashboard</li>
                     <li>✅ <span class="text-cyan-400">x402 Ready badge</span></li>
                 </ul>
-                <button onclick="openForm('Starter', 5)" class="w-full bg-white text-black py-3 rounded-xl font-bold hover:bg-purple-400 hover:text-white transition">
+                <button class="w-full bg-white text-black py-3 rounded-xl font-bold hover:bg-purple-400 hover:text-white transition">
                     Choose $5
                 </button>
             </div>
 
             <!-- Growth $15 -->
-            <div class="bg-zinc-900 border-2 border-purple-500 rounded-2xl p-6 relative popular-badge transform md:-translate-y-2">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm px-6 py-2 rounded-full font-bold shadow-lg">
-                    ⭐ MOST POPULAR
+            <div id="pkg-growth" class="bg-zinc-900 border-2 border-purple-500 rounded-2xl p-6 relative popular-badge transform md:-translate-y-3 cursor-pointer" onclick="openForm('Growth', 15)">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 text-white text-sm px-6 py-2 rounded-full font-bold shadow-lg">
+                    ⭐ BEST VALUE
                 </div>
-                <h3 class="text-lg font-bold mb-2 mt-2">📈 Growth</h3>
-                <p class="text-5xl font-bold text-white mb-1">$15</p>
-                <p class="text-zinc-400 text-sm mb-4">one-time + $5/mo</p>
-                <p class="text-purple-300 text-sm mb-4">✨ Best for serious launches</p>
-                <ul class="space-y-2 text-zinc-300 text-sm mb-6">
+                <h3 class="text-xl font-bold mb-2 mt-2">📈 Growth</h3>
+                <p class="text-5xl font-extrabold text-white mb-1">$15</p>
+                <p class="text-zinc-400 text-sm mb-2">one-time + $5/mo</p>
+                <p class="text-purple-300 font-medium mb-4">✨ Best choice for most people</p>
+                <ul class="space-y-2 text-zinc-300 text-sm mb-4">
                     <li>✅ Everything in Starter</li>
                     <li>✅ Discord + Farrcaster</li>
                     <li>✅ $BNKR liquidity boost</li>
-                    <li>✅ <span class="text-cyan-400">x402 micropayments</span></li>
+                    <li>✅ <span class="text-cyan-400">Agents can pay to interact</span></li>
                 </ul>
-                <button onclick="openForm('Growth', 15)" class="w-full bg-purple-500 text-white py-3 rounded-xl font-bold hover:bg-purple-600 transition">
+                <button class="w-full bg-purple-500 text-white py-3 rounded-xl font-bold hover:bg-purple-600 transition">
                     Choose $15
                 </button>
             </div>
 
             <!-- Viral $25 -->
-            <div class="bg-zinc-900 border-2 border-zinc-700 rounded-2xl p-6 hover:border-cyan-400 transition-all">
-                <h3 class="text-lg font-bold mb-2">🚀 Viral</h3>
-                <p class="text-5xl font-bold text-white mb-1">$25</p>
-                <p class="text-zinc-400 text-sm mb-4">one-time + $9/mo</p>
-                <p class="text-cyan-300 text-sm mb-4">✨ Maximum reach + earnings</p>
-                <ul class="space-y-2 text-zinc-300 text-sm mb-6">
+            <div id="pkg-viral" class="bg-zinc-900 border-2 border-zinc-700 rounded-2xl p-6 hover:border-cyan-400 transition-all cursor-pointer" onclick="openForm('Viral', 25)">
+                <h3 class="text-xl font-bold mb-2">🚀 Viral</h3>
+                <p class="text-5xl font-extrabold text-white mb-1">$25</p>
+                <p class="text-zinc-400 text-sm mb-2">one-time + $9/mo</p>
+                <p class="text-cyan-300 font-medium mb-4">✨ Maximum reach + earnings</p>
+                <ul class="space-y-2 text-zinc-300 text-sm mb-4">
                     <li>✅ Everything in Growth</li>
                     <li>✅ Custom meme art</li>
                     <li>✅ Multi-chain option</li>
-                    <li>✅ <span class="text-cyan-400">x402 micropayments</span></li>
+                    <li>✅ <span class="text-cyan-400">Agents can pay to interact</span></li>
                 </ul>
-                <button onclick="openForm('Viral', 25)" class="w-full bg-cyan-400 text-black py-3 rounded-xl font-bold hover:bg-cyan-500 transition">
+                <button class="w-full bg-cyan-400 text-black py-3 rounded-xl font-bold hover:bg-cyan-500 transition">
                     Choose $25
                 </button>
             </div>
@@ -101,12 +101,11 @@
             <div class="text-4xl mb-4">🔗</div>
             <h2 class="text-2xl font-bold mb-4">What is x402? 🤔</h2>
             <p class="text-zinc-400 max-w-xl mx-auto mb-6">
-                Think of it like a "digital tip jar" for your meme. When other AI agents want to interact with your coin, 
-                they can pay tiny fees automatically. Your meme earns while you sleep!
+                Think of it like a "digital tip jar" for your meme. Other AI agents can easily interact with your coin and pay tiny fees automatically!
             </p>
             <div class="flex flex-wrap justify-center gap-3">
-                <span class="bg-purple-500/20 text-purple-400 px-5 py-2 rounded-full">✅ Starter: x402 badge</span>
-                <span class="bg-cyan-500/20 text-cyan-400 px-5 py-2 rounded-full">✅ Growth/Viral: Earn fees!</span>
+                <span class="bg-purple-500/20 text-purple-400 px-5 py-2 rounded-full">✅ Starter: badge included</span>
+                <span class="bg-cyan-500/20 text-cyan-400 px-5 py-2 rounded-full">✅ Growth/Viral: earn fees!</span>
             </div>
         </div>
 
@@ -152,7 +151,7 @@
                 <button onclick="closeForm()" class="text-zinc-400 hover:text-white text-2xl">×</button>
             </div>
             
-            <div id="pkgBadge" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center py-3 rounded-lg mb-4 font-bold"></div>
+            <div id="pkgBadge" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center py-3 rounded-lg mb-4 font-bold text-lg"></div>
             
             <form id="launchForm" class="space-y-4">
                 <div>
@@ -171,7 +170,7 @@
                     <label class="block text-sm font-medium mb-2">Wallet Address (Base) *</label>
                     <input type="text" id="wallet" required class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3" placeholder="0x742d35Cc6634C0532925a3b844Bc9e7595f...">
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 py-4 rounded-xl font-bold mt-4 hover:scale-[1.02] transition">
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 py-4 rounded-xl font-bold text-lg mt-4 hover:scale-[1.02] transition">
                     🚀 Launch My Meme
                 </button>
             </form>
@@ -195,39 +194,43 @@
     <div id="successModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
         <div class="bg-zinc-900 rounded-2xl p-6 max-w-md w-full text-center">
             <div class="text-6xl mb-4">🎉</div>
-            <h2 class="text-3xl font-bold mb-2">🎊 Success!</h2>
+            <h2 class="text-3xl font-extrabold mb-2 text-white">🎊 Your Meme is LIVE!</h2>
             <p class="text-zinc-400 mb-6" id="successPkg"></p>
+            
+            <!-- Big x402 announcement -->
+            <div class="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500 rounded-xl p-5 mb-6">
+                <div class="text-2xl font-extrabold text-cyan-400 mb-2">✨ x402 Ready!</div>
+                <div class="text-zinc-300" id="x402Msg"></div>
+            </div>
             
             <!-- Fake Dashboard Preview -->
             <div class="bg-zinc-800 rounded-xl p-4 mb-6 text-left">
                 <div class="text-xs text-zinc-500 mb-2">YOUR DASHBOARD</div>
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-xl">🪙</div>
+                    <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-2xl">🪙</div>
                     <div>
-                        <div class="font-bold" id="dashTicker">$MEME</div>
-                        <div class="text-xs text-zinc-500">Just deployed</div>
+                        <div class="font-bold text-lg" id="dashTicker">$MEME</div>
+                        <div class="text-xs text-green-400 font-bold">✅ LIVE NOW</div>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-2 text-xs">
-                    <div class="bg-zinc-700 rounded p-2">
+                <div class="grid grid-cols-3 gap-2 text-xs">
+                    <div class="bg-zinc-700 rounded p-2 text-center">
                         <div class="text-zinc-500">Status</div>
                         <div class="text-green-400 font-bold">✅ Live</div>
                     </div>
-                    <div class="bg-zinc-700 rounded p-2">
+                    <div class="bg-zinc-700 rounded p-2 text-center">
                         <div class="text-zinc-500">x402</div>
                         <div class="text-cyan-400 font-bold">✨ Ready</div>
+                    </div>
+                    <div class="bg-zinc-700 rounded p-2 text-center">
+                        <div class="text-zinc-500">LP</div>
+                        <div class="text-green-400 font-bold">🔒 Locked</div>
                     </div>
                 </div>
             </div>
             
-            <!-- x402 Badge -->
-            <div class="bg-cyan-500/20 border border-cyan-500 rounded-xl p-4 mb-6">
-                <div class="text-cyan-400 font-bold text-lg">✨ x402 Ready!</div>
-                <div class="text-zinc-400 text-sm" id="x402Msg"></div>
-            </div>
-            
-            <button onclick="closeSuccess()" class="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-black py-4 rounded-xl font-bold text-lg hover:scale-[1.02] transition">
-                🚀 View My Meme
+            <button onclick="closeSuccess()" class="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-black py-5 rounded-xl font-bold text-xl hover:scale-[1.02] transition shadow-lg shadow-green-500/30">
+                🚀 View My Dashboard
             </button>
         </div>
     </div>
@@ -312,13 +315,13 @@
         function showSuccess() {
             document.getElementById('deployModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('hidden');
-            document.getElementById('successPkg').textContent = `${memeData.ticker} is now live!`;
+            document.getElementById('successPkg').textContent = `${memeData.ticker} is now live and x402 Ready!`;
             document.getElementById('dashTicker').textContent = memeData.ticker;
 
             if (currentPkg === 'Growth' || currentPkg === 'Viral') {
-                document.getElementById('x402Msg').textContent = 'Your meme can now earn tiny fees when other agents interact with it!';
+                document.getElementById('x402Msg').textContent = 'Other agents can now interact with your meme and pay tiny fees!';
             } else {
-                document.getElementById('x402Msg').textContent = 'x402 badge added to your dashboard.';
+                document.getElementById('x402Msg').textContent = 'Your meme has the x402 Ready badge — agents can easily interact with it!';
             }
 
             console.log('IRONFORGE_LAUNCH:', JSON.stringify({...memeData, timestamp: new Date().toISOString()}));

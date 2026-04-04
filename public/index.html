@@ -1,8 +1,3 @@
-   public/index.html
-
-### The New HTML
-
-`html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +24,6 @@
         <p class="text-2xl text-center text-zinc-400 max-w-2xl mx-auto mb-12">No code. Only $5 to start. Everything pre-built. Now with <span class="text-cyan-400">x402 Ready</span> built in.</p>
         
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- Starter -->
             <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 hover:border-purple-400 transition">
                 <h3 class="text-2xl font-bold">Starter</h3>
                 <p class="text-6xl font-bold my-6">$5 <span class="text-base font-normal text-zinc-400">one-time</span></p>
@@ -42,7 +36,6 @@
                 <button onclick="selectPackage('Starter', 5)" class="mt-10 w-full bg-white text-black py-4 rounded-2xl font-semibold hover:bg-purple-400 hover:text-white">Choose $5 Starter</button>
             </div>
 
-            <!-- Growth -->
             <div class="bg-zinc-900 border-2 border-purple-400 rounded-3xl p-8 relative">
                 <div class="absolute -top-3 right-8 bg-purple-400 text-black text-xs px-4 py-1 rounded-full font-bold">MOST POPULAR</div>
                 <h3 class="text-2xl font-bold">Growth</h3>
@@ -56,7 +49,6 @@
                 <button onclick="selectPackage('Growth', 15)" class="mt-10 w-full bg-purple-500 py-4 rounded-2xl font-semibold">Choose $15 Growth</button>
             </div>
 
-            <!-- Viral -->
             <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 hover:border-cyan-400 transition">
                 <h3 class="text-2xl font-bold">Viral</h3>
                 <p class="text-6xl font-bold my-6">$25 <span class="text-base font-normal text-zinc-400">one-time + $9/mo</span></p>
@@ -69,7 +61,6 @@
             </div>
         </div>
 
-        <!-- x402 Section -->
         <div class="mt-16 bg-zinc-900 rounded-2xl p-8 text-center">
             <div class="text-3xl mb-4">🔗</div>
             <h3 class="text-2xl font-bold mb-3">x402 Built In – Future-Proof for Agents</h3>
@@ -79,7 +70,6 @@
         </div>
     </div>
 
-    <!-- Simple Modal -->
     <div id="modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
         <div class="bg-zinc-900 rounded-3xl p-8 max-w-md w-full mx-4 text-center">
             <div class="text-5xl mb-4">🎉</div>
@@ -91,18 +81,12 @@
 
     <script>
         function selectPackage(name, price) {
-            const modal = document.getElementById('modal');
-            const modalText = document.getElementById('modalText');
-            modal.classList.remove('hidden');
-            modalText.textContent = ${name} Package ($${price}) launched! Your meme is now x402 Ready.;
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modalText').textContent = name + ' Package ($' + price + ') launched! Your meme is now x402 Ready.';
         }
-        
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
         }
     </script>
 </body>
 </html>
-`
-
----

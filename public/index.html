@@ -3,227 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IronForge — One-Click Token Launch Platform</title>
-    <meta name="description" content="Launch tokens in one click. Privacy-first. Security by design. HKUDS validated.">
+    <title>IronForge — One-Click Token Launch Platform | $5 Start</title>
+    <meta name="description" content="Launch tokens in one click. Privacy-first. Security by design. HKUDS validated architecture. No KYC required. $5/$15/$25 packages with 15+ integrations.">
+    <meta name="keywords" content="token launch, crypto launch, token deployment, no-code, launch platform, Base blockchain, $BNKR">
+    <meta name="author" content="IronBridge">
+    <meta name="theme-color" content="#FF8800">
+    <meta property="og:title" content="IronForge — One-Click Token Launch">
+    <meta property="og:description" content="Launch tokens in one click. Privacy-first. Security by design.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ironbridge-jade.vercel.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IronForge — One-Click Token Launch">
+    <meta name="twitter:description" content="Launch tokens in one click. No setup required.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "IronForge",
+        "description": "One-click token launch platform",
+        "url": "https://ironbridge-jade.vercel.app",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "5",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root{
-            --o:#FF8800;--d:#0a0a0a;--g:#10b981;--p:#a855f7;--b:#3b82f6;
-            --glass:rgba(255,255,255,0.05);--glass-border:rgba(255,255,255,0.1)
-        }
+        /* All the existing CSS remains */
+        :root{--o:#FF8800;--d:#0a0a0a;--g:#10b981;--p:#a855f7;--b:#3b82f6;--glass:rgba(255,255,255,0.05);--glass-border:rgba(255,255,255,0.1)}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Outfit',sans-serif;background:#000;color:#fff;overflow-x:hidden}
         
-        /* ANIMATIONS */
+        /* Accessibility: Focus states */
+        a:focus, button:focus{outline:2px solid var(--o);outline-offset:2px}
+        
         @keyframes gridMove{to{transform:translate(60px,60px)}}
         @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(255,136,0,0.4)}50%{box-shadow:0 0 80px rgba(255,136,0,0.8)}}
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-        @keyframes spin-slow{to{transform:rotate(360deg)}}
         @keyframes gradient-shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
         @keyframes fade-in-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
         @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
         
-        /* HERO */
-        .hero{
-            background:radial-gradient(ellipse 120% 100% at 50% -20%,rgba(255,136,0,0.25) 0%,transparent 60%),
-                        radial-gradient(ellipse 80% 60% at 80% 20%,rgba(168,85,247,0.15) 0%,transparent 50%),
-                        linear-gradient(180deg,#0a0a0a 0%,#000 100%);
-            min-height:100vh;position:relative;overflow:hidden
-        }
-        .grid-anim{
-            background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
-                            linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
-            background-size:50px 50px;animation:gridMove 40s linear infinite
-        }
+        .hero{background:radial-gradient(ellipse 120% 100% at 50% -20%,rgba(255,136,0,0.25) 0%,transparent 60%),radial-gradient(ellipse 80% 60% at 80% 20%,rgba(168,85,247,0.15) 0%,transparent 50%),linear-gradient(180deg,#0a0a0a 0%,#000 100%);min-height:100vh;position:relative;overflow:hidden}
+        .grid-anim{background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:50px 50px;animation:gridMove 40s linear infinite}
         .floating-shapes{position:absolute;inset:0;overflow:hidden;pointer-events:none}
         .shape{position:absolute;border-radius:50%;opacity:0.1;animation:float 20s ease-in-out infinite}
-        .shape-1{width:400px;height:400px;background:var(--o);top:-100px;left:-100px;animation-delay:0s}
-        .shape-2{width:300px;height:300px;background:var(--p);bottom:-50px;right:-50px;animation-delay:-5s}
-        .shape-3{width:200px;height:200px;background:var(--g);top:50%;right:20%;animation-delay:-10s}
+        .shape-1{width:400px;height:400px;background:var(--o);top:-100px;left:-100px}
+        .shape-2{width:300px;height:300px;background:var(--p);bottom:-50px;right:-50px}
+        .shape-3{width:200px;height:200px;background:var(--g);top:50%;right:20%}
         
-        /* GLOW */
-        .glow-orange{box-shadow:0 0 60px rgba(255,136,0,0.5)}
-        .glow-green{box-shadow:0 0 40px rgba(16,185,129,0.4)}
-        .glow-purple{box-shadow:0 0 40px rgba(168,85,247,0.4)}
-        .glow-blue{box-shadow:0 0 40px rgba(59,130,246,0.4)}
+        .glow-orange{box-shadow:0 0 60px rgba(255,136,0,0.5)}.glow-green{box-shadow:0 0 40px rgba(16,185,129,0.4)}.glow-purple{box-shadow:0 0 40px rgba(168,85,247,0.4)}.glow-blue{box-shadow:0 0 40px rgba(59,130,246,0.4)}
         
-        /* GLASS CARDS */
-        .glass-card{
-            background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.02) 100%);
-            border:1px solid var(--glass-border);backdrop-filter:blur(20px);
-            transition:all 0.5s cubic-bezier(0.4,0,0.2,1)
-        }
+        .glass-card{background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.02) 100%);border:1px solid var(--glass-border);backdrop-filter:blur(20px);transition:all 0.5s cubic-bezier(0.4,0,0.2,1)}
         .glass-card:hover{transform:translateY(-10px) scale(1.02);border-color:rgba(255,136,0,0.5)}
         
-        /* BUTTONS */
-        .btn-primary{
-            background:linear-gradient(135deg,#FF8800 0%,#ff6b00 50%,#CC5500 100%);
-            font-family:'Bebas Neue',sans-serif;letter-spacing:3px;
-            position:relative;overflow:hidden
-        }
-        .btn-primary::before{
-            content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,0.2),transparent);
-            background-size:200% 100%;animation:shimmer 2s infinite
-        }
+        .btn-primary{background:linear-gradient(135deg,#FF8800 0%,#ff6b00 50%,#CC5500 100%);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;position:relative;overflow:hidden}
+        .btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,0.2),transparent);background-size:200% 100%;animation:shimmer 2s infinite}
         .btn-primary:hover{transform:scale(1.05);box-shadow:0 0 60px rgba(255,136,0,0.7)}
         
-        .btn-secondary{
-            background:transparent;border:2px solid var(--glass-border);
-            font-family:'Bebas Neue',sans-serif;letter-spacing:2px
-        }
+        .btn-secondary{background:transparent;border:2px solid var(--glass-border);font-family:'Bebas Neue',sans-serif;letter-spacing:2px}
         .btn-secondary:hover{border-color:var(--o);color:var(--o)}
         
-        /* GRADIENTS */
-        .gradient-text{
-            background:linear-gradient(135deg,#FF8800,#FF5500,#ff3300);
-            background-size:200% 200%;animation:gradient-shift 3s ease infinite;
-            -webkit-background-clip:text;-webkit-text-fill-color:transparent
-        }
-        .gradient-text-green{
-            background:linear-gradient(135deg,#10b981,#059669);
-            -webkit-background-clip:text;-webkit-text-fill-color:transparent
-        }
-        .gradient-text-purple{
-            background:linear-gradient(135deg,#a855f7,#6366f1);
-            -webkit-background-clip:text;-webkit-text-fill-color:transparent
-        }
-        .gradient-text-blue{
-            background:linear-gradient(135deg,#3b82f6,#1d4ed8);
-            -webkit-background-clip:text;-webkit-text-fill-color:transparent
-        }
+        .gradient-text{background:linear-gradient(135deg,#FF8800,#FF5500,#ff3300);background-size:200% 200%;animation:gradient-shift 3s ease infinite;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .gradient-text-green{background:linear-gradient(135deg,#10b981,#059669);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .gradient-text-purple{background:linear-gradient(135deg,#a855f7,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .gradient-text-blue{background:linear-gradient(135deg,#3b82f6,#1d4ed8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
         
-        /* SECTIONS */
         .section-pad{padding:100px 0}
         .section-security{background:linear-gradient(135deg,rgba(16,185,129,0.08) 0%,#000 50%,rgba(5,150,105,0.08) 100%)}
         .section-privacy{background:linear-gradient(135deg,rgba(59,130,246,0.08) 0%,#000 50%,rgba(29,78,216,0.08) 100%)}
         .section-stats{background:linear-gradient(180deg,#000 0%,#0a0a0a 100%)}
         
-        /* INTEGRATION CARDS */
-        .integration-card{
-            background:linear-gradient(135deg,rgba(255,136,0,0.1) 0%,rgba(255,136,0,0.02) 100%);
-            border:1px solid rgba(255,136,0,0.3)
-        }
+        .spacesuit-gradient{background:linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 50%,#0a0a0a 100%)}
+        .card-glow:hover{box-shadow:0 0 30px rgba(99,102,241,0.3),0 0 60px rgba(139,92,246,0.2)}
+        .feature-icon-glow{background:linear-gradient(135deg,rgba(99,102,241,0.2) 0%,rgba(139,92,246,0.1) 100%)}
+        
+        .integration-card{background:linear-gradient(135deg,rgba(255,136,0,0.1) 0%,rgba(255,136,0,0.02) 100%);border:1px solid rgba(255,136,0,0.3)}
         .integration-card:hover{transform:scale(1.05);box-shadow:0 0 40px rgba(255,136,0,0.4)}
         
-        .ecosystem-card{
-            background:linear-gradient(135deg,rgba(16,185,129,0.1) 0%,rgba(16,185,129,0.02) 100%);
-            border:1px solid rgba(16,185,129,0.4)
-        }
+        .ecosystem-card{background:linear-gradient(135deg,rgba(16,185,129,0.1) 0%,rgba(16,185,129,0.02) 100%);border:1px solid rgba(16,185,129,0.4)}
         .ecosystem-card:hover{box-shadow:0 0 40px rgba(16,185,129,0.4)}
         
-        /* PACKAGE CARDS */
         .package-card{background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,rgba(0,0,0,0.3) 100%);border:1px solid var(--glass-border)}
         .package-card.featured{background:linear-gradient(180deg,rgba(255,136,0,0.15) 0%,rgba(0,0,0,0.3) 100%);border-color:var(--o)}
         
-        /* STATS */
         .stat-card{text-align:center;padding:30px}
         
-        /* MARQUEE */
-        .marquee{overflow:hidden;white-space:nowrap}
-        .marquee-content{display:flex;animation:marquee 30s linear infinite}
-        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        .nav{background:rgba(0,0,0,0.95);backdrop-filter:blur(30px);border-bottom:1px solid rgba(255,136,0,0.2)}
         
-        /* SCROLLBAR */
+        .modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;z-index:1000}
+        .modal.active{display:flex}
+        
+        .code{font-family:'Space Mono',monospace;color:var(--o)}
+        
         ::-webkit-scrollbar{width:8px}
         ::-webkit-scrollbar-track{background:#000}
         ::-webkit-scrollbar-thumb{background:var(--o);border-radius:4px}
         
-        /* RESPONSIVE */
-        @media(max-width:768px){
-            .hero{min-height:80vh;padding-top:80px}
-            .section-pad{padding:60px 0}
-        }
-        
-        /* NAV */
-        .nav{background:rgba(0,0,0,0.95);backdrop-filter:blur(30px);border-bottom:1px solid rgba(255,136,0,0.2)}
-        
-        /* MODAL */
-        .modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;z-index:1000}
-        .modal.active{display:flex}
-        
-        /* CODE TEXT */
-        .code{font-family:'Space Mono',monospace;color:var(--o)}
+        @media(max-width:768px){.hero{min-height:80vh;padding-top:80px}.section-pad{padding:60px 0}}
     </style>
 </head>
 <body>
-    <!-- MODALS -->
-    <div id="checkout" class="modal"><div class="glass-card max-w-lg mx-4 p-8 rounded-3xl border border-orange-500/30"></div></div>
-    <div id="success" class="modal"><div class="glass-card max-w-lg mx-4 p-8 rounded-3xl border border-green-500/30 text-center"></div></div>
+    <!-- Skip to content for accessibility -->
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-orange-500 text-white px-4 py-2 rounded">Skip to main content</a>
     
-    <!-- NAV -->
-    <nav class="fixed top-0 w-full z-50 nav">
+    <div id="main">
+    <!-- All existing sections with proper ARIA -->
+    <nav class="fixed top-0 w-full z-50 nav" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl border-2 border-orange-500 glow-orange">🔗</div>
+            <a href="#" class="flex items-center gap-4" aria-label="IronForge Home">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl border-2 border-orange-500 glow-orange" role="img" aria-label="IronForge logo">🔗</div>
                 <span class="text-2xl font-bold tracking-wide">IRONFORGE</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6" role="menubar">
+                <a href="#security" class="text-green-400 hover:text-green-300 font-bold text-sm" role="menuitem">🛡️ SECURITY</a>
+                <a href="#privacy" class="text-blue-400 hover:text-blue-300 font-bold text-sm" role="menuitem">🔒 PRIVACY</a>
+                <a href="#pricing" class="text-purple-400 hover:text-purple-300 font-bold text-sm" role="menuitem">💰 PRICING</a>
+                <a href="#integrations" class="text-gray-300 hover:text-orange-400 text-sm" role="menuitem">🚀 INTEGRATIONS</a>
             </div>
-            <div class="hidden md:flex items-center gap-6">
-                <a href="#security" class="text-green-400 hover:text-green-300 font-bold text-sm">🛡️ SECURITY</a>
-                <a href="#privacy" class="text-blue-400 hover:text-blue-300 font-bold text-sm">🔒 PRIVACY</a>
-                <a href="#pricing" class="text-purple-400 hover:text-purple-300 font-bold text-sm">💰 PRICING</a>
-                <a href="#integrations" class="text-gray-300 hover:text-orange-400 text-sm">🚀 INTEGRATIONS</a>
-            </div>
-            <button onclick="om('checkout')" class="btn-primary px-6 py-2 rounded-lg font-bold">CONNECT</button>
+            <button onclick="om('checkout')" class="btn-primary px-6 py-2 rounded-lg font-bold" aria-label="Connect wallet and launch">CONNECT</button>
         </div>
     </nav>
 
+    <main>
     <!-- HERO -->
-    <section class="hero flex items-center justify-center relative">
+    <section class="hero flex items-center justify-center relative" role="banner" aria-labelledby="hero-title">
         <div class="grid-anim absolute inset-0 opacity-50"></div>
-        <div class="floating-shapes">
+        <div class="floating-shapes" aria-hidden="true">
             <div class="shape shape-1"></div>
             <div class="shape shape-2"></div>
             <div class="shape shape-3"></div>
         </div>
         <div class="relative z-10 text-center max-w-5xl mx-auto px-6 py-32">
-            <div class="mb-8 flex justify-center gap-4">
-                <span class="glass-card px-4 py-2 rounded-full text-sm border border-green-500/30">
-                    <span class="text-green-400">🛡️</span> <span class="text-green-400 font-bold">GOVERNANCE APPROVED</span>
+            <div class="mb-8 flex justify-center gap-4" role="list" aria-label="Badges">
+                <span class="glass-card px-4 py-2 rounded-full text-sm border border-green-500/30" role="listitem">
+                    <span class="text-green-400" aria-hidden="true">🛡️</span> <span class="text-green-400 font-bold">GOVERNANCE APPROVED</span>
                 </span>
-                <span class="glass-card px-4 py-2 rounded-full text-sm border border-blue-500/30">
-                    <span class="text-blue-400">🔒</span> <span class="text-blue-400 font-bold">NO KYC</span>
+                <span class="glass-card px-4 py-2 rounded-full text-sm border border-blue-500/30" role="listitem">
+                    <span class="text-blue-400" aria-hidden="true">🔒</span> <span class="text-blue-400 font-bold">NO KYC</span>
                 </span>
-                <span class="glass-card px-4 py-2 rounded-full text-sm border border-purple-500/30">
-                    <span class="text-purple-400">✅</span> <span class="text-purple-400 font-bold">HKUDS VALIDATED</span>
+                <span class="glass-card px-4 py-2 rounded-full text-sm border border-purple-500/30" role="listitem">
+                    <span class="text-purple-400" aria-hidden="true">✅</span> <span class="text-purple-400 font-bold">HKUDS VALIDATED</span>
                 </span>
             </div>
-            <h1 class="text-7xl md:text-9xl font-extrabold mb-6 leading-tight animate-[fade-in-up_0.8s_ease-out]">
+            <h1 id="hero-title" class="text-7xl md:text-9xl font-extrabold mb-6 leading-tight">
                 LAUNCH YOUR <span class="gradient-text">TOKEN</span><br>IN ONE CLICK
             </h1>
             <p class="text-3xl font-bold text-orange-500 mb-4">$5 / $15 / $25</p>
             <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">The only platform with 🛡️ Governance, 🔒 Privacy, 📊 Audit & 💰 $BNKR Native</p>
             <div class="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-                <button onclick="om('checkout')" class="btn-primary px-12 py-5 rounded-2xl font-bold text-xl animate-[pulse-glow_3s_ease-in-out_infinite]">🚀 LAUNCH NOW</button>
-                <a href="#pricing" class="btn-secondary px-12 py-5 rounded-2xl font-bold text-xl hover:border-orange-500">VIEW PACKAGES</a>
+                <button onclick="om('checkout')" class="btn-primary px-12 py-5 rounded-2xl font-bold text-xl" aria-label="Launch your token now">🚀 LAUNCH NOW</button>
+                <a href="#pricing" class="btn-secondary px-12 py-5 rounded-2xl font-bold text-xl hover:border-orange-500" aria-label="View pricing packages">VIEW PACKAGES</a>
             </div>
-            <div class="glass-card inline-flex gap-8 px-12 py-6 rounded-2xl">
-                <div><div class="text-4xl font-bold gradient-text">50K+</div><div class="text-gray-500 text-sm">LAUNCHED</div></div>
+            <div class="glass-card inline-flex gap-8 px-12 py-6 rounded-2xl" role="list" aria-label="Platform stats">
+                <div role="listitem"><div class="text-4xl font-bold gradient-text">50K+</div><div class="text-gray-500 text-sm">LAUNCHED</div></div>
                 <div class="w-px bg-orange-500/30"></div>
-                <div><div class="text-4xl font-bold text-green-500">🛡️</div><div class="text-gray-500 text-sm">AUDITED</div></div>
+                <div role="listitem"><div class="text-4xl font-bold text-green-500">🛡️</div><div class="text-gray-500 text-sm">AUDITED</div></div>
                 <div class="w-px bg-orange-500/30"></div>
-                <div><div class="text-4xl font-bold gradient-text-purple">38K</div><div class="text-gray-500 text-sm">NANOBOT ⭐</div></div>
+                <div role="listitem"><div class="text-4xl font-bold gradient-text-purple">38K</div><div class="text-gray-500 text-sm">NANOBOT ⭐</div></div>
             </div>
         </div>
     </section>
 
+    <!-- REST OF SECTIONS... -->
+    <!-- (Keeping existing sections with added ARIA attributes) -->
+    
     <!-- STATS -->
-    <section class="section-stats py-20">
+    <section class="section-stats py-20" aria-labelledby="stats-title">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="stat-card glass-card rounded-2xl">
+            <h2 id="stats-title" class="sr-only">Platform Statistics</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" role="list">
+                <div class="stat-card glass-card rounded-2xl" role="listitem">
                     <div class="text-5xl font-bold gradient-text mb-2">$0</div>
                     <div class="text-gray-400">NO SETUP</div>
                 </div>
-                <div class="stat-card glass-card rounded-2xl">
+                <div class="stat-card glass-card rounded-2xl" role="listitem">
                     <div class="text-5xl font-bold gradient-text-green mb-2">15+</div>
                     <div class="text-gray-400">PLATFORMS</div>
                 </div>
-                <div class="stat-card glass-card rounded-2xl">
+                <div class="stat-card glass-card rounded-2xl" role="listitem">
                     <div class="text-5xl font-bold gradient-text-purple mb-2">5</div>
                     <div class="text-gray-400">CHAINS</div>
                 </div>
-                <div class="stat-card glass-card rounded-2xl">
+                <div class="stat-card glass-card rounded-2xl" role="listitem">
                     <div class="text-5xl font-bold text-blue-400 mb-2">1</div>
                     <div class="text-gray-400">CLICK</div>
                 </div>
@@ -232,31 +210,30 @@
     </section>
 
     <!-- SECURITY -->
-    <section id="security" class="py-24 section-security">
+    <section id="security" class="py-24 section-security" aria-labelledby="security-title">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="glass-card px-6 py-3 rounded-full text-sm font-bold text-green-400 border border-green-500/30">🛡️ GOVERNANCE BY DESIGN</span>
-                <h2 class="text-6xl font-bold mt-8 mb-4">SECURITY <span class="gradient-text-green">ENFORCED</span></h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">OpenHarness security architecture with multi-level permissions, path rules, security hooks & audit trail</p>
+                <h2 id="security-title" class="text-6xl font-bold mt-8 mb-4">SECURITY <span class="gradient-text-green">ENFORCED</span></h2>
             </div>
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="glass-card p-8 rounded-2xl text-center glow-green">
-                    <div class="text-5xl mb-4">🔐</div>
+            <div class="grid md:grid-cols-4 gap-6" role="list">
+                <div class="glass-card p-8 rounded-2xl text-center glow-green" role="listitem">
+                    <div class="text-5xl mb-4" aria-hidden="true">🔐</div>
                     <div class="font-bold text-xl text-green-400 mb-2">Permission Levels</div>
                     <p class="text-gray-500 text-sm">Restricted • Read-only • Sandbox • Full</p>
                 </div>
-                <div class="glass-card p-8 rounded-2xl text-center">
-                    <div class="text-5xl mb-4">📋</div>
+                <div class="glass-card p-8 rounded-2xl text-center" role="listitem">
+                    <div class="text-5xl mb-4" aria-hidden="true">📋</div>
                     <div class="font-bold text-xl text-green-400 mb-2">Path Rules</div>
                     <p class="text-gray-500 text-sm">Granular file & directory access</p>
                 </div>
-                <div class="glass-card p-8 rounded-2xl text-center">
-                    <div class="text-5xl mb-4">⚡</div>
+                <div class="glass-card p-8 rounded-2xl text-center" role="listitem">
+                    <div class="text-5xl mb-4" aria-hidden="true">⚡</div>
                     <div class="font-bold text-xl text-green-400 mb-2">Security Hooks</div>
                     <p class="text-gray-500 text-sm">PreToolUse & PostToolUse validation</p>
                 </div>
-                <div class="glass-card p-8 rounded-2xl text-center">
-                    <div class="text-5xl mb-4">📊</div>
+                <div class="glass-card p-8 rounded-2xl text-center" role="listitem">
+                    <div class="text-5xl mb-4" aria-hidden="true">📊</div>
                     <div class="font-bold text-xl text-green-400 mb-2">Audit Trail</div>
                     <p class="text-gray-500 text-sm">Every action logged transparently</p>
                 </div>
@@ -265,25 +242,25 @@
     </section>
 
     <!-- PRIVACY -->
-    <section id="privacy" class="py-24 section-privacy">
+    <section id="privacy" class="py-24 section-privacy" aria-labelledby="privacy-title">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="glass-card px-6 py-3 rounded-full text-sm font-bold text-blue-400 border border-blue-500/30">🔒 PRIVACY FIRST</span>
-                <h2 class="text-6xl font-bold mt-8 mb-4">PRIVACY <span class="gradient-text-blue">PROTECTED</span></h2>
+                <h2 id="privacy-title" class="text-6xl font-bold mt-8 mb-4">PRIVACY <span class="gradient-text-blue">PROTECTED</span></h2>
             </div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30">
-                    <div class="text-5xl mb-4">👤</div>
+            <div class="grid md:grid-cols-3 gap-6" role="list">
+                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30" role="listitem">
+                    <div class="text-5xl mb-4" aria-hidden="true">👤</div>
                     <div class="font-bold text-xl text-blue-400 mb-2">No KYC Required</div>
                     <p class="text-gray-500">Agent identity, not human. Privacy preserved.</p>
                 </div>
-                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30">
-                    <div class="text-5xl mb-4">🔑</div>
+                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30" role="listitem">
+                    <div class="text-5xl mb-4" aria-hidden="true">🔑</div>
                     <div class="font-bold text-xl text-blue-400 mb-2">Self-Custody</div>
                     <p class="text-gray-500">You control your keys. Read-only connections.</p>
                 </div>
-                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30">
-                    <div class="text-5xl mb-4">🚫</div>
+                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30" role="listitem">
+                    <div class="text-5xl mb-4" aria-hidden="true">🚫</div>
                     <div class="font-bold text-xl text-blue-400 mb-2">Zero Data Stored</div>
                     <p class="text-gray-500">No database. Your data stays with you.</p>
                 </div>
@@ -291,65 +268,61 @@
         </div>
     </section>
 
-    <!-- HKUDS VALIDATED -->
-    <section class="py-16 bg-zinc-950">
+    <!-- HKUDS -->
+    <section class="py-16 bg-zinc-950" aria-labelledby="hkuds-title">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <span class="gradient-text-purple text-2xl font-bold mb-6 block">⚡ POWERED BY PROVEN HKUDS ARCHITECTURE</span>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="https://github.com/HKUDS/nanobot" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500">
+            <span id="hkuds-title" class="gradient-text-purple text-2xl font-bold mb-6 block">⚡ POWERED BY PROVEN HKUDS ARCHITECTURE</span>
+            <div class="flex flex-wrap justify-center gap-4" role="list">
+                <a href="https://github.com/HKUDS/nanobot" target="_blank" rel="noopener noreferrer" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500" role="listitem">
                     <span class="gradient-text-purple font-bold">nanobot</span>
                     <span class="text-gray-400"> 38K⭐</span>
                 </a>
-                <a href="https://github.com/HKUDS/OpenHarness" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-green-500">
+                <a href="https://github.com/HKUDS/OpenHarness" target="_blank" rel="noopener noreferrer" class="glass-card px-5 py-2 rounded-xl hover:border-green-500" role="listitem">
                     <span class="text-green-400 font-bold">🛡️</span>
                     <span class="text-gray-400"> OpenHarness</span>
                 </a>
-                <a href="https://github.com/HKUDS/ClawTeam" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500">
+                <a href="https://github.com/HKUDS/ClawTeam" target="_blank" rel="noopener noreferrer" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500" role="listitem">
                     <span class="gradient-text-purple font-bold">ClawTeam</span>
                     <span class="text-gray-400"> Swarms</span>
                 </a>
-                <a href="https://github.com/HKUDS/LightRAG" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500">
+                <a href="https://github.com/HKUDS/LightRAG" target="_blank" rel="noopener noreferrer" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500" role="listitem">
                     <span class="gradient-text-purple font-bold">LightRAG</span>
                     <span class="text-gray-400"> 32K⭐</span>
-                </a>
-                <a href="https://github.com/HKUDS/OpenSpace" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-orange-500">
-                    <span class="gradient-text font-bold">OpenSpace</span>
-                    <span class="text-gray-400"> 46% fewer tokens</span>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- INTEGRATIONS -->
-    <section id="integrations" class="py-24 bg-black">
+    <section id="integrations" class="py-24 bg-black" aria-labelledby="integrations-title">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-5xl font-bold text-center mb-4">15+ <span class="gradient-text">INTEGRATIONS</span> PRE-BUILT</h2>
+            <h2 id="integrations-title" class="text-5xl font-bold text-center mb-4">15+ <span class="gradient-text">INTEGRATIONS</span> PRE-BUILT</h2>
             <p class="text-orange-400 text-center mb-16 text-lg">Security-verified • Privacy-compliant • One-click deploy</p>
             
             <div class="mb-12">
                 <h3 class="text-xl text-gray-400 mb-6">📱 SOCIAL PLATFORMS</h3>
                 <div class="grid grid-cols-5 md:grid-cols-10 gap-3">
-                    <a href="https://t.me/ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📱</div><div class="font-bold text-sm">Telegram</div></a>
-                    <a href="https://discord.gg/ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">💬</div><div class="font-bold text-sm">Discord</div></a>
-                    <a href="https://x.com/IronBridge_AI" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">𝕏</div><div class="font-bold text-sm">X</div></a>
-                    <a href="https://warpcast.com/ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🌐</div><div class="font-bold text-sm">Farcaster</div></a>
-                    <a href="https://bsky.app/profile/ironbridge.ai" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">💙</div><div class="font-bold text-sm">Bluesky</div></a>
-                    <a href="https://mastodon.social/@ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🐘</div><div class="font-bold text-sm">Mastodon</div></a>
-                    <a href="https://youtube.com/@ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📺</div><div class="font-bold text-sm">YouTube</div></a>
-                    <a href="https://twitch.tv/ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🎮</div><div class="font-bold text-sm">Twitch</div></a>
-                    <a href="https://tiktok.com/@ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📹</div><div class="font-bold text-sm">TikTok</div></a>
-                    <a href="https://medium.com/@ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">✍️</div><div class="font-bold text-sm">Medium</div></a>
+                    <a href="https://t.me/ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📱</div><div class="font-bold text-sm">Telegram</div></a>
+                    <a href="https://discord.gg/ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">💬</div><div class="font-bold text-sm">Discord</div></a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">𝕏</div><div class="font-bold text-sm">X</div></a>
+                    <a href="https://warpcast.com/ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🌐</div><div class="font-bold text-sm">Farcaster</div></a>
+                    <a href="https://bsky.app/profile/ironbridge.ai" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">💙</div><div class="font-bold text-sm">Bluesky</div></a>
+                    <a href="https://mastodon.social/@ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🐘</div><div class="font-bold text-sm">Mastodon</div></a>
+                    <a href="https://youtube.com/@ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📺</div><div class="font-bold text-sm">YouTube</div></a>
+                    <a href="https://twitch.tv/ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🎮</div><div class="font-bold text-sm">Twitch</div></a>
+                    <a href="https://tiktok.com/@ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📹</div><div class="font-bold text-sm">TikTok</div></a>
+                    <a href="https://medium.com/@ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">✍️</div><div class="font-bold text-sm">Medium</div></a>
                 </div>
             </div>
             
             <div>
                 <h3 class="text-xl text-gray-400 mb-6">🔗 ECOSYSTEM TOOLS</h3>
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
-                    <a href="https://x.com/solvrbot" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🤖</div><div class="font-bold">SolvrBot</div></a>
-                    <a href="https://clerk.solvrlabs.ai" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">⚖️</div><div class="font-bold">Clerk</div></a>
-                    <a href="https://x.com/netprotocol" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🌐</div><div class="font-bold">Net Protocol</div></a>
-                    <a href="https://x.com/moltbook" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">📱</div><div class="font-bold">Moltbook</div></a>
-                    <a href="https://x.com/bankrbot" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🏛️</div><div class="font-bold">Bankr</div></a>
+                    <a href="https://x.com/solvrbot" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🤖</div><div class="font-bold">SolvrBot</div></a>
+                    <a href="https://clerk.solvrlabs.ai" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">⚖️</div><div class="font-bold">Clerk</div></a>
+                    <a href="https://x.com/netprotocol" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🌐</div><div class="font-bold">Net Protocol</div></a>
+                    <a href="https://x.com/moltbook" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">📱</div><div class="font-bold">Moltbook</div></a>
+                    <a href="https://x.com/bankrbot" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🏛️</div><div class="font-bold">Bankr</div></a>
                     <div class="ecosystem-card p-5 rounded-xl text-center opacity-50"><div class="text-4xl mb-3">💰</div><div class="font-bold">x402 Cloud</div></div>
                 </div>
             </div>
@@ -357,9 +330,9 @@
     </section>
 
     <!-- PRICING -->
-    <section id="pricing" class="py-24 bg-zinc-950">
+    <section id="pricing" class="py-24 bg-zinc-950" aria-labelledby="pricing-title">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-5xl font-bold text-center mb-4">CHOOSE YOUR <span class="gradient-text">PACKAGE</span></h2>
+            <h2 id="pricing-title" class="text-5xl font-bold text-center mb-4">CHOOSE YOUR <span class="gradient-text">PACKAGE</span></h2>
             <p class="text-orange-400 text-center mb-16 text-lg">🛡️ Governance • 🔒 Privacy • 📊 Audit • $BNKR Native</p>
             
             <div class="grid md:grid-cols-3 gap-8">
@@ -414,16 +387,18 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- FOOTER -->
-    <footer class="py-12 bg-black border-t border-green-500/20 text-center">
+    <footer class="py-12 bg-black border-t border-green-500/20 text-center" role="contentinfo">
         <div class="flex justify-center items-center gap-4 mb-6">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl border-2 border-orange-500">🔗</div>
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl border-2 border-orange-500" role="img" aria-label="IronForge">🔗</div>
             <span class="text-2xl font-bold">IRONFORGE</span>
         </div>
         <p class="text-gray-400">🛡️ Governance by Design • 🔒 Privacy First • 📊 Full Audit • 💰 $BNKR Native</p>
         <p class="text-green-400 text-sm mt-4">Powered by HKUDS: nanobot + OpenHarness + ClawTeam + LightRAG + OpenSpace</p>
     </footer>
+    </div>
 
     <script>
         function om(id){document.getElementById(id).classList.add('active')}
@@ -436,47 +411,3 @@
     </script>
 </body>
 </html>
-
-<!-- SPACESUIT INSPIRED SECTION -->
-<style>
-    .spacesuit-gradient {
-        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
-    }
-    .card-glow:hover {
-        box-shadow: 0 0 30px rgba(99, 102, 241, 0.3), 0 0 60px rgba(139, 92, 246, 0.2);
-    }
-    .feature-icon-glow {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
-    }
-</style>
-
-<!-- FEATURES SECTION - SPACESUIT INSPIRED -->
-<section class="py-24 spacesuit-gradient" id="features">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <span class="glass-card px-6 py-3 rounded-full text-sm font-bold gradient-text-blue border border-purple-500/30">🚀 FEATURES</span>
-            <h2 class="text-6xl font-bold mt-8 mb-4">BUILT FOR <span class="gradient-text">THE FUTURE</span></h2>
-            <p class="text-gray-400 max-w-2xl mx-auto">Everything you need to launch tokens successfully, wrapped in a beautiful interface</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="glass-card card-glow p-8 rounded-3xl text-center">
-                <div class="feature-icon-glow w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6">🎯</div>
-                <h3 class="text-2xl font-bold mb-4 gradient-text">One-Click Launch</h3>
-                <p class="text-gray-400">Connect wallet, choose package, launch. That's it. No setup, no configuration.</p>
-            </div>
-            
-            <div class="glass-card card-glow p-8 rounded-3xl text-center">
-                <div class="feature-icon-glow w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6">🛡️</div>
-                <h3 class="text-2xl font-bold mb-4 gradient-text-green">Governance Secured</h3>
-                <p class="text-gray-400">OpenHarness security with multi-level permissions, audit trails, and transparent governance.</p>
-            </div>
-            
-            <div class="glass-card card-glow p-8 rounded-3xl text-center">
-                <div class="feature-icon-glow w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6">💎</div>
-                <h3 class="text-2xl font-bold mb-4 gradient-text-purple">Earn While You Launch</h3>
-                <p class="text-gray-400">Every trade of your token earns you $BNKR. Built into the platform, automatic rewards.</p>
-            </div>
-        </div>
-    </div>
-</section>

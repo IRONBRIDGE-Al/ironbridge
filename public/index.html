@@ -3,100 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IronBridge — Deploy AI Agents to 6 Platforms in One Click</title>
+    <title>IronBridge — Deploy AI Agents to everywhere</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-text { background: linear-gradient(135deg, #a855f7, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .glow { box-shadow: 0 0 60px rgba(168, 85, 247, 0.4); }
-        .platform-hover { transition: all 0.3s ease; }
-        .platform-hover:hover { transform: translateY(-8px); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', sans-serif; background: #000; color: #fff; }
+        
+        /* Animated gradient background */
+        .hero-gradient {
+            background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(124, 58, 237, 0.4), transparent),
+                        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(6, 182, 212, 0.2), transparent),
+                        #000;
+        }
+        
+        /* Animated grid */
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+        
+        /* Glow effects */
+        .glow-purple { filter: drop-shadow(0 0 40px rgba(124, 58, 237, 0.5)); }
+        .glow-cyan { filter: drop-shadow(0 0 40px rgba(6, 182, 212, 0.5)); }
+        .glow-green { filter: drop-shadow(0 0 40px rgba(34, 197, 94, 0.5)); }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Hover animations */
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .hover-lift:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px -20px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.6); }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        /* Button gradient */
+        .btn-gradient {
+            background: linear-gradient(135deg, #9333ea 0%, #6366f1 50%, #0891b2 100%);
+            background-size: 200% 200%;
+            animation: gradientMove 4s ease infinite;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="overflow-x-hidden">
     <!-- NAV -->
-    <nav class="fixed top-0 w-full bg-black/80 backdrop-blur-xl border-b border-white/10 z-50">
+    <nav class="fixed top-0 w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-xl flex items-center justify-center text-2xl">🔗</div>
-                <span class="text-2xl font-bold gradient-text">IronBridge</span>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-indigo-500 to-cyan-500 flex items-center justify-center text-xl font-bold glow-purple">🔗</div>
+                <span class="text-xl font-bold">IronBridge</span>
             </div>
-            <a href="#platforms" class="text-white/70 hover:text-white transition">Platforms</a>
-            <a href="#safety" class="text-white/70 hover:text-white transition">Safety</a>
-            <a href="#powerups" class="text-white/70 hover:text-white transition">Power-ups</a>
-            <a href="#pricing" class="bg-purple-600 hover:bg-purple-500 px-6 py-2 rounded-full font-semibold">GET STARTED</a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="#platforms" class="hover:text-white transition">Platforms</a>
+                <a href="#safety" class="hover:text-white transition">Safety</a>
+                <a href="#powerups" class="hover:text-white transition">Power-ups</a>
+                <a href="#pricing" class="hover:text-white transition">Pricing</a>
+            </div>
+            <a href="#pricing" class="hidden md:block btn-gradient px-6 py-2.5 rounded-full font-semibold text-white hover:scale-105 transition">
+                Get Started
+            </a>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="min-h-screen flex items-center justify-center pt-20">
-        <div class="text-center max-w-4xl mx-auto px-6">
-            <div class="inline-block bg-purple-500/20 text-purple-400 px-4 py-2 rounded-full text-sm mb-8">
-                🚀 ONE CLICK DEPLOYS TO 6 PLATFORMS
+    <section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="grid-pattern absolute inset-0 z-0"></div>
+        
+        <div class="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span class="text-sm text-gray-300">6 Platforms • 1 Click • Zero Code</span>
             </div>
-            <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+            
+            <!-- Main Headline -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight">
                 Deploy Your AI Agent<br>
                 <span class="gradient-text">Everywhere at Once</span>
             </h1>
-            <p class="text-xl text-white/60 mb-10 max-w-2xl mx-auto">
+            
+            <!-- Subheadline -->
+            <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto">
                 Zero code. Zero stress. Telegram, Discord, X, Farrcaster, Bluesky, Mastodon — 
-                all connected automatically with safety scanning and x402 payments built in.
+                all connected automatically.
             </p>
+            
+            <!-- CTAs -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#pricing" class="bg-gradient-to-r from-purple-600 to-pink-500 px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition glow">
-                    🚀 GET STARTED — ONE CLICK
+                <a href="#pricing" class="btn-gradient px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition animate-pulse-glow">
+                    🚀 Get Started — One Click
                 </a>
-                <a href="#platforms" class="border border-white/20 px-10 py-4 rounded-full font-semibold hover:bg-white/10 transition">
-                    See All Platforms
+                <a href="#platforms" class="glass px-10 py-5 rounded-full font-semibold hover:bg-white/10 transition">
+                    See How It Works
                 </a>
             </div>
-            <p class="text-white/40 text-sm mt-6">Powered by Bankr • Built on Base • x402 Ready</p>
+            
+            <!-- Trust badges -->
+            <div class="flex flex-wrap justify-center gap-6 mt-16 text-sm text-gray-500">
+                <div class="flex items-center gap-2">
+                    <span class="text-green-400">✓</span> x402 Ready
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-green-400">✓</span> Bankr Built
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-green-400">✓</span> Base Native
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- 6 PLATFORMS -->
-    <section id="platforms" class="py-24 bg-zinc-900">
+    <section id="platforms" class="py-24 bg-zinc-950">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">6 Platforms — One Deploy</h2>
-            <p class="text-white/60 text-center mb-16">Every platform connected automatically</p>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">One Deploy — 6 Platforms</h2>
+                <p class="text-xl text-gray-400">Every platform connected automatically</p>
+            </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                <!-- Telegram -->
-                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
                     <div class="text-4xl mb-3">📱</div>
-                    <h3 class="font-bold mb-2">Telegram</h3>
-                    <p class="text-white/50 text-sm">Bot + Group</p>
+                    <h3 class="font-semibold">Telegram</h3>
+                    <p class="text-xs text-gray-500 mt-1">Bot + Group</p>
                 </div>
-                <!-- Discord -->
-                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
                     <div class="text-4xl mb-3">💬</div>
-                    <h3 class="font-bold mb-2">Discord</h3>
-                    <p class="text-white/50 text-sm">Server + Bot</p>
+                    <h3 class="font-semibold">Discord</h3>
+                    <p class="text-xs text-gray-500 mt-1">Server + Bot</p>
                 </div>
-                <!-- X -->
-                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
                     <div class="text-4xl mb-3">𝕏</div>
-                    <h3 class="font-bold mb-2">X (Twitter)</h3>
-                    <p class="text-white/50 text-sm">Profile + Auto</p>
+                    <h3 class="font-semibold">X</h3>
+                    <p class="text-xs text-gray-500 mt-1">Profile + API</p>
                 </div>
-                <!-- Farrcaster -->
-                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
                     <div class="text-4xl mb-3">🌐</div>
-                    <h3 class="font-bold mb-2">Farcaster</h3>
-                    <p class="text-white/50 text-sm">Frame + Cast</p>
+                    <h3 class="font-semibold">Farcaster</h3>
+                    <p class="text-xs text-gray-500 mt-1">Frame + Cast</p>
                 </div>
-                <!-- Bluesky -->
-                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
                     <div class="text-4xl mb-3">💙</div>
-                    <h3 class="font-bold mb-2">Bluesky</h3>
-                    <p class="text-white/50 text-sm">Fediverse</p>
+                    <h3 class="font-semibold">Bluesky</h3>
+                    <p class="text-xs text-gray-500 mt-1">Fediverse</p>
                 </div>
-                <!-- Mastodon -->
-                <div class="platform-hover bg-zinc-800 p-6 rounded-2xl text-center border border-zinc-700">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
                     <div class="text-4xl mb-3">🐘</div>
-                    <h3 class="font-bold mb-2">Mastodon</h3>
-                    <p class="text-white/50 text-sm">Fediverse</p>
+                    <h3 class="font-semibold">Mastodon</h3>
+                    <p class="text-xs text-gray-500 mt-1">Fediverse</p>
                 </div>
             </div>
         </div>
@@ -105,171 +202,162 @@
     <!-- SAFETY -->
     <section id="safety" class="py-24 bg-black">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">Safety First — Always On</h2>
-            <p class="text-white/60 text-center mb-16">Every deploy runs through security checks</p>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Safety First — Always On</h2>
+                <p class="text-xl text-gray-400">Every deploy runs through security checks automatically</p>
+            </div>
             
-            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bg-zinc-900 p-8 rounded-2xl border border-purple-500/30">
-                    <div class="text-4xl mb-4">🛡️</div>
-                    <h3 class="text-xl font-bold mb-2">@solvrbot</h3>
-                    <p class="text-white/60">Pre-deployment safety scanning. Checks for malicious code, vulnerabilities, and suspicious patterns before your agent goes live.</p>
+            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="glass-card hover-lift p-8 rounded-3xl border border-purple-500/30">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center text-3xl glow-purple">🛡️</div>
+                        <h3 class="text-xl font-bold">@solvrbot</h3>
+                    </div>
+                    <p class="text-gray-400">Pre-deployment safety scanning. Checks for malicious code, vulnerabilities, and suspicious patterns before your agent goes live.</p>
                 </div>
-                <div class="bg-zinc-900 p-8 rounded-2xl border border-cyan-500/30">
-                    <div class="text-4xl mb-4">🔒</div>
-                    <h3 class="text-xl font-bold mb-2">@bankrbot</h3>
-                    <p class="text-white/60">Bankr ecosystem verification. Ensures your agent meets all compliance requirements for the $BNKR ecosystem.</p>
+                <div class="glass-card hover-lift p-8 rounded-3xl border border-cyan-500/30">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-3xl glow-cyan">🔒</div>
+                        <h3 class="text-xl font-bold">@bankrbot</h3>
+                    </div>
+                    <p class="text-gray-400">Bankr ecosystem verification. Ensures your agent meets all compliance requirements for the $BNKR ecosystem.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- POWER-UPS -->
-    <section id="powerups" class="py-24 bg-zinc-900">
+    <section id="powerups" class="py-24 bg-zinc-950">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">Power-ups — Optional & Toggle-Only</h3>
-            <p class="text-white/60 text-center mb-16">Everything below is optional — never required</p>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Power-ups — Optional</h2>
+                <p class="text-xl text-gray-400">Everything below is toggle-only — never required</p>
+            </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
-                    <div class="text-2xl mb-2">💎</div>
-                    <h3 class="font-bold">Full Integration Package</h3>
-                    <p class="text-white/50 text-sm mt-2">Complete cross-platform sync + analytics dashboard</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="glass-card hover-lift p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">💎</div>
+                    <h3 class="font-bold text-lg">Full Integration Package</h3>
+                    <p class="text-gray-400 text-sm mt-2">Complete cross-platform sync + analytics dashboard</p>
                 </div>
-                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
-                    <div class="text-2xl mb-2">🎨</div>
-                    <h3 class="font-bold">Atelier Gigs</h3>
-                    <p class="text-white/50 text-sm mt-2">Custom avatar, banner, and branding assets</p>
+                <div class="glass-card hover-lift p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">🎨</div>
+                    <h3 class="font-bold text-lg">Atelier Gigs</h3>
+                    <p class="text-gray-400 text-sm mt-2">Custom avatar, banner, and branding assets</p>
                 </div>
-                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
-                    <div class="text-2xl mb-2">💡</div>
-                    <h3 class="font-bold">Lumen</h3>
-                    <p class="text-white/50 text-sm mt-2">AI-powered content generation & scheduling</p>
+                <div class="glass-card hover-lift p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">💡</div>
+                    <h3 class="font-bold text-lg">Lumen</h3>
+                    <p class="text-gray-400 text-sm mt-2">AI-powered content generation & scheduling</p>
                 </div>
-                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
-                    <div class="text-2xl mb-2">🤖</div>
-                    <h3 class="font-bold">0xSMC</h3>
-                    <p class="text-white/50 text-sm mt-2">Smart contract deployment & management</p>
+                <div class="glass-card hover-lift p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">🤖</div>
+                    <h3 class="font-bold text-lg">0xSMC</h3>
+                    <p class="text-gray-400 text-sm mt-2">Smart contract deployment & management</p>
                 </div>
-                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
-                    <div class="text-2xl mb-2">💰</div>
-                    <h3 class="font-bold">0xWork</h3>
-                    <p class="text-white/50 text-sm mt-2">Freelance marketplace integration</p>
+                <div class="glass-card hover-lift p-6 rounded-2xl">
+                    <div class="text-2xl mb-3">💼</div>
+                    <h3 class="font-bold text-lg">0xWork</h3>
+                    <p class="text-gray-400 text-sm mt-2">Freelance marketplace integration</p>
                 </div>
-                <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700">
-                    <div class="text-2xl mb-2">☁️</div>
-                    <h3 class="font-bold">x402 Cloud</h3>
-                    <p class="text-white/50 text-sm mt-2">Micropayments — agents can pay to use your agent</p>
+                <div class="glass-card hover-lift p-6 rounded-2xl border border-cyan-500/30">
+                    <div class="text-2xl mb-3">☁️ <span class="text-cyan-400 text-sm font-bold">BUILT IN</span></div>
+                    <h3 class="font-bold text-lg">x402 Cloud</h3>
+                    <p class="text-gray-400 text-sm mt-2">Agents can pay tiny fees to use your agent — automatic earnings</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- EARNING LOOP -->
+    <!-- EARN WHILE SLEEP -->
     <section class="py-24 bg-black">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-4">Earn While You Sleep</h2>
-            <p class="text-white/60 mb-12 max-w-2xl mx-auto">x402 Cloud lets other AI agents pay tiny fees to use your deployed agent. Every interaction = automatic earnings.</p>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Earn While You Sleep</h2>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
+                Other AI agents can pay tiny fees to use your deployed agent. 
+                Every interaction = automatic earnings — all handled by Bankr + x402 Cloud.
+            </p>
             
-            <div class="bg-gradient-to-r from-purple-900/50 to-cyan-900/50 p-8 rounded-3xl max-w-2xl mx-auto border border-purple-500/20">
-                <div class="text-6xl mb-4">💰 → 🤖 → 💰</div>
-                <p class="text-xl font-semibold">Other agents → Use your agent → You get paid</p>
-                <p class="text-white/50 mt-4">All routing handled by Bankr + x402 Cloud automatically</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- AGENT TYPES -->
-    <section class="py-24 bg-zinc-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">One Platform — Infinite Agents</h2>
-            <p class="text-white/60 text-center mb-16">Choose your agent type</p>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-zinc-800 p-8 rounded-2xl border border-zinc-700 hover:border-purple-500 transition cursor-pointer">
-                    <div class="text-4xl mb-4">🪙</div>
-                    <h3 class="text-xl font-bold">Meme Coin Agent</h3>
-                    <p class="text-white/50 mt-2">Launch tokens, manage communities, track trends</p>
-                    <span class="inline-block mt-4 text-purple-400 text-sm">Try IronForge →</span>
-                </div>
-                <div class="bg-zinc-800 p-8 rounded-2xl border border-zinc-700 hover:border-cyan-500 transition cursor-pointer">
-                    <div class="text-4xl mb-4">📊</div>
-                    <h3 class="text-xl font-bold">Trading Agent</h3>
-                    <p class="text-white/50 mt-2">Monitor markets, execute trades, manage portfolio</p>
-                </div>
-                <div class="bg-zinc-800 p-8 rounded-2xl border border-zinc-700 hover:border-green-500 transition cursor-pointer">
-                    <div class="text-4xl mb-4">💬</div>
-                    <h3 class="text-xl font-bold">Support Agent</h3>
-                    <p class="text-white/50 mt-2">Customer service, FAQ, community management</p>
-                </div>
+            <div class="glass-card p-10 rounded-3xl max-w-2xl mx-auto border border-purple-500/20">
+                <div class="text-6xl mb-6">⚡ → 🤖 → 💰</div>
+                <p class="text-xl font-semibold">User → Uses Your Agent → You Get Paid</p>
+                <p class="text-gray-500 mt-4">All automatically routed through x402 Cloud</p>
             </div>
         </div>
     </section>
 
     <!-- PRICING -->
-    <section id="pricing" class="py-24 bg-black">
+    <section id="pricing" class="py-24 bg-zinc-950">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-4">Simple Pricing</h2>
-            <p class="text-white/60 text-center mb-16">One fee — everything included</p>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Simple Pricing</h2>
+                <p class="text-xl text-gray-400">One fee — everything included</p>
+            </div>
             
-            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-700">
-                    <div class="text-3xl font-bold mb-2">Starter</div>
-                    <div class="text-5xl font-bold mb-4">$9<span class="text-lg text-white/50">/mo</span></div>
-                    <ul class="text-white/60 space-y-2 mb-6">
-                        <li>✅ 1 Agent</li>
-                        <li>✅ 3 Platforms</li>
-                        <li>✅ Basic Analytics</li>
+            <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <!-- Starter -->
+                <div class="glass-card hover-lift p-8 rounded-3xl">
+                    <div class="text-2xl font-bold mb-2">Starter</div>
+                    <div class="text-5xl font-bold mb-4">$9<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                    <ul class="text-gray-400 space-y-3 mb-8">
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 1 Agent</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 3 Platforms</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Basic Analytics</li>
                     </ul>
-                    <button class="w-full bg-white text-black py-3 rounded-xl font-bold">START</button>
+                    <button class="w-full py-4 rounded-xl font-bold bg-white/10 hover:bg-white/20 transition">Start Free</button>
                 </div>
-                <div class="bg-zinc-900 p-8 rounded-2xl border-2 border-purple-500 relative">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-500 text-black text-xs px-4 py-1 rounded-full font-bold">POPULAR</div>
-                    <div class="text-3xl font-bold mb-2">Growth</div>
-                    <div class="text-5xl font-bold mb-4">$29<span class="text-lg text-white/50">/mo</span></div>
-                    <ul class="text-white/60 space-y-2 mb-6">
-                        <li>✅ 3 Agents</li>
-                        <li>✅ 6 Platforms</li>
-                        <li>✅ Advanced Analytics</li>
-                        <li>✅ x402 Cloud</li>
+                
+                <!-- Growth -->
+                <div class="glass-card hover-lift p-8 rounded-3xl border-2 border-purple-500 relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-cyan-500 text-black text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</div>
+                    <div class="text-2xl font-bold mb-2">Growth</div>
+                    <div class="text-5xl font-bold mb-4">$29<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                    <ul class="text-gray-400 space-y-3 mb-8">
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 3 Agents</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 6 Platforms</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Advanced Analytics</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> x402 Cloud</li>
                     </ul>
-                    <button class="w-full bg-purple-600 py-3 rounded-xl font-bold">START</button>
+                    <button class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 transition">Start Free</button>
                 </div>
-                <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-700">
-                    <div class="text-3xl font-bold mb-2">Pro</div>
-                    <div class="text-5xl font-bold mb-4">$99<span class="text-lg text-white/50">/mo</span></div>
-                    <ul class="text-white/60 space-y-2 mb-6">
-                        <li>✅ Unlimited Agents</li>
-                        <li>✅ All Platforms</li>
-                        <li>✅ Priority Support</li>
-                        <li>✅ Custom Integrations</li>
+                
+                <!-- Pro -->
+                <div class="glass-card hover-lift p-8 rounded-3xl">
+                    <div class="text-2xl font-bold mb-2">Pro</div>
+                    <div class="text-5xl font-bold mb-4">$99<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                    <ul class="text-gray-400 space-y-3 mb-8">
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Unlimited Agents</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> All Platforms</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Priority Support</li>
+                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Custom Integrations</li>
                     </ul>
-                    <button class="w-full bg-cyan-600 py-3 rounded-xl font-bold">START</button>
+                    <button class="w-full py-4 rounded-xl font-bold bg-cyan-600 hover:bg-cyan-500 transition">Start Free</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="py-24 bg-gradient-to-b from-black to-purple-900/30">
+    <section class="py-24 bg-gradient-to-b from-black to-purple-950/30">
         <div class="text-center max-w-2xl mx-auto px-6">
             <h2 class="text-5xl font-bold mb-6">Ready to Deploy?</h2>
-            <p class="text-white/60 mb-10">One click. Six platforms. Zero code.</p>
-            <a href="#" class="bg-gradient-to-r from-purple-600 to-pink-500 px-12 py-5 rounded-full font-bold text-xl hover:scale-105 transition glow">
-                🚀 GET STARTED — ONE CLICK
+            <p class="text-xl text-gray-400 mb-10">One click. Six platforms. Zero code.</p>
+            <a href="#pricing" class="btn-gradient px-12 py-5 rounded-full font-bold text-xl hover:scale-105 transition">
+                🚀 Get Started — One Click
             </a>
-            <p class="text-white/40 text-sm mt-6">No credit card required to start</p>
+            <p class="text-gray-500 text-sm mt-6">No credit card required to start</p>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-black py-12 border-t border-white/10">
+    <footer class="py-12 bg-black border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <div class="flex justify-center items-center gap-3 mb-4">
-                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-lg flex items-center justify-center">🔗</div>
-                <span class="text-xl font-bold">IronBridge</span>
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">🔗</div>
+                <span class="text-lg font-bold">IronBridge</span>
             </div>
-            <p class="text-white/40">Built for the Bankr ecosystem • Powered by x402 Cloud • Running on Base</p>
-            <p class="text-white/20 text-sm mt-4">© 2025 IronBridge. All rights reserved.</p>
+            <p class="text-gray-500">Built for the Bankr ecosystem • Powered by x402 Cloud • Running on Base</p>
+            <p class="text-gray-600 text-sm mt-4">© 2025 IronBridge. All rights reserved.</p>
         </div>
     </footer>
 </body>

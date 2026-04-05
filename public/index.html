@@ -37,13 +37,6 @@
         }
         .btn-cod:hover { background: linear-gradient(180deg, #FF9922 0%, #FF8800 100%); transform: scale(1.02); }
         
-        .btn-dark {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 2px;
-        }
-        
         .btn-base { background: var(--base-blue); color: #fff; }
         
         .hover-lift { transition: all 0.3s ease; }
@@ -58,53 +51,37 @@
         .section-line { height: 2px; background: linear-gradient(90deg, transparent, var(--cod-orange), transparent); }
         .check-icon { color: #22c55e; }
         
-        .wallet-option { 
-            background: rgba(255,255,255,0.05); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            transition: all 0.3s; 
-        }
-        .wallet-option:hover { 
-            border-color: var(--cod-orange); 
-            background: rgba(255,136,0,0.1); 
-            transform: scale(1.02);
-        }
+        .wallet-option { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
+        .wallet-option:hover { border-color: var(--cod-orange); background: rgba(255,136,0,0.1); transform: scale(1.02); }
         
-        .platform-badge {
-            background: linear-gradient(135deg, rgba(255,136,0,0.2), rgba(255,136,0,0.1));
-            border: 1px solid rgba(255,136,0,0.4);
-        }
+        .platform-badge { background: linear-gradient(135deg, rgba(255,136,0,0.2), rgba(255,136,0,0.1)); border: 1px solid rgba(255,136,0,0.4); transition: all 0.3s; }
+        .platform-badge:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,136,0,0.3); }
         
-        .integration-badge {
-            background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.1));
-            border: 1px solid rgba(34,197,94,0.5);
-        }
+        .integration-badge { background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.1)); border: 1px solid rgba(34,197,94,0.5); transition: all 0.3s; }
+        .integration-badge:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(34,197,94,0.3); }
         
-        .chain-badge {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        .chain-badge { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
         
-        .checkout-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.9);
-            z-index: 100;
+        .pfp-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF8800, #FF5500);
+            display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid #FF8800;
+            box-shadow: 0 0 20px rgba(255,136,0,0.5);
         }
+        
+        .checkout-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; }
         .checkout-modal.active { display: flex; }
         
-        .built-by { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 6px; 
-            background: rgba(255,136,0,0.1); 
-            border: 1px solid rgba(255,136,0,0.3);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-        }
+        .built-by { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,136,0,0.1); border: 1px solid rgba(255,136,0,0.3); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; }
+        
+        .x-link { transition: all 0.2s; }
+        .x-link:hover { color: #FF8800; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -115,43 +92,25 @@
                 <h3 class="text-2xl font-bold">CONNECT WALLET</h3>
                 <button onclick="closeCheckout()" class="text-gray-400 hover:text-white text-2xl">×</button>
             </div>
-            
             <p class="text-gray-400 mb-6">Choose your wallet to continue:</p>
-            
             <div class="space-y-3">
                 <a href="#" onclick="connectWallet('base')" class="wallet-option flex items-center gap-4 p-4 rounded-xl w-full">
                     <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold">B</div>
-                    <div class="text-left">
-                        <div class="font-bold">Base Wallet</div>
-                        <div class="text-xs text-gray-400">Recommended</div>
-                    </div>
+                    <div class="text-left"><div class="font-bold">Base Wallet</div><div class="text-xs text-gray-400">Recommended</div></div>
                 </a>
-                
                 <a href="#" onclick="connectWallet('metamask')" class="wallet-option flex items-center gap-4 p-4 rounded-xl w-full">
                     <div class="w-10 h-10 rounded-lg bg-orange-500 flex items-center justify-center text-white font-bold">M</div>
-                    <div class="text-left">
-                        <div class="font-bold">MetaMask</div>
-                        <div class="text-xs text-gray-400">Browser extension</div>
-                    </div>
+                    <div class="text-left"><div class="font-bold">MetaMask</div><div class="text-xs text-gray-400">Browser extension</div></div>
                 </a>
-                
                 <a href="#" onclick="connectWallet('zerion')" class="wallet-option flex items-center gap-4 p-4 rounded-xl w-full">
                     <div class="w-10 h-10 rounded-lg bg-red-500 flex items-center justify-center text-white font-bold">Z</div>
-                    <div class="text-left">
-                        <div class="font-bold">Zerion Wallet</div>
-                        <div class="text-xs text-gray-400">Multi-chain wallet</div>
-                    </div>
+                    <div class="text-left"><div class="font-bold">Zerion Wallet</div><div class="text-xs text-gray-400">Multi-chain wallet</div></div>
                 </a>
-                
                 <a href="#" onclick="connectWallet('bnkr')" class="wallet-option flex items-center gap-4 p-4 rounded-xl w-full">
                     <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold">$</div>
-                    <div class="text-left">
-                        <div class="font-bold">BNKR Wallet</div>
-                        <div class="text-xs text-gray-400">Bankr ecosystem</div>
-                    </div>
+                    <div class="text-left"><div class="font-bold">BNKR Wallet</div><div class="text-xs text-gray-400">Bankr ecosystem</div></div>
                 </a>
             </div>
-            
             <div class="mt-6 pt-6 border-t border-white/10">
                 <p class="text-sm text-gray-400 text-center">Connect wallet to complete your token launch</p>
             </div>
@@ -164,14 +123,10 @@
             <div class="text-6xl mb-4">🎉</div>
             <h3 class="text-2xl font-bold mb-2">TOKEN LAUNCHED!</h3>
             <p class="text-gray-400 mb-6">All integrations going live automatically...</p>
-            
             <div class="bg-black/50 p-4 rounded-xl mb-6">
                 <div class="text-sm text-gray-400 mb-2">All Pre-Built Integrations Active:</div>
-                <div class="flex justify-center gap-1 text-xl flex-wrap">
-                    📱💬𝕏🌐💙🐘📺🎮📹✍️🤖📋🌐💰🏛️
-                </div>
+                <div class="flex justify-center gap-1 text-xl flex-wrap">📱💬𝕏🌐💙🐘📺🎮📹✍️🤖📋🌐💰🏛️</div>
             </div>
-            
             <p class="text-orange-500 font-bold">Everything connected! Check your wallet.</p>
             <button onclick="closeSuccess()" class="mt-6 btn-cod px-8 py-3 rounded-lg font-bold w-full">DONE</button>
         </div>
@@ -181,10 +136,10 @@
     <nav class="fixed top-0 w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-xl font-bold glow-pulse">⚡</div>
+                <a href="https://x.com/IronBridge_AI" target="_blank" class="pfp-circle glow-pulse" title="Follow us on X">🔗</a>
                 <div>
                     <span class="text-xl font-bold tracking-wide">IRONFORGE</span>
-                    <span class="built-by ml-2">BUILT BY <span class="text-orange-400 font-bold">IRONBRIDGE</span></span>
+                    <span class="built-by ml-2">BUILT BY <a href="https://x.com/IronBridge_AI" target="_blank" class="text-orange-400 font-bold hover:underline">IRONBRIDGE</a></span>
                 </div>
             </div>
             <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-300">
@@ -229,11 +184,11 @@
             
             <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
                 <button onclick="openCheckout()" class="btn-cod px-10 py-4 rounded-lg font-bold pulse-glow">🚀 CONNECT & LAUNCH</button>
-                <a href="#packages" class="btn-dark px-10 py-4 rounded-lg font-bold">VIEW PACKAGES ↓</a>
+                <a href="#packages" class="bg-white/10 border border-white/30 px-10 py-4 rounded-lg font-bold hover:bg-white/20 transition">VIEW PACKAGES ↓</a>
             </div>
             
             <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-                <span>✓ ALL INTEGRATIONS PRE-BUILT</span>
+                <a href="https://x.com/IronBridge_AI" target="_blank" class="x-link">📱 @IronBridge_AI</a>
                 <span>✓ BNKR ALIGNED</span>
                 <span>✓ x402 CLOUD</span>
             </div>
@@ -242,7 +197,7 @@
 
     <div class="section-line max-w-3xl mx-auto"></div>
 
-    <!-- ALL INTEGRATIONS - PRE BUILT IN -->
+    <!-- ALL INTEGRATIONS -->
     <section id="integrations" class="py-16 bg-black">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-2">
@@ -252,85 +207,91 @@
             
             <!-- SOCIAL PLATFORMS -->
             <div class="mb-8">
-                <h3 class="text-lg font-bold text-gray-400 mb-4 text-center">📱 SOCIAL PLATFORMS</h3>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-400">📱 SOCIAL PLATFORMS</h3>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="text-orange-400 text-sm hover:underline">View All on X →</a>
+                </div>
                 <div class="grid grid-cols-5 md:grid-cols-10 gap-2">
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">📱</div>
                         <h3 class="font-bold text-xs">Telegram</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">💬</div>
                         <h3 class="font-bold text-xs">Discord</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">𝕏</div>
                         <h3 class="font-bold text-xs">X</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">🌐</div>
                         <h3 class="font-bold text-xs">Farcaster</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">💙</div>
                         <h3 class="font-bold text-xs">Bluesky</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">🐘</div>
                         <h3 class="font-bold text-xs">Mastodon</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">📺</div>
                         <h3 class="font-bold text-xs">YouTube</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">🎮</div>
                         <h3 class="font-bold text-xs">Twitch</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">📹</div>
                         <h3 class="font-bold text-xs">TikTok</h3>
-                    </div>
-                    <div class="platform-badge p-3 rounded-xl text-center">
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="platform-badge p-3 rounded-xl text-center hover-lift">
                         <div class="text-2xl mb-1">✍️</div>
                         <h3 class="font-bold text-xs">Medium</h3>
-                    </div>
+                    </a>
                 </div>
             </div>
             
-            <!-- IRONBRIDGE ECOSYSTEM INTEGRATIONS -->
+            <!-- IRONBRIDGE ECOSYSTEM -->
             <div class="mb-8">
-                <h3 class="text-lg font-bold text-gray-400 mb-4 text-center">🔗 IRONBRIDGE ECOSYSTEM</h3>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-400">🔗 IRONBRIDGE ECOSYSTEM</h3>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="text-orange-400 text-sm hover:underline">Follow on X →</a>
+                </div>
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
-                    <div class="integration-badge p-4 rounded-xl text-center hover-lift">
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="integration-badge p-4 rounded-xl text-center hover-lift">
                         <div class="text-3xl mb-2">🤖</div>
                         <h3 class="font-bold text-sm">SolvrBot</h3>
-                        <p class="text-xs text-green-400">Safety Scanning</p>
-                    </div>
-                    <div class="integration-badge p-4 rounded-xl text-center hover-lift">
+                        <p class="text-xs text-green-400">@solvrbot</p>
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="integration-badge p-4 rounded-xl text-center hover-lift">
                         <div class="text-3xl mb-2">📋</div>
                         <h3 class="font-bold text-sm">Agent Clerk</h3>
-                        <p class="text-xs text-green-400">Legal Verification</p>
-                    </div>
-                    <div class="integration-badge p-4 rounded-xl text-center hover-lift">
+                        <p class="text-xs text-green-400">@agent_clerk</p>
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="integration-badge p-4 rounded-xl text-center hover-lift">
                         <div class="text-3xl mb-2">🌐</div>
                         <h3 class="font-bold text-sm">Net Protocol</h3>
-                        <p class="text-xs text-green-400">Cross-Chain</p>
-                    </div>
-                    <div class="integration-badge p-4 rounded-xl text-center hover-lift">
+                        <p class="text-xs text-green-400">@netprotocol</p>
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="integration-badge p-4 rounded-xl text-center hover-lift">
                         <div class="text-3xl mb-2">📱</div>
                         <h3 class="font-bold text-sm">Moltbook</h3>
-                        <p class="text-xs text-green-400">Discovery</p>
-                    </div>
-                    <div class="integration-badge p-4 rounded-xl text-center hover-lift">
+                        <p class="text-xs text-green-400">@IronBridge_AI</p>
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="integration-badge p-4 rounded-xl text-center hover-lift">
                         <div class="text-3xl mb-2">🏛️</div>
                         <h3 class="font-bold text-sm">Bankr</h3>
-                        <p class="text-xs text-green-400">Ecosystem</p>
-                    </div>
-                    <div class="integration-badge p-4 rounded-xl text-center hover-lift">
+                        <p class="text-xs text-green-400">@bankrbot</p>
+                    </a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="integration-badge p-4 rounded-xl text-center hover-lift">
                         <div class="text-3xl mb-2">💰</div>
                         <h3 class="font-bold text-sm">x402 Cloud</h3>
-                        <p class="text-xs text-green-400">Payments</p>
-                    </div>
+                        <p class="text-xs text-green-400">Built-in</p>
+                    </a>
                 </div>
             </div>
             
@@ -348,7 +309,6 @@
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">
                 <span class="grad-text">5 BLOCKCHAINS</span> — SUPPORTED
             </h2>
-            
             <div class="flex flex-wrap justify-center gap-3">
                 <div class="chain-badge px-6 py-3 rounded-full flex items-center gap-2">
                     <span class="text-xl">⛓️</span>
@@ -388,15 +348,13 @@
                     <div class="bg-white/5 p-5 text-center">
                         <div class="text-xl font-bold mb-1">STARTER</div>
                         <div class="text-4xl font-bold text-orange-500">$5<span class="text-sm text-gray-500">/mo</span></div>
-                        <p class="text-gray-500 text-xs mt-1">Test launch</p>
                     </div>
                     <div class="p-5">
                         <ul class="space-y-2 mb-4 text-sm">
                             <li class="flex items-center gap-2"><span class="check-icon">✓</span> 1 Token</li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>15+ Integrations</strong></li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>5 Blockchains</strong></li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Auto-sync everything</li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> x402 Cloud included</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 15+ Integrations</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 5 Blockchains</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> x402 Cloud</li>
                         </ul>
                         <button onclick="selectPackage('starter', 5)" class="w-full py-3 rounded-lg font-bold bg-white/10 hover:bg-white/20 transition">CONNECT & PAY $5</button>
                     </div>
@@ -408,15 +366,13 @@
                     <div class="bg-gradient-to-b from-orange-500/20 to-transparent p-5 text-center">
                         <div class="text-xl font-bold mb-1">GROWTH</div>
                         <div class="text-4xl font-bold text-orange-500">$15<span class="text-sm text-gray-500">/mo</span></div>
-                        <p class="text-gray-500 text-xs mt-1">Start making money</p>
                     </div>
                     <div class="p-5">
                         <ul class="space-y-2 mb-4 text-sm">
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>3 Tokens</strong></li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>15+ Integrations</strong></li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>5 Blockchains</strong></li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Priority support</li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Advanced analytics</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 3 Tokens</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 15+ Integrations</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 5 Blockchains</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Priority</li>
                         </ul>
                         <button onclick="selectPackage('growth', 15)" class="w-full py-3 rounded-lg font-bold btn-cod">CONNECT & PAY $15</button>
                     </div>
@@ -427,14 +383,12 @@
                     <div class="bg-white/5 p-5 text-center">
                         <div class="text-xl font-bold mb-1">VIRAL</div>
                         <div class="text-4xl font-bold text-orange-500">$25<span class="text-sm text-gray-500">/mo</span></div>
-                        <p class="text-gray-500 text-xs mt-1">Maximum reach</p>
                     </div>
                     <div class="p-5">
                         <ul class="space-y-2 mb-4 text-sm">
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>Unlimited Tokens</strong></li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>15+ Integrations</strong></li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>5 Blockchains</strong></li>
-                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> White-label</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Unlimited Tokens</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 15+ Integrations</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 5 Blockchains</li>
                             <li class="flex items-center gap-2"><span class="check-icon">✓</span> API Access</li>
                         </ul>
                         <button onclick="selectPackage('viral', 25)" class="w-full py-3 rounded-lg font-bold bg-cyan-600 hover:bg-cyan-500 transition">CONNECT & PAY $25</button>
@@ -472,7 +426,7 @@
     <section class="py-12 bg-gradient-to-b from-black to-orange-900/10">
         <div class="max-w-2xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-3">READY TO <span class="grad-text">LAUNCH?</span></h2>
-            <p class="text-gray-400 mb-5">15+ integrations + 5 chains pre-built in. Built by IronBridge.</p>
+            <p class="text-gray-400 mb-5">15+ integrations + 5 chains pre-built in. <a href="https://x.com/IronBridge_AI" target="_blank" class="text-orange-400 hover:underline">Follow us on X</a></p>
             <button onclick="openCheckout()" class="btn-cod px-10 py-4 rounded-lg font-bold pulse-glow inline-block">🚀 CONNECT & LAUNCH</button>
         </div>
     </section>
@@ -481,11 +435,11 @@
     <footer class="py-8 bg-black border-t border-orange-500/20">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <div class="flex justify-center items-center gap-2 mb-3">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">⚡</div>
+                <a href="https://x.com/IronBridge_AI" target="_blank" class="pfp-circle" title="Follow on X">🔗</a>
                 <span class="text-lg font-bold">IRONFORGE</span>
-                <span class="text-gray-500 text-sm ml-2">(Built by IronBridge)</span>
+                <span class="text-gray-500 text-sm ml-2">(Built by <a href="https://x.com/IronBridge_AI" target="_blank" class="text-orange-400 hover:underline">IronBridge</a>)</span>
             </div>
-            <p class="text-gray-500 text-sm">15+ Integrations + 5 Chains • SolvrBot • Agent Clerk • Net Protocol • Moltbook • Bankr • x402</p>
+            <p class="text-gray-500 text-sm">15+ Integrations • SolvrBot • Agent Clerk • Net Protocol • Moltbook • Bankr • x402</p>
             <p class="text-gray-700 text-sm mt-3">© 2025 IronForge • Built by IronBridge</p>
         </div>
     </footer>
@@ -502,7 +456,6 @@
         function connectWallet(wallet) {
             const buttons = document.querySelectorAll('.wallet-option');
             buttons.forEach(btn => btn.style.opacity = '0.5');
-            
             setTimeout(() => {
                 closeCheckout();
                 setTimeout(() => { document.getElementById('successModal').classList.add('active'); }, 300);

@@ -3,224 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IronBridge — Deploy AI Agents to everywhere</title>
+    <title>IronBridge — Deploy AI Agents Everywhere</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Outfit', sans-serif; background: #000; color: #fff; }
+        body { font-family: 'Outfit', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
         
-        /* Animated gradient background */
-        .hero-gradient {
-            background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(124, 58, 237, 0.4), transparent),
-                        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(6, 182, 212, 0.2), transparent),
-                        #000;
+        /* Hero gradient */
+        .hero-bg {
+            background: 
+                radial-gradient(ellipse 100% 100% at 50% 0%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 80% at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse 60% 60% at 20% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 40%),
+                #000;
         }
         
         /* Animated grid */
-        .grid-pattern {
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridMove 20s linear infinite;
+        .grid-anim {
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 15s linear infinite;
         }
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, 60px); }
-        }
+        @keyframes gridMove { 0% { transform: translate(0, 0); } 100% { transform: translate(50px, 50px); } }
         
         /* Glow effects */
-        .glow-purple { filter: drop-shadow(0 0 40px rgba(124, 58, 237, 0.5)); }
-        .glow-cyan { filter: drop-shadow(0 0 40px rgba(6, 182, 212, 0.5)); }
-        .glow-green { filter: drop-shadow(0 0 40px rgba(34, 197, 94, 0.5)); }
+        .glow-p { filter: drop-shadow(0 0 30px rgba(124, 58, 237, 0.5)); }
+        .glow-c { filter: drop-shadow(0 0 30px rgba(6, 182, 212, 0.5)); }
         
         /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #06b6d4 100%);
+        .grad-text {
+            background: linear-gradient(135deg, #a855f7, #6366f1, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        /* Glass morphism */
-        .glass {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        /* Glass */
+        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+        .glass-card { background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%); border: 1px solid rgba(255,255,255,0.1); }
         
-        /* Hover animations */
-        .hover-lift {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .hover-lift:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 30px 60px -20px rgba(124, 58, 237, 0.3);
-        }
+        /* Animations */
+        .hover-lift { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hover-lift:hover { transform: translateY(-10px); }
         
-        /* Pulse animation */
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.4); }
-            50% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.6); }
-        }
-        .animate-pulse-glow {
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .float { animation: float 3s ease-in-out infinite; }
         
-        /* Button gradient */
-        .btn-gradient {
-            background: linear-gradient(135deg, #9333ea 0%, #6366f1 50%, #0891b2 100%);
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(124, 58, 237, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+        }
+        .pulse-ring { animation: pulse-ring 2s infinite; }
+        
+        .btn-grad {
+            background: linear-gradient(135deg, #9333ea, #6366f1, #0891b2);
             background-size: 200% 200%;
-            animation: gradientMove 4s ease infinite;
+            animation: gradMove 3s ease infinite;
         }
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes gradMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        /* Shine effect */
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+        .shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
     <!-- NAV -->
     <nav class="fixed top-0 w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-indigo-500 to-cyan-500 flex items-center justify-center text-xl font-bold glow-purple">🔗</div>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-indigo-500 to-cyan-500 flex items-center justify-center text-xl font-bold glow-p">🔗</div>
                 <span class="text-xl font-bold">IronBridge</span>
             </div>
             <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
                 <a href="#platforms" class="hover:text-white transition">Platforms</a>
-                <a href="#safety" class="hover:text-white transition">Safety</a>
+                <a href="#how" class="hover:text-white transition">How It Works</a>
                 <a href="#powerups" class="hover:text-white transition">Power-ups</a>
                 <a href="#pricing" class="hover:text-white transition">Pricing</a>
             </div>
-            <a href="#pricing" class="hidden md:block btn-gradient px-6 py-2.5 rounded-full font-semibold text-white hover:scale-105 transition">
-                Get Started
-            </a>
+            <a href="#pricing" class="btn-grad px-6 py-2.5 rounded-full font-semibold text-white hover:scale-105 transition">Get Started</a>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="grid-pattern absolute inset-0 z-0"></div>
-        
-        <div class="relative z-10 text-center max-w-5xl mx-auto px-6 pt-20">
+    <section class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+        <div class="grid-anim absolute inset-0 z-0"></div>
+        <div class="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 text-center">
             <!-- Badge -->
             <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8">
                 <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                <span class="text-sm text-gray-300">6 Platforms • 1 Click • Zero Code</span>
+                <span class="text-sm text-gray-300">#1 Agent Deployment Platform</span>
             </div>
             
-            <!-- Main Headline -->
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight">
                 Deploy Your AI Agent<br>
-                <span class="gradient-text">Everywhere at Once</span>
+                <span class="grad-text">Everywhere at Once</span>
             </h1>
             
-            <!-- Subheadline -->
-            <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto">
-                Zero code. Zero stress. Telegram, Discord, X, Farrcaster, Bluesky, Mastodon — 
-                all connected automatically.
+            <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                Zero code. Zero stress. 6 platforms — one click. 
+                Telegram, Discord, X, Farrcaster, Bluesky, Mastodon.
             </p>
             
-            <!-- CTAs -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#pricing" class="btn-gradient px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition animate-pulse-glow">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="#pricing" class="btn-grad px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition shine relative overflow-hidden">
                     🚀 Get Started — One Click
                 </a>
-                <a href="#platforms" class="glass px-10 py-5 rounded-full font-semibold hover:bg-white/10 transition">
-                    See How It Works
+                <a href="#how" class="glass px-10 py-5 rounded-full font-semibold hover:bg-white/10 transition">
+                    See How It Works →
                 </a>
             </div>
             
-            <!-- Trust badges -->
-            <div class="flex flex-wrap justify-center gap-6 mt-16 text-sm text-gray-500">
-                <div class="flex items-center gap-2">
-                    <span class="text-green-400">✓</span> x402 Ready
+            <!-- Stats -->
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 text-center">
+                <div>
+                    <div class="text-3xl font-bold grad-text">6</div>
+                    <div class="text-sm text-gray-500">Platforms</div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-green-400">✓</span> Bankr Built
+                <div>
+                    <div class="text-3xl font-bold grad-text">1</div>
+                    <div class="text-sm text-gray-500">Click Deploy</div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-green-400">✓</span> Base Native
+                <div>
+                    <div class="text-3xl font-bold grad-text">0</div>
+                    <div class="text-sm text-gray-500">Code Required</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold grad-text">∞</div>
+                    <div class="text-sm text-gray-500">Possibilities</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 6 PLATFORMS -->
-    <section id="platforms" class="py-24 bg-zinc-950">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">One Deploy — 6 Platforms</h2>
-                <p class="text-xl text-gray-400">Every platform connected automatically</p>
+    <!-- LOGOS / SOCIAL PROOF -->
+    <section class="py-12 bg-zinc-950 border-y border-white/5">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-sm text-gray-500 mb-8">TRUSTED BY AGENTS ACROSS THE ECOSYSTEM</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale">
+                <div class="text-2xl font-bold text-white/70">BASE</div>
+                <div class="text-2xl font-bold text-white/70">BANKR</div>
+                <div class="text-2xl font-bold text-white/70">x402</div>
+                <div class="text-2xl font-bold text-white/70">CLERK</div>
+                <div class="text-2xl font-bold text-white/70">SOLVR</div>
             </div>
+        </div>
+    </section>
+
+    <!-- 6 PLATFORMS -->
+    <section id="platforms" class="py-24 bg-black">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">One Deploy — 6 Platforms</h2>
+            <p class="text-xl text-gray-400 text-center mb-16">Every platform connected automatically</p>
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center">
                     <div class="text-4xl mb-3">📱</div>
                     <h3 class="font-semibold">Telegram</h3>
-                    <p class="text-xs text-gray-500 mt-1">Bot + Group</p>
                 </div>
-                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center">
                     <div class="text-4xl mb-3">💬</div>
                     <h3 class="font-semibold">Discord</h3>
-                    <p class="text-xs text-gray-500 mt-1">Server + Bot</p>
                 </div>
-                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center">
                     <div class="text-4xl mb-3">𝕏</div>
                     <h3 class="font-semibold">X</h3>
-                    <p class="text-xs text-gray-500 mt-1">Profile + API</p>
                 </div>
-                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center">
                     <div class="text-4xl mb-3">🌐</div>
                     <h3 class="font-semibold">Farcaster</h3>
-                    <p class="text-xs text-gray-500 mt-1">Frame + Cast</p>
                 </div>
-                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center">
                     <div class="text-4xl mb-3">💙</div>
                     <h3 class="font-semibold">Bluesky</h3>
-                    <p class="text-xs text-gray-500 mt-1">Fediverse</p>
                 </div>
-                <div class="glass-card hover-lift p-6 rounded-2xl text-center cursor-pointer">
+                <div class="glass-card hover-lift p-6 rounded-2xl text-center">
                     <div class="text-4xl mb-3">🐘</div>
                     <h3 class="font-semibold">Mastodon</h3>
-                    <p class="text-xs text-gray-500 mt-1">Fediverse</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="py-24 bg-zinc-950">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">How It Works</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-3xl font-bold glow-p">1</div>
+                    <h3 class="text-xl font-bold mb-2">Choose Your Agent</h3>
+                    <p class="text-gray-400">Meme Coin, Trading, Support — pick the type that fits your needs.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-3xl font-bold glow-c">2</div>
+                    <h3 class="text-xl font-bold mb-2">Click Deploy</h3>
+                    <p class="text-gray-400">One click. We connect to all 6 platforms automatically.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-cyan-500 to-green-500 flex items-center justify-center text-3xl font-bold">3</div>
+                    <h3 class="text-xl font-bold mb-2">Watch It Grow</h3>
+                    <p class="text-gray-400">Your agent is live everywhere. Track it from your dashboard.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- SAFETY -->
-    <section id="safety" class="py-24 bg-black">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">Safety First — Always On</h2>
-                <p class="text-xl text-gray-400">Every deploy runs through security checks automatically</p>
-            </div>
+    <section class="py-24 bg-black">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Safety Built In</h2>
+            <p class="text-xl text-gray-400 text-center mb-16">Every deploy is security-checked automatically</p>
             
             <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 <div class="glass-card hover-lift p-8 rounded-3xl border border-purple-500/30">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center text-3xl glow-purple">🛡️</div>
-                        <h3 class="text-xl font-bold">@solvrbot</h3>
-                    </div>
-                    <p class="text-gray-400">Pre-deployment safety scanning. Checks for malicious code, vulnerabilities, and suspicious patterns before your agent goes live.</p>
+                    <div class="text-4xl mb-4">🛡️</div>
+                    <h3 class="text-xl font-bold mb-2">@solvrbot</h3>
+                    <p class="text-gray-400">Pre-deployment safety scan. Malicious code? Vulnerabilities? We catch them before your agent goes live.</p>
                 </div>
                 <div class="glass-card hover-lift p-8 rounded-3xl border border-cyan-500/30">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-3xl glow-cyan">🔒</div>
-                        <h3 class="text-xl font-bold">@bankrbot</h3>
-                    </div>
-                    <p class="text-gray-400">Bankr ecosystem verification. Ensures your agent meets all compliance requirements for the $BNKR ecosystem.</p>
+                    <div class="text-4xl mb-4">🔒</div>
+                    <h3 class="text-xl font-bold mb-2">@bankrbot</h3>
+                    <p class="text-gray-400">Bankr ecosystem verification. Your agent meets all $BNKR compliance requirements.</p>
                 </div>
             </div>
         </div>
@@ -228,42 +249,40 @@
 
     <!-- POWER-UPS -->
     <section id="powerups" class="py-24 bg-zinc-950">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">Power-ups — Optional</h2>
-                <p class="text-xl text-gray-400">Everything below is toggle-only — never required</p>
-            </div>
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Power-ups — Optional</h2>
+            <p class="text-xl text-gray-400 text-center mb-16">Toggle-only. Never required.</p>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div class="glass-card hover-lift p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">💎</div>
-                    <h3 class="font-bold text-lg">Full Integration Package</h3>
-                    <p class="text-gray-400 text-sm mt-2">Complete cross-platform sync + analytics dashboard</p>
+                    <div class="text-2xl mb-2">💎</div>
+                    <h3 class="font-bold">Full Integration</h3>
+                    <p class="text-gray-400 text-sm">Cross-platform sync + analytics</p>
                 </div>
                 <div class="glass-card hover-lift p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">🎨</div>
-                    <h3 class="font-bold text-lg">Atelier Gigs</h3>
-                    <p class="text-gray-400 text-sm mt-2">Custom avatar, banner, and branding assets</p>
+                    <div class="text-2xl mb-2">🎨</div>
+                    <h3 class="font-bold">Atelier Gigs</h3>
+                    <p class="text-gray-400 text-sm">Custom branding assets</p>
                 </div>
                 <div class="glass-card hover-lift p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">💡</div>
-                    <h3 class="font-bold text-lg">Lumen</h3>
-                    <p class="text-gray-400 text-sm mt-2">AI-powered content generation & scheduling</p>
+                    <div class="text-2xl mb-2">💡</div>
+                    <h3 class="font-bold">Lumen</h3>
+                    <p class="text-gray-400 text-sm">AI content generation</p>
                 </div>
                 <div class="glass-card hover-lift p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">🤖</div>
-                    <h3 class="font-bold text-lg">0xSMC</h3>
-                    <p class="text-gray-400 text-sm mt-2">Smart contract deployment & management</p>
+                    <div class="text-2xl mb-2">🤖</div>
+                    <h3 class="font-bold">0xSMC</h3>
+                    <p class="text-gray-400 text-sm">Smart contracts</p>
                 </div>
                 <div class="glass-card hover-lift p-6 rounded-2xl">
-                    <div class="text-2xl mb-3">💼</div>
-                    <h3 class="font-bold text-lg">0xWork</h3>
-                    <p class="text-gray-400 text-sm mt-2">Freelance marketplace integration</p>
+                    <div class="text-2xl mb-2">💼</div>
+                    <h3 class="font-bold">0xWork</h3>
+                    <p class="text-gray-400 text-sm">Freelance integration</p>
                 </div>
                 <div class="glass-card hover-lift p-6 rounded-2xl border border-cyan-500/30">
-                    <div class="text-2xl mb-3">☁️ <span class="text-cyan-400 text-sm font-bold">BUILT IN</span></div>
-                    <h3 class="font-bold text-lg">x402 Cloud</h3>
-                    <p class="text-gray-400 text-sm mt-2">Agents can pay tiny fees to use your agent — automatic earnings</p>
+                    <div class="text-2xl mb-2">☁️ <span class="text-cyan-400 text-xs font-bold">BUILT IN</span></div>
+                    <h3 class="font-bold">x402 Cloud</h3>
+                    <p class="text-gray-400 text-sm">Get paid when agents use you</p>
                 </div>
             </div>
         </div>
@@ -271,16 +290,16 @@
 
     <!-- EARN WHILE SLEEP -->
     <section class="py-24 bg-black">
-        <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-5xl font-bold mb-6">Earn While You Sleep</h2>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
-                Other AI agents can pay tiny fees to use your deployed agent. 
-                Every interaction = automatic earnings — all handled by Bankr + x402 Cloud.
+            <p class="text-xl text-gray-400 mb-12">
+                x402 Cloud lets other AI agents pay tiny fees to use your agent. 
+                Every interaction = automatic earnings. No work required.
             </p>
             
-            <div class="glass-card p-10 rounded-3xl max-w-2xl mx-auto border border-purple-500/20">
-                <div class="text-6xl mb-6">⚡ → 🤖 → 💰</div>
-                <p class="text-xl font-semibold">User → Uses Your Agent → You Get Paid</p>
+            <div class="glass-card p-10 rounded-3xl border border-purple-500/20">
+                <div class="text-6xl mb-4">⚡ → 🤖 → 💰</div>
+                <p class="text-xl font-semibold">Other Agents → Use Your Agent → You Get Paid</p>
                 <p class="text-gray-500 mt-4">All automatically routed through x402 Cloud</p>
             </div>
         </div>
@@ -288,48 +307,43 @@
 
     <!-- PRICING -->
     <section id="pricing" class="py-24 bg-zinc-950">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">Simple Pricing</h2>
-                <p class="text-xl text-gray-400">One fee — everything included</p>
-            </div>
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Simple Pricing</h2>
+            <p class="text-xl text-gray-400 text-center mb-16">One fee. Everything included.</p>
             
             <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <!-- Starter -->
                 <div class="glass-card hover-lift p-8 rounded-3xl">
                     <div class="text-2xl font-bold mb-2">Starter</div>
                     <div class="text-5xl font-bold mb-4">$9<span class="text-lg text-gray-500 font-normal">/mo</span></div>
-                    <ul class="text-gray-400 space-y-3 mb-8">
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 1 Agent</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 3 Platforms</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Basic Analytics</li>
+                    <ul class="text-gray-400 space-y-2 mb-8">
+                        <li>✓ 1 Agent</li>
+                        <li>✓ 3 Platforms</li>
+                        <li>✓ Basic Analytics</li>
                     </ul>
                     <button class="w-full py-4 rounded-xl font-bold bg-white/10 hover:bg-white/20 transition">Start Free</button>
                 </div>
                 
-                <!-- Growth -->
                 <div class="glass-card hover-lift p-8 rounded-3xl border-2 border-purple-500 relative">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-cyan-500 text-black text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</div>
                     <div class="text-2xl font-bold mb-2">Growth</div>
                     <div class="text-5xl font-bold mb-4">$29<span class="text-lg text-gray-500 font-normal">/mo</span></div>
-                    <ul class="text-gray-400 space-y-3 mb-8">
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 3 Agents</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 6 Platforms</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Advanced Analytics</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> x402 Cloud</li>
+                    <ul class="text-gray-400 space-y-2 mb-8">
+                        <li>✓ 3 Agents</li>
+                        <li>✓ 6 Platforms</li>
+                        <li>✓ Advanced Analytics</li>
+                        <li>✓ x402 Cloud</li>
                     </ul>
                     <button class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 transition">Start Free</button>
                 </div>
                 
-                <!-- Pro -->
                 <div class="glass-card hover-lift p-8 rounded-3xl">
                     <div class="text-2xl font-bold mb-2">Pro</div>
                     <div class="text-5xl font-bold mb-4">$99<span class="text-lg text-gray-500 font-normal">/mo</span></div>
-                    <ul class="text-gray-400 space-y-3 mb-8">
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Unlimited Agents</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> All Platforms</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Priority Support</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Custom Integrations</li>
+                    <ul class="text-gray-400 space-y-2 mb-8">
+                        <li>✓ Unlimited Agents</li>
+                        <li>✓ All Platforms</li>
+                        <li>✓ Priority Support</li>
+                        <li>✓ Custom Integrations</li>
                     </ul>
                     <button class="w-full py-4 rounded-xl font-bold bg-cyan-600 hover:bg-cyan-500 transition">Start Free</button>
                 </div>
@@ -338,26 +352,26 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-24 bg-gradient-to-b from-black to-purple-950/30">
-        <div class="text-center max-w-2xl mx-auto px-6">
-            <h2 class="text-5xl font-bold mb-6">Ready to Deploy?</h2>
+    <section class="py-24 bg-gradient-to-b from-black to-purple-900/20">
+        <div class="max-w-2xl mx-auto px-6 text-center">
+            <h2 class="text-5xl font-bold mb-6">Ready?</h2>
             <p class="text-xl text-gray-400 mb-10">One click. Six platforms. Zero code.</p>
-            <a href="#pricing" class="btn-gradient px-12 py-5 rounded-full font-bold text-xl hover:scale-105 transition">
+            <a href="#pricing" class="btn-grad px-12 py-5 rounded-full font-bold text-xl hover:scale-105 transition inline-block">
                 🚀 Get Started — One Click
             </a>
-            <p class="text-gray-500 text-sm mt-6">No credit card required to start</p>
+            <p class="text-gray-500 text-sm mt-6">No credit card required</p>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="py-12 bg-black border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="max-w-6xl mx-auto px-6 text-center">
             <div class="flex justify-center items-center gap-3 mb-4">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">🔗</div>
                 <span class="text-lg font-bold">IronBridge</span>
             </div>
-            <p class="text-gray-500">Built for the Bankr ecosystem • Powered by x402 Cloud • Running on Base</p>
-            <p class="text-gray-600 text-sm mt-4">© 2025 IronBridge. All rights reserved.</p>
+            <p class="text-gray-500">Bankr Ecosystem • x402 Cloud • Base Native</p>
+            <p class="text-gray-600 text-sm mt-4">© 2025 IronBridge</p>
         </div>
     </footer>
 </body>

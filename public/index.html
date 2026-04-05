@@ -3,294 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IronForge — Token Launch Platform | HKUDS Validated | Privacy-First | Security by Design</title>
-    <meta name="description" content="Launch tokens securely. Privacy-first (No KYC). Governance by Design. 15+ integrations. HKUDS validated.">
+    <title>IronForge — Token Launch Platform | HKUDS Validated</title>
+    <meta name="description" content="Launch tokens in one click. Privacy-first. Security by design. HKUDS validated architecture.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
-        :root{--o:#FF8800;--d:#0a0a0a}
+        :root{--o:#FF8800;--d:#0a0a0a;--g:#10b981;--p:#a855f7}
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Outfit',sans-serif;background:#000;color:#fff}
-        .g{background:linear-gradient(180deg,var(--d) 0%,#000)}
-        .gc{background:radial-gradient(ellipse 80% 80% at 50% 0%,rgba(255,136,0,.15),transparent)}
-        .gp{background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent);background-size:50px 50px;animation:a 20s linear infinite}
-        @keyframes a{to{transform:translate(50px,50px)}}
-        .gt{background:linear-gradient(135deg,#FF8800,#FF5500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .gt-green{background:linear-gradient(135deg,#10b981,#059669);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .gt-purple{background:linear-gradient(135deg,#a855f7,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .c{transition:.3s}
-        .c:hover{transform:translateY(-4px);border-color:rgba(255,136,0,.4);box-shadow:0 20px 40px rgba(255,136,0,.15)}
-        .ib{background:linear-gradient(135deg,rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4)}
-        .pb{background:linear-gradient(135deg,rgba(255,136,0,.12);border:1px solid rgba(255,136,0,.3)}
-        .bp{background:linear-gradient(180deg,#FF8800,#CC6600);font-family:'Bebas Neue',sans-serif;letter-spacing:2px}
-        .bp:hover{transform:scale(1.02);box-shadow:0 0 30px rgba(255,136,0,.5)}
-        .bs{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);font-family:'Bebas Neue',sans-serif}
-        .pg{animation:p 2s ease-in-out infinite}
-        @keyframes p{0%,100%{box-shadow:0 0 20px rgba(255,136,0,.4)}50%{box-shadow:0 0 40px rgba(255,136,0,.7)}}
-        .d{height:2px;background:linear-gradient(90deg,transparent,#FF8800,transparent)}
-        .ck{color:#22c55e}
-        .pf{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FF8800,#FF5500);display:flex;align-items:center;justify-content:center;border:2px solid #FF8800;box-shadow:0 0 20px rgba(255,136,0,.4)}
-        .mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;align-items:center;justify-content:center}
-        .mo.active{display:flex}
-        .ng{background:rgba(0,0,0,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,136,0,.2)}
-        .glass-card{background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.1)}
+        body{font-family:'Outfit',sans-serif;background:#000;color:#fff;overflow-x:hidden}
+        
+        /* HERO */
+        .hero{
+            background:radial-gradient(ellipse 100% 80% at 50% 0%,rgba(255,136,0,0.15) 0%,transparent 50%),
+                        linear-gradient(180deg,#0a0a0a 0%,#000 100%);
+        }
+        .grid-anim{
+            background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+                            linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+            background-size:60px 60px;
+            animation:gridMove 30s linear infinite;
+        }
+        @keyframes gridMove{to{transform:translate(60px,60px)}}
+        
+        /* GLOW EFFECTS */
+        .glow-orange{box-shadow:0 0 40px rgba(255,136,0,0.4)}
+        .glow-green{box-shadow:0 0 30px rgba(16,185,129,0.3)}
+        .glow-purple{box-shadow:0 0 30px rgba(168,85,247,0.3)}
+        
+        /* ANIMATIONS */
+        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(255,136,0,0.4)}50%{box-shadow:0 0 50px rgba(255,136,0,0.7)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        .animate-pulse-glow{animation:pulse-glow 3s ease-in-out infinite}
+        .animate-float{animation:float 6s ease-in-out infinite}
+        
+        /* CARDS */
+        .glass-card{
+            background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.02) 100%);
+            border:1px solid rgba(255,255,255,0.1);
+            backdrop-filter:blur(10px);
+            transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+        .glass-card:hover{
+            transform:translateY(-8px) scale(1.02);
+            border-color:rgba(255,136,0,0.5);
+            box-shadow:0 30px 60px rgba(255,136,0,0.2);
+        }
+        
+        /* BUTTONS */
+        .btn-primary{
+            background:linear-gradient(135deg,#FF8800 0%,#CC6600 100%);
+            font-family:'Bebas Neue',sans-serif;
+            letter-spacing:3px;
+            transition:all 0.3s ease;
+        }
+        .btn-primary:hover{
+            transform:scale(1.05);
+            box-shadow:0 0 40px rgba(255,136,0,0.6);
+        }
+        
+        /* GRADIENT TEXT */
+        .gradient-text{
+            background:linear-gradient(135deg,#FF8800,#FF5500);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        .gradient-text-green{
+            background:linear-gradient(135deg,#10b981,#059669);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        .gradient-text-purple{
+            background:linear-gradient(135deg,#a855f7,#6366f1);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        
+        /* SECTIONS */
+        .section-security{background:linear-gradient(135deg,rgba(16,185,129,0.1) 0%,#000 50%,rgba(5,150,105,0.1) 100%)}
+        .section-privacy{background:linear-gradient(135deg,rgba(59,130,246,0.1) 0%,#000 50%,rgba(29,78,216,0.1) 100%)}
+        .section-validated{background:linear-gradient(135deg,rgba(168,85,247,0.1) 0%,#000 50%,rgba(99,102,241,0.1) 100%)}
+        
+        /* DIVIDER */
+        .divider{height:2px;background:linear-gradient(90deg,transparent,rgba(255,136,0,0.5),transparent)}
+        
+        /* INTEGRATION CARDS */
+        .integration-card{
+            background:linear-gradient(135deg,rgba(255,136,0,0.1) 0%,rgba(255,136,0,0.02) 100%);
+            border:1px solid rgba(255,136,0,0.3);
+            transition:all 0.3s ease;
+        }
+        .integration-card:hover{
+            transform:scale(1.05);
+            border-color:rgba(255,136,0,0.6);
+            box-shadow:0 0 30px rgba(255,136,0,0.3);
+        }
+        
+        .ecosystem-card{
+            background:linear-gradient(135deg,rgba(16,185,129,0.1) 0%,rgba(16,185,129,0.02) 100%);
+            border:1px solid rgba(16,185,129,0.4);
+            transition:all 0.3s ease;
+        }
+        .ecosystem-card:hover{
+            transform:scale(1.05);
+            border-color:rgba(16,185,129,0.6);
+            box-shadow:0 0 30px rgba(16,185,129,0.3);
+        }
+        
+        /* PACKAGE CARDS */
+        .package-card{
+            background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,rgba(0,0,0,0.2) 100%);
+            border:1px solid rgba(255,255,255,0.1);
+            transition:all 0.4s ease;
+        }
+        .package-card:hover{
+            transform:translateY(-8px);
+            border-color:rgba(255,136,0,0.4);
+            box-shadow:0 30px 60px rgba(0,0,0,0.5);
+        }
+        
+        /* NAV */
+        .nav{
+            background:rgba(0,0,0,0.9);
+            backdrop-filter:blur(20px);
+            border-bottom:1px solid rgba(255,136,0,0.2);
+        }
     </style>
 </head>
 <body>
-    <!-- APPROVAL MODAL -->
-    <div id="approval" class="mo">
-        <div class="c max-w-md mx-4 p-8 rounded-3xl border border-yellow-500/50 bg-yellow-900/10">
-            <div class="text-4xl mb-4">🛡️</div>
-            <h3 class="text-xl font-bold mb-2">GOVERNANCE APPROVAL</h3>
-            <p class="text-gray-400 text-sm mb-4">This action requires governance verification:</p>
-            <div class="bg-yellow-900/30 p-4 rounded-lg mb-4 text-sm">
-                <p><span class="text-yellow-400">✓</span> Multi-level permission check</p>
-                <p><span class="text-yellow-400">✓</span> Path-level rule verification</p>
-                <p><span class="text-yellow-400">✓</span> Security hooks passed</p>
-            </div>
-            <button onclick="cm('approval')" class="bp w-full py-3 rounded-xl font-bold">APPROVE</button>
-        </div>
-    </div>
-
-    <!-- CHECKOUT MODAL -->
+    <!-- MODALS -->
     <div id="checkout" class="mo">
-        <div class="c max-w-md mx-4 p-8 rounded-3xl border border-orange-500/30">
+        <div class="glass-card max-w-md mx-4 p-8 rounded-3xl border border-orange-500/30">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-2xl font-bold">CONNECT WALLET</h3>
                 <button onclick="cm('checkout')" class="text-gray-400 hover:text-white text-2xl">&times;</button>
             </div>
-            <p class="text-gray-400 mb-4">Governance-verified wallet connection:</p>
+            <p class="text-gray-400 mb-6">🛡️ Governance-verified connection:</p>
             <div class="space-y-3">
-                <a href="#" onclick="showApproval('base')" class="c flex items-center gap-4 p-4 rounded-xl border border-green-500/30 hover:border-green-400">
-                    <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold">B</div>
-                    <div><div class="font-bold">Base Wallet</div><div class="text-xs text-green-400">🛡️ Governance Verified</div></div>
+                <a href="#" onclick="cw('base')" class="glass-card flex items-center gap-4 p-4 rounded-xl hover:border-green-500">
+                    <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">B</div>
+                    <div><div class="font-bold text-lg">Base Wallet</div><div class="text-xs text-green-400">✓ Governance Verified</div></div>
                 </a>
-                <a href="#" onclick="showApproval('metamask')" class="c flex items-center gap-4 p-4 rounded-xl border border-green-500/30 hover:border-green-400">
-                    <div class="w-10 h-10 rounded-lg bg-orange-500 flex items-center justify-center text-white font-bold">M</div>
-                    <div><div class="font-bold">MetaMask</div><div class="text-xs text-green-400">🛡️ Governance Verified</div></div>
+                <a href="#" onclick="cw('metamask')" class="glass-card flex items-center gap-4 p-4 rounded-xl hover:border-green-500">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500 flex items-center justify-center text-white font-bold text-xl">M</div>
+                    <div><div class="font-bold text-lg">MetaMask</div><div class="text-xs text-green-400">✓ Governance Verified</div></div>
                 </a>
-                <a href="#" onclick="showApproval('zerion')" class="c flex items-center gap-4 p-4 rounded-xl border border-green-500/30 hover:border-green-400">
-                    <div class="w-10 h-10 rounded-lg bg-red-500 flex items-center justify-center text-white font-bold">Z</div>
-                    <div><div class="font-bold">Zerion</div><div class="text-xs text-green-400">🛡️ Governance Verified</div></div>
+                <a href="#" onclick="cw('zerion')" class="glass-card flex items-center gap-4 p-4 rounded-xl hover:border-green-500">
+                    <div class="w-12 h-12 rounded-xl bg-red-500 flex items-center justify-center text-white font-bold text-xl">Z</div>
+                    <div><div class="font-bold text-lg">Zerion</div><div class="text-xs text-green-400">✓ Governance Verified</div></div>
                 </a>
-                <a href="#" onclick="showApproval('bnkr')" class="c flex items-center gap-4 p-4 rounded-xl border border-green-500/30 hover:border-green-400">
-                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold">$</div>
-                    <div><div class="font-bold">BNKR Wallet</div><div class="text-xs text-green-400">🛡️ Governance Verified</div></div>
+                <a href="#" onclick="cw('bnkr')" class="glass-card flex items-center gap-4 p-4 rounded-xl hover:border-green-500">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold text-xl">$</div>
+                    <div><div class="font-bold text-lg">BNKR Wallet</div><div class="text-xs text-green-400">✓ Governance Verified</div></div>
                 </a>
             </div>
         </div>
     </div>
-
     <div id="success" class="mo">
-        <div class="c max-w-md mx-4 p-8 rounded-3xl border border-green-500/30 text-center">
-            <div class="text-6xl mb-4">🎉</div>
-            <h3 class="text-2xl font-bold mb-2">TOKEN LAUNCHED!</h3>
-            <p class="text-gray-400 mb-4">All 15+ integrations live • Governance audit complete</p>
-            <div class="bg-green-900/30 p-4 rounded-lg mb-6 text-sm">
-                <p><span class="text-green-400">✓</span> Security verification passed</p>
-                <p><span class="text-green-400">✓</span> Privacy check confirmed</p>
-                <p><span class="text-green-400">✓</span> Audit trail logged</p>
-            </div>
-            <button onclick="cm('success')" class="bp w-full py-3 rounded-xl font-bold">DONE</button>
+        <div class="glass-card max-w-md mx-4 p-8 rounded-3xl border border-green-500/30 text-center">
+            <div class="text-7xl mb-4 animate-float">🎉</div>
+            <h3 class="text-3xl font-bold mb-2 gradient-text">TOKEN LAUNCHED!</h3>
+            <p class="text-gray-400 mb-6">All 15+ integrations live • 🛡️ Audit complete</p>
+            <button onclick="cm('success')" class="btn-primary w-full py-4 rounded-xl font-bold text-xl">DONE</button>
         </div>
     </div>
 
     <!-- NAV -->
-    <nav class="fixed top-0 w-full z-50 ng">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <a href="https://x.com/IronBridge_AI" target="_blank" class="pf">🔗</a>
-                <div><span class="text-xl font-bold">IRONFORGE</span></div>
+    <nav class="fixed top-0 w-full z-50 nav">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl border-2 border-orange-500 glow-orange">🔗</div>
+                <div>
+                    <span class="text-2xl font-bold tracking-wide">IRONFORGE</span>
+                </div>
             </div>
-            <div class="hidden md:flex items-center gap-6 text-sm">
-                <a href="#security" class="text-green-400 font-bold">🛡️ SECURITY</a>
-                <a href="#privacy" class="text-blue-400 font-bold">🔒 PRIVACY</a>
-                <a href="#validated" class="text-purple-400 font-bold">✅ VALIDATED</a>
-                <a href="#ints" class="text-gray-400 hover:text-orange-400">INTEGRATIONS</a>
-                <a href="#pkgs" class="text-gray-400 hover:text-orange-400">PACKAGES</a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#security" class="text-green-400 hover:text-green-300 font-bold">🛡️ SECURITY</a>
+                <a href="#privacy" class="text-blue-400 hover:text-blue-300 font-bold">🔒 PRIVACY</a>
+                <a href="#validated" class="text-purple-400 hover:text-purple-300 font-bold">✅ VALIDATED</a>
+                <a href="#ints" class="text-gray-300 hover:text-orange-400">INTEGRATIONS</a>
+                <a href="#pkgs" class="text-gray-300 hover:text-orange-400">PACKAGES</a>
             </div>
-            <button onclick="om('checkout')" class="bg-blue-600 px-5 py-2 rounded-lg font-bold text-sm">CONNECT</button>
+            <button onclick="om('checkout')" class="btn-primary px-6 py-2 rounded-lg font-bold">CONNECT</button>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="g min-h-screen relative overflow-hidden">
-        <div class="gc absolute inset-0"></div><div class="gp absolute inset-0 opacity-40"></div>
-        <div class="relative max-w-6xl mx-auto px-4 py-32 text-center">
-            <!-- SECURITY BADGES -->
-            <div class="flex flex-wrap justify-center gap-2 mb-6">
-                <span class="bg-green-900/50 text-green-400 px-3 py-1 rounded-full text-sm border border-green-500/30">🛡️ Governance</span>
-                <span class="bg-blue-900/50 text-blue-400 px-3 py-1 rounded-full text-sm border border-blue-500/30">🔒 Privacy First</span>
-                <span class="bg-purple-900/50 text-purple-400 px-3 py-1 rounded-full text-sm border border-purple-500/30">✅ HKUDS Validated</span>
-                <span class="bg-yellow-900/50 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/30">📊 Audit Trail</span>
+    <section class="hero min-h-screen relative overflow-hidden">
+        <div class="grid-anim absolute inset-0 opacity-50"></div>
+        <div class="relative max-w-6xl mx-auto px-6 py-40 text-center">
+            <!-- BADGES -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <span class="glass-card px-4 py-2 rounded-full text-sm border border-green-500/30">
+                    <span class="text-green-400">🛡️</span> <span class="text-green-400 font-bold">Governance</span>
+                </span>
+                <span class="glass-card px-4 py-2 rounded-full text-sm border border-blue-500/30">
+                    <span class="text-blue-400">🔒</span> <span class="text-blue-400 font-bold">Privacy First</span>
+                </span>
+                <span class="glass-card px-4 py-2 rounded-full text-sm border border-purple-500/30">
+                    <span class="text-purple-400">✅</span> <span class="text-purple-400 font-bold">HKUDS Validated</span>
+                </span>
             </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">LAUNCH YOUR TOKEN<br><span class="gt">EVERYWHERE AT ONCE</span></h1>
-            <p class="text-2xl font-bold text-orange-400 mb-4">$5 / $15 / $25</p>
-            <p class="text-green-400 mb-8">🛡️ Governance by Design • 🔒 No KYC • 📊 Full Audit • 💰 $BNKR Native</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="om('checkout')" class="bp px-12 py-4 rounded-xl font-bold text-lg pg">CONNECT & LAUNCH</button>
-                <a href="#pkgs" class="bs px-12 py-4 rounded-xl font-bold">PACKAGES</a>
+            
+            <h1 class="text-6xl md:text-8xl font-extrabold mb-6 leading-tight">
+                LAUNCH YOUR TOKEN<br>
+                <span class="gradient-text">EVERYWHERE AT ONCE</span>
+            </h1>
+            
+            <p class="text-3xl font-bold text-orange-500 mb-4">$5 / $15 / $25</p>
+            <p class="text-green-400 text-lg mb-10">🛡️ Governance • 🔒 Privacy • 📊 Audit • 💰 $BNKR Native</p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+                <button onclick="om('checkout')" class="btn-primary px-12 py-5 rounded-2xl font-bold text-xl animate-pulse-glow">CONNECT & LAUNCH</button>
+                <a href="#pkgs" class="glass-card px-12 py-5 rounded-2xl font-bold text-xl hover:border-orange-500">PACKAGES</a>
+            </div>
+            
+            <div class="glass-card inline-flex gap-8 px-10 py-6 rounded-2xl">
+                <div><div class="text-4xl font-bold gradient-text">50K+</div><div class="text-gray-500 text-sm">LAUNCHED</div></div>
+                <div class="w-px bg-orange-500/30"></div>
+                <div><div class="text-4xl font-bold text-green-500">🛡️</div><div class="text-gray-500 text-sm">SECURED</div></div>
+                <div class="w-px bg-orange-500/30"></div>
+                <div><div class="text-4xl font-bold gradient-text-purple">38K</div><div class="text-gray-500 text-sm">NANOBOT ⭐</div></div>
             </div>
         </div>
     </section>
 
-    <div class="d max-w-4xl mx-auto"></div>
+    <div class="divider max-w-4xl mx-auto"></div>
 
-    <!-- SECURITY SECTION -->
-    <section id="security" class="py-20 bg-gradient-to-r from-green-900/30 via-black to-emerald-900/30">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-10">
-                <span class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold">🛡️ GOVERNANCE BY DESIGN</span>
-                <h2 class="text-4xl font-bold mt-6 mb-4">SECURITY <span class="gt-green">ENFORCED</span></h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Inspired by OpenHarness multi-level permission system. Every action verified. Complete audit trail.</p>
+    <!-- SECURITY -->
+    <section id="security" class="py-24 section-security">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="glass-card px-6 py-3 rounded-full text-sm font-bold text-green-400 border border-green-500/30">🛡️ GOVERNANCE BY DESIGN</span>
+                <h2 class="text-5xl font-bold mt-8 mb-4">SECURITY <span class="gradient-text-green">ENFORCED</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Multi-level permissions. Path rules. Security hooks. Audit trail. Everything verified.</p>
             </div>
             <div class="grid md:grid-cols-4 gap-6">
-                <div class="c glass-card p-6 rounded-xl border border-green-500/30 text-center">
-                    <div class="text-4xl mb-3">🔐</div>
-                    <div class="font-bold text-green-400">Permission Levels</div>
-                    <p class="text-gray-500 text-sm mt-2">Multi-level modes: restricted, read-only, sandbox, full</p>
+                <div class="glass-card p-8 rounded-2xl text-center glow-green">
+                    <div class="text-5xl mb-4">🔐</div>
+                    <div class="font-bold text-xl text-green-400 mb-2">Permission Levels</div>
+                    <p class="text-gray-500 text-sm">Restricted • Read-only • Sandbox • Full</p>
                 </div>
-                <div class="c glass-card p-6 rounded-xl border border-green-500/30 text-center">
-                    <div class="text-4xl mb-3">📋</div>
-                    <div class="font-bold text-green-400">Path Rules</div>
-                    <p class="text-gray-500 text-sm mt-2">Granular control over file and directory access</p>
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="text-5xl mb-4">📋</div>
+                    <div class="font-bold text-xl text-green-400 mb-2">Path Rules</div>
+                    <p class="text-gray-500 text-sm">Granular file & directory access control</p>
                 </div>
-                <div class="c glass-card p-6 rounded-xl border border-green-500/30 text-center">
-                    <div class="text-4xl mb-3">⚡</div>
-                    <div class="font-bold text-green-400">Security Hooks</div>
-                    <p class="text-gray-500 text-sm mt-2">PreToolUse and PostToolUse validation</p>
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <div class="font-bold text-xl text-green-400 mb-2">Security Hooks</div>
+                    <p class="text-gray-500 text-sm">PreToolUse & PostToolUse validation</p>
                 </div>
-                <div class="c glass-card p-6 rounded-xl border border-green-500/30 text-center">
-                    <div class="text-4xl mb-3">📊</div>
-                    <div class="font-bold text-green-400">Audit Trail</div>
-                    <p class="text-gray-500 text-sm mt-2">Every action logged with full transparency</p>
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="text-5xl mb-4">📊</div>
+                    <div class="font-bold text-xl text-green-400 mb-2">Audit Trail</div>
+                    <p class="text-gray-500 text-sm">Every action logged transparently</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="d max-w-4xl mx-auto"></div>
+    <div class="divider max-w-4xl mx-auto"></div>
 
-    <!-- PRIVACY SECTION -->
-    <section id="privacy" class="py-20 bg-gradient-to-r from-blue-900/30 via-black to-cyan-900/30">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-10">
-                <span class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-full text-sm font-bold">🔒 PRIVACY FIRST</span>
-                <h2 class="text-4xl font-bold mt-6 mb-4">PRIVACY <span class="gt-blue">PROTECTED</span></h2>
+    <!-- PRIVACY -->
+    <section id="privacy" class="py-24 section-privacy">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="glass-card px-6 py-3 rounded-full text-sm font-bold text-blue-400 border border-blue-500/30">🔒 PRIVACY FIRST</span>
+                <h2 class="text-5xl font-bold mt-8 mb-4">PRIVACY <span class="gradient-text" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);-webkit-background-clip:text;">PROTECTED</span></h2>
             </div>
             <div class="grid md:grid-cols-3 gap-6">
-                <div class="c glass-card p-6 rounded-xl border border-blue-500/30 text-center">
-                    <div class="text-4xl mb-3">👤</div>
-                    <div class="font-bold text-blue-400">No KYC Required</div>
-                    <p class="text-gray-500 text-sm mt-2">Agent identity, not human. Privacy preserved.</p>
+                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30">
+                    <div class="text-5xl mb-4">👤</div>
+                    <div class="font-bold text-xl text-blue-400 mb-2">No KYC Required</div>
+                    <p class="text-gray-500">Agent identity, not human. Privacy preserved.</p>
                 </div>
-                <div class="c glass-card p-6 rounded-xl border border-blue-500/30 text-center">
-                    <div class="text-4xl mb-3">🔑</div>
-                    <div class="font-bold text-blue-400">Self-Custody</div>
-                    <p class="text-gray-500 text-sm mt-2">You control your keys. Read-only connections.</p>
+                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30">
+                    <div class="text-5xl mb-4">🔑</div>
+                    <div class="font-bold text-xl text-blue-400 mb-2">Self-Custody</div>
+                    <p class="text-gray-500">You control your keys. Read-only connections.</p>
                 </div>
-                <div class="c glass-card p-6 rounded-xl border border-blue-500/30 text-center">
-                    <div class="text-4xl mb-3">🚫</div>
-                    <div class="font-bold text-blue-400">No Data Stored</div>
-                    <p class="text-gray-500 text-sm mt-2">Zero database. Your data stays with you.</p>
+                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30">
+                    <div class="text-5xl mb-4">🚫</div>
+                    <div class="font-bold text-xl text-blue-400 mb-2">Zero Data Stored</div>
+                    <p class="text-gray-500">No database. Your data stays with you.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="d max-w-4xl mx-auto"></div>
+    <div class="divider max-w-4xl mx-auto"></div>
 
-    <!-- VALIDATED SECTION -->
-    <section id="validated" class="py-16 bg-gradient-to-r from-purple-900/20 via-black to-indigo-900/20">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <span class="badge mb-4">POWERED BY PROVEN HKUDS ARCHITECTURE</span>
-            <div class="flex flex-wrap justify-center gap-3 mb-4">
-                <a href="https://github.com/HKUDS/nanobot" target="_blank" class="bs px-3 py-1 rounded-lg text-sm">nanobot (38K⭐)</a>
-                <a href="https://github.com/HKUDS/OpenHarness" target="_blank" class="bs px-3 py-1 rounded-lg text-sm">🛡️ OpenHarness</a>
-                <a href="https://github.com/HKUDS/OpenSpace" target="_blank" class="bs px-3 py-1 rounded-lg text-sm">OpenSpace</a>
-                <a href="https://github.com/HKUDS/LightRAG" target="_blank" class="bs px-3 py-1 rounded-lg text-sm">LightRAG (32K⭐)</a>
+    <!-- VALIDATED -->
+    <section id="validated" class="py-20 section-validated">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="gradient-text-purple text-2xl font-bold mb-6 block">POWERED BY PROVEN HKUDS ARCHITECTURE</span>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://github.com/HKUDS/nanobot" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500">
+                    <span class="gradient-text-purple font-bold">nanobot</span>
+                    <span class="text-gray-400"> 38K⭐</span>
+                </a>
+                <a href="https://github.com/HKUDS/OpenHarness" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-green-500">
+                    <span class="text-green-400 font-bold">🛡️</span>
+                    <span class="text-gray-400"> OpenHarness</span>
+                </a>
+                <a href="https://github.com/HKUDS/ClawTeam" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500">
+                    <span class="gradient-text-purple font-bold">ClawTeam</span>
+                    <span class="text-gray-400"> Swarms</span>
+                </a>
+                <a href="https://github.com/HKUDS/LightRAG" target="_blank" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500">
+                    <span class="gradient-text-purple font-bold">LightRAG</span>
+                    <span class="text-gray-400"> 32K⭐</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <div class="d max-w-4xl mx-auto"></div>
+    <div class="divider max-w-4xl mx-auto"></div>
 
     <!-- INTEGRATIONS -->
-    <section id="ints" class="py-20 bg-black">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-2">15+ <span class="gt">INTEGRATIONS</span> PRE-BUILT</h2>
-            <p class="text-orange-400 text-center mb-12">Security-verified • Privacy-compliant</p>
-            <div class="grid grid-cols-5 md:grid-cols-10 gap-2 mb-8">
-                <a href="https://t.me/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📱</div><div class="font-bold text-xs">Telegram</div></a>
-                <a href="https://discord.gg/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">💬</div><div class="font-bold text-xs">Discord</div></a>
-                <a href="https://x.com/IronBridge_AI" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">𝕏</div><div class="font-bold text-xs">X</div></a>
-                <a href="https://warpcast.com/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🌐</div><div class="font-bold text-xs">Farcaster</div></a>
-                <a href="https://bsky.app/profile/ironbridge.ai" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">💙</div><div class="font-bold text-xs">Bluesky</div></a>
-                <a href="https://mastodon.social/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🐘</div><div class="font-bold text-xs">Mastodon</div></a>
-                <a href="https://youtube.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📺</div><div class="font-bold text-xs">YouTube</div></a>
-                <a href="https://twitch.tv/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🎮</div><div class="font-bold text-xs">Twitch</div></a>
-                <a href="https://tiktok.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📹</div><div class="font-bold text-xs">TikTok</div></a>
-                <a href="https://medium.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">✍️</div><div class="font-bold text-xs">Medium</div></a>
+    <section id="ints" class="py-24 bg-black">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4">15+ <span class="gradient-text">INTEGRATIONS</span> PRE-BUILT</h2>
+            <p class="text-orange-400 text-center mb-16 text-lg">Security-verified • Privacy-compliant • One-click deploy</p>
+            
+            <div class="mb-12">
+                <h3 class="text-xl text-gray-400 mb-6">📱 SOCIAL PLATFORMS</h3>
+                <div class="grid grid-cols-5 md:grid-cols-10 gap-3">
+                    <a href="https://t.me/ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📱</div><div class="font-bold text-sm">Telegram</div></a>
+                    <a href="https://discord.gg/ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">💬</div><div class="font-bold text-sm">Discord</div></a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">𝕏</div><div class="font-bold text-sm">X</div></a>
+                    <a href="https://warpcast.com/ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🌐</div><div class="font-bold text-sm">Farcaster</div></a>
+                    <a href="https://bsky.app/profile/ironbridge.ai" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">💙</div><div class="font-bold text-sm">Bluesky</div></a>
+                    <a href="https://mastodon.social/@ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🐘</div><div class="font-bold text-sm">Mastodon</div></a>
+                    <a href="https://youtube.com/@ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📺</div><div class="font-bold text-sm">YouTube</div></a>
+                    <a href="https://twitch.tv/ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🎮</div><div class="font-bold text-sm">Twitch</div></a>
+                    <a href="https://tiktok.com/@ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📹</div><div class="font-bold text-sm">TikTok</div></a>
+                    <a href="https://medium.com/@ironbridge" target="_blank" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">✍️</div><div class="font-bold text-sm">Medium</div></a>
+                </div>
             </div>
-            <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
-                <a href="https://x.com/solvrbot" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🤖</div><div class="font-bold text-sm">SolvrBot</div></a>
-                <a href="https://x.com/agent_clerk" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">📋</div><div class="font-bold text-sm">Agent Clerk</div></a>
-                <a href="https://x.com/netprotocol" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🌐</div><div class="font-bold text-sm">Net Protocol</div></a>
-                <a href="https://x.com/moltbook" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">📱</div><div class="font-bold text-sm">Moltbook</div></a>
-                <a href="https://x.com/bankrbot" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🏛️</div><div class="font-bold text-sm">Bankr</div></a>
-                <div class="ib p-4 rounded-xl text-center opacity-60"><div class="text-3xl mb-2">💰</div><div class="font-bold text-sm">x402 Cloud</div></div>
+            
+            <div>
+                <h3 class="text-xl text-gray-400 mb-6">🔗 ECOSYSTEM TOOLS</h3>
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+                    <a href="https://x.com/solvrbot" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🤖</div><div class="font-bold">SolvrBot</div></a>
+                    <a href="https://x.com/agent_clerk" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">📋</div><div class="font-bold">Agent Clerk</div></a>
+                    <a href="https://x.com/netprotocol" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🌐</div><div class="font-bold">Net Protocol</div></a>
+                    <a href="https://x.com/moltbook" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">📱</div><div class="font-bold">Moltbook</div></a>
+                    <a href="https://x.com/bankrbot" target="_blank" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🏛️</div><div class="font-bold">Bankr</div></a>
+                    <div class="ecosystem-card p-5 rounded-xl text-center opacity-50"><div class="text-4xl mb-3">💰</div><div class="font-bold">x402 Cloud</div></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="d max-w-4xl mx-auto"></div>
+    <div class="divider max-w-4xl mx-auto"></div>
 
     <!-- PACKAGES -->
-    <section id="pkgs" class="py-20 bg-zinc-950">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-2">CHOOSE YOUR <span class="gt">PACKAGE</span></h2>
-            <p class="text-orange-400 text-center mb-12">🛡️ Governance • 🔒 Privacy • 📊 Audit</p>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="c rounded-2xl overflow-hidden">
-                    <div class="bg-white/5 p-6 text-center"><div class="text-xl font-bold mb-1">STARTER</div><div class="text-5xl font-bold text-orange-500">$5<span class="text-base text-gray-500">/mo</span></div></div>
-                    <div class="p-6"><ul class="space-y-3 mb-6 text-sm"><li class="flex items-center gap-2"><span class="ck">✓</span> 1 Token</li><li class="flex items-center gap-2"><span class="ck">✓</span> 15+ Integrations</li><li class="flex items-center gap-2"><span class="ck">✓</span> Governance Secured</li></ul><button onclick="om('checkout')" class="bs w-full py-3 rounded-xl font-bold">SELECT $5</button></div>
+    <section id="pkgs" class="py-24 bg-zinc-950">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4">CHOOSE YOUR <span class="gradient-text">PACKAGE</span></h2>
+            <p class="text-orange-400 text-center mb-16 text-lg">🛡️ Governance • 🔒 Privacy • 📊 Audit • $BNKR Native</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="package-card rounded-3xl overflow-hidden">
+                    <div class="bg-white/5 p-10 text-center">
+                        <div class="text-2xl font-bold mb-2">STARTER</div>
+                        <div class="text-6xl font-bold gradient-text">$5<span class="text-lg text-gray-500">/mo</span></div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 1 Token</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 15+ Integrations</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 5 Blockchains</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 🛡️ Governance Secured</li>
+                        </ul>
+                        <button onclick="om('checkout')" class="w-full py-4 rounded-xl font-bold text-lg glass-card hover:border-orange-500">SELECT $5</button>
+                    </div>
                 </div>
-                <div class="c rounded-2xl overflow-hidden border-2 border-orange-500 relative">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-xs font-bold px-4 py-1 rounded-full">BEST</div>
-                    <div class="bg-gradient-to-b from-orange-500/20 to-transparent p-6 text-center"><div class="text-xl font-bold mb-1">GROWTH</div><div class="text-5xl font-bold text-orange-500">$15<span class="text-base text-gray-500">/mo</span></div></div>
-                    <div class="p-6"><ul class="space-y-3 mb-6 text-sm"><li class="flex items-center gap-2"><span class="ck">✓</span> 3 Tokens</li><li class="flex items-center gap-2"><span class="ck">✓</span> Full Governance</li><li class="flex items-center gap-2"><span class="ck">✓</span> Audit Trail</li></ul><button onclick="om('checkout')" class="bp w-full py-3 rounded-xl font-bold">SELECT $15</button></div>
+                
+                <div class="package-card rounded-3xl overflow-hidden border-2 border-orange-500 relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-sm font-bold px-6 py-2 rounded-full">BEST VALUE</div>
+                    <div class="bg-gradient-to-b from-orange-500/20 to-transparent p-10 text-center">
+                        <div class="text-2xl font-bold mb-2">GROWTH</div>
+                        <div class="text-6xl font-bold gradient-text">$15<span class="text-lg text-gray-500">/mo</span></div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 3 Tokens</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> All Integrations</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> Priority Support</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 📊 Full Audit Trail</li>
+                        </ul>
+                        <button onclick="om('checkout')" class="btn-primary w-full py-4 rounded-xl font-bold text-xl">SELECT $15</button>
+                    </div>
                 </div>
-                <div class="c rounded-2xl overflow-hidden">
-                    <div class="bg-white/5 p-6 text-center"><div class="text-xl font-bold mb-1">VIRAL</div><div class="text-5xl font-bold text-orange-500">$25<span class="text-base text-gray-500">/mo</span></div></div>
-                    <div class="p-6"><ul class="space-y-3 mb-6 text-sm"><li class="flex items-center gap-2"><span class="ck">✓</span> Unlimited</li><li class="flex items-center gap-2"><span class="ck">✓</span> White-label + API</li><li class="flex items-center gap-2"><span class="ck">✓</span> Complete Audit</li></ul><button onclick="om('checkout')" class="bg-cyan-600 w-full py-3 rounded-xl font-bold">SELECT $25</button></div>
+                
+                <div class="package-card rounded-3xl overflow-hidden">
+                    <div class="bg-white/5 p-10 text-center">
+                        <div class="text-2xl font-bold mb-2">VIRAL</div>
+                        <div class="text-6xl font-bold gradient-text">$25<span class="text-lg text-gray-500">/mo</span></div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> Unlimited Tokens</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> White-label</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> API Access</li>
+                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 🚀 Complete Suite</li>
+                        </ul>
+                        <button class="w-full py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400">SELECT $25</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-8 bg-black border-t border-green-500/30 text-center">
-        <div class="flex justify-center items-center gap-2 mb-4"><a href="https://x.com/IronBridge_AI" target="_blank" class="pf">🔗</a><span class="text-lg font-bold">IRONFORGE</span></div>
-        <p class="text-gray-400 text-sm">🛡️ Governance by Design • 🔒 Privacy First • 📊 Full Audit • 💰 $BNKR Native</p>
-        <p class="text-green-400 text-xs mt-2">Powered by HKUDS: nanobot + OpenHarness + LightRAG</p>
+    <footer class="py-12 bg-black border-t border-green-500/20 text-center">
+        <div class="flex justify-center items-center gap-4 mb-6">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl border-2 border-orange-500">🔗</div>
+            <span class="text-2xl font-bold">IRONFORGE</span>
+        </div>
+        <p class="text-gray-400">🛡️ Governance by Design • 🔒 Privacy First • 📊 Full Audit • 💰 $BNKR Native</p>
+        <p class="text-green-400 text-sm mt-4">Powered by HKUDS: nanobot + OpenHarness + ClawTeam + LightRAG</p>
     </footer>
 
     <script>
         function om(id){document.getElementById(id).classList.add('active')}
         function cm(id){document.getElementById(id).classList.remove('active')}
-        function showApproval(wallet){
-            om('approval');
-            setTimeout(function(){
-                cm('approval');
-                om('checkout');
-            }, 2000);
-        }
         function cw(w){
-            document.querySelectorAll('[onclick^=cw]').forEach(b=>b.style.opacity='.5');
-            setTimeout(()=>{cm('checkout');setTimeout(()=>om('success'),300)},1500)
+            document.querySelectorAll('[onclick^=cw]').forEach(b=>b.style.opacity='0.5');
+            setTimeout(()=>{cm('checkout');setTimeout(()=>om('success'),500)},1500)
         }
-        document.addEventListener('keydown',e=>{if(e.key==='Escape'){cm('checkout');cm('approval');cm('success')}})
+        document.addEventListener('keydown',e=>{if(e.key==='Escape'){cm('checkout');cm('success')}})
     </script>
 </body>
 </html>
-<!-- CLI-Anything note could be added here -->

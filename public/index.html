@@ -4,20 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IronBridge — Deploy AI Agents Everywhere</title>
-    <meta name="description" content="Deploy your AI agent to 6 platforms in one click. Zero code. Telegram, Discord, X, Farrcaster, Bluesky, Mastodon. Built on Base with x402 Cloud.">
-    <meta property="og:title" content="IronBridge — Deploy AI Agents Everywhere">
-    <meta property="og:description" content="One click. Six platforms. Zero code.">
+    <meta name="description" content="Deploy your AI agent to 6 platforms in one click. Zero code. Built on Base.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Outfit', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
         
-        /* COD Style - Dark + Orange Accents */
-        :root {
-            --cod-orange: #FF8800;
-            --cod-orange-hover: #FF9922;
-        }
+        :root { --cod-orange: #FF8800; --cod-orange-hover: #FF9922; }
         
         .hero-bg { background: linear-gradient(180deg, #0a0a0a 0%, #000 100%); }
         .hero-accent { background: linear-gradient(135deg, rgba(255,136,0,0.15) 0%, rgba(0,0,0,0) 50%); }
@@ -25,17 +19,13 @@
         .grid-anim { background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 50px 50px; animation: gridMove 15s linear infinite; }
         @keyframes gridMove { 0% { transform: translate(0, 0); } 100% { transform: translate(50px, 50px); } }
         
-        /* Orange Glow */
         .glow-orange { filter: drop-shadow(0 0 20px rgba(255, 136, 0, 0.5)); }
         
-        /* Gradients */
         .grad-text { background: linear-gradient(135deg, #FF8800, #FF5500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .grad-text-purple { background: linear-gradient(135deg, #a855f7, #6366f1, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
         .glass-card { background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%); border: 1px solid rgba(255,255,255,0.1); }
         
-        /* COD Style Buttons */
         .btn-cod {
             background: linear-gradient(180deg, var(--cod-orange) 0%, #CC6600 100%);
             color: #000;
@@ -49,16 +39,16 @@
             transform: scale(1.05);
         }
         
-        .btn-secondary {
+        .btn-intel {
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.3);
             font-family: 'Bebas Neue', sans-serif;
             letter-spacing: 2px;
             transition: all 0.2s;
         }
-        .btn-secondary:hover {
+        .btn-intel:hover {
             background: rgba(255,255,255,0.2);
-            border-color: #fff;
+            border-color: #FF8800;
         }
         
         .hover-lift { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -70,10 +60,15 @@
         @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .flash { animation: flash 2s ease-in-out infinite; }
         
-        /* Section dividers */
-        .section-line {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--cod-orange), transparent);
+        .section-line { height: 2px; background: linear-gradient(90deg, transparent, var(--cod-orange), transparent); }
+        
+        .sale-badge {
+            background: linear-gradient(135deg, #FF8800, #FF5500);
+            color: #000;
+            font-weight: bold;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -91,13 +86,11 @@
                 <a href="#features" class="hover:text-orange-400 transition">FEATURES</a>
                 <a href="#pricing" class="hover:text-orange-400 transition">PRICING</a>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="#pricing" class="btn-cod px-6 py-2 rounded font-bold">DEPLOY NOW</a>
-            </div>
+            <a href="#pricing" class="btn-cod px-6 py-2 rounded font-bold">DEPLOY NOW</a>
         </div>
     </nav>
 
-    <!-- HERO - COD STYLE -->
+    <!-- HERO -->
     <section class="hero-bg min-h-screen flex items-center relative overflow-hidden">
         <div class="hero-accent absolute inset-0 z-0"></div>
         <div class="grid-anim absolute inset-0 z-0 opacity-50"></div>
@@ -125,17 +118,13 @@
                 <div><div class="text-4xl font-bold text-orange-500">24/7</div><div class="text-sm text-gray-500 tracking-widest">ACTIVE</div></div>
             </div>
             
-            <!-- COD Style CTAs -->
+            <!-- CTAs -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <a href="#pricing" class="btn-cod px-12 py-5 rounded font-bold pulse-orange">
-                    🚀 DEPLOY NOW
-                </a>
-                <a href="#use-cases" class="btn-secondary px-12 py-5 rounded font-bold">
-                    SEE USE CASES ↓
-                </a>
+                <a href="#pricing" class="btn-cod px-12 py-5 rounded font-bold pulse-orange">🚀 DEPLOY NOW</a>
+                <a href="#use-cases" class="btn-intel px-12 py-5 rounded font-bold">SEE USE CASES ↓</a>
             </div>
             
-            <!-- Trust badges -->
+            <!-- Trust -->
             <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
                 <span>✓ VERIFIED SAFE</span>
                 <span>✓ $BNKR COMPLIANT</span>
@@ -144,10 +133,9 @@
         </div>
     </section>
 
-    <!-- DIVIDER -->
     <div class="section-line max-w-2xl mx-auto"></div>
 
-    <!-- PLATFORMS - COD Style -->
+    <!-- PLATFORMS -->
     <section id="platforms" class="py-24 bg-black">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 tracking-tight">
@@ -190,10 +178,9 @@
         </div>
     </section>
 
-    <!-- DIVIDER -->
     <div class="section-line max-w-2xl mx-auto"></div>
 
-    <!-- USE CASES - COD Style -->
+    <!-- USE CASES -->
     <section id="use-cases" class="py-24 bg-zinc-950">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">CHOOSE YOUR <span class="grad-text">AGENT TYPE</span></h2>
@@ -280,62 +267,76 @@
                     <div class="text-3xl">🔄</div>
                     <div>
                         <h3 class="font-bold text-xl mb-2">CROSS-PLATFORM SYNC</h3>
-                        <p class="text-gray-400">One message posts everywhere. Keep all channels in sync automatically.</p>
+                        <p class="text-gray-400">One message posts everywhere.</p>
                     </div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl flex items-start gap-4 border-l-4 border-orange-500">
                     <div class="text-3xl">📊</div>
                     <div>
                         <h3 class="font-bold text-xl mb-2">ANALYTICS DASHBOARD</h3>
-                        <p class="text-gray-400">Track engagement, growth, and earnings from one unified dashboard.</p>
+                        <p class="text-gray-400">Track engagement and earnings.</p>
                     </div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl flex items-start gap-4 border-l-4 border-orange-500">
                     <div class="text-3xl">🛡️</div>
                     <div>
                         <h3 class="font-bold text-xl mb-2">SAFETY FIRST</h3>
-                        <p class="text-gray-400">@solvrbot + @bankrbot scan every deploy. Your agent is verified safe.</p>
+                        <p class="text-gray-400">@solvrbot + @bankrbot scan every deploy.</p>
                     </div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl flex items-start gap-4 border-l-4 border-orange-500">
                     <div class="text-3xl">💰</div>
                     <div>
                         <h3 class="font-bold text-xl mb-2">x402 CLOUD EARNINGS</h3>
-                        <p class="text-gray-400">Other agents pay tiny fees to use your agent. Earn while you sleep.</p>
+                        <p class="text-gray-400">Earn while you sleep.</p>
                     </div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl flex items-start gap-4 border-l-4 border-orange-500">
                     <div class="text-3xl">🔗</div>
                     <div>
                         <h3 class="font-bold text-xl mb-2">BASE NATIVE</h3>
-                        <p class="text-gray-400">Built on Base for fast, cheap transactions. $BNKR rewards included.</p>
+                        <p class="text-gray-400">Fast, cheap transactions.</p>
                     </div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl flex items-start gap-4 border-l-4 border-orange-500">
                     <div class="text-3xl">🤖</div>
                     <div>
                         <h3 class="font-bold text-xl mb-2">AI-POWERED</h3>
-                        <p class="text-gray-400">Lumen AI generates content. 0xSMC handles smart contracts.</p>
+                        <p class="text-gray-400">Lumen + 0xSMC included.</p>
                     </div>
                 </div>
+            </div>
+            
+            <div class="mt-12">
+                <a href="#features" class="btn-intel px-8 py-3 rounded font-bold inline-block">GET INTEL →</a>
             </div>
         </div>
     </section>
 
-    <!-- SAFETY -->
+    <!-- ROADMAP - COD Style -->
     <section class="py-24 bg-black">
         <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">SECURITY <span class="grad-text">PROTOCOL</span></h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="glass-card hover-lift p-8 rounded-2xl border-2 border-orange-500/50">
-                    <div class="text-5xl mb-4">🛡️</div>
-                    <h3 class="text-2xl font-bold mb-2">@SOLVRBOT</h3>
-                    <p class="text-gray-400">Pre-deployment safety scan. Catches malicious code before your agent goes live.</p>
+            <h2 class="text-4xl font-bold text-center mb-12">THE ROAD <span class="grad-text">AHEAD</span></h2>
+            <div class="space-y-4">
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-4 border-l-4 border-green-500">
+                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded text-xs font-bold">DEPLOYED</span>
+                    <div class="flex-1">One-click deploy to 6 platforms</div>
                 </div>
-                <div class="glass-card hover-lift p-8 rounded-2xl border-2 border-orange-500/50">
-                    <div class="text-5xl mb-4">🔒</div>
-                    <h3 class="text-2xl font-bold mb-2">@BANKRBOT</h3>
-                    <p class="text-gray-400">Bankr verification. Your agent meets all $BNKR ecosystem compliance requirements.</p>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-4 border-l-4 border-green-500">
+                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded text-xs font-bold">DEPLOYED</span>
+                    <div class="flex-1">x402 Cloud micropayments</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-4 border-l-4 border-blue-500">
+                    <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded text-xs font-bold">IN PROGRESS</span>
+                    <div class="flex-1">Mobile app for agent management</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-4 border-l-4 border-orange-500">
+                    <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-xs font-bold">Q2 2025</span>
+                    <div class="flex-1">Multi-chain support (Solana, Avalanche)</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center gap-4 border-l-4 border-gray-500">
+                    <span class="bg-gray-500/20 text-gray-400 px-3 py-1 rounded text-xs font-bold">Q3 2025</span>
+                    <div class="flex-1">AI agent marketplace</div>
                 </div>
             </div>
         </div>
@@ -376,11 +377,66 @@
         </div>
     </section>
 
-    <!-- PRICING - COD EDITION STYLE -->
+    <!-- TESTIMONIALS -->
+    <section class="py-24 bg-zinc-950">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">FIELD <span class="grad-text">REPORTS</span></h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-yellow-500 mb-3">★★★★★</div>
+                    <p class="text-gray-300 mb-4">"Launched my meme coin in 5 minutes. Didn't write code."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center">🪙</div>
+                        <div><div class="font-bold">@memelord</div><div class="text-xs text-gray-500">Meme Founder</div></div>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-yellow-500 mb-3">★★★★★</div>
+                    <p class="text-gray-300 mb-4">"Made $50 last week while I slept. x402 is real."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center">🤖</div>
+                        <div><div class="font-bold">@traderbot</div><div class="text-xs text-gray-500">Trading Agent</div></div>
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="text-yellow-500 mb-3">★★★★★</div>
+                    <p class="text-gray-300 mb-4">"Safety bots gave me peace of mind. Verified and trusted."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">💬</div>
+                        <div><div class="font-bold">@supportai</div><div class="text-xs text-gray-500">Support Agent</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAFETY -->
+    <section class="py-24 bg-black">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">SECURITY <span class="grad-text">PROTOCOL</span></h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card hover-lift p-8 rounded-2xl border-2 border-orange-500/50">
+                    <div class="text-5xl mb-4">🛡️</div>
+                    <h3 class="text-2xl font-bold mb-2">@SOLVRBOT</h3>
+                    <p class="text-gray-400">Pre-deployment safety scan.</p>
+                </div>
+                <div class="glass-card hover-lift p-8 rounded-2xl border-2 border-orange-500/50">
+                    <div class="text-5xl mb-4">🔒</div>
+                    <h3 class="text-2xl font-bold mb-2">@BANKRBOT</h3>
+                    <p class="text-gray-400">Bankr ecosystem verification.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
     <section id="pricing" class="py-24 bg-zinc-950">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-4">CHOOSE YOUR <span class="grad-text">EDITION</span></h2>
-            <p class="text-xl text-gray-400 text-center mb-12">One fee. Full access.</p>
+            <p class="text-xl text-gray-400 text-center mb-4">One fee. Full access.</p>
+            <div class="text-center mb-8">
+                <span class="sale-badge">ON SALE NOW</span>
+            </div>
             
             <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 <div class="glass-card hover-lift p-8 rounded-3xl border-2 border-white/10">
@@ -419,6 +475,8 @@
                     <button class="w-full py-4 rounded-xl font-bold bg-cyan-600 hover:bg-cyan-500 transition">SELECT EDITION</button>
                 </div>
             </div>
+            
+            <p class="text-center text-gray-500 text-sm mt-8">*Based on suggested retail price. At participating retailers.</p>
         </div>
     </section>
 

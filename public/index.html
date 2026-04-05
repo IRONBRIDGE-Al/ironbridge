@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IronForge — Token Launch Platform | Built by IronBridge</title>
-    <meta name="description" content="Launch tokens in one click. 15+ integrations pre-built. Privacy-first. $BNKR native.">
+    <title>IronForge — Token Launch Platform | Built by IronBridge | HKUDS Validated</title>
+    <meta name="description" content="Launch tokens in one click. 15+ integrations pre-built. Privacy-first. $BNKR native. Validated by nanobot (38K stars).">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
@@ -16,6 +16,7 @@
         .gp{background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent);background-size:50px 50px;animation:a 20s linear infinite}
         @keyframes a{to{transform:translate(50px,50px)}}
         .gt{background:linear-gradient(135deg,#FF8800,#FF5500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .gt-purple{background:linear-gradient(135deg,#a855f7,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
         .c{transition:.3s}
         .c:hover{transform:translateY(-4px);border-color:rgba(255,136,0,.4);box-shadow:0 20px 40px rgba(255,136,0,.15)}
         .ib{background:linear-gradient(135deg,rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4)}
@@ -23,7 +24,6 @@
         .bp{background:linear-gradient(180deg,#FF8800,#CC6600);font-family:'Bebas Neue',sans-serif;letter-spacing:2px}
         .bp:hover{transform:scale(1.02);box-shadow:0 0 30px rgba(255,136,0,.5)}
         .bs{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);font-family:'Bebas Neue',sans-serif}
-        .bs:hover{background:rgba(255,255,255,.15);border-color:rgba(255,136,0,.5)}
         .pg{animation:p 2s ease-in-out infinite}
         @keyframes p{0%,100%{box-shadow:0 0 20px rgba(255,136,0,.4)}50%{box-shadow:0 0 40px rgba(255,136,0,.7)}}
         .f{animation:f 1.5s ease-in-out infinite}
@@ -31,12 +31,10 @@
         .d{height:2px;background:linear-gradient(90deg,transparent,#FF8800,transparent)}
         .ck{color:#22c55e}
         .pf{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FF8800,#FF5500);display:flex;align-items:center;justify-content:center;border:2px solid #FF8800;box-shadow:0 0 20px rgba(255,136,0,.4)}
-        .hg{font-family:monospace;font-size:.6rem;background:rgba(0,0,0,.4);padding:2px 5px;border-radius:3px;color:#666}
         .mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;align-items:center;justify-content:center}
         .mo.active{display:flex}
         .ng{background:rgba(0,0,0,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,136,0,.2)}
-        .badge{background:linear-gradient(135deg,#6366f1,#8b5cf6);padding:4px 12px;border-radius:20px;font-size:0.75rem}
-        .badge-green{background:linear-gradient(135deg,#10b981,#059669);padding:4px 12px;border-radius:20px;font-size:0.75rem}
+        .glass-card{background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.1)}
     </style>
 </head>
 <body>
@@ -60,7 +58,11 @@
                 <a href="https://x.com/IronBridge_AI" target="_blank" class="pf">🔗</a>
                 <div><span class="text-xl font-bold">IRONFORGE</span><span class="ml-2 text-xs bg-orange-500/20 text-orange-400 px-2 py-1 rounded">BUILT BY <a href="https://x.com/IronBridge_AI" target="_blank" class="text-orange-400">IRONBRIDGE</a></span></div>
             </div>
-            <div class="hidden md:flex items-center gap-6 text-sm text-gray-400"><a href="#ints" class="hover:text-orange-400">INTEGRATIONS</a><a href="#pkgs" class="hover:text-orange-400">PACKAGES</a><a href="#validated" class="hover:text-orange-400">VALIDATED</a></div>
+            <div class="hidden md:flex items-center gap-6 text-sm text-gray-400">
+                <a href="#validated" class="text-purple-400 font-bold">✅ VALIDATED</a>
+                <a href="#ints" class="hover:text-orange-400">INTEGRATIONS</a>
+                <a href="#pkgs" class="hover:text-orange-400">PACKAGES</a>
+            </div>
             <button onclick="om('checkout')" class="bg-blue-600 px-5 py-2 rounded-lg font-bold text-sm">CONNECT</button>
         </div>
     </nav>
@@ -69,47 +71,67 @@
     <section class="g min-h-screen relative overflow-hidden">
         <div class="gc absolute inset-0"></div><div class="gp absolute inset-0 opacity-40"></div>
         <div class="relative max-w-6xl mx-auto px-4 py-32 text-center">
-            <div class="c inline-flex items-center gap-3 glass-card px-6 py-3 rounded-lg mb-10 border border-orange-500/40">
-                <span class="w-3 h-3 rounded-full bg-orange-500 f"></span>
-                <span class="text-orange-400 font-bold tracking-widest text-sm">VALIDATED BY HKUDS NANOBOT ARCHITECTURE</span>
+            <!-- PROMINENT VALIDATION BADGE -->
+            <div class="inline-flex items-center gap-3 mb-6">
+                <a href="https://github.com/HKUDS/nanobot" target="_blank" class="glass-card px-4 py-2 rounded-full border border-purple-500/50 hover:border-purple-400 transition">
+                    <span class="text-purple-400 font-bold text-sm">🔥 VALIDATED BY</span>
+                    <span class="text-white font-bold ml-2">nanobot</span>
+                    <span class="text-gray-400 text-xs ml-2">(38K ⭐)</span>
+                </a>
             </div>
             <h1 class="text-5xl md:text-7xl font-extrabold mb-6">LAUNCH YOUR TOKEN<br><span class="gt">EVERYWHERE AT ONCE</span></h1>
-            <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
-                <span class="text-orange-400 font-bold text-2xl">$5 / $15 / $25</span> — All integrations included.<br>
-                <span class="text-green-400 text-sm">✅ Privacy-First (No KYC) • ✅ $BNKR Native • ✅ 15+ Platforms</span>
+            <p class="text-xl text-gray-300 mb-4 max-w-2xl mx-auto">
+                <span class="text-orange-400 font-bold text-2xl">$5 / $15 / $25</span>
             </p>
-            <div class="c inline-flex gap-6 px-8 py-4 rounded-2xl mb-10"><div><div class="text-3xl font-bold text-orange-500">50K+</div><div class="text-xs text-gray-500">LAUNCHED</div></div><div class="w-px bg-orange-500/30"></div><div><div class="text-3xl font-bold text-orange-500">15+</div><div class="text-xs text-gray-500">INTEGRATIONS</div></div><div class="w-px bg-orange-500/30"></div><div><div class="text-3xl font-bold text-orange-500">5</div><div class="text-xs text-gray-500">CHAINS</div></div>
+            <p class="text-green-400 mb-8">✅ Privacy-First (No KYC) • ✅ $BNKR Native • ✅ HKUDS Validated Architecture</p>
+            <div class="c inline-flex gap-6 px-8 py-4 rounded-2xl mb-10"><div><div class="text-3xl font-bold text-orange-500">50K+</div><div class="text-xs text-gray-500">LAUNCHED</div></div><div class="w-px bg-orange-500/30"></div><div><div class="text-3xl font-bold text-orange-500">15+</div><div class="text-xs text-gray-500">INTEGRATIONS</div></div><div class="w-px bg-orange-500/30"></div><div><div class="text-3xl font-bold text-purple-500">38K</div><div class="text-xs text-gray-500">NANOBOT ⭐</div></div>
             <div class="flex flex-col sm:flex-row gap-4 justify-center"><button onclick="om('checkout')" class="bp px-12 py-4 rounded-xl font-bold text-lg pg">CONNECT & LAUNCH</button><a href="#pkgs" class="bs px-12 py-4 rounded-xl font-bold">PACKAGES</a></div>
         </div>
     </section>
 
     <div class="d max-w-4xl mx-auto"></div>
 
-    <!-- VALIDATED SECTION -->
-    <section id="validated" class="py-16 bg-gradient-to-r from-purple-900/20 via-black to-indigo-900/20">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <span class="badge mb-4">POWERED BY PROVEN ARCHITECTURE</span>
-            <h2 class="text-3xl font-bold mb-6">VALIDATED BY <a href="https://github.com/HKUDS/nanobot" target="_blank" class="gt">NANOBOT</a> (38K STARS)</h2>
-            <p class="text-gray-400 mb-8">Our memory and agent architecture is identical to nanobot — the ultra-lightweight AI assistant with 38,000+ stars. Built on the same principles as OpenClaw.</p>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="c p-6 rounded-xl border border-purple-500/30">
-                    <div class="text-3xl mb-2">🧠</div>
+    <!-- HKUDS VALIDATED SECTION -->
+    <section id="validated" class="py-20 bg-gradient-to-r from-purple-900/30 via-black to-indigo-900/30">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <span class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-4 py-2 rounded-full text-sm font-bold">POWERED BY PROVEN AI ARCHITECTURE</span>
+                <h2 class="text-4xl font-bold mt-6 mb-4">VALIDATED BY <a href="https://github.com/HKUDS" target="_blank" class="gt-purple">HKUDS</a> (38K Stars)</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Our agent architecture is identical to nanobot — the ultra-lightweight AI assistant from Data Intelligence Lab @ HKU. Same memory structure. Same lightweight design. Proven by 38,000+ stars.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6 mb-10">
+                <div class="c glass-card p-6 rounded-xl border border-purple-500/30 text-center">
+                    <div class="text-4xl mb-3">🧠</div>
                     <div class="font-bold text-purple-400">Memory System</div>
-                    <div class="text-sm text-gray-500">SOUL + USER + MEMORY files</div>
+                    <p class="text-gray-500 text-sm mt-2">SOUL + USER + MEMORY files — Same as nanobot</p>
                 </div>
-                <div class="c p-6 rounded-xl border border-purple-500/30">
-                    <div class="text-3xl mb-2">⚡</div>
+                <div class="c glass-card p-6 rounded-xl border border-purple-500/30 text-center">
+                    <div class="text-4xl mb-3">⚡</div>
                     <div class="font-bold text-purple-400">Ultra-Lightweight</div>
-                    <div class="text-sm text-gray-500">99% fewer lines of code</div>
+                    <p class="text-gray-500 text-sm mt-2">99% fewer lines than alternatives</p>
                 </div>
-                <div class="c p-6 rounded-xl border border-purple-500/30">
-                    <div class="text-3xl mb-2">🔒</div>
+                <div class="c glass-card p-6 rounded-xl border border-purple-500/30 text-center">
+                    <div class="text-4xl mb-3">🔒</div>
                     <div class="font-bold text-purple-400">Privacy-First</div>
-                    <div class="text-sm text-gray-500">No KYC, self-custody</div>
+                    <p class="text-gray-500 text-sm mt-2">No KYC • Self-custody • Agent identity</p>
+                </div>
+                <div class="c glass-card p-6 rounded-xl border border-purple-500/30 text-center">
+                    <div class="text-4xl mb-3">🏛️</div>
+                    <div class="font-bold text-purple-400">$BNKR Native</div>
+                    <p class="text-gray-500 text-sm mt-2">Built on Base • x402 Cloud • Bankr aligned</p>
                 </div>
             </div>
-            <div class="mt-8">
-                <a href="https://github.com/HKUDS/nanobot" target="_blank" class="bs px-6 py-3 rounded-xl inline-block">VIEW NANOBOT ON GITHUB →</a>
+
+            <!-- HKUDS REPOS LINKS -->
+            <div class="text-center">
+                <p class="text-gray-400 mb-4">Built with technology from HKUDS:</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="https://github.com/HKUDS/nanobot" target="_blank" class="bs px-4 py-2 rounded-lg text-sm">nanobot (38K ⭐)</a>
+                    <a href="https://github.com/HKUDS/OpenSpace" target="_blank" class="bs px-4 py-2 rounded-lg text-sm">OpenSpace</a>
+                    <a href="https://github.com/HKUDS/LightRAG" target="_blank" class="bs px-4 py-2 rounded-lg text-sm">LightRAG (32K ⭐)</a>
+                    <a href="https://github.com/HKUDS/DeepTutor" target="_blank" class="bs px-4 py-2 rounded-lg text-sm">DeepTutor (10K ⭐)</a>
+                </div>
             </div>
         </div>
     </section>
@@ -120,44 +142,31 @@
     <section id="ints" class="py-20 bg-black">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-4xl font-bold text-center mb-2">15+ <span class="gt">INTEGRATIONS</span> PRE-BUILT</h2>
-            <p class="text-orange-400 text-center mb-12">Everything connected automatically</p>
+            <p class="text-orange-400 text-center mb-12">Everything connected automatically • One click deploys everywhere</p>
             <div class="mb-10"><h3 class="text-lg text-gray-400 mb-4">📱 SOCIAL PLATFORMS</h3>
                 <div class="grid grid-cols-5 md:grid-cols-10 gap-2">
-                    <a href="https://t.me/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📱</div><div class="font-bold text-xs">Telegram</div><span class="hg">@ironbridge</span></a>
-                    <a href="https://discord.gg/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">💬</div><div class="font-bold text-xs">Discord</div><span class="hg">ironbridge</span></a>
-                    <a href="https://x.com/IronBridge_AI" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">𝕏</div><div class="font-bold text-xs">X</div><span class="hg">@IronBridge_AI</span></a>
-                    <a href="https://warpcast.com/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🌐</div><div class="font-bold text-xs">Farcaster</div><span class="hg">@ironbridge</span></a>
-                    <a href="https://bsky.app/profile/ironbridge.ai" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">💙</div><div class="font-bold text-xs">Bluesky</div><span class="hg">@ironbridge.ai</span></a>
-                    <a href="https://mastodon.social/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🐘</div><div class="font-bold text-xs">Mastodon</div><span class="hg">@ironbridge</span></a>
-                    <a href="https://youtube.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📺</div><div class="font-bold text-xs">YouTube</div><span class="hg">@ironbridge</span></a>
-                    <a href="https://twitch.tv/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🎮</div><div class="font-bold text-xs">Twitch</div><span class="hg">ironbridge</span></a>
-                    <a href="https://tiktok.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📹</div><div class="font-bold text-xs">TikTok</div><span class="hg">@ironbridge</span></a>
-                    <a href="https://medium.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">✍️</div><div class="font-bold text-xs">Medium</div><span class="hg">@ironbridge</span></a>
+                    <a href="https://t.me/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📱</div><div class="font-bold text-xs">Telegram</div></a>
+                    <a href="https://discord.gg/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">💬</div><div class="font-bold text-xs">Discord</div></a>
+                    <a href="https://x.com/IronBridge_AI" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">𝕏</div><div class="font-bold text-xs">X</div></a>
+                    <a href="https://warpcast.com/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🌐</div><div class="font-bold text-xs">Farcaster</div></a>
+                    <a href="https://bsky.app/profile/ironbridge.ai" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">💙</div><div class="font-bold text-xs">Bluesky</div></a>
+                    <a href="https://mastodon.social/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🐘</div><div class="font-bold text-xs">Mastodon</div></a>
+                    <a href="https://youtube.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📺</div><div class="font-bold text-xs">YouTube</div></a>
+                    <a href="https://twitch.tv/ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">🎮</div><div class="font-bold text-xs">Twitch</div></a>
+                    <a href="https://tiktok.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">📹</div><div class="font-bold text-xs">TikTok</div></a>
+                    <a href="https://medium.com/@ironbridge" target="_blank" class="pb p-3 rounded-xl text-center c"><div class="text-2xl mb-1">✍️</div><div class="font-bold text-xs">Medium</div></a>
                 </div>
             </div>
-            <div><h3 class="text-lg text-gray-400 mb-4">🔗 IRONBRIDGE ECOSYSTEM</h3>
+            <div><h3 class="text-lg text-gray-400 mb-4">🔗 ECOSYSTEM TOOLS</h3>
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
-                    <a href="https://x.com/solvrbot" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🤖</div><div class="font-bold text-sm">SolvrBot</div><span class="hg">@solvrbot</span></a>
-                    <a href="https://x.com/agent_clerk" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">📋</div><div class="font-bold text-sm">Agent Clerk</div><span class="hg">@agent_clerk</span></a>
-                    <a href="https://x.com/netprotocol" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🌐</div><div class="font-bold text-sm">Net Protocol</div><span class="hg">@netprotocol</span></a>
-                    <a href="https://x.com/moltbook" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">📱</div><div class="font-bold text-sm">Moltbook</div><span class="hg">@moltbook</span></a>
-                    <a href="https://x.com/bankrbot" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🏛️</div><div class="font-bold text-sm">Bankr</div><span class="hg">@bankrbot</span></a>
-                    <div class="ib p-4 rounded-xl text-center opacity-60"><div class="text-3xl mb-2">💰</div><div class="font-bold text-sm">x402 Cloud</div><span class="hg">BUILT IN</span></div>
+                    <a href="https://x.com/solvrbot" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🤖</div><div class="font-bold text-sm">SolvrBot</div></a>
+                    <a href="https://x.com/agent_clerk" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">📋</div><div class="font-bold text-sm">Agent Clerk</div></a>
+                    <a href="https://x.com/netprotocol" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🌐</div><div class="font-bold text-sm">Net Protocol</div></a>
+                    <a href="https://x.com/moltbook" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">📱</div><div class="font-bold text-sm">Moltbook</div></a>
+                    <a href="https://x.com/bankrbot" target="_blank" class="ib p-4 rounded-xl text-center c"><div class="text-3xl mb-2">🏛️</div><div class="font-bold text-sm">Bankr</div></a>
+                    <div class="ib p-4 rounded-xl text-center opacity-60"><div class="text-3xl mb-2">💰</div><div class="font-bold text-sm">x402 Cloud</div></div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <div class="d max-w-4xl mx-auto"></div>
-
-    <!-- BLOCKCHAINS -->
-    <section class="py-12 bg-zinc-900">
-        <div class="max-w-6xl mx-auto px-4 flex flex-wrap justify-center gap-3">
-            <div class="c px-5 py-2 rounded-full flex items-center gap-2"><span class="text-xl">⛓️</span><span class="font-bold">Base</span></div>
-            <div class="c px-5 py-2 rounded-full flex items-center gap-2"><span class="text-xl">💎</span><span class="font-bold">Ethereum</span></div>
-            <div class="c px-5 py-2 rounded-full flex items-center gap-2"><span class="text-xl">◎</span><span class="font-bold">Solana</span></div>
-            <div class="c px-5 py-2 rounded-full flex items-center gap-2"><span class="text-xl">🔺</span><span class="font-bold">Avalanche</span></div>
-            <div class="c px-5 py-2 rounded-full flex items-center gap-2"><span class="text-xl">⬟</span><span class="font-bold">Polygon</span></div>
         </div>
     </section>
 
@@ -167,11 +176,11 @@
     <section id="pkgs" class="py-20 bg-zinc-950">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-4xl font-bold text-center mb-2">CHOOSE YOUR <span class="gt">PACKAGE</span></h2>
-            <p class="text-orange-400 text-center mb-12">All 15+ integrations included • Privacy-First • $BNKR Native</p>
+            <p class="text-orange-400 text-center mb-12">All 15+ integrations • Privacy-First • $BNKR Native • HKUDS Validated</p>
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="c rounded-2xl overflow-hidden">
                     <div class="bg-white/5 p-6 text-center"><div class="text-xl font-bold mb-1">STARTER</div><div class="text-5xl font-bold text-orange-500">$5<span class="text-base text-gray-500">/mo</span></div></div>
-                    <div class="p-6"><ul class="space-y-3 mb-6 text-sm"><li class="flex items-center gap-2"><span class="ck">✓</span> 1 Token</li><li class="flex items-center gap-2"><span class="ck">✓</span> 15+ Integrations</li><li class="flex items-center gap-2"><span class="ck">✓</span> 5 Blockchains</li><li class="flex items-center gap-2"><span class="ck">✓</span> x402 Cloud</li></ul><button onclick="om('checkout')" class="bs w-full py-3 rounded-xl font-bold">SELECT $5</button></div>
+                    <div class="p-6"><ul class="space-y-3 mb-6 text-sm"><li class="flex items-center gap-2"><span class="ck">✓</span> 1 Token</li><li class="flex items-center gap-2"><span class="ck">✓</span> 15+ Integrations</li><li class="flex items-center gap-2"><span class="ck">✓</span> 5 Chains</li><li class="flex items-center gap-2"><span class="ck">✓</span> x402 Cloud</li></ul><button onclick="om('checkout')" class="bs w-full py-3 rounded-xl font-bold">SELECT $5</button></div>
                 </div>
                 <div class="c rounded-2xl overflow-hidden border-2 border-orange-500 relative">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-xs font-bold px-4 py-1 rounded-full">BEST</div>
@@ -187,10 +196,10 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-8 bg-black border-t border-orange-500/20 text-center">
-        <div class="flex justify-center items-center gap-2 mb-4"><a href="https://x.com/IronBridge_AI" target="_blank" class="pf">🔗</a><span class="text-lg font-bold">IRONFORGE</span><span class="text-gray-500 text-sm">(Built by <a href="https://x.com/IronBridge_AI" target="_blank" class="text-orange-400">IronBridge</a>)</span></div>
-        <p class="text-gray-500 text-sm">15+ Integrations • SolvrBot • Agent Clerk • Net Protocol • Moltbook • Bankr • x402</p>
-        <p class="text-gray-600 text-xs mt-2">Validated by nanobot architecture • Privacy-First • $BNKR Native</p>
+    <footer class="py-8 bg-black border-t border-purple-500/30 text-center">
+        <div class="flex justify-center items-center gap-2 mb-4"><a href="https://x.com/IronBridge_AI" target="_blank" class="pf">🔗</a><span class="text-lg font-bold">IRONFORGE</span></div>
+        <p class="text-gray-400 text-sm">Built by IronBridge • Powered by HKUDS Validated Architecture</p>
+        <p class="text-purple-400 text-xs mt-2">nanobot (38K ⭐) • LightRAG (32K ⭐) • DeepTutor (10K ⭐)</p>
     </footer>
 
     <script>

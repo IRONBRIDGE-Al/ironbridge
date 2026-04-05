@@ -3,459 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IronForge — One-Click Token Launch Platform | $5 Start</title>
-    <meta name="description" content="Launch tokens in one click. Privacy-first. Security by design. HKUDS validated architecture. No KYC required. $5/$15/$25 packages with 15+ integrations.">
-    <meta name="keywords" content="token launch, crypto launch, token deployment, no-code, launch platform, Base blockchain, $BNKR">
-    <meta name="author" content="IronBridge">
+    <title>IronForge — One-Click Token Launch Platform</title>
+    <meta name="description" content="Launch tokens in one click. Privacy-first. Security by design. HKUDS validated. No KYC. $5/$15/$25 packages.">
     <meta name="theme-color" content="#FF8800">
     <meta property="og:title" content="IronForge — One-Click Token Launch">
-    <meta property="og:description" content="Launch tokens in one click. Privacy-first. Security by design.">
+    <meta property="og:description" content="Launch tokens in one click. No setup. No KYC. Just launch.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ironbridge-jade.vercel.app">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="IronForge — One-Click Token Launch">
-    <meta name="twitter:description" content="Launch tokens in one click. No setup required.">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
-    
-    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    
-    <!-- Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "IronForge",
-        "description": "One-click token launch platform",
-        "url": "https://ironbridge-jade.vercel.app",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Web",
-        "offers": {
-            "@type": "Offer",
-            "price": "5",
-            "priceCurrency": "USD"
-        }
-    }
-    </script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* All the existing CSS remains */
-        :root{--o:#FF8800;--d:#0a0a0a;--g:#10b981;--p:#a855f7;--b:#3b82f6;--glass:rgba(255,255,255,0.05);--glass-border:rgba(255,255,255,0.1)}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Outfit',sans-serif;background:#000;color:#fff;overflow-x:hidden}
+        /* ELITE DESIGN SYSTEM */
+        :root {
+            --primary: #FF8800;
+            --primary-dark: #E67800;
+            --accent: #A855F7;
+            --success: #10B981;
+            --info: #3B82F6;
+            --dark: #0A0A0B;
+            --darker: #050506;
+            --surface: #121214;
+            --surface-light: #1A1A1E;
+            --text: #FAFAFA;
+            --text-muted: #A1A1AA;
+            --border: rgba(255,255,255,0.08);
+            --border-light: rgba(255,255,255,0.12);
+            --glow: rgba(255,136,0,0.15);
+            --glow-purple: rgba(168,85,247,0.15);
+            --glow-green: rgba(16,185,129,0.15);
+        }
         
-        /* Accessibility: Focus states */
-        a:focus, button:focus{outline:2px solid var(--o);outline-offset:2px}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        @keyframes gridMove{to{transform:translate(60px,60px)}}
-        @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(255,136,0,0.4)}50%{box-shadow:0 0 80px rgba(255,136,0,0.8)}}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-        @keyframes gradient-shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-        @keyframes fade-in-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
         
-        .hero{background:radial-gradient(ellipse 120% 100% at 50% -20%,rgba(255,136,0,0.25) 0%,transparent 60%),radial-gradient(ellipse 80% 60% at 80% 20%,rgba(168,85,247,0.15) 0%,transparent 50%),linear-gradient(180deg,#0a0a0a 0%,#000 100%);min-height:100vh;position:relative;overflow:hidden}
-        .grid-anim{background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:50px 50px;animation:gridMove 40s linear infinite}
-        .floating-shapes{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-        .shape{position:absolute;border-radius:50%;opacity:0.1;animation:float 20s ease-in-out infinite}
-        .shape-1{width:400px;height:400px;background:var(--o);top:-100px;left:-100px}
-        .shape-2{width:300px;height:300px;background:var(--p);bottom:-50px;right:-50px}
-        .shape-3{width:200px;height:200px;background:var(--g);top:50%;right:20%}
+        /* SMOOTH SCROLL */
+        html { scroll-behavior: smooth; }
         
-        .glow-orange{box-shadow:0 0 60px rgba(255,136,0,0.5)}.glow-green{box-shadow:0 0 40px rgba(16,185,129,0.4)}.glow-purple{box-shadow:0 0 40px rgba(168,85,247,0.4)}.glow-blue{box-shadow:0 0 40px rgba(59,130,246,0.4)}
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
-        .glass-card{background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.02) 100%);border:1px solid var(--glass-border);backdrop-filter:blur(20px);transition:all 0.5s cubic-bezier(0.4,0,0.2,1)}
-        .glass-card:hover{transform:translateY(-10px) scale(1.02);border-color:rgba(255,136,0,0.5)}
+        .animate-fadeIn { animation: fadeIn 0.6s ease-out forwards; }
+        .animate-slideIn { animation: slideIn 0.6s ease-out forwards; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
         
-        .btn-primary{background:linear-gradient(135deg,#FF8800 0%,#ff6b00 50%,#CC5500 100%);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;position:relative;overflow:hidden}
-        .btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,0.2),transparent);background-size:200% 100%;animation:shimmer 2s infinite}
-        .btn-primary:hover{transform:scale(1.05);box-shadow:0 0 60px rgba(255,136,0,0.7)}
+        /* GRADIENTS */
+        .bg-gradient-radial {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, var(--glow) 0%, transparent 60%),
+                        radial-gradient(ellipse 60% 40% at 90% 60%, var(--glow-purple) 0%, transparent 50%),
+                        var(--darker);
+        }
         
-        .btn-secondary{background:transparent;border:2px solid var(--glass-border);font-family:'Bebas Neue',sans-serif;letter-spacing:2px}
-        .btn-secondary:hover{border-color:var(--o);color:var(--o)}
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
         
-        .gradient-text{background:linear-gradient(135deg,#FF8800,#FF5500,#ff3300);background-size:200% 200%;animation:gradient-shift 3s ease infinite;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .gradient-text-green{background:linear-gradient(135deg,#10b981,#059669);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .gradient-text-purple{background:linear-gradient(135deg,#a855f7,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .gradient-text-blue{background:linear-gradient(135deg,#3b82f6,#1d4ed8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
         
-        .section-pad{padding:100px 0}
-        .section-security{background:linear-gradient(135deg,rgba(16,185,129,0.08) 0%,#000 50%,rgba(5,150,105,0.08) 100%)}
-        .section-privacy{background:linear-gradient(135deg,rgba(59,130,246,0.08) 0%,#000 50%,rgba(29,78,216,0.08) 100%)}
-        .section-stats{background:linear-gradient(180deg,#000 0%,#0a0a0a 100%)}
+        /* GLASS */
+        .glass {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+        }
         
-        .spacesuit-gradient{background:linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 50%,#0a0a0a 100%)}
-        .card-glow:hover{box-shadow:0 0 30px rgba(99,102,241,0.3),0 0 60px rgba(139,92,246,0.2)}
-        .feature-icon-glow{background:linear-gradient(135deg,rgba(99,102,241,0.2) 0%,rgba(139,92,246,0.1) 100%)}
+        .glass-hover:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--border-light);
+            transform: translateY(-4px);
+        }
         
-        .integration-card{background:linear-gradient(135deg,rgba(255,136,0,0.1) 0%,rgba(255,136,0,0.02) 100%);border:1px solid rgba(255,136,0,0.3)}
-        .integration-card:hover{transform:scale(1.05);box-shadow:0 0 40px rgba(255,136,0,0.4)}
+        /* GRADIENT TEXT */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, #FFAA00 50%, var(--primary) 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
         
-        .ecosystem-card{background:linear-gradient(135deg,rgba(16,185,129,0.1) 0%,rgba(16,185,129,0.02) 100%);border:1px solid rgba(16,185,129,0.4)}
-        .ecosystem-card:hover{box-shadow:0 0 40px rgba(16,185,129,0.4)}
+        .text-gradient-purple {
+            background: linear-gradient(135deg, var(--accent) 0%, #6366F1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         
-        .package-card{background:linear-gradient(180deg,rgba(255,255,255,0.05) 0%,rgba(0,0,0,0.3) 100%);border:1px solid var(--glass-border)}
-        .package-card.featured{background:linear-gradient(180deg,rgba(255,136,0,0.15) 0%,rgba(0,0,0,0.3) 100%);border-color:var(--o)}
+        .text-gradient-green {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         
-        .stat-card{text-align:center;padding:30px}
+        /* BUTTONS */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
         
-        .nav{background:rgba(0,0,0,0.95);backdrop-filter:blur(30px);border-bottom:1px solid rgba(255,136,0,0.2)}
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
         
-        .modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;z-index:1000}
-        .modal.active{display:flex}
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(255,136,0,0.3);
+        }
         
-        .code{font-family:'Space Mono',monospace;color:var(--o)}
+        /* CARDS */
+        .card-elite {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.2) 100%);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
         
-        ::-webkit-scrollbar{width:8px}
-        ::-webkit-scrollbar-track{background:#000}
-        ::-webkit-scrollbar-thumb{background:var(--o);border-radius:4px}
+        .card-elite:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px var(--glow);
+            transform: translateY(-8px);
+        }
         
-        @media(max-width:768px){.hero{min-height:80vh;padding-top:80px}.section-pad{padding:60px 0}}
+        .card-elite-featured {
+            background: linear-gradient(180deg, rgba(255,136,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
+            border: 2px solid var(--primary);
+        }
+        
+        /* BORDERS */
+        .border-gradient {
+            border-image: linear-gradient(135deg, var(--primary), var(--accent)) 1;
+        }
+        
+        /* HOVER EFFECTS */
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-8px); }
+        
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+        
+        /* UTILITIES */
+        .container-elite { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-section { padding-top: 100px; padding-bottom: 60px; }
+            .hide-mobile { display: none; }
+        }
+        
+        /* GLOW EFFECTS */
+        .glow-orange { box-shadow: 0 0 60px rgba(255,136,0,0.4); }
+        .glow-text { text-shadow: 0 0 40px rgba(255,136,0,0.5); }
     </style>
 </head>
-<body>
-    <!-- Skip to content for accessibility -->
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-orange-500 text-white px-4 py-2 rounded">Skip to main content</a>
-    
-    <div id="main">
-    <!-- All existing sections with proper ARIA -->
-    <nav class="fixed top-0 w-full z-50 nav" role="navigation" aria-label="Main navigation">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-4" aria-label="IronForge Home">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl border-2 border-orange-500 glow-orange" role="img" aria-label="IronForge logo">🔗</div>
-                <span class="text-2xl font-bold tracking-wide">IRONFORGE</span>
-            </a>
-            <div class="hidden md:flex items-center gap-6" role="menubar">
-                <a href="#security" class="text-green-400 hover:text-green-300 font-bold text-sm" role="menuitem">🛡️ SECURITY</a>
-                <a href="#privacy" class="text-blue-400 hover:text-blue-300 font-bold text-sm" role="menuitem">🔒 PRIVACY</a>
-                <a href="#pricing" class="text-purple-400 hover:text-purple-300 font-bold text-sm" role="menuitem">💰 PRICING</a>
-                <a href="#integrations" class="text-gray-300 hover:text-orange-400 text-sm" role="menuitem">🚀 INTEGRATIONS</a>
+<body class="bg-darker">
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass" style="border-bottom: 1px solid rgba(255,136,0,0.1);">
+        <div class="container-elite py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-xl font-bold">⚡</div>
+                <span class="text-xl font-bold tracking-tight">IRONFORGE</span>
             </div>
-            <button onclick="om('checkout')" class="btn-primary px-6 py-2 rounded-lg font-bold" aria-label="Connect wallet and launch">CONNECT</button>
+            <div class="hidden md:flex items-center gap-8 text-sm">
+                <a href="#features" class="text-zinc-400 hover:text-white transition">Features</a>
+                <a href="#security" class="text-zinc-400 hover:text-white transition">Security</a>
+                <a href="#pricing" class="text-zinc-400 hover:text-white transition">Pricing</a>
+                <a href="#integrations" class="text-zinc-400 hover:text-white transition">Integrations</a>
+            </div>
+            <button class="btn-primary px-5 py-2 rounded-lg font-semibold text-sm">Launch Now</button>
         </div>
     </nav>
 
-    <main>
     <!-- HERO -->
-    <section class="hero flex items-center justify-center relative" role="banner" aria-labelledby="hero-title">
-        <div class="grid-anim absolute inset-0 opacity-50"></div>
-        <div class="floating-shapes" aria-hidden="true">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-        </div>
-        <div class="relative z-10 text-center max-w-5xl mx-auto px-6 py-32">
-            <div class="mb-8 flex justify-center gap-4" role="list" aria-label="Badges">
-                <span class="glass-card px-4 py-2 rounded-full text-sm border border-green-500/30" role="listitem">
-                    <span class="text-green-400" aria-hidden="true">🛡️</span> <span class="text-green-400 font-bold">GOVERNANCE APPROVED</span>
+    <section class="hero-section relative min-h-screen flex items-center justify-center bg-gradient-radial bg-grid">
+        <div class="bg-noise absolute inset-0"></div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-1/4 left-10 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
+        
+        <div class="container-elite relative z-10 text-center">
+            <!-- BADGES -->
+            <div class="flex flex-wrap justify-center gap-3 mb-8 animate-fadeIn">
+                <span class="glass px-4 py-1.5 rounded-full text-xs font-medium text-green-400 border border-green-500/20">
+                    🛡️ Governance Approved
                 </span>
-                <span class="glass-card px-4 py-2 rounded-full text-sm border border-blue-500/30" role="listitem">
-                    <span class="text-blue-400" aria-hidden="true">🔒</span> <span class="text-blue-400 font-bold">NO KYC</span>
+                <span class="glass px-4 py-1.5 rounded-full text-xs font-medium text-blue-400 border border-blue-500/20">
+                    🔒 No KYC Required
                 </span>
-                <span class="glass-card px-4 py-2 rounded-full text-sm border border-purple-500/30" role="listitem">
-                    <span class="text-purple-400" aria-hidden="true">✅</span> <span class="text-purple-400 font-bold">HKUDS VALIDATED</span>
+                <span class="glass px-4 py-1.5 rounded-full text-xs font-medium text-purple-400 border border-purple-500/20">
+                    ✅ HKUDS Validated
                 </span>
             </div>
-            <h1 id="hero-title" class="text-7xl md:text-9xl font-extrabold mb-6 leading-tight">
-                LAUNCH YOUR <span class="gradient-text">TOKEN</span><br>IN ONE CLICK
+            
+            <!-- MAIN HEADLINE -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight animate-fadeIn" style="animation-delay: 0.1s;">
+                Launch Your<br>
+                <span class="text-gradient glow-text">TOKEN</span> in One Click
             </h1>
-            <p class="text-3xl font-bold text-orange-500 mb-4">$5 / $15 / $25</p>
-            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">The only platform with 🛡️ Governance, 🔒 Privacy, 📊 Audit & 💰 $BNKR Native</p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-                <button onclick="om('checkout')" class="btn-primary px-12 py-5 rounded-2xl font-bold text-xl" aria-label="Launch your token now">🚀 LAUNCH NOW</button>
-                <a href="#pricing" class="btn-secondary px-12 py-5 rounded-2xl font-bold text-xl hover:border-orange-500" aria-label="View pricing packages">VIEW PACKAGES</a>
+            
+            <p class="text-xl text-zinc-400 max-w-2xl mx-auto mb-10 animate-fadeIn" style="animation-delay: 0.2s;">
+                The only platform with 🛡️ Governance, 🔒 Privacy, 📊 Audit & 💰 $BNKR Native.<br>
+                Zero setup. 15+ integrations. 5 chains. One click.
+            </p>
+            
+            <!-- CTA -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fadeIn" style="animation-delay: 0.3s;">
+                <button class="btn-primary px-8 py-4 rounded-xl font-bold text-lg">
+                    🚀 Launch Now — $5
+                </button>
+                <button class="glass px-8 py-4 rounded-xl font-semibold text-lg hover-lift">
+                    View Packages
+                </button>
             </div>
-            <div class="glass-card inline-flex gap-8 px-12 py-6 rounded-2xl" role="list" aria-label="Platform stats">
-                <div role="listitem"><div class="text-4xl font-bold gradient-text">50K+</div><div class="text-gray-500 text-sm">LAUNCHED</div></div>
-                <div class="w-px bg-orange-500/30"></div>
-                <div role="listitem"><div class="text-4xl font-bold text-green-500">🛡️</div><div class="text-gray-500 text-sm">AUDITED</div></div>
-                <div class="w-px bg-orange-500/30"></div>
-                <div role="listitem"><div class="text-4xl font-bold gradient-text-purple">38K</div><div class="text-gray-500 text-sm">NANOBOT ⭐</div></div>
+            
+            <!-- STATS -->
+            <div class="flex flex-wrap justify-center gap-8 animate-fadeIn" style="animation-delay: 0.4s;">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gradient">50K+</div>
+                    <div class="text-xs text-zinc-500">Tokens Launched</div>
+                </div>
+                <div class="w-px bg-zinc-800"></div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gradient-green">🛡️</div>
+                    <div class="text-xs text-zinc-500">Security Audited</div>
+                </div>
+                <div class="w-px bg-zinc-800"></div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gradient-purple">38K</div>
+                    <div class="text-xs text-zinc-500">nanobot ⭐</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- REST OF SECTIONS... -->
-    <!-- (Keeping existing sections with added ARIA attributes) -->
-    
-    <!-- STATS -->
-    <section class="section-stats py-20" aria-labelledby="stats-title">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 id="stats-title" class="sr-only">Platform Statistics</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" role="list">
-                <div class="stat-card glass-card rounded-2xl" role="listitem">
-                    <div class="text-5xl font-bold gradient-text mb-2">$0</div>
-                    <div class="text-gray-400">NO SETUP</div>
+    <!-- FEATURES -->
+    <section id="features" class="py-24 bg-darker">
+        <div class="container-elite">
+            <div class="text-center mb-16">
+                <span class="glass px-4 py-2 rounded-full text-sm font-medium text-orange-400">✨ Features</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-6">Built for the <span class="text-gradient">Future</span></h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="card-elite p-8 rounded-2xl">
+                    <div class="w-14 h-14 rounded-xl bg-orange-500/20 flex items-center justify-center text-2xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold mb-3">One-Click Launch</h3>
+                    <p class="text-zinc-400">Connect wallet, choose package, launch. No configuration, no setup, no work.</p>
                 </div>
-                <div class="stat-card glass-card rounded-2xl" role="listitem">
-                    <div class="text-5xl font-bold gradient-text-green mb-2">15+</div>
-                    <div class="text-gray-400">PLATFORMS</div>
+                
+                <div class="card-elite p-8 rounded-2xl">
+                    <div class="w-14 h-14 rounded-xl bg-green-500/20 flex items-center justify-center text-2xl mb-4">🛡️</div>
+                    <h3 class="text-xl font-bold mb-3">Governance Secured</h3>
+                    <p class="text-zinc-400">OpenHarness security architecture with multi-level permissions & audit trail.</p>
                 </div>
-                <div class="stat-card glass-card rounded-2xl" role="listitem">
-                    <div class="text-5xl font-bold gradient-text-purple mb-2">5</div>
-                    <div class="text-gray-400">CHAINS</div>
-                </div>
-                <div class="stat-card glass-card rounded-2xl" role="listitem">
-                    <div class="text-5xl font-bold text-blue-400 mb-2">1</div>
-                    <div class="text-gray-400">CLICK</div>
+                
+                <div class="card-elite p-8 rounded-2xl">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/20 flex items-center justify-center text-2xl mb-4">💎</div>
+                    <h3 class="text-xl font-bold mb-3">Earn While Launching</h3>
+                    <p class="text-zinc-400">Every trade of your token earns $BNKR. Built-in, automatic rewards.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- SECURITY -->
-    <section id="security" class="py-24 section-security" aria-labelledby="security-title">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="glass-card px-6 py-3 rounded-full text-sm font-bold text-green-400 border border-green-500/30">🛡️ GOVERNANCE BY DESIGN</span>
-                <h2 id="security-title" class="text-6xl font-bold mt-8 mb-4">SECURITY <span class="gradient-text-green">ENFORCED</span></h2>
-            </div>
-            <div class="grid md:grid-cols-4 gap-6" role="list">
-                <div class="glass-card p-8 rounded-2xl text-center glow-green" role="listitem">
-                    <div class="text-5xl mb-4" aria-hidden="true">🔐</div>
-                    <div class="font-bold text-xl text-green-400 mb-2">Permission Levels</div>
-                    <p class="text-gray-500 text-sm">Restricted • Read-only • Sandbox • Full</p>
+    <section id="security" class="py-24 bg-surface">
+        <div class="container-elite">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="glass px-4 py-2 rounded-full text-sm font-medium text-green-400">🛡️ Security</span>
+                    <h2 class="text-4xl font-bold mt-6 mb-4">Security <span class="text-gradient-green">Enforced</span></h2>
+                    <p class="text-zinc-400 mb-8">OpenHarness security architecture with multi-level permissions, path rules, security hooks, and complete audit trail.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">✓</div>
+                            <div>
+                                <div class="font-semibold">Permission Levels</div>
+                                <div class="text-sm text-zinc-500">Restricted → Read-only → Sandbox → Full</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">✓</div>
+                            <div>
+                                <div class="font-semibold">Path Rules</div>
+                                <div class="text-sm text-zinc-500">Granular file & directory access control</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">✓</div>
+                            <div>
+                                <div class="font-semibold">Audit Trail</div>
+                                <div class="text-sm text-zinc-500">Every action logged transparently</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass-card p-8 rounded-2xl text-center" role="listitem">
-                    <div class="text-5xl mb-4" aria-hidden="true">📋</div>
-                    <div class="font-bold text-xl text-green-400 mb-2">Path Rules</div>
-                    <p class="text-gray-500 text-sm">Granular file & directory access</p>
-                </div>
-                <div class="glass-card p-8 rounded-2xl text-center" role="listitem">
-                    <div class="text-5xl mb-4" aria-hidden="true">⚡</div>
-                    <div class="font-bold text-xl text-green-400 mb-2">Security Hooks</div>
-                    <p class="text-gray-500 text-sm">PreToolUse & PostToolUse validation</p>
-                </div>
-                <div class="glass-card p-8 rounded-2xl text-center" role="listitem">
-                    <div class="text-5xl mb-4" aria-hidden="true">📊</div>
-                    <div class="font-bold text-xl text-green-400 mb-2">Audit Trail</div>
-                    <p class="text-gray-500 text-sm">Every action logged transparently</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PRIVACY -->
-    <section id="privacy" class="py-24 section-privacy" aria-labelledby="privacy-title">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="glass-card px-6 py-3 rounded-full text-sm font-bold text-blue-400 border border-blue-500/30">🔒 PRIVACY FIRST</span>
-                <h2 id="privacy-title" class="text-6xl font-bold mt-8 mb-4">PRIVACY <span class="gradient-text-blue">PROTECTED</span></h2>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6" role="list">
-                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30" role="listitem">
-                    <div class="text-5xl mb-4" aria-hidden="true">👤</div>
-                    <div class="font-bold text-xl text-blue-400 mb-2">No KYC Required</div>
-                    <p class="text-gray-500">Agent identity, not human. Privacy preserved.</p>
-                </div>
-                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30" role="listitem">
-                    <div class="text-5xl mb-4" aria-hidden="true">🔑</div>
-                    <div class="font-bold text-xl text-blue-400 mb-2">Self-Custody</div>
-                    <p class="text-gray-500">You control your keys. Read-only connections.</p>
-                </div>
-                <div class="glass-card p-8 rounded-2xl text-center border-blue-500/30" role="listitem">
-                    <div class="text-5xl mb-4" aria-hidden="true">🚫</div>
-                    <div class="font-bold text-xl text-blue-400 mb-2">Zero Data Stored</div>
-                    <p class="text-gray-500">No database. Your data stays with you.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- HKUDS -->
-    <section class="py-16 bg-zinc-950" aria-labelledby="hkuds-title">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <span id="hkuds-title" class="gradient-text-purple text-2xl font-bold mb-6 block">⚡ POWERED BY PROVEN HKUDS ARCHITECTURE</span>
-            <div class="flex flex-wrap justify-center gap-4" role="list">
-                <a href="https://github.com/HKUDS/nanobot" target="_blank" rel="noopener noreferrer" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500" role="listitem">
-                    <span class="gradient-text-purple font-bold">nanobot</span>
-                    <span class="text-gray-400"> 38K⭐</span>
-                </a>
-                <a href="https://github.com/HKUDS/OpenHarness" target="_blank" rel="noopener noreferrer" class="glass-card px-5 py-2 rounded-xl hover:border-green-500" role="listitem">
-                    <span class="text-green-400 font-bold">🛡️</span>
-                    <span class="text-gray-400"> OpenHarness</span>
-                </a>
-                <a href="https://github.com/HKUDS/ClawTeam" target="_blank" rel="noopener noreferrer" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500" role="listitem">
-                    <span class="gradient-text-purple font-bold">ClawTeam</span>
-                    <span class="text-gray-400"> Swarms</span>
-                </a>
-                <a href="https://github.com/HKUDS/LightRAG" target="_blank" rel="noopener noreferrer" class="glass-card px-5 py-2 rounded-xl hover:border-purple-500" role="listitem">
-                    <span class="gradient-text-purple font-bold">LightRAG</span>
-                    <span class="text-gray-400"> 32K⭐</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- INTEGRATIONS -->
-    <section id="integrations" class="py-24 bg-black" aria-labelledby="integrations-title">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 id="integrations-title" class="text-5xl font-bold text-center mb-4">15+ <span class="gradient-text">INTEGRATIONS</span> PRE-BUILT</h2>
-            <p class="text-orange-400 text-center mb-16 text-lg">Security-verified • Privacy-compliant • One-click deploy</p>
-            
-            <div class="mb-12">
-                <h3 class="text-xl text-gray-400 mb-6">📱 SOCIAL PLATFORMS</h3>
-                <div class="grid grid-cols-5 md:grid-cols-10 gap-3">
-                    <a href="https://t.me/ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📱</div><div class="font-bold text-sm">Telegram</div></a>
-                    <a href="https://discord.gg/ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">💬</div><div class="font-bold text-sm">Discord</div></a>
-                    <a href="https://x.com/IronBridge_AI" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">𝕏</div><div class="font-bold text-sm">X</div></a>
-                    <a href="https://warpcast.com/ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🌐</div><div class="font-bold text-sm">Farcaster</div></a>
-                    <a href="https://bsky.app/profile/ironbridge.ai" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">💙</div><div class="font-bold text-sm">Bluesky</div></a>
-                    <a href="https://mastodon.social/@ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🐘</div><div class="font-bold text-sm">Mastodon</div></a>
-                    <a href="https://youtube.com/@ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📺</div><div class="font-bold text-sm">YouTube</div></a>
-                    <a href="https://twitch.tv/ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">🎮</div><div class="font-bold text-sm">Twitch</div></a>
-                    <a href="https://tiktok.com/@ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">📹</div><div class="font-bold text-sm">TikTok</div></a>
-                    <a href="https://medium.com/@ironbridge" target="_blank" rel="noopener noreferrer" class="integration-card p-4 rounded-xl text-center"><div class="text-3xl mb-2">✍️</div><div class="font-bold text-sm">Medium</div></a>
-                </div>
-            </div>
-            
-            <div>
-                <h3 class="text-xl text-gray-400 mb-6">🔗 ECOSYSTEM TOOLS</h3>
-                <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
-                    <a href="https://x.com/solvrbot" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🤖</div><div class="font-bold">SolvrBot</div></a>
-                    <a href="https://clerk.solvrlabs.ai" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">⚖️</div><div class="font-bold">Clerk</div></a>
-                    <a href="https://x.com/netprotocol" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🌐</div><div class="font-bold">Net Protocol</div></a>
-                    <a href="https://x.com/moltbook" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">📱</div><div class="font-bold">Moltbook</div></a>
-                    <a href="https://x.com/bankrbot" target="_blank" rel="noopener noreferrer" class="ecosystem-card p-5 rounded-xl text-center"><div class="text-4xl mb-3">🏛️</div><div class="font-bold">Bankr</div></a>
-                    <div class="ecosystem-card p-5 rounded-xl text-center opacity-50"><div class="text-4xl mb-3">💰</div><div class="font-bold">x402 Cloud</div></div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="card-elite p-6 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-gradient-green mb-2">0</div>
+                        <div class="text-sm text-zinc-500">KYC Required</div>
+                    </div>
+                    <div class="card-elite p-6 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-gradient mb-2">100%</div>
+                        <div class="text-sm text-zinc-500">Self-Custody</div>
+                    </div>
+                    <div class="card-elite p-6 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-gradient-purple mb-2">0</div>
+                        <div class="text-sm text-zinc-500">Data Stored</div>
+                    </div>
+                    <div class="card-elite p-6 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-blue-400 mb-2">∞</div>
+                        <div class="text-sm text-zinc-500">Privacy</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PRICING -->
-    <section id="pricing" class="py-24 bg-zinc-950" aria-labelledby="pricing-title">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 id="pricing-title" class="text-5xl font-bold text-center mb-4">CHOOSE YOUR <span class="gradient-text">PACKAGE</span></h2>
-            <p class="text-orange-400 text-center mb-16 text-lg">🛡️ Governance • 🔒 Privacy • 📊 Audit • $BNKR Native</p>
+    <section id="pricing" class="py-24 bg-darker">
+        <div class="container-elite">
+            <div class="text-center mb-16">
+                <span class="glass px-4 py-2 rounded-full text-sm font-medium text-orange-400">💰 Pricing</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-6">Simple <span class="text-gradient">Packages</span></h2>
+            </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="package-card rounded-3xl overflow-hidden">
-                    <div class="bg-white/5 p-10 text-center">
-                        <div class="text-2xl font-bold mb-2">STARTER</div>
-                        <div class="text-6xl font-bold gradient-text">$5<span class="text-lg text-gray-500">/mo</span></div>
-                    </div>
-                    <div class="p-8">
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 1 Token</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 15+ Integrations</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 5 Blockchains</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 🛡️ Governance Secured</li>
-                        </ul>
-                        <button onclick="om('checkout')" class="w-full py-4 rounded-xl font-bold text-lg glass-card hover:border-orange-500">SELECT $5</button>
-                    </div>
+            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="card-elite p-8 rounded-2xl">
+                    <div class="text-2xl font-bold mb-2">Starter</div>
+                    <div class="text-5xl font-bold text-gradient mb-4">$5<span class="text-lg text-zinc-500">/mo</span></div>
+                    <ul class="space-y-3 text-zinc-400 mb-8">
+                        <li>✓ 1 Token</li>
+                        <li>✓ 15+ Integrations</li>
+                        <li>✓ 5 Blockchains</li>
+                        <li>✓ 🛡️ Governance</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl font-semibold glass hover-lift">Select $5</button>
                 </div>
                 
-                <div class="package-card featured rounded-3xl overflow-hidden border-2 border-orange-500 relative">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-sm font-bold px-6 py-2 rounded-full">BEST VALUE</div>
-                    <div class="bg-gradient-to-b from-orange-500/20 to-transparent p-10 text-center">
-                        <div class="text-2xl font-bold mb-2">GROWTH</div>
-                        <div class="text-6xl font-bold gradient-text">$15<span class="text-lg text-gray-500">/mo</span></div>
-                    </div>
-                    <div class="p-8">
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 3 Tokens</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> All Integrations</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> Priority Support</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 📊 Full Audit Trail</li>
-                        </ul>
-                        <button onclick="om('checkout')" class="btn-primary w-full py-4 rounded-xl font-bold text-xl">SELECT $15</button>
-                    </div>
+                <div class="card-elite-featured card-elite p-8 rounded-2xl relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 px-4 py-1 rounded-full text-xs font-bold">BEST VALUE</div>
+                    <div class="text-2xl font-bold mb-2">Growth</div>
+                    <div class="text-5xl font-bold text-gradient mb-4">$15<span class="text-lg text-zinc-500">/mo</span></div>
+                    <ul class="space-y-3 text-zinc-400 mb-8">
+                        <li>✓ 3 Tokens</li>
+                        <li>✓ All Integrations</li>
+                        <li>✓ Priority Support</li>
+                        <li>✓ 📊 Full Audit Trail</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl font-semibold btn-primary">Select $15</button>
                 </div>
                 
-                <div class="package-card rounded-3xl overflow-hidden">
-                    <div class="bg-white/5 p-10 text-center">
-                        <div class="text-2xl font-bold mb-2">VIRAL</div>
-                        <div class="text-6xl font-bold gradient-text-purple">$25<span class="text-lg text-gray-500">/mo</span></div>
-                    </div>
-                    <div class="p-8">
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> Unlimited Tokens</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> White-label</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> API Access</li>
-                            <li class="flex items-center gap-3"><span class="text-green-400 text-xl">✓</span> 🚀 Complete Suite</li>
-                        </ul>
-                        <button class="w-full py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400">SELECT $25</button>
-                    </div>
+                <div class="card-elite p-8 rounded-2xl">
+                    <div class="text-2xl font-bold mb-2">Viral</div>
+                    <div class="text-5xl font-bold text-gradient-purple mb-4">$25<span class="text-lg text-zinc-500">/mo</span></div>
+                    <ul class="space-y-3 text-zinc-400 mb-8">
+                        <li>✓ Unlimited Tokens</li>
+                        <li>✓ White-label</li>
+                        <li>✓ API Access</li>
+                        <li>✓ 🚀 Complete Suite</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl font-semibold bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400">Select $25</button>
                 </div>
             </div>
         </div>
     </section>
-    </main>
+
+    <!-- INTEGRATIONS -->
+    <section id="integrations" class="py-24 bg-surface">
+        <div class="container-elite">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold">15+ <span class="text-gradient">Integrations</span></h2>
+                <p class="text-zinc-400 mt-4">Pre-built, verified, and ready to deploy</p>
+            </div>
+            
+            <div class="grid grid-cols-6 md:grid-cols-10 gap-3">
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">📱</div><div class="text-xs mt-1">Telegram</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">💬</div><div class="text-xs mt-1">Discord</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">𝕏</div><div class="text-xs mt-1">X</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">🌐</div><div class="text-xs mt-1">Farcaster</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">💙</div><div class="text-xs mt-1">Bluesky</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">📺</div><div class="text-xs mt-1">YouTube</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">🎮</div><div class="text-xs mt-1">Twitch</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">📹</div><div class="text-xs mt-1">TikTok</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">✍️</div><div class="text-xs mt-1">Medium</div></div>
+                <div class="card-elite p-4 rounded-xl text-center hover-lift"><div class="text-2xl">🤖</div><div class="text-xs mt-1">SolvrBot</div></div>
+            </div>
+            
+            <div class="mt-12 grid grid-cols-6 gap-3">
+                <div class="card-elite p-4 rounded-xl text-center"><div class="text-2xl">⚖️</div><div class="text-xs mt-1 text-green-400">Clerk</div></div>
+                <div class="card-elite p-4 rounded-xl text-center"><div class="text-2xl">🏛️</div><div class="text-xs mt-1 text-green-400">Bankr</div></div>
+                <div class="card-elite p-4 rounded-xl text-center"><div class="text-2xl">🌐</div><div class="text-xs mt-1 text-green-400">Net</div></div>
+                <div class="card-elite p-4 rounded-xl text-center"><div class="text-2xl">📱</div><div class="text-xs mt-1 text-green-400">Moltbook</div></div>
+                <div class="card-elite p-4 rounded-xl text-center opacity-50"><div class="text-2xl">💰</div><div class="text-xs mt-1">x402</div></div>
+            </div>
+        </div>
+    </section>
 
     <!-- FOOTER -->
-    <footer class="py-12 bg-black border-t border-green-500/20 text-center" role="contentinfo">
-        <div class="flex justify-center items-center gap-4 mb-6">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-2xl border-2 border-orange-500" role="img" aria-label="IronForge">🔗</div>
-            <span class="text-2xl font-bold">IRONFORGE</span>
+    <footer class="py-12 border-t border-zinc-800">
+        <div class="container-elite text-center">
+            <div class="flex justify-center items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-xl">⚡</div>
+                <span class="text-xl font-bold">IRONFORGE</span>
+            </div>
+            <p class="text-zinc-500 text-sm">🛡️ Governance • 🔒 Privacy • 📊 Audit • 💰 $BNKR Native</p>
+            <p class="text-zinc-600 text-xs mt-4">Powered by HKUDS: nanobot + OpenHarness + ClawTeam + LightRAG</p>
         </div>
-        <p class="text-gray-400">🛡️ Governance by Design • 🔒 Privacy First • 📊 Full Audit • 💰 $BNKR Native</p>
-        <p class="text-green-400 text-sm mt-4">Powered by HKUDS: nanobot + OpenHarness + ClawTeam + LightRAG + OpenSpace</p>
     </footer>
-    </div>
-
-    <script>
-        function om(id){document.getElementById(id).classList.add('active')}
-        function cm(id){document.getElementById(id).classList.remove('active')}
-        function cw(w){
-            document.querySelectorAll('[onclick^=cw]').forEach(b=>b.style.opacity='0.5');
-            setTimeout(()=>{cm('checkout');setTimeout(()=>om('success'),500)},1500)
-        }
-        document.addEventListener('keydown',e=>{if(e.key==='Escape'){cm('checkout');cm('success')}})
-    </script>
 </body>
 </html>
-
-<!-- POST-LAUNCH TOOLS SECTION -->
-<section class="py-24 bg-zinc-900" id="tools">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <span class="glass-card px-6 py-3 rounded-full text-sm font-bold text-cyan-400 border border-cyan-500/30">🔧 POST-LAUNCH TOOLS</span>
-            <h2 class="text-6xl font-bold mt-8 mb-4">MANAGE YOUR <span class="gradient-text-blue">TOKEN</span></h2>
-            <p class="text-gray-400 max-w-2xl mx-auto">After launch, manage your token website with these powerful tools</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="glass-card p-8 rounded-2xl text-center border border-purple-500/30 hover:border-purple-500">
-                <div class="text-5xl mb-4">🕷️</div>
-                <h3 class="text-2xl font-bold mb-4 gradient-text-purple">Scrapling</h3>
-                <p class="text-gray-400 mb-6">Fast async web scraping to monitor your token, competitors, and market data.</p>
-                <span class="text-xs text-purple-400">$1 Add-on</span>
-            </div>
-            
-            <div class="glass-card p-8 rounded-2xl text-center border border-cyan-500/30 hover:border-cyan-500">
-                <div class="text-5xl mb-4">💬</div>
-                <h3 class="text-2xl font-bold mb-4 gradient-text-blue">WebChat</h3>
-                <p class="text-gray-400 mb-6">GPU-accelerated chat UI for your token community. WebGPU powered.</p>
-                <span class="text-xs text-cyan-400">$1 Add-on</span>
-            </div>
-            
-            <div class="glass-card p-8 rounded-2xl text-center border border-green-500/30 hover:border-green-500">
-                <div class="text-5xl mb-4">📁</div>
-                <h3 class="text-2xl font-bold mb-4 gradient-text-green">Website Monitoring</h3>
-                <p class="text-gray-400 mb-6">Track uptime, performance, and health of your token website. Get alerts when issues occur. for your token website. Sync and deploy.</p>
-                <span class="text-xs text-green-400">$1 Add-on</span>
-            </div>
-        </div>
-        
-        <div class="text-center mt-10">
-            <p class="text-gray-500 text-sm">All tools available as $1 add-ons to any package</p>
-        </div>
-    </div>
-</section>
-
-<!-- WEBSITE MONITORING ADD-ON -->
-<div class="mt-6">
-    <div class="glass-card p-6 rounded-2xl text-center border border-orange-500/30 hover:border-orange-500">
-        <div class="text-4xl mb-3">📊</div>
-        <h3 class="text-xl font-bold mb-2 gradient-text">Website Monitoring</h3>
-        <p class="text-gray-400 text-sm mb-3">Track uptime, performance & health. Get alerts on issues.</p>
-        <span class="text-xs text-orange-400">$1 Add-on</span>
-    </div>
-</div>

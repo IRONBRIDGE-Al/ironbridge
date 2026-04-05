@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IronBridge — Deploy AI Agents Everywhere</title>
-    <meta name="description" content="One-click AI agent deployment to 6 platforms. Zero code. Start making money at launch.">
+    <meta name="description" content="One-click AI agent deployment to 6 platforms. $5/$15/$25 packages. Start making money at launch.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
@@ -56,18 +56,12 @@
         
         .section-line { height: 3px; background: linear-gradient(90deg, transparent, var(--cod-orange), transparent); }
         
-        .sale-badge { background: linear-gradient(135deg, #FF8800, #FF5500); color: #000; font-weight: bold; padding: 6px 16px; font-size: 0.8rem; letter-spacing: 2px; }
+        .check-icon { color: #22c55e; }
         
-        .platform-icon { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 12px; font-size: 1.5rem; }
-        .platform-icon.active { background: linear-gradient(135deg, #FF8800, #FF5500); box-shadow: 0 0 15px rgba(255,136,0,0.5); }
+        .addon-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); }
+        .addon-card.selected { border-color: #FF8800; background: rgba(255,136,0,0.1); }
         
         .stat-box { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,136,0,0.3); }
-        
-        .scroll-section { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .scroll-section::-webkit-scrollbar { display: none; }
-        
-        .check-icon { color: #22c55e; }
-        .cross-icon { color: #6b7280; }
     </style>
 </head>
 <body>
@@ -81,8 +75,8 @@
             <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
                 <a href="#platforms" class="hover:text-orange-400 transition">PLATFORMS</a>
                 <a href="#packages" class="hover:text-orange-400 transition">PACKAGES</a>
+                <a href="#addons" class="hover:text-orange-400 transition">ADD-ONS</a>
                 <a href="#features" class="hover:text-orange-400 transition">FEATURES</a>
-                <a href="#roadmap" class="hover:text-orange-400 transition">ROADMAP</a>
             </div>
             <a href="#packages" class="btn-cod px-8 py-3 rounded font-bold">GET STARTED</a>
         </div>
@@ -93,7 +87,7 @@
         <div class="hero-accent absolute inset-0 z-0"></div>
         <div class="grid-anim absolute inset-0 z-0 opacity-40"></div>
         
-        <div class="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 text-center">
+        <div class="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-16 text-center">
             <!-- BANNER -->
             <div class="inline-flex items-center gap-3 glass px-8 py-4 rounded-lg mb-10 border border-orange-500/40">
                 <span class="w-4 h-4 rounded-full bg-orange-500 flash"></span>
@@ -105,31 +99,31 @@
                 <span class="grad-text">EVERYWHERE AT ONCE</span>
             </h1>
             
-            <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
-                <span class="text-orange-500 font-bold">ZERO SETUP.</span> All platforms aligned automatically. 
-                <span class="text-orange-500 font-bold">Make money at launch.</span>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                <span class="text-orange-500 font-bold">$5 / $15 / $25</span> packages. 
+                <span class="text-orange-500 font-bold">One click.</span> All platforms aligned. Start making money.
             </p>
             
             <!-- HERO STATS -->
-            <div class="stat-box inline-flex flex-wrap justify-center gap-8 md:gap-12 px-12 py-6 rounded-2xl mb-10">
-                <div class="text-center"><div class="text-4xl md:text-5xl font-bold text-orange-500">2M+</div><div class="text-xs text-gray-400 tracking-widest">LAUNCHED</div></div>
+            <div class="stat-box inline-flex flex-wrap justify-center gap-6 md:gap-10 px-10 py-4 rounded-2xl mb-8">
+                <div class="text-center"><div class="text-3xl md:text-4xl font-bold text-orange-500">2M+</div><div class="text-xs text-gray-400">LAUNCHED</div></div>
                 <div class="w-px bg-orange-500/40"></div>
-                <div class="text-center"><div class="text-4xl md:text-5xl font-bold text-orange-500">6</div><div class="text-xs text-gray-400 tracking-widest">PLATFORMS</div></div>
+                <div class="text-center"><div class="text-3xl md:text-4xl font-bold text-orange-500">6</div><div class="text-xs text-gray-400">PLATFORMS</div></div>
                 <div class="w-px bg-orange-500/40"></div>
-                <div class="text-center"><div class="text-4xl md:text-5xl font-bold text-orange-500">10MIN</div><div class="text-xs text-gray-400 tracking-widest">DEPLOY</div></div>
+                <div class="text-center"><div class="text-3xl md:text-4xl font-bold text-orange-500">10MIN</div><div class="text-xs text-gray-400">DEPLOY</div></div>
             </div>
             
             <!-- CTAS -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <a href="#packages" class="btn-cod px-14 py-5 rounded font-bold text-lg pulse-glow">🚀 GET STARTED</a>
-                <a href="#packages" class="btn-dark px-14 py-5 rounded font-bold text-lg">VIEW PACKAGES ↓</a>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                <a href="#packages" class="btn-cod px-12 py-4 rounded font-bold text-lg pulse-glow">🚀 GET STARTED</a>
+                <a href="#packages" class="btn-dark px-12 py-4 rounded font-bold text-lg">VIEW PACKAGES ↓</a>
             </div>
             
             <!-- TRUST -->
             <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-                <span>✓ RICOCHET PROTECTED</span>
                 <span>✓ BNKR ALIGNED</span>
                 <span>✓ BASE NATIVE</span>
+                <span>✓ x402 CLOUD</span>
             </div>
         </div>
     </section>
@@ -137,48 +131,38 @@
     <div class="section-line max-w-4xl mx-auto"></div>
 
     <!-- PLATFORMS -->
-    <section id="platforms" class="py-20 bg-black">
+    <section id="platforms" class="py-16 bg-black">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 tracking-tight">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 tracking-tight">
                 <span class="grad-text">6 PLATFORMS</span> — ALL INTEGRATED
             </h2>
-            <p class="text-lg text-gray-400 text-center mb-12">Every platform synced. Every post aligned. Zero manual work.</p>
+            <p class="text-lg text-gray-400 text-center mb-10">Every platform synced. Every post aligned. Zero manual work.</p>
             
-            <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
-                <div class="glass-card p-6 rounded-2xl text-center hover-lift border-2 border-orange-500/30">
-                    <div class="text-4xl mb-3">📱</div>
-                    <h3 class="font-bold">Telegram</h3>
-                    <p class="text-xs text-orange-400 mt-2">Bot + Group</p>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+                <div class="glass-card p-4 rounded-xl text-center hover-lift border border-orange-500/30">
+                    <div class="text-3xl mb-2">📱</div>
+                    <h3 class="font-bold text-sm">Telegram</h3>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover-lift border-2 border-orange-500/30">
-                    <div class="text-4xl mb-3">💬</div>
-                    <h3 class="font-bold">Discord</h3>
-                    <p class="text-xs text-orange-400 mt-2">Server + Bot</p>
+                <div class="glass-card p-4 rounded-xl text-center hover-lift border border-orange-500/30">
+                    <div class="text-3xl mb-2">💬</div>
+                    <h3 class="font-bold text-sm">Discord</h3>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover-lift border-2 border-orange-500/30">
-                    <div class="text-4xl mb-3">𝕏</div>
-                    <h3 class="font-bold">X / Twitter</h3>
-                    <p class="text-xs text-orange-400 mt-2">Profile + API</p>
+                <div class="glass-card p-4 rounded-xl text-center hover-lift border border-orange-500/30">
+                    <div class="text-3xl mb-2">𝕏</div>
+                    <h3 class="font-bold text-sm">X / Twitter</h3>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover-lift border-2 border-orange-500/30">
-                    <div class="text-4xl mb-3">🌐</div>
-                    <h3 class="font-bold">Farcaster</h3>
-                    <p class="text-xs text-orange-400 mt-2">Frame + Cast</p>
+                <div class="glass-card p-4 rounded-xl text-center hover-lift border border-orange-500/30">
+                    <div class="text-3xl mb-2">🌐</div>
+                    <h3 class="font-bold text-sm">Farcaster</h3>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover-lift border-2 border-orange-500/30">
-                    <div class="text-4xl mb-3">💙</div>
-                    <h3 class="font-bold">Bluesky</h3>
-                    <p class="text-xs text-orange-400 mt-2">Fediverse</p>
+                <div class="glass-card p-4 rounded-xl text-center hover-lift border border-orange-500/30">
+                    <div class="text-3xl mb-2">💙</div>
+                    <h3 class="font-bold text-sm">Bluesky</h3>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover-lift border-2 border-orange-500/30">
-                    <div class="text-4xl mb-3">🐘</div>
-                    <h3 class="font-bold">Mastodon</h3>
-                    <p class="text-xs text-orange-400 mt-2">Fediverse</p>
+                <div class="glass-card p-4 rounded-xl text-center hover-lift border border-orange-500/30">
+                    <div class="text-3xl mb-2">🐘</div>
+                    <h3 class="font-bold text-sm">Mastodon</h3>
                 </div>
-            </div>
-            
-            <div class="text-center mt-8">
-                <p class="text-sm text-gray-500">AVAILABLE ON: BASE • ETHEREUM • SOLANA • AVALANCHE • POLYGON</p>
             </div>
         </div>
     </section>
@@ -186,236 +170,288 @@
     <div class="section-line max-w-4xl mx-auto"></div>
 
     <!-- PACKAGES -->
-    <section id="packages" class="py-24 bg-zinc-950">
+    <section id="packages" class="py-20 bg-zinc-950">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">CHOOSE YOUR <span class="grad-text">PACKAGE</span></h2>
-            <p class="text-xl text-gray-400 text-center mb-6">Ready-to-go. Pick. Deploy. Start making money.</p>
-            <div class="text-center mb-12">
-                <span class="sale-badge">🔥 LAUNCH SPECIAL</span>
-            </div>
+            <p class="text-xl text-gray-400 text-center mb-8">Simple pricing. No hidden fees. Start making money immediately.</p>
             
-            <!-- STANDARD PACKAGE -->
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <!-- STANDARD -->
+            <!-- PACKAGES GRID -->
+            <div class="grid md:grid-cols-3 gap-6 mb-16">
+                <!-- STARTER $5 -->
                 <div class="glass-card rounded-3xl overflow-hidden border-2 border-white/10 hover-lift">
-                    <div class="bg-white/5 p-8 text-center">
-                        <div class="text-2xl font-bold mb-2">STARTER</div>
-                        <div class="text-5xl font-bold text-orange-500">$9<span class="text-lg text-gray-500 font-normal">/mo</span></div>
-                        <p class="text-gray-400 mt-2">Perfect for testing</p>
+                    <div class="bg-white/5 p-6 text-center">
+                        <div class="text-2xl font-bold mb-1">STARTER</div>
+                        <div class="text-5xl font-bold text-orange-500">$5<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                        <p class="text-gray-400 text-sm mt-1">Test the waters</p>
                     </div>
                     
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-4">🚀 What's Included:</h3>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> 1 Agent or Token</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> 3 Platforms integrated</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Auto-post to all channels</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Basic analytics</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Community setup help</li>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-3">🚀 What's Included:</h3>
+                        <ul class="space-y-2 mb-4 text-sm">
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 1 Agent or Token</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> 3 Platforms</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Auto-post to all channels</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Basic analytics</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Setup guide included</li>
                         </ul>
                         
-                        <h3 class="font-bold text-lg mb-3 text-gray-300">Platforms:</h3>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-sm">📱 Telegram</span>
-                            <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-sm">💬 Discord</span>
-                            <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-sm">𝕏 X</span>
-                            <span class="text-gray-600 px-3 py-1 rounded text-sm">🌐 Farcaster</span>
-                            <span class="text-gray-600 px-3 py-1 rounded text-sm">💙 Bluesky</span>
-                            <span class="text-gray-600 px-3 py-1 rounded text-sm">🐘 Mastodon</span>
+                        <h4 class="font-bold text-sm mb-2 text-gray-300">Platforms:</h4>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="bg-orange-500/20 text-orange-400 px-2 py-1 rounded text-xs">📱 Telegram</span>
+                            <span class="bg-orange-500/20 text-orange-400 px-2 py-1 rounded text-xs">💬 Discord</span>
+                            <span class="bg-orange-500/20 text-orange-400 px-2 py-1 rounded text-xs">𝕏 X</span>
+                            <span class="text-gray-600 px-2 py-1 rounded text-xs">🌐 🌙 🐘</span>
                         </div>
                         
-                        <button class="w-full py-4 rounded-xl font-bold bg-white/10 hover:bg-white/20 transition text-lg">SELECT STARTER</button>
+                        <button class="w-full py-3 rounded-lg font-bold bg-white/10 hover:bg-white/20 transition">SELECT $5</button>
                     </div>
                 </div>
                 
-                <!-- DELUXE -->
-                <div class="glass-card rounded-3xl overflow-hidden border-2 border-orange-500 relative transform scale-105">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-sm font-bold px-6 py-2 rounded-full">🔥 MOST POPULAR</div>
+                <!-- GROWTH $15 -->
+                <div class="glass-card rounded-3xl overflow-hidden border-2 border-orange-500 relative transform scale-105 z-10">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange-500 text-black text-sm font-bold px-4 py-1 rounded-full">🔥 BEST VALUE</div>
                     
-                    <div class="bg-gradient-to-b from-orange-500/20 to-transparent p-8 text-center">
-                        <div class="text-2xl font-bold mb-2">GROWTH</div>
-                        <div class="text-5xl font-bold text-orange-500">$29<span class="text-lg text-gray-500 font-normal">/mo</span></div>
-                        <p class="text-gray-400 mt-2">Start making money</p>
+                    <div class="bg-gradient-to-b from-orange-500/20 to-transparent p-6 text-center">
+                        <div class="text-2xl font-bold mb-1">GROWTH</div>
+                        <div class="text-5xl font-bold text-orange-500">$15<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                        <p class="text-gray-400 text-sm mt-1">Start making money</p>
                     </div>
                     
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-4">🚀 Everything in Starter, Plus:</h3>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> <strong>3 Agents or Tokens</strong></li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> <strong>ALL 6 Platforms</strong></li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Cross-platform sync</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Advanced analytics</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> x402 Cloud earnings</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Priority support</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Launch marketing</li>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-3">🚀 Everything in Starter +:</h3>
+                        <ul class="space-y-2 mb-4 text-sm">
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>3 Agents/Tokens</strong></li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>ALL 6 Platforms</strong></li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Cross-platform sync</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Advanced analytics</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>x402 Cloud</strong> earnings</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Priority support</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Launch checklist</li>
                         </ul>
                         
-                        <h3 class="font-bold text-lg mb-3 text-gray-300">All Platforms Included:</h3>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="bg-orange-500 text-black px-3 py-1 rounded text-sm font-bold">📱 Telegram</span>
-                            <span class="bg-orange-500 text-black px-3 py-1 rounded text-sm font-bold">💬 Discord</span>
-                            <span class="bg-orange-500 text-black px-3 py-1 rounded text-sm font-bold">𝕏 X</span>
-                            <span class="bg-orange-500 text-black px-3 py-1 rounded text-sm font-bold">🌐 Farcaster</span>
-                            <span class="bg-orange-500 text-black px-3 py-1 rounded text-sm font-bold">💙 Bluesky</span>
-                            <span class="bg-orange-500 text-black px-3 py-1 rounded text-sm font-bold">🐘 Mastodon</span>
+                        <h4 class="font-bold text-sm mb-2 text-gray-300">All Platforms:</h4>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="bg-orange-500 text-black px-2 py-1 rounded text-xs font-bold">📱</span>
+                            <span class="bg-orange-500 text-black px-2 py-1 rounded text-xs font-bold">💬</span>
+                            <span class="bg-orange-500 text-black px-2 py-1 rounded text-xs font-bold">𝕏</span>
+                            <span class="bg-orange-500 text-black px-2 py-1 rounded text-xs font-bold">🌐</span>
+                            <span class="bg-orange-500 text-black px-2 py-1 rounded text-xs font-bold">💙</span>
+                            <span class="bg-orange-500 text-black px-2 py-1 rounded text-xs font-bold">🐘</span>
                         </div>
                         
-                        <button class="w-full py-4 rounded-xl font-bold btn-cod text-lg">SELECT GROWTH</button>
+                        <button class="w-full py-3 rounded-lg font-bold btn-cod">SELECT $15</button>
                     </div>
                 </div>
                 
-                <!-- ULTIMATE -->
+                <!-- VIRAL $25 -->
                 <div class="glass-card rounded-3xl overflow-hidden border-2 border-white/10 hover-lift">
-                    <div class="bg-white/5 p-8 text-center">
-                        <div class="text-2xl font-bold mb-2">VIRAL</div>
-                        <div class="text-5xl font-bold text-orange-500">$99<span class="text-lg text-gray-500 font-normal">/mo</span></div>
-                        <p class="text-gray-400 mt-2">Maximum reach</p>
+                    <div class="bg-white/5 p-6 text-center">
+                        <div class="text-2xl font-bold mb-1">VIRAL</div>
+                        <div class="text-5xl font-bold text-orange-500">$25<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                        <p class="text-gray-400 text-sm mt-1">Maximum reach</p>
                     </div>
                     
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-4">🚀 Everything in Growth, Plus:</h3>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> <strong>Unlimited Agents/Tokens</strong></li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> White-label solution</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Custom integrations</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Dedicated account manager</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> API access</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Multi-chain deployment</li>
-                            <li class="flex items-center gap-3"><span class="check-icon">✓</span> Reseller rights</li>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg mb-3">🚀 Everything in Growth +:</h3>
+                        <ul class="space-y-2 mb-4 text-sm">
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> <strong>Unlimited Agents</strong></li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> White-label solution</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Custom integrations</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> API access</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Multi-chain deployment</li>
+                            <li class="flex items-center gap-2"><span class="check-icon">✓</span> Dedicated manager</li>
                         </ul>
                         
-                        <h3 class="font-bold text-lg mb-3 text-gray-300">All Platforms + Extras:</h3>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded text-sm">📱 Telegram</span>
-                            <span class="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded text-sm">💬 Discord</span>
-                            <span class="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded text-sm">𝕏 X</span>
-                            <span class="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded text-sm">🌐 Farcaster</span>
-                            <span class="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded text-sm">💙 Bluesky</span>
-                            <span class="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded text-sm">🐘 Mastodon</span>
+                        <h4 class="font-bold text-sm mb-2 text-gray-300">All + Extras:</h4>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded text-xs">📱 💬 𝕏</span>
+                            <span class="bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded text-xs">🌐 💙 🐘</span>
+                            <span class="bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded text-xs">+ API</span>
                         </div>
                         
-                        <button class="w-full py-4 rounded-xl font-bold bg-cyan-600 hover:bg-cyan-500 transition text-lg">SELECT VIRAL</button>
+                        <button class="w-full py-3 rounded-lg font-bold bg-cyan-600 hover:bg-cyan-500 transition">SELECT $25</button>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ADD-ONS -->
+    <section id="addons" class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">POWER-UP <span class="grad-text">ADD-ONS</span></h2>
+            <p class="text-xl text-gray-400 text-center mb-12">Optional extras. Toggle on what you need. Never required.</p>
             
-            <!-- WHAT YOU GET -->
-            <div class="glass-card p-10 rounded-3xl border-2 border-orange-500/20">
-                <h3 class="text-3xl font-bold text-center mb-8">🎯 WHY CHOOSE IRONBRIDGE?</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="text-center">
-                        <div class="text-4xl mb-3">⚡</div>
-                        <h4 class="font-bold text-lg mb-2">10-Minute Setup</h4>
-                        <p class="text-gray-400 text-sm">One click. Everything integrated. Start immediately.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Full Integration -->
+                <div class="addon-card p-6 rounded-2xl hover-lift">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="text-3xl">💎</div>
+                        <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-sm font-bold">+$5/mo</span>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl mb-3">🔄</div>
-                        <h4 class="font-bold text-lg mb-2">Auto-Sync All</h4>
-                        <p class="text-gray-400 text-sm">Post once. Every platform updates automatically.</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl mb-3">💰</div>
-                        <h4 class="font-bold text-lg mb-2">Earn at Launch</h4>
-                        <p class="text-gray-400 text-sm">x402 Cloud earnings from day one.</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl mb-3">🛡️</div>
-                        <h4 class="font-bold text-lg mb-2">BNKR Protected</h4>
-                        <p class="text-gray-400 text-sm">Full Bankr ecosystem alignment.</p>
-                    </div>
+                    <h3 class="font-bold text-xl mb-2">Full Integration Package</h3>
+                    <p class="text-gray-400 text-sm mb-3">Cross-platform sync + advanced analytics + custom dashboards</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Real-time sync across all platforms</li>
+                        <li>• Custom analytics dashboard</li>
+                        <li>• Export reports & data</li>
+                    </ul>
                 </div>
+                
+                <!-- Atelier Gigs -->
+                <div class="addon-card p-6 rounded-2xl hover-lift">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="text-3xl">🎨</div>
+                        <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-sm font-bold">+$3/mo</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">Atelier Gigs</h3>
+                    <p class="text-gray-400 text-sm mb-3">Custom branding assets for your agent or token</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Custom logo design</li>
+                        <li>• Banner & profile graphics</li>
+                        <li>• Branded content templates</li>
+                    </ul>
+                </div>
+                
+                <!-- Lumen -->
+                <div class="addon-card p-6 rounded-2xl hover-lift">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="text-3xl">💡</div>
+                        <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-sm font-bold">+$4/mo</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">Lumen AI</h3>
+                    <p class="text-gray-400 text-sm mb-3">AI-powered content generation for your agent</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Auto-generate posts</li>
+                        <li>• Trending topic analysis</li>
+                        <li>• Content scheduling</li>
+                    </ul>
+                </div>
+                
+                <!-- 0xSMC -->
+                <div class="addon-card p-6 rounded-2xl hover-lift">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="text-3xl">🤖</div>
+                        <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-sm font-bold">+$5/mo</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">0xSMC</h3>
+                    <p class="text-gray-400 text-sm mb-3">Smart contract deployment & management</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Auto-deploy contracts</li>
+                        <li>• Token contract setup</li>
+                        <li>• Liquidity lock integration</li>
+                    </ul>
+                </div>
+                
+                <!-- 0xWork -->
+                <div class="addon-card p-6 rounded-2xl hover-lift">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="text-3xl">💼</div>
+                        <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded text-sm font-bold">+$3/mo</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">0xWork</h3>
+                    <p class="text-gray-400 text-sm mb-3">Freelance integration & payment splitting</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Team payment splitting</li>
+                        <li>• Freelancer payouts</li>
+                        <li>• Revenue sharing automation</li>
+                    </ul>
+                </div>
+                
+                <!-- x402 Cloud (BUILT IN for $15+) -->
+                <div class="addon-card p-6 rounded-2xl border-2 border-cyan-500/30 bg-cyan-500/5">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="text-3xl">☁️</div>
+                        <span class="bg-cyan-500 text-black px-3 py-1 rounded text-xs font-bold">BUILT IN</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-cyan-400">x402 Cloud</h3>
+                    <p class="text-gray-400 text-sm mb-3">Earn while you sleep — other agents pay to use yours</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Automatic micropayments</li>
+                        <li>• Earn from other agents</li>
+                        <li>• Already included in $15+</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center">
+                <p class="text-gray-400">Add-ons stack with any package. Pick what you need.</p>
             </div>
         </div>
     </section>
 
     <!-- HOW IT WORKS -->
-    <section class="py-20 bg-black">
-        <div class="max-w-5xl mx-auto px-6">
+    <section class="py-16 bg-zinc-950">
+        <div class="max-w-4xl mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12">HOW IT <span class="grad-text">WORKS</span></h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="text-center">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-600 flex items-center justify-center text-2xl font-bold glow-orange">1</div>
-                    <h3 class="text-xl font-bold mb-2">Choose Package</h3>
-                    <p class="text-gray-400">Pick Starter, Growth, or Viral based on your needs.</p>
+                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-orange-600 flex items-center justify-center text-xl font-bold glow-orange">1</div>
+                    <h3 class="text-lg font-bold mb-2">Choose Package</h3>
+                    <p class="text-gray-400 text-sm">Pick $5, $15, or $25. Add any extras.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-600 flex items-center justify-center text-2xl font-bold glow-orange">2</div>
-                    <h3 class="text-xl font-bold mb-2">Connect Wallet</h3>
-                    <p class="text-gray-400">Link your Base wallet. We handle the rest.</p>
+                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-orange-600 flex items-center justify-center text-xl font-bold glow-orange">2</div>
+                    <h3 class="text-lg font-bold mb-2">Connect Wallet</h3>
+                    <p class="text-gray-400 text-sm">Link Base. We handle the rest.</p>
                 </div>
                 <div class="text-center">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-600 flex items-center justify-center text-2xl font-bold glow-orange">3</div>
-                    <h3 class="text-xl font-bold mb-2">Deploy & Earn</h3>
-                    <p class="text-gray-400">Live on all platforms. Start making money.</p>
+                    <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-orange-600 flex items-center justify-center text-xl font-bold glow-orange">3</div>
+                    <h3 class="text-lg font-bold mb-2">Launch & Earn</h3>
+                    <p class="text-gray-400 text-sm">Live on 6 platforms. Start making money.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FEATURES -->
-    <section id="features" class="py-20 bg-zinc-950">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">POWER <span class="grad-text">UPS</span></h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="glass-card p-6 rounded-2xl border-l-4 border-orange-500">
-                    <div class="text-3xl mb-3">🔄</div>
-                    <h3 class="font-bold text-lg mb-2">Cross-Platform Sync</h3>
-                    <p class="text-gray-400 text-sm">One post goes everywhere automatically.</p>
+    <!-- WHY -->
+    <section class="py-16 bg-black">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-6 text-center">
+                <div class="p-4">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <h4 class="font-bold mb-1">10-Min Setup</h4>
+                    <p class="text-gray-500 text-sm">One click. Done.</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl border-l-4 border-orange-500">
-                    <div class="text-3xl mb-3">📊</div>
-                    <h3 class="font-bold text-lg mb-2">Analytics Dashboard</h3>
-                    <p class="text-gray-400 text-sm">Track engagement from one dashboard.</p>
+                <div class="p-4">
+                    <div class="text-3xl mb-2">🔄</div>
+                    <h4 class="font-bold mb-1">Auto-Sync</h4>
+                    <p class="text-gray-500 text-sm">Post once, everywhere.</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl border-l-4 border-orange-500">
-                    <div class="text-3xl mb-3">🛡️</div>
-                    <h3 class="font-bold text-lg mb-2">Safety Scanning</h3>
-                    <p class="text-gray-400 text-sm">@solvrbot + @bankrbot protect every deploy.</p>
+                <div class="p-4">
+                    <div class="text-3xl mb-2">💰</div>
+                    <h4 class="font-bold mb-1">Earn at Launch</h4>
+                    <p class="text-gray-500 text-sm">x402 Cloud from day 1.</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl border-l-4 border-orange-500">
-                    <div class="text-3xl mb-3">💰</div>
-                    <h3 class="font-bold text-lg mb-2">x402 Cloud</h3>
-                    <p class="text-gray-400 text-sm">Earn while you sleep. Other agents pay you.</p>
-                </div>
-                <div class="glass-card p-6 rounded-2xl border-l-4 border-orange-500">
-                    <div class="text-3xl mb-3">🔗</div>
-                    <h3 class="font-bold text-lg mb-2">Base Native</h3>
-                    <p class="text-gray-400 text-sm">Fast, cheap transactions. $BNKR rewards.</p>
-                </div>
-                <div class="glass-card p-6 rounded-2xl border-l-4 border-orange-500">
-                    <div class="text-3xl mb-3">🤖</div>
-                    <h3 class="font-bold text-lg mb-2">AI-Powered</h3>
-                    <p class="text-gray-400 text-sm">Lumen content + 0xSMC contracts included.</p>
+                <div class="p-4">
+                    <div class="text-3xl mb-2">🛡️</div>
+                    <h4 class="font-bold mb-1">BNKR Protected</h4>
+                    <p class="text-gray-500 text-sm">Full ecosystem alignment.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="py-20 bg-gradient-to-b from-black to-orange-900/10">
+    <section class="py-16 bg-gradient-to-b from-black to-orange-900/10">
         <div class="max-w-3xl mx-auto px-6 text-center">
-            <h2 class="text-5xl font-bold mb-6">READY TO <span class="grad-text">LAUNCH?</span></h2>
-            <p class="text-xl text-gray-400 mb-8">Pick a package. One click. Start making money.</p>
-            <a href="#packages" class="btn-cod px-16 py-6 rounded font-bold text-xl pulse-glow inline-block">
+            <h2 class="text-4xl font-bold mb-4">READY TO <span class="grad-text">LAUNCH?</span></h2>
+            <p class="text-lg text-gray-400 mb-6">$5 / $15 / $25. One click. Start making money.</p>
+            <a href="#packages" class="btn-cod px-12 py-4 rounded font-bold text-lg pulse-glow inline-block">
                 🚀 GET STARTED
             </a>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-12 bg-black border-t border-orange-500/20">
+    <footer class="py-10 bg-black border-t border-orange-500/20">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="flex justify-center items-center gap-4 mb-6">
-                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-xl">🔗</div>
-                <span class="text-2xl font-bold tracking-widest">IRONBRIDGE</span>
+            <div class="flex justify-center items-center gap-3 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-lg">🔗</div>
+                <span class="text-xl font-bold tracking-widest">IRONBRIDGE</span>
             </div>
             <p class="text-gray-500">BNKR Ecosystem • x402 Cloud • Base Native</p>
-            <div class="flex justify-center gap-6 mt-6 text-gray-600">
-                <a href="#" class="hover:text-orange-400">TERMS</a>
-                <a href="#" class="hover:text-orange-400">PRIVACY</a>
-                <a href="#" class="hover:text-orange-400">CONTACT</a>
-            </div>
-            <p class="text-gray-700 mt-6">© 2025 IronBridge. All rights reserved.</p>
+            <p class="text-gray-700 text-sm mt-4">© 2025 IronBridge. All rights reserved.</p>
         </div>
     </footer>
 </body>

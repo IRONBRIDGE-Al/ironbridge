@@ -9,119 +9,107 @@
 :root{
   --bg:#0a0a0a;--surface:#111;--surface2:#161616;--border:#1f1f1f;
   --green:#22c55e;--green-dim:#166534;--yellow:#eab308;--red:#ef4444;
-  --text:#e5e5e5;--dim:#666;--accent:#6366f1;
+  --blue:#6366f1;--text:#e5e5e5;--dim:#666;
 }
 body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sans-serif;font-size:14px;display:grid;grid-template-columns:220px 1fr;min-height:100vh}
-a{text-decoration:none;color:inherit}
-
-/* SIDEBAR */
-.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:0;display:flex;flex-direction:column}
+.sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column}
 .sidebar-logo{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
-.sidebar-logo .brand{font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.5px}
-.sidebar-logo .brand span{color:var(--green)}
-.sidebar-logo .version{font-size:10px;color:var(--dim);margin-top:2px;letter-spacing:1px;text-transform:uppercase}
+.brand{font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.5px}
+.brand span{color:var(--green)}
+.version{font-size:10px;color:var(--dim);margin-top:2px;letter-spacing:1px;text-transform:uppercase}
 .nav-section{padding:16px 10px 4px}
 .nav-label{font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;padding:0 8px;margin-bottom:6px}
 .nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;font-size:13px;color:var(--dim);cursor:pointer;transition:all .15s;margin-bottom:1px}
 .nav-item:hover{background:var(--surface2);color:var(--text)}
 .nav-item.active{background:var(--surface2);color:var(--text);font-weight:500}
-.nav-item .dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0}
-.nav-item .dot.green{background:var(--green)}
-.nav-item .dot.yellow{background:var(--yellow)}
-.nav-item .dot.red{background:var(--red)}
-.nav-item .badge{margin-left:auto;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:100px}
-.sidebar-footer{margin-top:auto;padding:14px;border-top:1px solid var(--border)}
-.agent-status{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dim)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0}
+.dot.g{background:var(--green)}.dot.y{background:var(--yellow)}.dot.r{background:var(--red)}
+.badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:100px}
+.badge.blue{background:var(--blue)}
+.sidebar-footer{margin-top:auto;padding:14px;border-top:1px solid var(--border);font-size:12px;color:var(--dim);display:flex;align-items:center;gap:8px}
 .pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.4)}70%{opacity:.8;box-shadow:0 0 0 6px rgba(34,197,94,0)}}
-
-/* MAIN */
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.4)}70%{opacity:.7;box-shadow:0 0 0 6px rgba(34,197,94,0)}}
 .main{overflow-y:auto}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:10}
-.topbar-left{display:flex;align-items:center;gap:12px}
 .page-title{font-size:16px;font-weight:600;color:#fff}
-.status-pill{display:flex;align-items:center;gap:6px;background:var(--green-dim);border:1px solid var(--green);color:var(--green);padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
-.topbar-right{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--dim)}
+.status-pill{display:flex;align-items:center;gap:6px;background:rgba(34,197,94,.1);border:1px solid var(--green);color:var(--green);padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-left:12px}
+.topbar-right{font-size:12px;color:var(--dim);display:flex;gap:16px;align-items:center}
 .content{padding:24px;max-width:1100px}
-
-/* METRICS */
-.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px}
 .metric{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
 .metric-label{font-size:10px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
 .metric-val{font-size:28px;font-weight:700;color:#fff;line-height:1}
-.metric-val.green{color:var(--green)}
-.metric-val.yellow{color:var(--yellow)}
-.metric-val.red{color:var(--red)}
+.metric-val.g{color:var(--green)}.metric-val.y{color:var(--yellow)}.metric-val.r{color:var(--red)}
 .metric-sub{font-size:11px;color:var(--dim);margin-top:6px;line-height:1.4}
-.metric-sub.action{color:var(--yellow)}
-
-/* SECTION */
+.metric-sub.warn{color:var(--yellow)}
 .section{margin-bottom:28px}
-.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.section-title{font-size:12px;font-weight:600;color:#fff;letter-spacing:1px;text-transform:uppercase}
-.section-action{font-size:11px;color:var(--accent);cursor:pointer}
-
+.section-title{font-size:12px;font-weight:600;color:#fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+/* APPROVAL CARDS */
+.approval-list{display:flex;flex-direction:column;gap:10px}
+.approval-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:16px;transition:border-color .2s}
+.approval-card.red{border-left:3px solid var(--red)}
+.approval-card.yellow{border-left:3px solid var(--yellow)}
+.approval-card.action{border-left:3px solid var(--blue)}
+.approval-card.approved{border-left:3px solid var(--green);opacity:.6}
+.approval-card.declined{border-left:3px solid var(--dim);opacity:.4}
+.gate-tag{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:100px;text-align:center}
+.gate-tag.red{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.gate-tag.yellow{background:rgba(234,179,8,.1);color:var(--yellow);border:1px solid rgba(234,179,8,.3)}
+.gate-tag.action{background:rgba(99,102,241,.1);color:var(--blue);border:1px solid rgba(99,102,241,.3)}
+.gate-tag.approved{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.gate-tag.declined{background:rgba(102,102,102,.1);color:var(--dim);border:1px solid rgba(102,102,102,.3)}
+.approval-body .title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.approval-body .sub{font-size:12px;color:var(--dim);line-height:1.5}
+.approval-body .fanout{font-size:11px;color:#555;margin-top:6px;font-style:italic}
+.approval-actions{display:flex;gap:8px;flex-shrink:0}
+.btn-approve{background:rgba(34,197,94,.15);border:1px solid var(--green);color:var(--green);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-approve:hover{background:rgba(34,197,94,.25)}
+.btn-decline{background:transparent;border:1px solid var(--border);color:var(--dim);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-decline:hover{border-color:#444;color:#888}
+.btn-done{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--green);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;cursor:default}
+.btn-declined-done{background:transparent;border:1px solid var(--border);color:var(--dim);padding:8px 18px;border-radius:6px;font-size:12px;cursor:default}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;border:1px solid var(--border);border-radius:10px;padding:14px 20px;font-size:13px;color:var(--text);z-index:1000;transform:translateY(100px);opacity:0;transition:all .3s;max-width:360px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:var(--green);color:var(--green)}
+.toast.error{border-color:var(--red);color:var(--red)}
 /* TEAM GRID */
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .agent-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .15s}
-.agent-card:hover{border-color:#2a2a2a}
-.agent-card.live{border-color:var(--green-dim)}
-.agent-card.standby{opacity:.6}
+.agent-card.live{border-color:#166534}
+.agent-card.standby{opacity:.55}
 .agent-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.agent-avatar{width:36px;height:36px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--green)}
-.agent-card.standby .agent-avatar{color:var(--dim)}
-.agent-badge{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:100px}
-.badge-live{background:rgba(34,197,94,.1);color:var(--green);border:1px solid var(--green-dim)}
-.badge-standby{background:var(--surface2);color:var(--dim);border:1px solid var(--border)}
-.badge-post{background:rgba(99,102,241,.1);color:var(--accent);border:1px solid rgba(99,102,241,.3)}
+.avatar{width:36px;height:36px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--green)}
+.agent-card.standby .avatar{color:var(--dim)}
+.abadge{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:100px}
+.abadge.live{background:rgba(34,197,94,.1);color:var(--green);border:1px solid #166534}
+.abadge.standby{background:var(--surface2);color:var(--dim);border:1px solid var(--border)}
+.abadge.post{background:rgba(99,102,241,.1);color:var(--blue);border:1px solid rgba(99,102,241,.3)}
 .agent-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:2px}
 .agent-role{font-size:11px;color:var(--dim);margin-bottom:8px}
 .agent-detail{font-size:11px;color:var(--dim);line-height:1.5;padding-top:8px;border-top:1px solid var(--border)}
-
-/* GATES */
-.gates{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
-.gate{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px}
-.gate-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.gate-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.gate-dot.g{background:var(--green)}
-.gate-dot.y{background:var(--yellow)}
-.gate-dot.r{background:var(--red)}
-.gate-name{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.gate-name.g{color:var(--green)}
-.gate-name.y{color:var(--yellow)}
-.gate-name.r{color:var(--red)}
-.gate-desc{font-size:11px;color:var(--dim);line-height:1.5}
-
-/* PENDING */
-.pending-list{display:flex;flex-direction:column;gap:8px}
-.pending-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px}
-.pending-item.red{border-left:3px solid var(--red)}
-.pending-item.yellow{border-left:3px solid var(--yellow)}
-.pending-item.action-needed{border-left:3px solid var(--accent)}
-.pending-gate{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;min-width:60px}
-.pending-gate.red{color:var(--red)}
-.pending-gate.yellow{color:var(--yellow)}
-.pending-gate.accent{color:var(--accent)}
-.pending-text{font-size:13px;color:var(--text);flex:1}
-.pending-sub{font-size:11px;color:var(--dim);margin-top:2px}
-.pending-arrow{color:var(--dim);font-size:16px}
-
-/* STACK */
-.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.stack-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
-.stack-layer{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
-.stack-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
-.stack-detail{font-size:11px;color:var(--dim);line-height:1.5}
-
-/* REPORTING */
+/* REPORT CHAIN */
 .report-chain{display:flex;flex-direction:column;gap:8px}
-.report-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px}
+.report-row{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px}
 .report-from{font-weight:600;color:#fff;min-width:80px}
 .report-arrow{color:var(--dim)}
 .report-to{color:var(--text);flex:1}
-.report-freq{color:var(--dim);font-size:11px}
-
+.report-freq{color:var(--dim);font-size:11px;min-width:160px;text-align:right}
+/* STACK / GATES */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card-layer{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.card-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.card-detail{font-size:11px;color:var(--dim);line-height:1.5}
+.gate-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-right:6px}
+/* DECISIONS LOG */
+.decision-list{display:flex;flex-direction:column;gap:8px}
+.decision-row{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;align-items:flex-start;gap:14px}
+.decision-ts{font-size:10px;color:var(--dim);min-width:90px;margin-top:2px}
+.decision-body{flex:1;font-size:13px;color:var(--text)}
+.decision-by{font-size:11px;color:var(--dim);margin-top:3px}
 .page{display:none}.page.active{display:block}
+.empty{text-align:center;padding:48px;color:var(--dim);font-size:13px}
 </style>
 </head>
 <body>
@@ -131,48 +119,39 @@ a{text-decoration:none;color:inherit}
     <div class="brand">Iron<span>Bridge</span></div>
     <div class="version">Command Center v2</div>
   </div>
-
   <div class="nav-section">
     <div class="nav-label">Overview</div>
-    <div class="nav-item active" onclick="show('dashboard',this)"><span class="dot green"></span> Dashboard</div>
-    <div class="nav-item" onclick="show('reporting',this)"><span class="dot green"></span> Reporting Chain</div>
+    <div class="nav-item active" onclick="show('dashboard',this)"><span class="dot g"></span>Dashboard</div>
+    <div class="nav-item" onclick="show('reporting',this)"><span class="dot g"></span>Reporting Chain</div>
+    <div class="nav-item" onclick="show('decisions',this)"><span class="dot g"></span>Decision Log <span class="badge blue" id="decisionCount">0</span></div>
   </div>
-
   <div class="nav-section">
     <div class="nav-label">Team</div>
-    <div class="nav-item" onclick="show('team',this)"><span class="dot green"></span> All Agents</div>
-    <div class="nav-item" onclick="show('pending',this)"><span class="dot red"></span> Needs Owner <span class="badge">4</span></div>
+    <div class="nav-item" onclick="show('team',this)"><span class="dot g"></span>All Agents</div>
+    <div class="nav-item" onclick="show('approvals',this)"><span class="dot r"></span>Needs Owner <span class="badge" id="pendingCount">4</span></div>
   </div>
-
   <div class="nav-section">
     <div class="nav-label">Product</div>
-    <div class="nav-item" onclick="show('stack',this)"><span class="dot green"></span> Tech Stack</div>
-    <div class="nav-item" onclick="show('platforms',this)"><span class="dot yellow"></span> Platforms</div>
-    <div class="nav-item" onclick="show('verticals',this)"><span class="dot green"></span> Verticals</div>
+    <div class="nav-item" onclick="show('stack',this)"><span class="dot g"></span>Tech Stack</div>
+    <div class="nav-item" onclick="show('platforms',this)"><span class="dot y"></span>Platforms</div>
+    <div class="nav-item" onclick="show('verticals',this)"><span class="dot g"></span>Verticals</div>
   </div>
-
   <div class="nav-section">
     <div class="nav-label">Links</div>
-    <div class="nav-item" onclick="window.open('/start.html')"><span class="dot"></span> Launch Wizard</div>
-    <div class="nav-item" onclick="window.open('/my-agent.html')"><span class="dot"></span> User Dashboard</div>
-    <div class="nav-item" onclick="window.open('/gaming.html')"><span class="dot"></span> Gaming Page</div>
+    <div class="nav-item" onclick="window.open('/start.html')"><span class="dot"></span>Launch Wizard</div>
+    <div class="nav-item" onclick="window.open('/my-agent.html')"><span class="dot"></span>User Dashboard</div>
+    <div class="nav-item" onclick="window.open('/gaming.html')"><span class="dot"></span>Gaming Page</div>
   </div>
-
-  <div class="sidebar-footer">
-    <div class="agent-status"><span class="pulse"></span> 4/8 agents live</div>
-  </div>
+  <div class="sidebar-footer"><span class="pulse"></span>4/8 agents live &nbsp;·&nbsp; Dick reads CLAUDE.md on boot</div>
 </div>
 
 <div class="main">
   <div class="topbar">
-    <div class="topbar-left">
+    <div style="display:flex;align-items:center">
       <div class="page-title" id="pageTitle">Dashboard</div>
-      <div class="status-pill"><span class="pulse" style="width:5px;height:5px;animation:pulse 2s infinite"></span> GO SIGNAL ACTIVE</div>
+      <div class="status-pill"><span class="pulse" style="width:5px;height:5px"></span>GO SIGNAL ACTIVE</div>
     </div>
-    <div class="topbar-right">
-      <span id="clock"></span>
-      <span>Next brief: 9:30 AM</span>
-    </div>
+    <div class="topbar-right"><span id="clock"></span><span>Next brief: 9:30 AM</span></div>
   </div>
 
   <div class="content">
@@ -180,65 +159,40 @@ a{text-decoration:none;color:inherit}
     <!-- DASHBOARD -->
     <div id="dashboard" class="page active">
       <div class="metrics">
-        <div class="metric">
-          <div class="metric-label">Agents Live</div>
-          <div class="metric-val green">4 / 8</div>
-          <div class="metric-sub">Dick · Brooks · Oscar · Rachel</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Waitlist</div>
-          <div class="metric-val yellow">0</div>
-          <div class="metric-sub action">Blocked: pricing RED gate</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Monthly Spend</div>
-          <div class="metric-val green">~$5</div>
-          <div class="metric-sub">Cap: $100 · Groq free + Railway</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Tasks Done</div>
-          <div class="metric-val">37+</div>
-          <div class="metric-sub">Stamped · Claude witnessed</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Launch Ready</div>
-          <div class="metric-val yellow">20%</div>
-          <div class="metric-sub action">Blocked: pricing RED gate</div>
+        <div class="metric"><div class="metric-label">Agents Live</div><div class="metric-val g">4 / 8</div><div class="metric-sub">Dick · Brooks · Oscar · Rachel</div></div>
+        <div class="metric"><div class="metric-label">Waitlist</div><div class="metric-val y">0</div><div class="metric-sub warn">Blocked: pricing RED gate</div></div>
+        <div class="metric"><div class="metric-label">Monthly Spend</div><div class="metric-val g">~$5</div><div class="metric-sub">Cap $100 · Groq free + Railway</div></div>
+        <div class="metric"><div class="metric-label">Tasks Done</div><div class="metric-val">37+</div><div class="metric-sub">Stamped · Claude witnessed</div></div>
+        <div class="metric"><div class="metric-label">Launch Ready</div><div class="metric-val y">20%</div><div class="metric-sub warn">Blocked: pricing RED gate</div></div>
+      </div>
+      <div class="section">
+        <div class="section-title">Needs Owner Now — click to approve or decline</div>
+        <div id="dashApprovals"></div>
+      </div>
+      <div class="section">
+        <div class="section-title">Gate System</div>
+        <div class="grid3">
+          <div class="card"><div style="display:flex;align-items:center;margin-bottom:8px"><span class="gate-dot" style="background:var(--green)"></span><strong style="font-size:11px;color:var(--green);letter-spacing:1px">GREEN</strong></div><div class="card-detail">Act immediately. Log after. No approval needed.</div></div>
+          <div class="card"><div style="display:flex;align-items:center;margin-bottom:8px"><span class="gate-dot" style="background:var(--yellow)"></span><strong style="font-size:11px;color:var(--yellow);letter-spacing:1px">YELLOW</strong></div><div class="card-detail">Present to Dick before acting. Dick approves.</div></div>
+          <div class="card"><div style="display:flex;align-items:center;margin-bottom:8px"><span class="gate-dot" style="background:var(--red)"></span><strong style="font-size:11px;color:var(--red);letter-spacing:1px">RED</strong></div><div class="card-detail">Hold for Owner approval only. Nothing ships without this.</div></div>
         </div>
       </div>
+    </div>
 
+    <!-- APPROVALS PAGE -->
+    <div id="approvals" class="page">
       <div class="section">
-        <div class="section-header"><div class="section-title">Needs Owner Now</div></div>
-        <div class="pending-list">
-          <div class="pending-item red">
-            <div class="pending-gate red">RED</div>
-            <div><div class="pending-text">Pricing approval — unblocks Paul, Gary, and waitlist</div><div class="pending-sub">Free / $10 / $50 / $200 Founder + 10% rev share · $500 packages</div></div>
-            <div class="pending-arrow">›</div>
-          </div>
-          <div class="pending-item action-needed">
-            <div class="pending-gate accent">ACTION</div>
-            <div><div class="pending-text">DeepSeek top-up — $5-10 to restore fallback LLM</div><div class="pending-sub">platform.deepseek.com · sk-a9e85...</div></div>
-            <div class="pending-arrow">›</div>
-          </div>
-          <div class="pending-item yellow">
-            <div class="pending-gate yellow">YELLOW</div>
-            <div><div class="pending-text">BNKR Option A vs B — Sterling activates post-M2</div><div class="pending-sub">A: sub-agent under Dick now · B: dedicated Sterling later</div></div>
-            <div class="pending-arrow">›</div>
-          </div>
-          <div class="pending-item red">
-            <div class="pending-gate red">RED</div>
-            <div><div class="pending-text">WhatsApp Meta API key — needed for Tier 2 platform</div><div class="pending-sub">Required to unlock WhatsApp bridge deployment</div></div>
-            <div class="pending-arrow">›</div>
-          </div>
-        </div>
+        <div class="section-title">Pending Decisions — Your Approval Required</div>
+        <div id="approvalsList"></div>
       </div>
+    </div>
 
+    <!-- DECISIONS LOG -->
+    <div id="decisions" class="page">
       <div class="section">
-        <div class="section-header"><div class="section-title">Gate System</div></div>
-        <div class="gates">
-          <div class="gate"><div class="gate-header"><div class="gate-dot g"></div><div class="gate-name g">Green</div></div><div class="gate-desc">Act immediately. Log after. No approval needed.</div></div>
-          <div class="gate"><div class="gate-header"><div class="gate-dot y"></div><div class="gate-name y">Yellow</div></div><div class="gate-desc">Present to Dick before acting. Dick approves.</div></div>
-          <div class="gate"><div class="gate-header"><div class="gate-dot r"></div><div class="gate-name r">Red</div></div><div class="gate-desc">Hold for Owner approval only. Nothing ships.</div></div>
+        <div class="section-title">Decision Log — Full History</div>
+        <div class="decision-list" id="decisionLog">
+          <div class="empty">No decisions logged yet. Approve or decline items to build the log.</div>
         </div>
       </div>
     </div>
@@ -246,15 +200,14 @@ a{text-decoration:none;color:inherit}
     <!-- REPORTING CHAIN -->
     <div id="reporting" class="page">
       <div class="section">
-        <div class="section-header"><div class="section-title">Who Reports to Who</div></div>
+        <div class="section-title">Who Reports to Who</div>
         <div class="report-chain">
-          <div class="report-row"><div class="report-from">Brooks</div><div class="report-arrow">→</div><div class="report-to">Owner directly via Telegram alert</div><div class="report-freq">Immediate on failure</div></div>
-          <div class="report-row"><div class="report-from">Rachel</div><div class="report-arrow">→</div><div class="report-to">Owner via Telegram intel summary</div><div class="report-freq">Every 6 hours + weekly</div></div>
-          <div class="report-row"><div class="report-from">Dick</div><div class="report-arrow">→</div><div class="report-to">Owner via Telegram daily brief</div><div class="report-freq">Every day at 9:30 AM</div></div>
+          <div class="report-row"><div class="report-from">Dick</div><div class="report-arrow">→</div><div class="report-to">Owner via Telegram daily brief</div><div class="report-freq">Every day at 9:30 AM · auto</div></div>
+          <div class="report-row"><div class="report-from">Brooks</div><div class="report-arrow">→</div><div class="report-to">Owner via Telegram alert</div><div class="report-freq">Immediate on failure</div></div>
+          <div class="report-row"><div class="report-from">Rachel</div><div class="report-arrow">→</div><div class="report-to">Owner via Telegram intel</div><div class="report-freq">Every 6 hours + weekly</div></div>
           <div class="report-row"><div class="report-from">Dick</div><div class="report-arrow">→</div><div class="report-to">All leads via GitHub inbox files</div><div class="report-freq">On /sync or task route</div></div>
-          <div class="report-row"><div class="report-from">Leads</div><div class="report-arrow">→</div><div class="report-to">Dick inbox (logs/inbox/[name]-inbox.md)</div><div class="report-freq">On task completion</div></div>
-          <div class="report-row"><div class="report-from">Dick</div><div class="report-arrow">→</div><div class="report-to">command-center.md (stamps completed tasks)</div><div class="report-freq">After every action</div></div>
-          <div class="report-row"><div class="report-from">Rachel</div><div class="report-arrow">→</div><div class="report-to">CLAUDE.md (Dream consolidation)</div><div class="report-freq">Every 24h + 5 sessions</div></div>
+          <div class="report-row"><div class="report-from">Owner</div><div class="report-arrow">→</div><div class="report-to">Agents via Command Center approve/decline</div><div class="report-freq">This page — RED & YELLOW gates</div></div>
+          <div class="report-row"><div class="report-from">Rachel</div><div class="report-arrow">→</div><div class="report-to">CLAUDE.md via Dream consolidation</div><div class="report-freq">Every 24h + 5 sessions</div></div>
         </div>
       </div>
     </div>
@@ -262,69 +215,16 @@ a{text-decoration:none;color:inherit}
     <!-- TEAM -->
     <div id="team" class="page">
       <div class="section">
-        <div class="section-header"><div class="section-title">Agent Team</div></div>
+        <div class="section-title">Agent Team</div>
         <div class="team-grid">
-          <div class="agent-card live">
-            <div class="agent-header"><div class="agent-avatar">D</div><div class="agent-badge badge-live">LIVE</div></div>
-            <div class="agent-name">Dick</div>
-            <div class="agent-role">Orchestrator · Crown Prince</div>
-            <div class="agent-detail">Railway · Telegram · Groq llama-3.3-70b<br>Daily brief 9:30am · /sync /discover /reload</div>
-          </div>
-          <div class="agent-card live">
-            <div class="agent-header"><div class="agent-avatar">B</div><div class="agent-badge badge-live">LIVE</div></div>
-            <div class="agent-name">Brooks</div>
-            <div class="agent-role">Health Monitor · Security Ops</div>
-            <div class="agent-detail">Health check every 10 min<br>Alerts Owner if any agent down</div>
-          </div>
-          <div class="agent-card live">
-            <div class="agent-header"><div class="agent-avatar">O</div><div class="agent-badge badge-live">LIVE</div></div>
-            <div class="agent-name">Oscar</div>
-            <div class="agent-role">Ops Lead</div>
-            <div class="agent-detail">Inbox poll every 5 min<br>Railway API · infra · deployments</div>
-          </div>
-          <div class="agent-card live">
-            <div class="agent-header"><div class="agent-avatar">R</div><div class="agent-badge badge-live">LIVE</div></div>
-            <div class="agent-name">Rachel</div>
-            <div class="agent-role">Intel Lead</div>
-            <div class="agent-detail">Intel scan every 6 hrs<br>GitHub discovery weekly · Dream daily</div>
-          </div>
-          <div class="agent-card standby">
-            <div class="agent-header"><div class="agent-avatar">P</div><div class="agent-badge badge-standby">STANDBY</div></div>
-            <div class="agent-name">Paul</div>
-            <div class="agent-role">Product Lead</div>
-            <div class="agent-detail">Gate: pricing RED approval<br>3-question onboarding wizard ready</div>
-          </div>
-          <div class="agent-card standby">
-            <div class="agent-header"><div class="agent-avatar">G</div><div class="agent-badge badge-standby">STANDBY</div></div>
-            <div class="agent-name">Gary</div>
-            <div class="agent-role">Growth Lead</div>
-            <div class="agent-detail">Gate: pricing RED approval<br>Waitlist copy ready · X strategy ready</div>
-          </div>
-          <div class="agent-card standby">
-            <div class="agent-header"><div class="agent-avatar">S</div><div class="agent-badge badge-standby">STANDBY</div></div>
-            <div class="agent-name">Sam</div>
-            <div class="agent-role">Security Lead</div>
-            <div class="agent-detail">XActions SOP needed<br>Shannon scan · code review</div>
-          </div>
-          <div class="agent-card standby">
-            <div class="agent-header"><div class="agent-avatar">ST</div><div class="agent-badge badge-post">POST-M2</div></div>
-            <div class="agent-name">Sterling</div>
-            <div class="agent-role">BNKR Strength Lead</div>
-            <div class="agent-detail">Activates post-Milestone 2<br>Token launch · BNKR revenue</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NEEDS OWNER -->
-    <div id="pending" class="page">
-      <div class="section">
-        <div class="section-header"><div class="section-title">Pending Owner Decisions</div></div>
-        <div class="pending-list">
-          <div class="pending-item red"><div class="pending-gate red">RED · CRITICAL</div><div><div class="pending-text">Pricing approval</div><div class="pending-sub">Unblocks Paul + Gary + waitlist deploy. Free/$10/$50/$200 Founder.</div></div></div>
-          <div class="pending-item action-needed"><div class="pending-gate accent">ACTION</div><div><div class="pending-text">DeepSeek top-up ($5-10)</div><div class="pending-sub">platform.deepseek.com — restores fallback LLM option</div></div></div>
-          <div class="pending-item yellow"><div class="pending-gate yellow">YELLOW</div><div><div class="pending-text">BNKR Option A vs B</div><div class="pending-sub">A: Sterling as sub-agent under Dick now · B: dedicated agent post-M2</div></div></div>
-          <div class="pending-item red"><div class="pending-gate red">RED</div><div><div class="pending-text">WhatsApp Meta API key</div><div class="pending-sub">Required to deploy WhatsApp bridge (Tier 2 platform)</div></div></div>
+          <div class="agent-card live"><div class="agent-header"><div class="avatar">D</div><div class="abadge live">LIVE</div></div><div class="agent-name">Dick</div><div class="agent-role">Orchestrator · Crown Prince</div><div class="agent-detail">Railway · Telegram · Groq llama-3.3-70b<br>Daily brief 9:30am · Reads CLAUDE.md on boot<br>/sync /discover /reload</div></div>
+          <div class="agent-card live"><div class="agent-header"><div class="avatar">B</div><div class="abadge live">LIVE</div></div><div class="agent-name">Brooks</div><div class="agent-role">Health Monitor · Security Ops</div><div class="agent-detail">Health check every 10 min<br>Alerts Owner immediately if agent down</div></div>
+          <div class="agent-card live"><div class="agent-header"><div class="avatar">O</div><div class="abadge live">LIVE</div></div><div class="agent-name">Oscar</div><div class="agent-role">Ops Lead</div><div class="agent-detail">Inbox poll every 5 min<br>Railway API · infra · deployments</div></div>
+          <div class="agent-card live"><div class="agent-header"><div class="avatar">R</div><div class="abadge live">LIVE</div></div><div class="agent-name">Rachel</div><div class="agent-role">Intel Lead</div><div class="agent-detail">Intel scan every 6 hrs<br>GitHub discovery weekly · Dream daily</div></div>
+          <div class="agent-card standby"><div class="agent-header"><div class="avatar">P</div><div class="abadge standby">STANDBY</div></div><div class="agent-name">Paul</div><div class="agent-role">Product Lead</div><div class="agent-detail">Gate: pricing RED approval<br>3-question onboarding wizard ready</div></div>
+          <div class="agent-card standby"><div class="agent-header"><div class="avatar">G</div><div class="abadge standby">STANDBY</div></div><div class="agent-name">Gary</div><div class="agent-role">Growth Lead</div><div class="agent-detail">Gate: pricing RED approval<br>Waitlist copy ready · X strategy ready</div></div>
+          <div class="agent-card standby"><div class="agent-header"><div class="avatar">S</div><div class="abadge standby">STANDBY</div></div><div class="agent-name">Sam</div><div class="agent-role">Security Lead</div><div class="agent-detail">XActions SOP needed<br>Shannon scan · code review</div></div>
+          <div class="agent-card standby"><div class="agent-header"><div class="avatar">ST</div><div class="abadge post">POST-M2</div></div><div class="agent-name">Sterling</div><div class="agent-role">BNKR Strength Lead</div><div class="agent-detail">Activates post-Milestone 2<br>Token launch · BNKR revenue</div></div>
         </div>
       </div>
     </div>
@@ -332,17 +232,17 @@ a{text-decoration:none;color:inherit}
     <!-- STACK -->
     <div id="stack" class="page">
       <div class="section">
-        <div class="section-header"><div class="section-title">Tech Stack</div></div>
-        <div class="stack-grid">
-          <div class="stack-item"><div class="stack-layer">Engine</div><div class="stack-name">Goose</div><div class="stack-detail">IRONBRIDGE-Al/goose · Rust · Apache 2.0 · fork of aaif-goose/goose · 38k stars</div></div>
-          <div class="stack-item"><div class="stack-layer">LLM Router</div><div class="stack-name">rust-genai</div><div class="stack-detail">14+ providers · Groq default · swap via init-config.yaml · no rewrite needed</div></div>
-          <div class="stack-item"><div class="stack-layer">Default LLM</div><div class="stack-name">Groq llama-3.3-70b</div><div class="stack-detail">Free tier · fast · 14.4k req/day · fallback: DeepSeek (needs top-up)</div></div>
-          <div class="stack-item"><div class="stack-layer">Agent Logic</div><div class="stack-name">YAML Recipes</div><div class="stack-detail">7 recipes in ironbridge-memory/recipes/ · beginners edit these · no code</div></div>
-          <div class="stack-item"><div class="stack-layer">Platform Bridges</div><div class="stack-name">Node.js Connectors</div><div class="stack-detail">Thin connectors → goosed REST API · Telegram LIVE · others building</div></div>
-          <div class="stack-item"><div class="stack-layer">Memory</div><div class="stack-name">ironbridge-memory</div><div class="stack-detail">Private GitHub repo · CLAUDE.md = source of truth · claude-memory OSS</div></div>
-          <div class="stack-item"><div class="stack-layer">Deployment</div><div class="stack-name">Railway</div><div class="stack-detail">4 services live · powerful-friendship project · auto-deploy on git push</div></div>
-          <div class="stack-item"><div class="stack-layer">Frontend</div><div class="stack-name">Vercel</div><div class="stack-detail">ironbridge-jade.vercel.app · /start.html · /gaming.html · /my-agent.html</div></div>
-          <div class="stack-item"><div class="stack-layer">Training</div><div class="stack-name">Microsoft RustTraining</div><div class="stack-detail">7 books · MIT license · team upskilling · token community angle</div></div>
+        <div class="section-title">Tech Stack</div>
+        <div class="grid3">
+          <div class="card"><div class="card-layer">Engine</div><div class="card-name">Goose</div><div class="card-detail">IRONBRIDGE-Al/goose · Rust · Apache 2.0 · fork of aaif-goose/goose · 38k stars</div></div>
+          <div class="card"><div class="card-layer">LLM Router</div><div class="card-name">rust-genai</div><div class="card-detail">14+ providers · Groq default · swap via init-config.yaml · no rewrite</div></div>
+          <div class="card"><div class="card-layer">Default LLM</div><div class="card-name">Groq llama-3.3-70b</div><div class="card-detail">Free tier · fast · fallback: DeepSeek (needs top-up)</div></div>
+          <div class="card"><div class="card-layer">Agent Logic</div><div class="card-name">YAML Recipes</div><div class="card-detail">7 recipes in ironbridge-memory/recipes/ · beginners edit these · no code</div></div>
+          <div class="card"><div class="card-layer">Platform Bridges</div><div class="card-name">Node.js Connectors</div><div class="card-detail">Thin connectors to goosed REST API · Telegram LIVE · others building</div></div>
+          <div class="card"><div class="card-layer">Memory</div><div class="card-name">ironbridge-memory</div><div class="card-detail">Private GitHub repo · CLAUDE.md = source of truth · sync-protocol.md = the law</div></div>
+          <div class="card"><div class="card-layer">Deployment</div><div class="card-name">Railway</div><div class="card-detail">4 services live · powerful-friendship project · auto-deploy on git push</div></div>
+          <div class="card"><div class="card-layer">Frontend</div><div class="card-name">Vercel</div><div class="card-detail">ironbridge-jade.vercel.app · /start.html · /gaming.html · /my-agent.html</div></div>
+          <div class="card"><div class="card-layer">Training</div><div class="card-name">Microsoft RustTraining</div><div class="card-detail">7 books · MIT license · team upskilling · Rust community = token audience</div></div>
         </div>
       </div>
     </div>
@@ -350,13 +250,13 @@ a{text-decoration:none;color:inherit}
     <!-- PLATFORMS -->
     <div id="platforms" class="page">
       <div class="section">
-        <div class="section-header"><div class="section-title">Platform Status</div></div>
-        <div class="pending-list">
-          <div class="pending-item" style="border-left:3px solid var(--green)"><div class="pending-gate" style="color:var(--green)">TIER 1 · LIVE</div><div><div class="pending-text">Telegram · Discord · X / Twitter</div><div class="pending-sub">Bridges built · agents running</div></div></div>
-          <div class="pending-item yellow"><div class="pending-gate yellow">TIER 2 · BUILDING</div><div><div class="pending-text">WhatsApp · Slack · Web Widget · Email · Instagram</div><div class="pending-sub">WhatsApp needs Meta API key (RED gate)</div></div></div>
-          <div class="pending-item" style="border-left:3px solid var(--border)"><div class="pending-gate" style="color:var(--dim)">TIER 3 · ROADMAP</div><div><div class="pending-text">LinkedIn · TikTok · SMS / Voice · Teams</div><div class="pending-sub">Post-Milestone 1</div></div></div>
-          <div class="pending-item" style="border-left:3px solid var(--accent)"><div class="pending-gate" style="color:var(--accent)">TIER 4 · WEB3</div><div><div class="pending-text">Farcaster · Bluesky · Lens Protocol</div><div class="pending-sub">Post-token launch</div></div></div>
-          <div class="pending-item" style="border-left:3px solid var(--yellow)"><div class="pending-gate yellow">TIER 5 · GAMING</div><div><div class="pending-text">Discord · Twitch · Roblox · Minecraft · Steam · Xbox</div><div class="pending-sub">Discord LIVE · Twitch coming · others roadmap</div></div></div>
+        <div class="section-title">Platform Tiers</div>
+        <div class="approval-list">
+          <div class="approval-card" style="border-left:3px solid var(--green)"><div class="gate-tag approved">TIER 1 · LIVE</div><div class="approval-body"><div class="title">Telegram · Discord · X / Twitter</div><div class="sub">Bridges built · agents running</div></div></div>
+          <div class="approval-card yellow"><div class="gate-tag yellow">TIER 2 · BUILDING</div><div class="approval-body"><div class="title">WhatsApp · Slack · Web Widget · Email · Instagram</div><div class="sub">WhatsApp needs Meta API key (RED gate)</div></div></div>
+          <div class="approval-card" style="border-left:3px solid var(--border)"><div class="gate-tag declined">TIER 3 · ROADMAP</div><div class="approval-body"><div class="title">LinkedIn · TikTok · SMS / Voice · Teams</div><div class="sub">Post-Milestone 1</div></div></div>
+          <div class="approval-card action"><div class="gate-tag action">TIER 4 · WEB3</div><div class="approval-body"><div class="title">Farcaster · Bluesky · Lens Protocol</div><div class="sub">Post-token launch · Sterling activates</div></div></div>
+          <div class="approval-card yellow"><div class="gate-tag yellow">TIER 5 · GAMING</div><div class="approval-body"><div class="title">Discord · Twitch · Roblox · Minecraft · Steam · Xbox</div><div class="sub">Discord LIVE · Twitch coming · game packages ready</div></div></div>
         </div>
       </div>
     </div>
@@ -364,14 +264,14 @@ a{text-decoration:none;color:inherit}
     <!-- VERTICALS -->
     <div id="verticals" class="page">
       <div class="section">
-        <div class="section-header"><div class="section-title">Verticals + Game Packages</div></div>
-        <div class="stack-grid">
-          <div class="stack-item"><div class="stack-layer">🎮 Gaming · /start.html?package=gaming</div><div class="stack-name">Fortnite · CoD · Roblox · Minecraft · Valorant · LoL · Apex</div><div class="stack-detail">Each game: pre-configured agent name, platforms, personality, 50 Q&A pairs · $500 package</div></div>
-          <div class="stack-item"><div class="stack-layer">💼 Business · /start.html?package=business</div><div class="stack-name">Customer Support Agent</div><div class="stack-detail">WhatsApp + Web Widget + Email · FAQs, booking, order status · $500 package</div></div>
-          <div class="stack-item"><div class="stack-layer">🎬 Creator · /start.html?package=creator</div><div class="stack-name">Content Creator Agent</div><div class="stack-detail">X + Instagram + Discord · fan DMs, content updates, community · $500 package</div></div>
-          <div class="stack-item"><div class="stack-layer">⚡ Developer · /start.html?package=developer</div><div class="stack-name">Dev Community Agent</div><div class="stack-detail">Discord + Telegram + X · technical Q&A, docs, issue routing · $500 package</div></div>
-          <div class="stack-item"><div class="stack-layer">🔗 Web3 · /start.html?package=web3</div><div class="stack-name">Crypto / Web3 Agent</div><div class="stack-detail">Telegram + Discord + Farcaster · token FAQ, roadmap, community · $500 package</div></div>
-          <div class="stack-item"><div class="stack-layer">📚 Education + 💚 Wellness</div><div class="stack-name">Learning + Wellness Agents</div><div class="stack-detail">Education: Discord + Teams + Web · Wellness: WhatsApp + Instagram + Web</div></div>
+        <div class="section-title">Verticals + Game Packages</div>
+        <div class="grid3">
+          <div class="card"><div class="card-layer">🎮 Gaming · ?package=gaming</div><div class="card-name">Fortnite · CoD · Roblox · Minecraft · Valorant · LoL · Apex</div><div class="card-detail">Each game: pre-configured agent, platforms, personality, 50 Q&A · $500 package</div></div>
+          <div class="card"><div class="card-layer">💼 Business · ?package=business</div><div class="card-name">Customer Support Agent</div><div class="card-detail">WhatsApp + Web Widget + Email · FAQs, booking · $500 package</div></div>
+          <div class="card"><div class="card-layer">🎬 Creator · ?package=creator</div><div class="card-name">Content Creator Agent</div><div class="card-detail">X + Instagram + Discord · fan DMs, content · $500 package</div></div>
+          <div class="card"><div class="card-layer">⚡ Developer · ?package=developer</div><div class="card-name">Dev Community Agent</div><div class="card-detail">Discord + Telegram + X · technical Q&A, docs · $500 package</div></div>
+          <div class="card"><div class="card-layer">🔗 Web3 · ?package=web3</div><div class="card-name">Crypto / Web3 Agent</div><div class="card-detail">Telegram + Discord + Farcaster · token FAQ · $500 package</div></div>
+          <div class="card"><div class="card-layer">📚 Education + 💚 Wellness</div><div class="card-name">Learning + Wellness Agents</div><div class="card-detail">Education: Discord + Teams + Web · Wellness: WhatsApp + Instagram + Web</div></div>
         </div>
       </div>
     </div>
@@ -379,21 +279,294 @@ a{text-decoration:none;color:inherit}
   </div>
 </div>
 
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
 <script>
+var GH_TOKEN = '';
+var TG_TOKEN = '8472679881:AAGEUJi0svu2PgQ2Rh94NJ9G_cj4NFX7gkU';
+var OWNER_CHAT = '8165535063';
+var REPO = 'IRONBRIDGE-Al/ironbridge-memory';
+var decisions = JSON.parse(localStorage.getItem('ib_decisions') || '[]');
+
+// PENDING ITEMS CONFIG
+var PENDING = [
+  {
+    id: 'pricing',
+    gate: 'red',
+    title: 'Pricing approval',
+    sub: 'Free / $10 / $50 / $200 Founder + 10% rev share + $500 packages',
+    fanout: 'Unblocks Paul + Gary + waitlist deploy. Paul activates onboarding wizard. Gary launches waitlist copy on X.',
+    onApprove: {
+      inboxes: [
+        { agent: 'paul', task: 'OWNER APPROVED PRICING. Deploy 3-question onboarding wizard. Activate Clerk tiers. Pricing: Free/$10/$50/$200 Founder.' },
+        { agent: 'gary', task: 'OWNER APPROVED PRICING. Launch waitlist on X. Deploy waitlist copy. Target: 1000 signups. Use Rust dev community angle.' }
+      ],
+      dickMsg: 'Owner approved PRICING RED gate. Paul + Gary now ACTIVE. Waitlist deploying.'
+    }
+  },
+  {
+    id: 'deepseek',
+    gate: 'action',
+    title: 'DeepSeek top-up',
+    sub: 'Top up $5-10 at platform.deepseek.com to restore fallback LLM (sk-a9e85...)',
+    fanout: 'Restores DeepSeek as LLM fallback when Groq rate limits hit.',
+    onApprove: {
+      inboxes: [
+        { agent: 'oscar', task: 'DeepSeek topped up. Update Railway env vars with fresh DeepSeek key. Test fallback LLM switching.' }
+      ],
+      dickMsg: 'DeepSeek top-up confirmed. Oscar updating LLM config.'
+    }
+  },
+  {
+    id: 'bnkr',
+    gate: 'yellow',
+    title: 'BNKR Option A vs B',
+    sub: 'A: Sterling activates as sub-agent under Dick now. B: Sterling stays as dedicated post-M2 agent.',
+    fanout: 'Defines Sterling activation timeline and BNKR revenue strategy.',
+    onApprove: {
+      inboxes: [
+        { agent: 'oscar', task: 'BNKR approved. Sterling activates per Owner decision. Prepare Railway service for Sterling agent.' }
+      ],
+      dickMsg: 'Owner decided on BNKR structure. Sterling activation queued.'
+    }
+  },
+  {
+    id: 'whatsapp',
+    gate: 'red',
+    title: 'WhatsApp Meta API key',
+    sub: 'Required to unlock WhatsApp bridge deployment (Tier 2 platform).',
+    fanout: 'Once key is added, Oscar deploys WhatsApp bridge. 2B+ user reach unlocked.',
+    onApprove: {
+      inboxes: [
+        { agent: 'oscar', task: 'WhatsApp Meta API key approved. Build and deploy WhatsApp bridge connector. Wire to goosed REST API.' }
+      ],
+      dickMsg: 'WhatsApp RED gate approved. Oscar deploying WhatsApp bridge.'
+    }
+  }
+];
+
+// Track approval state
+var states = JSON.parse(localStorage.getItem('ib_states') || '{}');
+
+function saveState() {
+  localStorage.setItem('ib_states', JSON.stringify(states));
+  localStorage.setItem('ib_decisions', JSON.stringify(decisions));
+  updatePendingCount();
+  updateDecisionCount();
+}
+
+function updatePendingCount() {
+  var pending = PENDING.filter(function(p){ return !states[p.id]; }).length;
+  document.getElementById('pendingCount').textContent = pending;
+  document.getElementById('pendingCount').style.background = pending > 0 ? 'var(--red)' : 'var(--green)';
+}
+
+function updateDecisionCount() {
+  document.getElementById('decisionCount').textContent = decisions.length;
+}
+
+function toast(msg, type) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show ' + (type||'');
+  setTimeout(function(){ el.classList.remove('show'); }, 3500);
+}
+
+function writeToGitHub(path, content, commitMsg) {
+  if (!GH_TOKEN) return Promise.resolve();
+  return fetch('https://api.github.com/repos/'+REPO+'/contents/'+path, {
+    headers: { 'Authorization': 'token '+GH_TOKEN, 'Accept': 'application/vnd.github.v3+json' }
+  }).then(function(r){ return r.json(); }).then(function(g) {
+    var bytes = new TextEncoder().encode(content);
+    var bin = ''; bytes.forEach(function(b){ bin += String.fromCharCode(b); });
+    var body = { message: commitMsg, content: btoa(bin) };
+    if (g.sha) body.sha = g.sha;
+    return fetch('https://api.github.com/repos/'+REPO+'/contents/'+path, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token '+GH_TOKEN, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
+      body: JSON.stringify(body)
+    });
+  }).catch(function(){});
+}
+
+function writeInbox(agent, task) {
+  if (!GH_TOKEN) return Promise.resolve();
+  var path = 'logs/inbox/'+agent+'-inbox.md';
+  var ts = new Date().toISOString().slice(0,16).replace('T',' ');
+  return fetch('https://api.github.com/repos/'+REPO+'/contents/'+path, {
+    headers: { 'Authorization': 'token '+GH_TOKEN, 'Accept': 'application/vnd.github.v3+json' }
+  }).then(function(r){ return r.json(); }).then(function(g) {
+    var cur = (g&&g.content) ? atob(g.content.replace(/
+/g,'')) : '# '+agent+' inbox
+';
+    var entry = cur + '
+
+## OWNER DECISION ' + ts + '
+Status: ACTIVE
+
+' + task + '
+
+---';
+    var bytes = new TextEncoder().encode(entry);
+    var bin = ''; bytes.forEach(function(b){ bin += String.fromCharCode(b); });
+    var body = { message: '[Owner] Decision -> '+agent, content: btoa(bin) };
+    if (g.sha) body.sha = g.sha;
+    return fetch('https://api.github.com/repos/'+REPO+'/contents/'+path, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token '+GH_TOKEN, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
+      body: JSON.stringify(body)
+    });
+  }).catch(function(){});
+}
+
+function notifyDick(msg) {
+  if (!TG_TOKEN || !OWNER_CHAT) return;
+  fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: OWNER_CHAT, text: 'COMMAND CENTER APPROVAL
+
+' + msg })
+  }).catch(function(){});
+}
+
+function approve(id) {
+  var item = PENDING.find(function(p){ return p.id === id; });
+  if (!item) return;
+  var ts = new Date().toISOString();
+  var tsShort = ts.slice(0,16).replace('T',' ');
+  states[id] = { action: 'approved', ts: ts };
+
+  // Log the decision
+  decisions.unshift({ ts: tsShort, title: item.title, action: 'APPROVED', gate: item.gate });
+  saveState();
+  renderApprovals();
+  renderDecisions();
+
+  // Write to GitHub decision log
+  var logEntry = '## APPROVED -- ' + tsShort + '
+**Decision:** ' + item.title + '
+**Gate:** ' + item.gate.toUpperCase() + '
+**Fan-out:** ' + item.fanout + '
+
+---
+';
+  writeToGitHub('logs/decisions/approvals.md', logEntry, '[Owner] Approved: '+item.title);
+
+  // Fan out to agent inboxes
+  if (item.onApprove && item.onApprove.inboxes) {
+    item.onApprove.inboxes.forEach(function(inbox) {
+      writeInbox(inbox.agent, inbox.task);
+    });
+  }
+
+  // Notify Dick via Telegram
+  if (item.onApprove && item.onApprove.dickMsg) {
+    notifyDick(item.onApprove.dickMsg);
+  }
+
+  toast('Approved: ' + item.title + ' — Agents notified', 'success');
+}
+
+function decline(id) {
+  var item = PENDING.find(function(p){ return p.id === id; });
+  if (!item) return;
+  var ts = new Date().toISOString();
+  var tsShort = ts.slice(0,16).replace('T',' ');
+  states[id] = { action: 'declined', ts: ts };
+  decisions.unshift({ ts: tsShort, title: item.title, action: 'DECLINED', gate: item.gate });
+  saveState();
+  renderApprovals();
+  renderDecisions();
+  toast('Declined: ' + item.title, '');
+}
+
+function resetItem(id) {
+  delete states[id];
+  saveState();
+  renderApprovals();
+}
+
+function renderCard(item, container) {
+  var state = states[item.id];
+  var div = document.createElement('div');
+  div.className = 'approval-card ' + (state ? (state.action === 'approved' ? 'approved' : 'declined') : item.gate);
+  var gateClass = state ? state.action : item.gate;
+  var gateText = state ? state.action.toUpperCase() : item.gate.toUpperCase();
+  var actions = '';
+  if (!state) {
+    actions = '<button class="btn-approve" onclick="approve(''+item.id+'')">Approve</button>' +
+              '<button class="btn-decline" onclick="decline(''+item.id+'')">Decline</button>';
+  } else if (state.action === 'approved') {
+    actions = '<button class="btn-done">Approved</button><button class="btn-decline" onclick="resetItem(''+item.id+'')" style="font-size:10px;padding:4px 10px">Reset</button>';
+  } else {
+    actions = '<button class="btn-declined-done">Declined</button><button class="btn-decline" onclick="resetItem(''+item.id+'')" style="font-size:10px;padding:4px 10px">Reset</button>';
+  }
+  div.innerHTML = '<div class="gate-tag '+gateClass+'">'+gateText+'</div>' +
+    '<div class="approval-body"><div class="title">'+item.title+'</div>' +
+    '<div class="sub">'+item.sub+'</div>' +
+    '<div class="fanout">On approve: '+item.fanout+'</div></div>' +
+    '<div class="approval-actions">'+actions+'</div>';
+  container.appendChild(div);
+}
+
+function renderApprovals() {
+  ['approvalsList','dashApprovals'].forEach(function(containerId) {
+    var c = document.getElementById(containerId);
+    if (!c) return;
+    c.innerHTML = '';
+    var list = document.createElement('div');
+    list.className = 'approval-list';
+    PENDING.forEach(function(item) { renderCard(item, list); });
+    c.appendChild(list);
+  });
+}
+
+function renderDecisions() {
+  var c = document.getElementById('decisionLog');
+  if (!decisions.length) { c.innerHTML = '<div class="empty">No decisions logged yet.</div>'; return; }
+  c.innerHTML = '';
+  decisions.forEach(function(d) {
+    var row = document.createElement('div');
+    row.className = 'decision-row';
+    var color = d.action === 'APPROVED' ? 'var(--green)' : 'var(--dim)';
+    row.innerHTML = '<div class="decision-ts">'+d.ts+'</div>' +
+      '<div class="decision-body">'+d.title+' <span style="color:'+color+';font-weight:700">'+d.action+'</span>' +
+      '<div class="decision-by">Gate: '+d.gate.toUpperCase()+' · Owner via Command Center</div></div>';
+    c.appendChild(row);
+  });
+}
+
 function show(id, el) {
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
-  if(el && el.classList) el.classList.add('active');
-  document.getElementById('pageTitle').textContent = el ? el.textContent.trim() : id;
+  if (el && el.classList) el.classList.add('active');
+  document.getElementById('pageTitle').textContent = el ? el.textContent.trim().replace(/[0-9]/g,'').trim() : id;
 }
 
 function updateClock() {
-  var now = new Date();
-  document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 }
+
+// GITHUB TOKEN PROMPT (optional -- enables GitHub writes)
+function checkToken() {
+  var saved = localStorage.getItem('ib_gh_token');
+  if (saved) { GH_TOKEN = saved; return; }
+  // Silent -- works without token, just no GitHub writes
+}
+
+checkToken();
+renderApprovals();
+renderDecisions();
+updatePendingCount();
+updateDecisionCount();
 updateClock();
 setInterval(updateClock, 1000);
+
+// Optional: let user set their GitHub token for full integration
+window.setToken = function(t) { GH_TOKEN = t; localStorage.setItem('ib_gh_token', t); toast('GitHub token saved. Approvals now write to memory repo.', 'success'); };
 </script>
 </body>
 </html>

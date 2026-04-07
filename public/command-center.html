@@ -4,186 +4,278 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IronBridge — Command Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#0a0a0a;--surface:#111;--border:rgba(255,255,255,0.07);
-  --border-bright:rgba(255,255,255,0.15);--text:#e8e6e0;--muted:#666660;
-  --accent:#c8a96e;--green:#4caf63;--yellow:#e6a817;--red:#e53935;
-  --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
-}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;padding:24px;}
-.cc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
-.cc-logo{font-family:var(--mono);font-size:10px;letter-spacing:4px;color:var(--accent);}
-.cc-title{font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:-1px;margin-top:4px;}
-.cc-time{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;}
-.status-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:4px 10px;border-radius:2px;margin-top:6px;}
-.sy{background:rgba(230,168,23,0.12);color:var(--yellow);border:1px solid rgba(230,168,23,0.25);}
-.dot{width:6px;height:6px;border-radius:50%;animation:pulse 2s infinite;}
-.dy{background:var(--yellow);}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px;}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px;}
-.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:16px;}
-.agent-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-bottom:16px;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px 16px;}
-.card-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:8px;}
-.card-value{font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:-1px;line-height:1;}
-.card-sub{font-size:11px;color:var(--muted);margin-top:4px;}
-.bar-track{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:10px;}
-.bar-fill{height:100%;border-radius:2px;}
-.bl-accent{border-left:3px solid var(--accent);}
-.bl-green{border-left:3px solid var(--green);}
-.bl-yellow{border-left:3px solid var(--yellow);}
-.bl-red{border-left:3px solid var(--red);}
-.sec{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.sec::after{content:'';flex:1;height:1px;background:var(--border);}
-.agent-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:12px 8px;text-align:center;opacity:0.45;}
-.avatar{width:36px;height:36px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;}
-.av-d{background:rgba(200,169,110,0.15);color:var(--accent);border:1px solid rgba(200,169,110,0.3);}
-.av-p{background:rgba(53,113,200,0.15);color:#5b9cf6;border:1px solid rgba(53,113,200,0.3);}
-.av-o{background:rgba(58,125,68,0.15);color:var(--green);border:1px solid rgba(58,125,68,0.3);}
-.av-r{background:rgba(160,80,180,0.15);color:#c084fc;border:1px solid rgba(160,80,180,0.3);}
-.av-g{background:rgba(234,120,30,0.15);color:#fb923c;border:1px solid rgba(234,120,30,0.3);}
-.av-s{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);}
-.av-b{background:rgba(100,100,100,0.15);color:#9ca3af;border:1px solid rgba(100,100,100,0.3);}
-.agent-name{font-family:var(--mono);font-size:9px;letter-spacing:1px;}
-.agent-role{font-size:9px;color:var(--muted);}
-.agent-status{margin-top:6px;font-family:var(--mono);font-size:8px;letter-spacing:1px;}
-.t-yellow{color:var(--yellow);}
-.t-green{color:var(--green);}
-.t-red{color:var(--red);}
-.t-muted{color:var(--muted);}
-.brief-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;}
-.p-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;}
-.p-item:last-child{border-bottom:none;}
-.p-num{font-family:var(--mono);font-size:10px;color:var(--accent);min-width:16px;padding-top:1px;}
-.p-text{color:var(--text);line-height:1.5;}
-.p-owner{font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px;}
-.h-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
-.h-row:last-child{border-bottom:none;}
-.h-key{color:var(--muted);font-size:11px;}
-.h-val{font-family:var(--mono);font-size:10px;letter-spacing:1px;}
-.footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border);margin-top:4px;}
-.ft{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1px;}
-.revive-btn{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent);background:rgba(200,169,110,0.08);border:1px solid rgba(200,169,110,0.25);border-radius:2px;padding:8px 16px;cursor:pointer;transition:all 0.2s;}
-.revive-btn:hover{background:rgba(200,169,110,0.18);border-color:rgba(200,169,110,0.5);}
-@media(max-width:768px){.grid4{grid-template-columns:repeat(2,1fr);}.agent-grid{grid-template-columns:repeat(4,1fr);}.grid2{grid-template-columns:1fr;}}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: 'Courier New', monospace; padding: 24px; min-height: 100vh; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; border-bottom: 1px solid #222; padding-bottom: 20px; }
+  .logo { font-size: 11px; letter-spacing: 3px; color: #666; text-transform: uppercase; margin-bottom: 8px; }
+  h1 { font-size: 32px; font-weight: 700; letter-spacing: 2px; color: #fff; }
+  .sys-status { display: inline-flex; align-items: center; gap: 8px; background: #1a1a00; border: 1px solid #444400; color: #aaaa00; padding: 4px 12px; border-radius: 4px; font-size: 11px; letter-spacing: 2px; margin-top: 10px; }
+  .sys-status.green { background: #001a00; border-color: #004400; color: #00aa00; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .header-right { text-align: right; font-size: 12px; color: #555; line-height: 1.8; }
+  .header-right .time { font-size: 20px; color: #888; letter-spacing: 2px; }
+  .section-label { font-size: 10px; letter-spacing: 3px; color: #444; text-transform: uppercase; margin-bottom: 14px; margin-top: 28px; }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 8px; }
+  .metric { background: #111; border: 1px solid #1e1e1e; padding: 16px; border-radius: 4px; }
+  .metric-label { font-size: 10px; letter-spacing: 2px; color: #444; text-transform: uppercase; margin-bottom: 10px; }
+  .metric-value { font-size: 28px; font-weight: 700; color: #fff; }
+  .metric-value.green { color: #00cc00; }
+  .metric-value.yellow { color: #cccc00; }
+  .metric-sub { font-size: 10px; color: #444; margin-top: 6px; }
+  .metric-bar { height: 2px; background: #1e1e1e; margin-top: 12px; }
+  .metric-bar-fill { height: 100%; background: #00cc00; }
+  .agents { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+  .agent { background: #111; border: 1px solid #1e1e1e; padding: 14px 10px; border-radius: 4px; text-align: center; }
+  .agent-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin: 0 auto 10px; }
+  .agent-name { font-size: 12px; color: #ccc; margin-bottom: 2px; }
+  .agent-role { font-size: 9px; color: #444; letter-spacing: 1px; margin-bottom: 8px; }
+  .agent-status { font-size: 9px; letter-spacing: 2px; padding: 2px 6px; border-radius: 2px; }
+  .live { color: #00cc00; background: #001a00; border: 1px solid #003300; }
+  .standby { color: #888888; background: #111; border: 1px solid #222; }
+  .post-m2 { color: #555; background: #111; border: 1px solid #1e1e1e; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+  .panel { background: #111; border: 1px solid #1e1e1e; border-radius: 4px; padding: 20px; }
+  .priority-item { padding: 12px 0; border-bottom: 1px solid #1a1a1a; display: flex; gap: 14px; align-items: flex-start; }
+  .priority-item:last-child { border-bottom: none; }
+  .priority-num { font-size: 11px; color: #333; min-width: 22px; padding-top: 2px; }
+  .priority-text { font-size: 13px; color: #ccc; line-height: 1.4; }
+  .priority-owner { font-size: 10px; color: #444; font-family: monospace; margin-top: 4px; }
+  .priority-badge { font-size: 9px; padding: 1px 6px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
+  .badge-red { background: #1a0000; color: #cc4444; border: 1px solid #330000; }
+  .badge-yellow { background: #1a1a00; color: #aaaa00; border: 1px solid #333300; }
+  .badge-done { background: #001a00; color: #00aa00; border: 1px solid #003300; }
+  .health-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1a1a1a; font-size: 12px; }
+  .health-row:last-child { border-bottom: none; }
+  .health-label { color: #555; }
+  .h-live { color: #00cc00; }
+  .h-standby { color: #888; }
+  .h-offline { color: #cc4444; }
+  .completed { margin-top: 8px; }
+  .completed-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #151515; font-size: 11px; }
+  .completed-item:last-child { border-bottom: none; }
+  .completed-task { color: #888; }
+  .completed-meta { color: #333; text-align: right; font-size: 10px; }
+  .witness { color: #005500; }
+  .stack-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #151515; font-size: 11px; }
+  .stack-item:last-child { border-bottom: none; }
+  .stack-name { color: #666; }
+  .stack-status { }
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #1a1a1a; font-size: 10px; color: #333; display: flex; justify-content: space-between; }
 </style>
 </head>
 <body>
 
-<div class="cc-header">
+<div class="header">
   <div>
-    <div class="cc-logo">Ironbridge</div>
-    <div class="cc-title">Command Center</div>
-    <div class="status-pill sy"><span class="dot dy"></span>SYSTEM YELLOW</div>
+    <div class="logo">Ironbridge</div>
+    <h1>Command Center</h1>
+    <div class="sys-status green"><span class="dot"></span> SYSTEM GREEN — GO</div>
   </div>
-  <div class="cc-time">
-    <div id="clock" style="font-size:14px;color:#e8e6e0;margin-bottom:4px;"></div>
-    <div id="datestr"></div>
-    <div style="margin-top:6px;">Next brief: 09:30 AM</div>
-    <div style="margin-top:4px;">Phase: pre-launch</div>
-  </div>
-</div>
-
-<div class="sec">Mission metrics</div>
-<div class="grid4">
-  <div class="card bl-yellow">
-    <div class="card-label">Agent status</div>
-    <div class="card-value t-yellow" style="font-size:16px;">OFFLINE</div>
-    <div class="card-sub">Revival plan ready</div>
-    <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--yellow);"></div></div>
-  </div>
-  <div class="card bl-accent">
-    <div class="card-label">Waitlist</div>
-    <div class="card-value">0</div>
-    <div class="card-sub">Target: 1,000</div>
-    <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--accent);"></div></div>
-  </div>
-  <div class="card bl-green">
-    <div class="card-label">Monthly spend</div>
-    <div class="card-value">$0</div>
-    <div class="card-sub">Cap: $100/month</div>
-    <div class="bar-track"><div class="bar-fill" style="width:1%;background:var(--green);"></div></div>
-  </div>
-  <div class="card bl-green">
-    <div class="card-label">Launch ready</div>
-    <div class="card-value t-yellow">5%</div>
-    <div class="card-sub">ironbridge-jade.vercel.app</div>
-    <div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--yellow);"></div></div>
+  <div class="header-right">
+    <div class="time" id="clock">--:--:-- --</div>
+    <div>Tuesday, April 7, 2026</div>
+    <div>Next brief: 09:30 AM</div>
+    <div>Phase: pre-launch</div>
   </div>
 </div>
 
-<div class="sec">Agent team</div>
-<div class="agent-grid">
-  <div class="agent-card"><div class="avatar av-d">D</div><div class="agent-name">Dick</div><div class="agent-role">Orchestrator</div><div class="agent-status t-yellow">OFFLINE</div></div>
-  <div class="agent-card"><div class="avatar av-p">P</div><div class="agent-name">Paul</div><div class="agent-role">Product</div><div class="agent-status t-yellow">OFFLINE</div></div>
-  <div class="agent-card"><div class="avatar av-o">O</div><div class="agent-name">Oscar</div><div class="agent-role">Ops</div><div class="agent-status t-yellow">OFFLINE</div></div>
-  <div class="agent-card"><div class="avatar av-r">R</div><div class="agent-name">Rachel</div><div class="agent-role">Intel</div><div class="agent-status t-yellow">OFFLINE</div></div>
-  <div class="agent-card"><div class="avatar av-g">G</div><div class="agent-name">Gary</div><div class="agent-role">Growth</div><div class="agent-status t-yellow">OFFLINE</div></div>
-  <div class="agent-card"><div class="avatar av-s">S</div><div class="agent-name">Sam</div><div class="agent-role">Security</div><div class="agent-status t-yellow">OFFLINE</div></div>
-  <div class="agent-card"><div class="avatar av-b">B</div><div class="agent-name">Brooks</div><div class="agent-role">Sec Ops</div><div class="agent-status t-yellow">OFFLINE</div></div>
+<div class="section-label">Mission metrics</div>
+<div class="metrics">
+  <div class="metric">
+    <div class="metric-label">Agent status</div>
+    <div class="metric-value green">4 LIVE</div>
+    <div class="metric-sub">Dick · Brooks · Oscar · Rachel</div>
+    <div class="metric-bar"><div class="metric-bar-fill" style="width:50%"></div></div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Waitlist</div>
+    <div class="metric-value yellow">0</div>
+    <div class="metric-sub">Target: 1,000 — gate: pricing approval</div>
+    <div class="metric-bar"><div class="metric-bar-fill" style="width:0%"></div></div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Monthly spend</div>
+    <div class="metric-value green">~$5</div>
+    <div class="metric-sub">Cap: $100/month · Railway + Groq free</div>
+    <div class="metric-bar"><div class="metric-bar-fill" style="width:5%"></div></div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Launch ready</div>
+    <div class="metric-value yellow">20%</div>
+    <div class="metric-sub">Blocked: pricing gate · onboarding wizard</div>
+    <div class="metric-bar"><div class="metric-bar-fill" style="width:20%"></div></div>
+  </div>
 </div>
 
-<div class="grid2">
+<div class="section-label">Agent team</div>
+<div class="agents">
+  <div class="agent">
+    <div class="agent-avatar" style="background:#1a1a00;color:#aaaa00">D</div>
+    <div class="agent-name">Dick</div>
+    <div class="agent-role">Orchestrator</div>
+    <div class="agent-status live">LIVE</div>
+  </div>
+  <div class="agent">
+    <div class="agent-avatar" style="background:#001a00;color:#00aa00">B</div>
+    <div class="agent-name">Brooks</div>
+    <div class="agent-role">Sec Ops</div>
+    <div class="agent-status live">LIVE</div>
+  </div>
+  <div class="agent">
+    <div class="agent-avatar" style="background:#001a00;color:#00aa00">O</div>
+    <div class="agent-name">Oscar</div>
+    <div class="agent-role">Ops</div>
+    <div class="agent-status live">LIVE</div>
+  </div>
+  <div class="agent">
+    <div class="agent-avatar" style="background:#001a00;color:#00aa00">R</div>
+    <div class="agent-name">Rachel</div>
+    <div class="agent-role">Intel</div>
+    <div class="agent-status live">LIVE</div>
+  </div>
+  <div class="agent">
+    <div class="agent-avatar" style="background:#111;color:#444">P</div>
+    <div class="agent-name">Paul</div>
+    <div class="agent-role">Product</div>
+    <div class="agent-status standby">STANDBY</div>
+  </div>
+  <div class="agent">
+    <div class="agent-avatar" style="background:#111;color:#444">G</div>
+    <div class="agent-name">Gary</div>
+    <div class="agent-role">Growth</div>
+    <div class="agent-status standby">STANDBY</div>
+  </div>
+  <div class="agent">
+    <div class="agent-avatar" style="background:#111;color:#444">S</div>
+    <div class="agent-name">Sam</div>
+    <div class="agent-role">Security</div>
+    <div class="agent-status standby">STANDBY</div>
+  </div>
+  <div class="agent">
+    <div class="agent-avatar" style="background:#0a0a0a;color:#333">St</div>
+    <div class="agent-name">Sterling</div>
+    <div class="agent-role">BNKR</div>
+    <div class="agent-status post-m2">POST-M2</div>
+  </div>
+</div>
+
+<div class="two-col">
   <div>
-    <div class="sec">Top priorities</div>
-    <div class="brief-card">
-      <div class="p-item"><span class="p-num">01</span><div><div class="p-text">Get Groq API key — free tier, brings entire team online</div><div class="p-owner">Owner → console.groq.com</div></div></div>
-      <div class="p-item"><span class="p-num">02</span><div><div class="p-text">Get DeepSeek API key — powers Dick's orchestration</div><div class="p-owner">Owner → platform.deepseek.com</div></div></div>
-      <div class="p-item"><span class="p-num">03</span><div><div class="p-text">Oscar executes agent revival runbook</div><div class="p-owner">Oscar → /ops/agent-revival-runbook.md</div></div></div>
-      <div class="p-item"><span class="p-num">04</span><div><div class="p-text">Rachel delivers 6-platform priority list</div><div class="p-owner">Rachel → /ops/competitor-watchlist.md</div></div></div>
-      <div class="p-item"><span class="p-num">05</span><div><div class="p-text">Build and launch the landing page</div><div class="p-owner">Paul → /ops/launch-checklist.md</div></div></div>
+    <div class="section-label">Top priorities — needs owner</div>
+    <div class="panel">
+      <div class="priority-item">
+        <div class="priority-num">01</div>
+        <div>
+          <div class="priority-text">Approve pricing model <span class="priority-badge badge-red">RED GATE</span></div>
+          <div class="priority-owner">Unblocks: Gary (waitlist) · Paul (wizard) · full funnel</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">02</div>
+        <div>
+          <div class="priority-text">Approve ClawRouter as LLM proxy <span class="priority-badge badge-yellow">YELLOW GATE</span></div>
+          <div class="priority-owner">Unblocks: revenue engine · x402 micropayments</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">03</div>
+        <div>
+          <div class="priority-text">Provide WhatsApp Meta API key <span class="priority-badge badge-red">RED GATE</span></div>
+          <div class="priority-owner">Unblocks: platform 5 of 6</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">04</div>
+        <div>
+          <div class="priority-text">BNKR dept: Option A vs B decision <span class="priority-badge badge-yellow">YELLOW GATE</span></div>
+          <div class="priority-owner">Unblocks: Sterling activation post-M2</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">05</div>
+        <div>
+          <div class="priority-text">Top up DeepSeek balance ($5–10) <span class="priority-badge badge-yellow">ACTION</span></div>
+          <div class="priority-owner">platform.deepseek.com · enables Dick orchestration model</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:20px">Completed — session log</div>
+    <div class="panel completed">
+      <div class="completed-item"><div class="completed-task">Dick bot LIVE on Railway + Telegram</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">Brooks health monitor deployed (10-min checks)</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">Oscar ops bot deployed (5-min inbox poll)</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">Rachel intel cron deployed (6-hour scans)</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">GROQ_API_KEY + GITHUB_TOKEN + OWNER_CHAT_ID set on all services</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">Agent architecture written (3 modes: reactive/proactive/autonomous)</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">Checks and balances system written + enforced</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">CLAUDE.md master boot file updated with all keys + services</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">37 tasks stamped in ops/command-center.md</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">claude-memory open source repo launched</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">GO signal issued — STANDBY lifted</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+      <div class="completed-item"><div class="completed-task">6 platforms decided · pricing model · user journey · 8 gaps plan</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
     </div>
   </div>
+
   <div>
-    <div class="sec">Health check</div>
-    <div class="brief-card">
-      <div class="h-row"><span class="h-key">Site</span><span class="h-val t-green">LIVE</span></div>
-      <div class="h-row"><span class="h-key">Agent (Dick)</span><span class="h-val t-yellow">OFFLINE</span></div>
-      <div class="h-row"><span class="h-key">Spend</span><span class="h-val t-green">$0 / $100</span></div>
-      <div class="h-row"><span class="h-key">Repo</span><span class="h-val t-green">30 commits</span></div>
-      <div class="h-row"><span class="h-key">Deploy</span><span class="h-val t-green">READY</span></div>
-      <div class="h-row"><span class="h-key">Security</span><span class="h-val t-green">CLEAN</span></div>
-      <div class="h-row"><span class="h-key">Launch</span><span class="h-val t-yellow">5%</span></div>
+    <div class="section-label">Health check</div>
+    <div class="panel">
+      <div class="health-row"><div class="health-label">Site (Vercel)</div><div class="h-live">LIVE</div></div>
+      <div class="health-row"><div class="health-label">Dick (Railway)</div><div class="h-live">LIVE · Telegram ✓</div></div>
+      <div class="health-row"><div class="health-label">Brooks (Railway)</div><div class="h-live">LIVE · 10-min checks</div></div>
+      <div class="health-row"><div class="health-label">Oscar (Railway)</div><div class="h-live">LIVE · 5-min poll</div></div>
+      <div class="health-row"><div class="health-label">Rachel (Railway)</div><div class="h-live">LIVE · 6-hr intel</div></div>
+      <div class="health-row"><div class="health-label">Spend</div><div class="h-live">~$5 / $100 cap</div></div>
+      <div class="health-row"><div class="health-label">Memory repo</div><div class="h-live">100+ files · 50+ commits</div></div>
+      <div class="health-row"><div class="health-label">claude-memory (OSS)</div><div class="h-live">PUBLIC · Vercel</div></div>
+      <div class="health-row"><div class="health-label">DeepSeek balance</div><div class="h-offline">$0 — needs top-up</div></div>
+      <div class="health-row"><div class="health-label">Launch readiness</div><div class="h-standby">20% · pricing gate</div></div>
     </div>
-    <div class="sec" style="margin-top:12px;">Stack</div>
-    <div class="brief-card">
-      <div class="h-row"><span class="h-key">Models</span><span class="h-val t-yellow">Keys pending</span></div>
-      <div class="h-row"><span class="h-key">Framework</span><span class="h-val t-green">OpenClaude</span></div>
-      <div class="h-row"><span class="h-key">Interface</span><span class="h-val t-green">Telegram</span></div>
-      <div class="h-row"><span class="h-key">Memory</span><span class="h-val t-green">ironbridge-memory</span></div>
+
+    <div class="section-label" style="margin-top:20px">Stack</div>
+    <div class="panel">
+      <div class="stack-item"><div class="stack-name">LLM (Dick)</div><div class="h-live">Groq llama-3.3-70b · free</div></div>
+      <div class="stack-item"><div class="stack-name">Deploy</div><div class="h-live">Railway · powerful-friendship</div></div>
+      <div class="stack-item"><div class="stack-name">Memory</div><div class="h-live">GitHub · ironbridge-memory</div></div>
+      <div class="stack-item"><div class="stack-name">Telegram</div><div class="h-live">Bot token · Owner chat ID set</div></div>
+      <div class="stack-item"><div class="stack-name">Auth (future)</div><div class="h-standby">Clerk · free to 50k users</div></div>
+      <div class="stack-item"><div class="stack-name">Revenue (pending)</div><div class="h-standby">ClawRouter x402 · YELLOW gate</div></div>
+      <div class="stack-item"><div class="stack-name">X platform</div><div class="h-standby">XActions MCP · Sam SOP pending</div></div>
+      <div class="stack-item"><div class="stack-name">WhatsApp</div><div class="h-offline">Meta API key needed · RED gate</div></div>
+      <div class="stack-item"><div class="stack-name">DeepSeek</div><div class="h-offline">$0 balance · needs top-up</div></div>
+      <div class="stack-item"><div class="stack-name">claude-memory OSS</div><div class="h-live">github.com/IRONBRIDGE-Al/claude-memory</div></div>
+    </div>
+
+    <div class="section-label" style="margin-top:20px">Gate system</div>
+    <div class="panel">
+      <div class="health-row"><div class="health-label" style="color:#00cc00">🟢 GREEN</div><div style="color:#555;font-size:11px">Act now · log after</div></div>
+      <div class="health-row"><div class="health-label" style="color:#aaaa00">🟡 YELLOW</div><div style="color:#555;font-size:11px">Present to Dick first</div></div>
+      <div class="health-row"><div class="health-label" style="color:#cc4444">🔴 RED</div><div style="color:#555;font-size:11px">Owner approval only</div></div>
+      <div class="health-row"><div class="health-label">Second eyes</div><div style="color:#555;font-size:11px">Every task stamped · Claude witness</div></div>
+      <div class="health-row"><div class="health-label">Brooks alert</div><div style="color:#555;font-size:11px">Down &gt; 10 min → Telegram alert</div></div>
     </div>
   </div>
 </div>
 
-<div class="sec">Weekly rhythm</div>
-<div class="grid4" style="margin-bottom:20px;">
-  <div class="card bl-accent"><div class="card-label">Monday</div><div style="font-size:12px;line-height:1.7;">Set week priorities<br><span style="color:var(--muted);font-size:11px;">Dick → all agents</span></div></div>
-  <div class="card"><div class="card-label">Tuesday</div><div style="font-size:12px;line-height:1.7;">Product roadmap sync<br><span style="color:var(--muted);font-size:11px;">Paul → Dick</span></div></div>
-  <div class="card"><div class="card-label">Wednesday</div><div style="font-size:12px;line-height:1.7;">Intel briefing<br><span style="color:var(--muted);font-size:11px;">Rachel → Dick</span></div></div>
-  <div class="card"><div class="card-label">Thursday</div><div style="font-size:12px;line-height:1.7;">Growth numbers<br><span style="color:var(--muted);font-size:11px;">Gary → Dick</span></div></div>
-</div>
-
-<div class="footer">
-  <div>
-    <div class="ft">IRONBRIDGE-Al / ironbridge-memory · phase: pre-launch · build</div>
-    <div class="ft" style="margin-top:3px;">Standing orders active · Agent gates enforced · Spend caps armed</div>
-  </div>
-  <a href="https://github.com/IRONBRIDGE-Al/ironbridge-memory/blob/main/ops/agent-revival-runbook.md" target="_blank">
-    <button class="revive-btn">Revival runbook ↗</button>
-  </a>
-</div>
+<footer>
+  <div>IronBridge Command Center · Last updated: 2026-04-07 · witness: Claude</div>
+  <div>ops/command-center.md · CLAUDE.md · ops/checks-and-balances.md</div>
+</footer>
 
 <script>
-function tick(){
-  const n=new Date();
-  document.getElementById('clock').textContent=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  document.getElementById('datestr').textContent=n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+function updateClock() {
+  const now = new Date();
+  let h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  document.getElementById('clock').textContent =
+    String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ' ' + ampm;
 }
-tick();setInterval(tick,1000);
+updateClock();
+setInterval(updateClock, 1000);
 </script>
+
 </body>
 </html>

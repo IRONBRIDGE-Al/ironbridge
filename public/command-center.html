@@ -5,277 +5,555 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IronBridge — Command Center</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0a0a0a; color: #e0e0e0; font-family: 'Courier New', monospace; padding: 24px; min-height: 100vh; }
-  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; border-bottom: 1px solid #222; padding-bottom: 20px; }
-  .logo { font-size: 11px; letter-spacing: 3px; color: #666; text-transform: uppercase; margin-bottom: 8px; }
-  h1 { font-size: 32px; font-weight: 700; letter-spacing: 2px; color: #fff; }
-  .sys-status { display: inline-flex; align-items: center; gap: 8px; background: #1a1a00; border: 1px solid #444400; color: #aaaa00; padding: 4px 12px; border-radius: 4px; font-size: 11px; letter-spacing: 2px; margin-top: 10px; }
-  .sys-status.green { background: #001a00; border-color: #004400; color: #00aa00; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .header-right { text-align: right; font-size: 12px; color: #555; line-height: 1.8; }
-  .header-right .time { font-size: 20px; color: #888; letter-spacing: 2px; }
-  .section-label { font-size: 10px; letter-spacing: 3px; color: #444; text-transform: uppercase; margin-bottom: 14px; margin-top: 28px; }
-  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 8px; }
-  .metric { background: #111; border: 1px solid #1e1e1e; padding: 16px; border-radius: 4px; }
-  .metric-label { font-size: 10px; letter-spacing: 2px; color: #444; text-transform: uppercase; margin-bottom: 10px; }
-  .metric-value { font-size: 28px; font-weight: 700; color: #fff; }
-  .metric-value.green { color: #00cc00; }
-  .metric-value.yellow { color: #cccc00; }
-  .metric-sub { font-size: 10px; color: #444; margin-top: 6px; }
-  .metric-bar { height: 2px; background: #1e1e1e; margin-top: 12px; }
-  .metric-bar-fill { height: 100%; background: #00cc00; }
-  .agents { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
-  .agent { background: #111; border: 1px solid #1e1e1e; padding: 14px 10px; border-radius: 4px; text-align: center; }
-  .agent-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin: 0 auto 10px; }
-  .agent-name { font-size: 12px; color: #ccc; margin-bottom: 2px; }
-  .agent-role { font-size: 9px; color: #444; letter-spacing: 1px; margin-bottom: 8px; }
-  .agent-status { font-size: 9px; letter-spacing: 2px; padding: 2px 6px; border-radius: 2px; }
-  .live { color: #00cc00; background: #001a00; border: 1px solid #003300; }
-  .standby { color: #888888; background: #111; border: 1px solid #222; }
-  .post-m2 { color: #555; background: #111; border: 1px solid #1e1e1e; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
-  .panel { background: #111; border: 1px solid #1e1e1e; border-radius: 4px; padding: 20px; }
-  .priority-item { padding: 12px 0; border-bottom: 1px solid #1a1a1a; display: flex; gap: 14px; align-items: flex-start; }
-  .priority-item:last-child { border-bottom: none; }
-  .priority-num { font-size: 11px; color: #333; min-width: 22px; padding-top: 2px; }
-  .priority-text { font-size: 13px; color: #ccc; line-height: 1.4; }
-  .priority-owner { font-size: 10px; color: #444; font-family: monospace; margin-top: 4px; }
-  .priority-badge { font-size: 9px; padding: 1px 6px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
-  .badge-red { background: #1a0000; color: #cc4444; border: 1px solid #330000; }
-  .badge-yellow { background: #1a1a00; color: #aaaa00; border: 1px solid #333300; }
-  .badge-done { background: #001a00; color: #00aa00; border: 1px solid #003300; }
-  .health-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1a1a1a; font-size: 12px; }
-  .health-row:last-child { border-bottom: none; }
-  .health-label { color: #555; }
-  .h-live { color: #00cc00; }
-  .h-standby { color: #888; }
-  .h-offline { color: #cc4444; }
-  .completed { margin-top: 8px; }
-  .completed-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #151515; font-size: 11px; }
-  .completed-item:last-child { border-bottom: none; }
-  .completed-task { color: #888; }
-  .completed-meta { color: #333; text-align: right; font-size: 10px; }
-  .witness { color: #005500; }
-  .stack-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #151515; font-size: 11px; }
-  .stack-item:last-child { border-bottom: none; }
-  .stack-name { color: #666; }
-  .stack-status { }
-  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #1a1a1a; font-size: 10px; color: #333; display: flex; justify-content: space-between; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#d0d0d0;font-family:'Courier New',monospace;min-height:100vh}
+::-webkit-scrollbar{width:4px;background:#111}
+::-webkit-scrollbar-thumb{background:#222}
+
+/* TOP BAR */
+.topbar{background:#0d0d0d;border-bottom:1px solid #1a1a1a;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:20px}
+.logo{font-size:11px;letter-spacing:4px;color:#444;text-transform:uppercase}
+.sys-badge{font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:2px;border:1px solid #003300;background:#001100;color:#00bb00;display:flex;align-items:center;gap:6px}
+.sys-badge .dot{width:5px;height:5px;border-radius:50%;background:#00bb00;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.topbar-right{text-align:right;font-size:11px;color:#333}
+.clock{font-size:16px;color:#555;letter-spacing:2px}
+
+/* LAYOUT */
+.main{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 53px)}
+
+/* SIDEBAR */
+.sidebar{background:#0b0b0b;border-right:1px solid #141414;padding:20px 0}
+.sidebar-section{margin-bottom:8px}
+.sidebar-label{font-size:9px;letter-spacing:3px;color:#333;padding:8px 20px 4px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 20px;font-size:11px;color:#444;cursor:pointer;transition:all .15s;border-left:2px solid transparent}
+.nav-item:hover{color:#888;background:#111}
+.nav-item.active{color:#ccc;background:#111;border-left-color:#555}
+.nav-item .badge{margin-left:auto;font-size:9px;padding:1px 6px;border-radius:2px}
+.badge-red{background:#1a0000;color:#cc4444;border:1px solid #2a0000}
+.badge-yellow{background:#1a1a00;color:#aaaa00;border:1px solid #2a2a00}
+.badge-green{background:#001500;color:#00aa00;border:1px solid #002a00}
+.badge-gray{background:#111;color:#555;border:1px solid #1e1e1e}
+
+/* CONTENT */
+.content{padding:24px;overflow-y:auto}
+.section{display:none}
+.section.active{display:block}
+
+/* METRICS ROW */
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+.metric{background:#0f0f0f;border:1px solid #1a1a1a;padding:14px;border-radius:3px}
+.m-label{font-size:9px;letter-spacing:2px;color:#333;text-transform:uppercase;margin-bottom:8px}
+.m-val{font-size:22px;font-weight:700;color:#fff}
+.m-val.green{color:#00cc00}
+.m-val.yellow{color:#cccc00}
+.m-val.red{color:#cc4444}
+.m-sub{font-size:9px;color:#333;margin-top:5px}
+
+/* SECTION HEADER */
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.section-title{font-size:13px;letter-spacing:3px;color:#888;text-transform:uppercase}
+.section-count{font-size:10px;color:#333;background:#111;border:1px solid #1e1e1e;padding:2px 8px;border-radius:2px}
+
+/* AGENT GRID */
+.agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+.agent-card{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:3px;padding:16px;text-align:center}
+.agent-card.live{border-color:#002200}
+.agent-card.standby{opacity:.6}
+.av{width:44px;height:44px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
+.agent-name{font-size:13px;color:#ccc;margin-bottom:2px}
+.agent-role{font-size:9px;color:#333;letter-spacing:1px;margin-bottom:8px}
+.agent-status{font-size:8px;letter-spacing:2px;padding:2px 8px;border-radius:2px;display:inline-block}
+.status-live{color:#00cc00;background:#001500;border:1px solid #003000}
+.status-standby{color:#555;background:#0d0d0d;border:1px solid #1a1a1a}
+.status-postm2{color:#333;background:#0a0a0a;border:1px solid #141414}
+.agent-check{font-size:9px;color:#333;margin-top:8px}
+
+/* TASK TABLE */
+.task-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.task-table th{font-size:9px;letter-spacing:2px;color:#333;text-transform:uppercase;padding:8px 12px;text-align:left;border-bottom:1px solid #141414}
+.task-table td{padding:10px 12px;border-bottom:1px solid #101010;font-size:11px;vertical-align:top}
+.task-table tr:last-child td{border-bottom:none}
+.task-table tr:hover td{background:#0d0d0d}
+.task-name{color:#bbb;line-height:1.4}
+.task-owner{font-size:9px;color:#444;margin-top:3px}
+.gate-badge{font-size:8px;letter-spacing:1px;padding:2px 6px;border-radius:2px;white-space:nowrap}
+.dept-tag{font-size:9px;padding:2px 8px;border-radius:2px;border:1px solid #1a1a1a;color:#555;background:#0d0d0d}
+.witness{font-size:9px;color:#004400}
+.ts{font-size:9px;color:#2a2a2a}
+.done-check{color:#00aa00;font-size:12px}
+
+/* DEPT SECTION */
+.dept-block{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:3px;margin-bottom:12px;overflow:hidden}
+.dept-header{padding:12px 16px;border-bottom:1px solid #141414;display:flex;align-items:center;gap:10px}
+.dept-name{font-size:11px;letter-spacing:2px;color:#888;text-transform:uppercase}
+.dept-agent{font-size:9px;color:#333;margin-left:auto}
+.dept-status{font-size:8px;letter-spacing:1px;padding:2px 8px;border-radius:2px}
+.dept-body{padding:4px 0}
+.dept-row{display:flex;align-items:flex-start;gap:12px;padding:10px 16px;border-bottom:1px solid #0d0d0d}
+.dept-row:last-child{border-bottom:none}
+.dept-task{flex:1;font-size:11px;color:#888}
+.dept-task .tname{color:#bbb;margin-bottom:2px}
+.dept-gate{font-size:8px;white-space:nowrap;padding:2px 6px;border-radius:2px}
+
+/* HEALTH PANEL */
+.health-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.health-card{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:3px;padding:16px}
+.health-title{font-size:9px;letter-spacing:2px;color:#333;text-transform:uppercase;margin-bottom:12px}
+.health-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #0d0d0d;font-size:11px}
+.health-row:last-child{border-bottom:none}
+.h-label{color:#444}
+.h-live{color:#00aa00}
+.h-warn{color:#aaaa00}
+.h-dead{color:#cc4444}
+.h-gray{color:#333}
+
+/* GATE TABLE */
+.gate-section{margin-bottom:20px}
+.gate-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #101010}
+.gate-row:last-child{border-bottom:none}
+.gate-icon{font-size:14px;min-width:20px;padding-top:1px}
+.gate-title{font-size:12px;color:#bbb;margin-bottom:3px}
+.gate-detail{font-size:10px;color:#333;line-height:1.5}
+.gate-unblocks{font-size:9px;color:#005500;margin-top:3px}
+
+footer{margin-top:32px;padding:16px 0;border-top:1px solid #141414;font-size:9px;color:#222;display:flex;justify-content:space-between}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
     <div class="logo">Ironbridge</div>
-    <h1>Command Center</h1>
-    <div class="sys-status green"><span class="dot"></span> SYSTEM GREEN — GO</div>
+    <div style="font-size:18px;color:#888;font-weight:700;letter-spacing:1px">Command Center</div>
+    <div class="sys-badge"><span class="dot"></span> SYSTEM GREEN — GO SIGNAL ACTIVE</div>
   </div>
-  <div class="header-right">
-    <div class="time" id="clock">--:--:-- --</div>
-    <div>Tuesday, April 7, 2026</div>
-    <div>Next brief: 09:30 AM</div>
-    <div>Phase: pre-launch</div>
+  <div class="topbar-right">
+    <div class="clock" id="clock">--:--:-- --</div>
+    <div>Tue Apr 7 2026 &nbsp;·&nbsp; Next brief: 09:30 AM &nbsp;·&nbsp; Phase: pre-launch</div>
   </div>
 </div>
 
-<div class="section-label">Mission metrics</div>
-<div class="metrics">
-  <div class="metric">
-    <div class="metric-label">Agent status</div>
-    <div class="metric-value green">4 LIVE</div>
-    <div class="metric-sub">Dick · Brooks · Oscar · Rachel</div>
-    <div class="metric-bar"><div class="metric-bar-fill" style="width:50%"></div></div>
+<div class="main">
+
+<!-- SIDEBAR NAV -->
+<div class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Overview</div>
+    <div class="nav-item active" onclick="show('overview',this)">▸ &nbsp;Dashboard</div>
+    <div class="nav-item" onclick="show('health',this)">▸ &nbsp;Health Check</div>
   </div>
-  <div class="metric">
-    <div class="metric-label">Waitlist</div>
-    <div class="metric-value yellow">0</div>
-    <div class="metric-sub">Target: 1,000 — gate: pricing approval</div>
-    <div class="metric-bar"><div class="metric-bar-fill" style="width:0%"></div></div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Tasks</div>
+    <div class="nav-item" onclick="show('owner-gates',this)">▸ &nbsp;Needs Owner <span class="badge badge-red">5</span></div>
+    <div class="nav-item" onclick="show('in-progress',this)">▸ &nbsp;In Progress <span class="badge badge-yellow">7</span></div>
+    <div class="nav-item" onclick="show('completed',this)">▸ &nbsp;Completed <span class="badge badge-green">37</span></div>
   </div>
-  <div class="metric">
-    <div class="metric-label">Monthly spend</div>
-    <div class="metric-value green">~$5</div>
-    <div class="metric-sub">Cap: $100/month · Railway + Groq free</div>
-    <div class="metric-bar"><div class="metric-bar-fill" style="width:5%"></div></div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Departments</div>
+    <div class="nav-item" onclick="show('dept-ops',this)">▸ &nbsp;Ops (Dick+Oscar+Brooks)</div>
+    <div class="nav-item" onclick="show('dept-product',this)">▸ &nbsp;Product (Paul)</div>
+    <div class="nav-item" onclick="show('dept-intel',this)">▸ &nbsp;Intel (Rachel)</div>
+    <div class="nav-item" onclick="show('dept-growth',this)">▸ &nbsp;Growth (Gary)</div>
+    <div class="nav-item" onclick="show('dept-security',this)">▸ &nbsp;Security (Sam)</div>
+    <div class="nav-item" onclick="show('dept-bnkr',this)">▸ &nbsp;BNKR (Sterling)</div>
   </div>
-  <div class="metric">
-    <div class="metric-label">Launch ready</div>
-    <div class="metric-value yellow">20%</div>
-    <div class="metric-sub">Blocked: pricing gate · onboarding wizard</div>
-    <div class="metric-bar"><div class="metric-bar-fill" style="width:20%"></div></div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">System</div>
+    <div class="nav-item" onclick="show('gates',this)">▸ &nbsp;Gate System</div>
+    <div class="nav-item" onclick="show('stack',this)">▸ &nbsp;Stack</div>
   </div>
 </div>
 
-<div class="section-label">Agent team</div>
-<div class="agents">
-  <div class="agent">
-    <div class="agent-avatar" style="background:#1a1a00;color:#aaaa00">D</div>
-    <div class="agent-name">Dick</div>
-    <div class="agent-role">Orchestrator</div>
-    <div class="agent-status live">LIVE</div>
+<!-- MAIN CONTENT -->
+<div class="content">
+
+<!-- ═══ DASHBOARD ═══ -->
+<div id="overview" class="section active">
+  <div class="metrics">
+    <div class="metric"><div class="m-label">Agents Live</div><div class="m-val green">4 / 8</div><div class="m-sub">Dick · Brooks · Oscar · Rachel</div></div>
+    <div class="metric"><div class="m-label">Waitlist</div><div class="m-val yellow">0</div><div class="m-sub">Target 1,000 · gate: pricing RED</div></div>
+    <div class="metric"><div class="m-label">Monthly Spend</div><div class="m-val green">~$5</div><div class="m-sub">Cap: $100 · Groq free + Railway</div></div>
+    <div class="metric"><div class="m-label">Tasks Done</div><div class="m-val green">37</div><div class="m-sub">All stamped · Claude witness</div></div>
+    <div class="metric"><div class="m-label">Launch Ready</div><div class="m-val yellow">20%</div><div class="m-sub">Blocked: pricing RED gate</div></div>
   </div>
-  <div class="agent">
-    <div class="agent-avatar" style="background:#001a00;color:#00aa00">B</div>
-    <div class="agent-name">Brooks</div>
-    <div class="agent-role">Sec Ops</div>
-    <div class="agent-status live">LIVE</div>
-  </div>
-  <div class="agent">
-    <div class="agent-avatar" style="background:#001a00;color:#00aa00">O</div>
-    <div class="agent-name">Oscar</div>
-    <div class="agent-role">Ops</div>
-    <div class="agent-status live">LIVE</div>
-  </div>
-  <div class="agent">
-    <div class="agent-avatar" style="background:#001a00;color:#00aa00">R</div>
-    <div class="agent-name">Rachel</div>
-    <div class="agent-role">Intel</div>
-    <div class="agent-status live">LIVE</div>
-  </div>
-  <div class="agent">
-    <div class="agent-avatar" style="background:#111;color:#444">P</div>
-    <div class="agent-name">Paul</div>
-    <div class="agent-role">Product</div>
-    <div class="agent-status standby">STANDBY</div>
-  </div>
-  <div class="agent">
-    <div class="agent-avatar" style="background:#111;color:#444">G</div>
-    <div class="agent-name">Gary</div>
-    <div class="agent-role">Growth</div>
-    <div class="agent-status standby">STANDBY</div>
-  </div>
-  <div class="agent">
-    <div class="agent-avatar" style="background:#111;color:#444">S</div>
-    <div class="agent-name">Sam</div>
-    <div class="agent-role">Security</div>
-    <div class="agent-status standby">STANDBY</div>
-  </div>
-  <div class="agent">
-    <div class="agent-avatar" style="background:#0a0a0a;color:#333">St</div>
-    <div class="agent-name">Sterling</div>
-    <div class="agent-role">BNKR</div>
-    <div class="agent-status post-m2">POST-M2</div>
+
+  <div class="section-header"><div class="section-title">Agent Team</div></div>
+  <div class="agent-grid">
+    <div class="agent-card live">
+      <div class="av" style="background:#1a1a00;color:#aaaa00">D</div>
+      <div class="agent-name">Dick</div><div class="agent-role">Orchestrator / Crown Prince</div>
+      <div class="agent-status status-live">LIVE</div>
+      <div class="agent-check">Railway · Telegram · Groq llama-3.3-70b</div>
+    </div>
+    <div class="agent-card live">
+      <div class="av" style="background:#001500;color:#00aa00">B</div>
+      <div class="agent-name">Brooks</div><div class="agent-role">Security Ops</div>
+      <div class="agent-status status-live">LIVE</div>
+      <div class="agent-check">Health check every 10 min · alerts Owner</div>
+    </div>
+    <div class="agent-card live">
+      <div class="av" style="background:#001500;color:#00aa00">O</div>
+      <div class="agent-name">Oscar</div><div class="agent-role">Ops Lead</div>
+      <div class="agent-status status-live">LIVE</div>
+      <div class="agent-check">Inbox poll every 5 min · infra ops</div>
+    </div>
+    <div class="agent-card live">
+      <div class="av" style="background:#001500;color:#00aa00">R</div>
+      <div class="agent-name">Rachel</div><div class="agent-role">Intel Lead</div>
+      <div class="agent-status status-live">LIVE</div>
+      <div class="agent-check">Intel scan every 6 hrs · 4 repos watched</div>
+    </div>
+    <div class="agent-card standby">
+      <div class="av" style="background:#111;color:#333">P</div>
+      <div class="agent-name">Paul</div><div class="agent-role">Product Lead</div>
+      <div class="agent-status status-standby">STANDBY</div>
+      <div class="agent-check">Gate: pricing RED approval</div>
+    </div>
+    <div class="agent-card standby">
+      <div class="av" style="background:#111;color:#333">G</div>
+      <div class="agent-name">Gary</div><div class="agent-role">Growth Lead</div>
+      <div class="agent-status status-standby">STANDBY</div>
+      <div class="agent-check">Gate: pricing RED approval</div>
+    </div>
+    <div class="agent-card standby">
+      <div class="av" style="background:#111;color:#333">S</div>
+      <div class="agent-name">Sam</div><div class="agent-role">Security Lead</div>
+      <div class="agent-status status-standby">STANDBY</div>
+      <div class="agent-check">XActions SOP pending</div>
+    </div>
+    <div class="agent-card standby">
+      <div class="av" style="background:#0a0a0a;color:#222">St</div>
+      <div class="agent-name">Sterling</div><div class="agent-role">BNKR Strength</div>
+      <div class="agent-status status-postm2">POST-M2</div>
+      <div class="agent-check">Activates after Milestone 2</div>
+    </div>
   </div>
 </div>
 
-<div class="two-col">
-  <div>
-    <div class="section-label">Top priorities — needs owner</div>
-    <div class="panel">
-      <div class="priority-item">
-        <div class="priority-num">01</div>
-        <div>
-          <div class="priority-text">Approve pricing model <span class="priority-badge badge-red">RED GATE</span></div>
-          <div class="priority-owner">Unblocks: Gary (waitlist) · Paul (wizard) · full funnel</div>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">02</div>
-        <div>
-          <div class="priority-text">Approve ClawRouter as LLM proxy <span class="priority-badge badge-yellow">YELLOW GATE</span></div>
-          <div class="priority-owner">Unblocks: revenue engine · x402 micropayments</div>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">03</div>
-        <div>
-          <div class="priority-text">Provide WhatsApp Meta API key <span class="priority-badge badge-red">RED GATE</span></div>
-          <div class="priority-owner">Unblocks: platform 5 of 6</div>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">04</div>
-        <div>
-          <div class="priority-text">BNKR dept: Option A vs B decision <span class="priority-badge badge-yellow">YELLOW GATE</span></div>
-          <div class="priority-owner">Unblocks: Sterling activation post-M2</div>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">05</div>
-        <div>
-          <div class="priority-text">Top up DeepSeek balance ($5–10) <span class="priority-badge badge-yellow">ACTION</span></div>
-          <div class="priority-owner">platform.deepseek.com · enables Dick orchestration model</div>
-        </div>
-      </div>
+<!-- ═══ HEALTH ═══ -->
+<div id="health" class="section">
+  <div class="section-header"><div class="section-title">Health Check</div><div class="section-count">Last run: live</div></div>
+  <div class="health-grid">
+    <div class="health-card">
+      <div class="health-title">Services</div>
+      <div class="health-row"><div class="h-label">Vercel (ironbridge-jade)</div><div class="h-live">LIVE</div></div>
+      <div class="health-row"><div class="h-label">Dick (Railway)</div><div class="h-live">LIVE · Telegram ✓</div></div>
+      <div class="health-row"><div class="h-label">Brooks (Railway)</div><div class="h-live">LIVE · 10-min checks</div></div>
+      <div class="health-row"><div class="h-label">Oscar (Railway)</div><div class="h-live">LIVE · 5-min inbox poll</div></div>
+      <div class="health-row"><div class="h-label">Rachel (Railway)</div><div class="h-live">LIVE · 6-hr intel scan</div></div>
+      <div class="health-row"><div class="h-label">GitHub (ironbridge-memory)</div><div class="h-live">100+ files · 50+ commits</div></div>
+      <div class="health-row"><div class="h-label">claude-memory (OSS)</div><div class="h-live">PUBLIC · Vercel live</div></div>
     </div>
-
-    <div class="section-label" style="margin-top:20px">Completed — session log</div>
-    <div class="panel completed">
-      <div class="completed-item"><div class="completed-task">Dick bot LIVE on Railway + Telegram</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">Brooks health monitor deployed (10-min checks)</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">Oscar ops bot deployed (5-min inbox poll)</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">Rachel intel cron deployed (6-hour scans)</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">GROQ_API_KEY + GITHUB_TOKEN + OWNER_CHAT_ID set on all services</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">Agent architecture written (3 modes: reactive/proactive/autonomous)</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">Checks and balances system written + enforced</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">CLAUDE.md master boot file updated with all keys + services</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">37 tasks stamped in ops/command-center.md</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">claude-memory open source repo launched</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">GO signal issued — STANDBY lifted</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
-      <div class="completed-item"><div class="completed-task">6 platforms decided · pricing model · user journey · 8 gaps plan</div><div class="completed-meta">2026-04-07 <span class="witness">✅ Claude</span></div></div>
+    <div class="health-card">
+      <div class="health-title">Resources</div>
+      <div class="health-row"><div class="h-label">Groq API</div><div class="h-live">Active · free tier · 14.4k/day</div></div>
+      <div class="health-row"><div class="h-label">Telegram bot</div><div class="h-live">Active · Owner ID set</div></div>
+      <div class="health-row"><div class="h-label">GitHub PAT</div><div class="h-live">Write access · all repos</div></div>
+      <div class="health-row"><div class="h-label">Railway API token</div><div class="h-live">Active · GraphQL confirmed</div></div>
+      <div class="health-row"><div class="h-label">DeepSeek balance</div><div class="h-dead">$0 — needs top-up</div></div>
+      <div class="health-row"><div class="h-label">Monthly spend</div><div class="h-live">~$5 / $100 cap</div></div>
+      <div class="health-row"><div class="h-label">Launch readiness</div><div class="h-warn">20% · pricing gate</div></div>
     </div>
   </div>
+</div>
 
-  <div>
-    <div class="section-label">Health check</div>
-    <div class="panel">
-      <div class="health-row"><div class="health-label">Site (Vercel)</div><div class="h-live">LIVE</div></div>
-      <div class="health-row"><div class="health-label">Dick (Railway)</div><div class="h-live">LIVE · Telegram ✓</div></div>
-      <div class="health-row"><div class="health-label">Brooks (Railway)</div><div class="h-live">LIVE · 10-min checks</div></div>
-      <div class="health-row"><div class="health-label">Oscar (Railway)</div><div class="h-live">LIVE · 5-min poll</div></div>
-      <div class="health-row"><div class="health-label">Rachel (Railway)</div><div class="h-live">LIVE · 6-hr intel</div></div>
-      <div class="health-row"><div class="health-label">Spend</div><div class="h-live">~$5 / $100 cap</div></div>
-      <div class="health-row"><div class="health-label">Memory repo</div><div class="h-live">100+ files · 50+ commits</div></div>
-      <div class="health-row"><div class="health-label">claude-memory (OSS)</div><div class="h-live">PUBLIC · Vercel</div></div>
-      <div class="health-row"><div class="health-label">DeepSeek balance</div><div class="h-offline">$0 — needs top-up</div></div>
-      <div class="health-row"><div class="health-label">Launch readiness</div><div class="h-standby">20% · pricing gate</div></div>
+<!-- ═══ NEEDS OWNER ═══ -->
+<div id="owner-gates" class="section">
+  <div class="section-header"><div class="section-title">Needs Owner — Gates Pending</div><div class="section-count">5 items</div></div>
+  <table class="task-table">
+    <tr><th>Decision</th><th>Gate</th><th>Unblocks</th><th>Urgency</th></tr>
+    <tr>
+      <td><div class="task-name">Approve pricing model</div><div class="task-owner">Free / $10 / $50 / $200 Founder + 10% rev share · $500 packages</div></td>
+      <td><span class="gate-badge badge-red">RED</span></td>
+      <td style="font-size:10px;color:#555">Gary (waitlist) · Paul (wizard) · full funnel · launch</td>
+      <td style="color:#cc4444;font-size:10px">CRITICAL</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">Approve ClawRouter as LLM proxy</div><div class="task-owner">x402 micropayments · revenue engine</div></td>
+      <td><span class="gate-badge badge-yellow">YELLOW</span></td>
+      <td style="font-size:10px;color:#555">Revenue model activation</td>
+      <td style="color:#aaaa00;font-size:10px">HIGH</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">Provide WhatsApp Meta API key</div><div class="task-owner">Platform 5 of 6</div></td>
+      <td><span class="gate-badge badge-red">RED</span></td>
+      <td style="font-size:10px;color:#555">WhatsApp deployment</td>
+      <td style="color:#888;font-size:10px">MEDIUM</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">BNKR dept Option A vs B</div><div class="task-owner">A = Sterling sub-agent under Dick now · B = dedicated Sterling post-M2</div></td>
+      <td><span class="gate-badge badge-yellow">YELLOW</span></td>
+      <td style="font-size:10px;color:#555">Sterling activation path</td>
+      <td style="color:#888;font-size:10px">MEDIUM</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">Top up DeepSeek ($5–10)</div><div class="task-owner">platform.deepseek.com — Ironforge key exists, $0 balance</div></td>
+      <td><span class="gate-badge badge-yellow">ACTION</span></td>
+      <td style="font-size:10px;color:#555">Dick orchestration model · deeper reasoning</td>
+      <td style="color:#888;font-size:10px">LOW</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ═══ IN PROGRESS ═══ -->
+<div id="in-progress" class="section">
+  <div class="section-header"><div class="section-title">In Progress</div><div class="section-count">7 active</div></div>
+  <table class="task-table">
+    <tr><th>Task</th><th>Owner</th><th>Status</th><th>Blocker</th></tr>
+    <tr>
+      <td><div class="task-name">GoClaw team install + revival runbook</div><div class="task-owner">ops/agent-revival-runbook.md</div></td>
+      <td><span class="dept-tag">Oscar</span></td>
+      <td style="color:#aaaa00;font-size:10px">QUEUED</td>
+      <td style="font-size:10px;color:#555">Owner GO signal</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">3-question onboarding wizard</div><div class="task-owner">30-min onboarding target · Clerk integration</div></td>
+      <td><span class="dept-tag">Paul</span></td>
+      <td style="color:#aaaa00;font-size:10px">QUEUED</td>
+      <td style="font-size:10px;color:#555">Pricing RED gate</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">Waitlist deploy (Clerk)</div><div class="task-owner">Free to 50k users · tiers configured</div></td>
+      <td><span class="dept-tag">Gary</span></td>
+      <td style="color:#aaaa00;font-size:10px">QUEUED</td>
+      <td style="font-size:10px;color:#555">Pricing RED gate</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">9-repo BNKR analysis</div><div class="task-owner">TauricResearch · AI4Finance · virattt/dexter · garylab · 5 others</div></td>
+      <td><span class="dept-tag">Rachel</span></td>
+      <td style="color:#aaaa00;font-size:10px">QUEUED</td>
+      <td style="font-size:10px;color:#555">Time · schedule running</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">XActions usage SOP</div><div class="task-owner">140+ MCP tools · HTTP endpoint configured</div></td>
+      <td><span class="dept-tag">Sam</span></td>
+      <td style="color:#aaaa00;font-size:10px">QUEUED</td>
+      <td style="font-size:10px;color:#555">Gates Gary automation</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">AgentOps + clawmetry install</div><div class="task-owner">Monitoring layer for all agents</div></td>
+      <td><span class="dept-tag">Brooks</span></td>
+      <td style="color:#aaaa00;font-size:10px">QUEUED</td>
+      <td style="font-size:10px;color:#555">Time</td>
+    </tr>
+    <tr>
+      <td><div class="task-name">Token launch groundwork (Milestone 3)</div><div class="task-owner">Timing TBD · post-platform live + 100+ waitlist</div></td>
+      <td><span class="dept-tag">Gary</span></td>
+      <td style="color:#333;font-size:10px">FUTURE</td>
+      <td style="font-size:10px;color:#555">Milestone 2 first</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ═══ COMPLETED ═══ -->
+<div id="completed" class="section">
+  <div class="section-header"><div class="section-title">Completed Tasks</div><div class="section-count">37 tasks · all verified</div></div>
+  <table class="task-table">
+    <tr><th>#</th><th>Task</th><th>Owner</th><th>Date</th><th>Witness</th></tr>
+    <tr><td style="color:#333">01</td><td><div class="task-name">IRONBRIDGE-Al GitHub org created</div></td><td><span class="dept-tag">Owner</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">02</td><td><div class="task-name">ironbridge-memory private repo — 100+ files committed</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">03</td><td><div class="task-name">CLAUDE.md master boot file written</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">04</td><td><div class="task-name">ORG_STRUCTURE.md written</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">05</td><td><div class="task-name">All 8 agent inboxes created (logs/inbox/)</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">06</td><td><div class="task-name">GREEN/YELLOW/RED gate system written</div></td><td><span class="dept-tag">Dick</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">07</td><td><div class="task-name">Tools registry written (ops/tools-registry.md)</div></td><td><span class="dept-tag">Dick</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">08</td><td><div class="task-name">GO signal issued — STANDBY lifted</div></td><td><span class="dept-tag">Owner</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">09</td><td><div class="task-name">6 platforms decided: Telegram, X, Discord, WhatsApp, Slack, Web</div></td><td><span class="dept-tag">Rachel</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">10</td><td><div class="task-name">Pricing model: Free/$10/$50/$200 Founder + 10% rev share</div></td><td><span class="dept-tag">Dick</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">11</td><td><div class="task-name">Integration packages: $500 + 10% ongoing swap fees</div></td><td><span class="dept-tag">Dick</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">12</td><td><div class="task-name">User journey mapped — 30-min onboarding target</div></td><td><span class="dept-tag">Paul</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">13</td><td><div class="task-name">8 product gaps identified + attack plan written</div></td><td><span class="dept-tag">Dick</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">14</td><td><div class="task-name">Sterling (BNKR Strength Lead) defined — team/sterling.md</div></td><td><span class="dept-tag">Dick</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">15</td><td><div class="task-name">BNKR department plan written — 4 revenue streams</div></td><td><span class="dept-tag">Dick</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">16</td><td><div class="task-name">BlockrunAI / ClawRouter analysis written</div></td><td><span class="dept-tag">Rachel</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">17</td><td><div class="task-name">GoClaw architecture documented</div></td><td><span class="dept-tag">Oscar</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">18</td><td><div class="task-name">Agent revival runbook written</div></td><td><span class="dept-tag">Oscar</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">19</td><td><div class="task-name">claude-memory open source repo launched</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">20</td><td><div class="task-name">ironbridge public site live — ironbridge-jade.vercel.app</div></td><td><span class="dept-tag">Owner</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">21</td><td><div class="task-name">Dick bot written — ops/agents/dick/bot.js (V2)</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">22</td><td><div class="task-name">Brooks bot written — health monitor 10-min</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">23</td><td><div class="task-name">Oscar bot written — inbox poll 5-min</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">24</td><td><div class="task-name">Rachel cron written — intel scan 6-hr</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">25</td><td><div class="task-name">package.json added to root — Railway Node.js detection</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">26</td><td><div class="task-name">Railway GitHub App installed on IRONBRIDGE-Al org</div></td><td><span class="dept-tag">Owner</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">27</td><td><div class="task-name">Dick deployed to Railway — ACTIVE</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">28</td><td><div class="task-name">Brooks deployed to Railway — ACTIVE</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">29</td><td><div class="task-name">Oscar deployed to Railway — ACTIVE</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">30</td><td><div class="task-name">Rachel deployed to Railway — ACTIVE</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">31</td><td><div class="task-name">GROQ_API_KEY + GITHUB_TOKEN + OWNER_CHAT_ID set on all services</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">32</td><td><div class="task-name">Dick confirmed responding on Telegram — Owner: "cooking"</div></td><td><span class="dept-tag">Owner</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">33</td><td><div class="task-name">Agent architecture written (3 modes: reactive/proactive/autonomous)</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">34</td><td><div class="task-name">Checks and balances system written + enforced</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">35</td><td><div class="task-name">CLAUDE.md master boot file updated — all keys + services</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">36</td><td><div class="task-name">Claude memory locked — 8 entries with all keys + restore path</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+    <tr><td style="color:#333">37</td><td><div class="task-name">Command center redesigned — full org structure by dept</div></td><td><span class="dept-tag">Claude</span></td><td class="ts">2026-04-07</td><td class="witness">✅ Claude</td></tr>
+  </table>
+</div>
+
+<!-- ═══ DEPT: OPS ═══ -->
+<div id="dept-ops" class="section">
+  <div class="section-header"><div class="section-title">Ops Department</div></div>
+  <div class="dept-block">
+    <div class="dept-header"><div class="dept-name">Dick — Orchestrator</div><div class="dept-status status-live">LIVE</div></div>
+    <div class="dept-body">
+      <div class="dept-row"><div class="dept-task"><div class="tname">Route tasks to all leads simultaneously</div><div class="task-owner">Fan-out on every Owner order — never sequential</div></div><div class="dept-gate badge-green">GREEN</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Send daily brief to Owner — 9:30am</div><div class="task-owner">Status: queued, pending cron setup</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Write decisions back to ironbridge-memory</div><div class="task-owner">V2 has writeMemory() — GitHub token active</div></div><div class="dept-gate badge-green">ACTIVE</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Approve ClawRouter LLM proxy</div><div class="task-owner">Present to Owner — YELLOW gate</div></div><div class="dept-gate badge-yellow">YELLOW</div></div>
     </div>
-
-    <div class="section-label" style="margin-top:20px">Stack</div>
-    <div class="panel">
-      <div class="stack-item"><div class="stack-name">LLM (Dick)</div><div class="h-live">Groq llama-3.3-70b · free</div></div>
-      <div class="stack-item"><div class="stack-name">Deploy</div><div class="h-live">Railway · powerful-friendship</div></div>
-      <div class="stack-item"><div class="stack-name">Memory</div><div class="h-live">GitHub · ironbridge-memory</div></div>
-      <div class="stack-item"><div class="stack-name">Telegram</div><div class="h-live">Bot token · Owner chat ID set</div></div>
-      <div class="stack-item"><div class="stack-name">Auth (future)</div><div class="h-standby">Clerk · free to 50k users</div></div>
-      <div class="stack-item"><div class="stack-name">Revenue (pending)</div><div class="h-standby">ClawRouter x402 · YELLOW gate</div></div>
-      <div class="stack-item"><div class="stack-name">X platform</div><div class="h-standby">XActions MCP · Sam SOP pending</div></div>
-      <div class="stack-item"><div class="stack-name">WhatsApp</div><div class="h-offline">Meta API key needed · RED gate</div></div>
-      <div class="stack-item"><div class="stack-name">DeepSeek</div><div class="h-offline">$0 balance · needs top-up</div></div>
-      <div class="stack-item"><div class="stack-name">claude-memory OSS</div><div class="h-live">github.com/IRONBRIDGE-Al/claude-memory</div></div>
+  </div>
+  <div class="dept-block">
+    <div class="dept-header"><div class="dept-name">Oscar — Ops Lead</div><div class="dept-status status-live">LIVE</div></div>
+    <div class="dept-body">
+      <div class="dept-row"><div class="dept-task"><div class="tname">Poll inbox every 5 min for tasks from Dick</div><div class="task-owner">logs/inbox/oscar-inbox.md</div></div><div class="dept-gate badge-green">RUNNING</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">GoClaw revival runbook</div><div class="task-owner">ops/agent-revival-runbook.md — awaiting Owner GO</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">GoClaw team install</div><div class="task-owner">ops/goclaw-architecture.md — primary platform</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
     </div>
+  </div>
+  <div class="dept-block">
+    <div class="dept-header"><div class="dept-name">Brooks — Security Ops</div><div class="dept-status status-live">LIVE</div></div>
+    <div class="dept-body">
+      <div class="dept-row"><div class="dept-task"><div class="tname">Health check every 10 minutes</div><div class="task-owner">Checks all Railway services · logs/health/</div></div><div class="dept-gate badge-green">RUNNING</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Alert Owner on service failure</div><div class="task-owner">Telegram → Owner chat ID 8165535063</div></div><div class="dept-gate badge-green">ACTIVE</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">AgentOps + clawmetry install</div><div class="task-owner">Monitoring layer for all agents</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
+    </div>
+  </div>
+</div>
 
-    <div class="section-label" style="margin-top:20px">Gate system</div>
-    <div class="panel">
-      <div class="health-row"><div class="health-label" style="color:#00cc00">🟢 GREEN</div><div style="color:#555;font-size:11px">Act now · log after</div></div>
-      <div class="health-row"><div class="health-label" style="color:#aaaa00">🟡 YELLOW</div><div style="color:#555;font-size:11px">Present to Dick first</div></div>
-      <div class="health-row"><div class="health-label" style="color:#cc4444">🔴 RED</div><div style="color:#555;font-size:11px">Owner approval only</div></div>
-      <div class="health-row"><div class="health-label">Second eyes</div><div style="color:#555;font-size:11px">Every task stamped · Claude witness</div></div>
-      <div class="health-row"><div class="health-label">Brooks alert</div><div style="color:#555;font-size:11px">Down &gt; 10 min → Telegram alert</div></div>
+<!-- ═══ DEPT: PRODUCT ═══ -->
+<div id="dept-product" class="section">
+  <div class="section-header"><div class="section-title">Product Department</div></div>
+  <div class="dept-block">
+    <div class="dept-header"><div class="dept-name">Paul — Product Lead</div><div class="dept-status status-standby">STANDBY</div></div>
+    <div class="dept-body">
+      <div class="dept-row"><div class="dept-task"><div class="tname">3-question onboarding wizard</div><div class="task-owner">30-min onboarding target · Clerk tiers</div></div><div class="dept-gate badge-red">BLOCKED: pricing RED</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">User journey mapped</div><div class="task-owner">ops/user-journey.md — COMPLETE</div></div><div class="dept-gate badge-green">DONE ✓</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">8 product gaps attack plan</div><div class="task-owner">ops/product-gaps-attack-plan.md — COMPLETE</div></div><div class="dept-gate badge-green">DONE ✓</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">User support SOP</div><div class="task-owner">ops/user-support-sop.md — pending</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DEPT: INTEL ═══ -->
+<div id="dept-intel" class="section">
+  <div class="section-header"><div class="section-title">Intel Department</div></div>
+  <div class="dept-block">
+    <div class="dept-header"><div class="dept-name">Rachel — Intel Lead</div><div class="dept-status status-live">LIVE</div></div>
+    <div class="dept-body">
+      <div class="dept-row"><div class="dept-task"><div class="tname">Intel scan every 6 hours</div><div class="task-owner">Watches: TauricResearch · AI4Finance · virattt/dexter · garylab</div></div><div class="dept-gate badge-green">RUNNING</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">6-platform priority list</div><div class="task-owner">ops/six-platform-priority-list.md — COMPLETE</div></div><div class="dept-gate badge-green">DONE ✓</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">BlockrunAI / ClawRouter analysis</div><div class="task-owner">ops/blockrunai-analysis.md — COMPLETE</div></div><div class="dept-gate badge-green">DONE ✓</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">9-repo BNKR analysis</div><div class="task-owner">TauricResearch + AI4Finance + virattt + Polymarket + 5 others</div></div><div class="dept-gate badge-yellow">IN QUEUE</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Intel reports logged to memory</div><div class="task-owner">logs/intel/YYYY-MM-DD.md — writes on each run</div></div><div class="dept-gate badge-green">ACTIVE</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DEPT: GROWTH ═══ -->
+<div id="dept-growth" class="section">
+  <div class="section-header"><div class="section-title">Growth Department</div></div>
+  <div class="dept-block">
+    <div class="dept-header"><div class="dept-name">Gary — Growth Lead</div><div class="dept-status status-standby">STANDBY</div></div>
+    <div class="dept-body">
+      <div class="dept-row"><div class="dept-task"><div class="tname">Waitlist deploy (Clerk)</div><div class="task-owner">Free to 50k users · copy ready</div></div><div class="dept-gate badge-red">BLOCKED: pricing RED</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">X distribution strategy</div><div class="task-owner">XActions MCP · gates Sam SOP</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Token launch groundwork</div><div class="task-owner">Post platform live + 100 waitlist · Milestone 3</div></div><div class="dept-gate badge-gray">FUTURE</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Weekly growth report to Dick</div><div class="task-owner">Conversion metrics · waitlist growth rate</div></div><div class="dept-gate badge-gray">NOT STARTED</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DEPT: SECURITY ═══ -->
+<div id="dept-security" class="section">
+  <div class="section-header"><div class="section-title">Security Department</div></div>
+  <div class="dept-block">
+    <div class="dept-header"><div class="dept-name">Sam — Security Lead</div><div class="dept-status status-standby">STANDBY</div></div>
+    <div class="dept-body">
+      <div class="dept-row"><div class="dept-task"><div class="tname">XActions usage SOP</div><div class="task-owner">140+ MCP tools · gates Gary's X automation</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Shannon security scan (ClawBands)</div><div class="task-owner">Entropy check on all secrets</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Legal disclaimer (ops/legal-disclaimer.md)</div><div class="task-owner">Compliance layer before launch</div></div><div class="dept-gate badge-yellow">QUEUED</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Nothing ships without Sam sign-off</div><div class="task-owner">Standing order — hardcoded into gate system</div></div><div class="dept-gate badge-green">ENFORCED</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DEPT: BNKR ═══ -->
+<div id="dept-bnkr" class="section">
+  <div class="section-header"><div class="section-title">BNKR Strength Department</div></div>
+  <div class="dept-block">
+    <div class="dept-header"><div class="dept-name">Sterling — BNKR Strength Lead</div><div class="dept-status status-postm2">POST-M2</div></div>
+    <div class="dept-body">
+      <div class="dept-row"><div class="dept-task"><div class="tname">Option A vs B decision pending Owner</div><div class="task-owner">A = sub-agent under Dick now · B = dedicated Sterling post-M2</div></div><div class="dept-gate badge-yellow">YELLOW GATE</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">4 revenue streams defined</div><div class="task-owner">ops/bnkr-department-plan.md — COMPLETE</div></div><div class="dept-gate badge-green">DONE ✓</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Team profile written</div><div class="task-owner">team/sterling.md — COMPLETE</div></div><div class="dept-gate badge-green">DONE ✓</div></div>
+      <div class="dept-row"><div class="dept-task"><div class="tname">Activation trigger</div><div class="task-owner">Post-Milestone 2: platform live + 100 waitlist</div></div><div class="dept-gate badge-gray">FUTURE</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GATES ═══ -->
+<div id="gates" class="section">
+  <div class="section-header"><div class="section-title">Gate System</div></div>
+  <div style="background:#0f0f0f;border:1px solid #1a1a1a;border-radius:3px;padding:20px;margin-bottom:16px">
+    <div class="gate-row"><div class="gate-icon">🟢</div><div><div class="gate-title">GREEN — Execute Immediately</div><div class="gate-detail">Agent acts without asking. Reports to Dick after. Examples: writing a file, health check, polling inbox, drafting copy for review.</div></div></div>
+    <div class="gate-row"><div class="gate-icon">🟡</div><div><div class="gate-title">YELLOW — Present to Dick First</div><div class="gate-detail">Agent prepares, presents to Dick, waits for go-ahead. Examples: deploying code, publishing anything public, write-API calls, new integrations, spending money.</div></div></div>
+    <div class="gate-row"><div class="gate-icon">🔴</div><div><div class="gate-title">RED — Owner Approval Only</div><div class="gate-detail">Nothing moves until Owner says yes in Telegram or repo commit. Examples: pricing changes, token launch, WhatsApp Meta key, ClawRouter, anything irreversible.</div></div></div>
+    <div class="gate-row"><div class="gate-icon">👁</div><div><div class="gate-title">Second Eyes — Every Significant Decision</div><div class="gate-detail">Claude stamps completed tasks. Brooks logs health. Dick confirms leads. Owner is final on RED. Nothing is "done" without a timestamp + witness in command center.</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ STACK ═══ -->
+<div id="stack" class="section">
+  <div class="section-header"><div class="section-title">Stack</div></div>
+  <div class="health-grid">
+    <div class="health-card">
+      <div class="health-title">Live Infrastructure</div>
+      <div class="health-row"><div class="h-label">LLM</div><div class="h-live">Groq llama-3.3-70b · free · 14.4k/day</div></div>
+      <div class="health-row"><div class="h-label">Agents</div><div class="h-live">Railway · powerful-friendship project</div></div>
+      <div class="health-row"><div class="h-label">Memory</div><div class="h-live">GitHub · IRONBRIDGE-Al/ironbridge-memory</div></div>
+      <div class="health-row"><div class="h-label">Site</div><div class="h-live">Vercel · ironbridge-jade.vercel.app</div></div>
+      <div class="health-row"><div class="h-label">Messaging</div><div class="h-live">Telegram · Owner ID configured</div></div>
+      <div class="health-row"><div class="h-label">OSS repo</div><div class="h-live">IRONBRIDGE-Al/claude-memory · public</div></div>
+    </div>
+    <div class="health-card">
+      <div class="health-title">Pending / Needs Action</div>
+      <div class="health-row"><div class="h-label">Auth</div><div class="h-warn">Clerk · free to 50k · pending pricing</div></div>
+      <div class="health-row"><div class="h-label">Revenue</div><div class="h-warn">ClawRouter x402 · YELLOW gate</div></div>
+      <div class="health-row"><div class="h-label">X platform</div><div class="h-warn">XActions MCP · Sam SOP pending</div></div>
+      <div class="health-row"><div class="h-label">WhatsApp</div><div class="h-dead">Meta API key needed · RED gate</div></div>
+      <div class="health-row"><div class="h-label">DeepSeek</div><div class="h-dead">$0 balance · top up $5-10</div></div>
+      <div class="health-row"><div class="h-label">GoClaw</div><div class="h-warn">Primary platform · Oscar running runbook</div></div>
     </div>
   </div>
 </div>
 
 <footer>
-  <div>IronBridge Command Center · Last updated: 2026-04-07 · witness: Claude</div>
-  <div>ops/command-center.md · CLAUDE.md · ops/checks-and-balances.md</div>
+  <div>IronBridge Command Center · 2026-04-07 · Witness: Claude</div>
+  <div>CLAUDE.md · ops/command-center.md · ops/checks-and-balances.md</div>
 </footer>
 
+</div><!-- /content -->
+</div><!-- /main -->
+
 <script>
+function show(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
 function updateClock() {
   const now = new Date();
   let h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-  const ampm = h >= 12 ? 'PM' : 'AM';
+  const ap = h >= 12 ? 'PM' : 'AM';
   h = h % 12 || 12;
   document.getElementById('clock').textContent =
-    String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ' ' + ampm;
+    String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ' ' + ap;
 }
-updateClock();
-setInterval(updateClock, 1000);
+updateClock(); setInterval(updateClock, 1000);
 </script>
-
 </body>
 </html>

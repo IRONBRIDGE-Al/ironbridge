@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IronBridge Memory — Boot Console</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+:root{--bg:#0a0a0f;--surface:#11111a;--border:#1e1e2e;--accent:#ff6b2b;--accent2:#2bffb0;--text:#e8e8f0;--muted:#5a5a7a;--green:#2bffb0;--yellow:#ffd166;--red:#ff4757}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;opacity:.4;pointer-events:none;z-index:0}
+.container{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:40px 24px}
+.header{display:flex;align-items:center;gap:16px;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.logo{width:44px;height:44px;background:var(--accent);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#0a0a0f;flex-shrink:0}
+.header-text h1{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.5px}
+.header-text p{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.5px}
+.status-dot{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--green)}
+.status-dot::before{content:'';width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.token-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:24px}
+.token-section label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:10px}
+.token-row{display:flex;gap:10px}
+.token-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:10px 14px;color:var(--text);font-family:'Space Mono',monospace;font-size:12px;outline:none;transition:border-color .2s}
+.token-row input:focus{border-color:var(--accent)}
+.token-row input::placeholder{color:var(--muted)}
+.btn{padding:10px 20px;border:none;border-radius:4px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.btn-primary{background:var(--accent);color:#0a0a0f}
+.btn-primary:hover{background:#ff8c5a;transform:translateY(-1px)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px}
+.stat-card .label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.stat-card .value{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
+.stat-card .value.green{color:var(--green)}.stat-card .value.yellow{color:var(--yellow)}.stat-card .value.red{color:var(--red)}
+.output-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:24px;overflow:hidden}
+.output-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(255,107,43,.05)}
+.output-header span{font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.output-body{padding:20px;font-size:12px;line-height:1.7;color:var(--text);white-space:pre-wrap;max-height:400px;overflow-y:auto;min-height:100px}
+.output-body::-webkit-scrollbar{width:4px}.output-body::-webkit-scrollbar-track{background:var(--bg)}.output-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.boot-prompt{background:var(--bg);border:1px solid var(--accent);border-radius:8px;padding:20px;margin-bottom:24px}
+.boot-prompt-label{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.boot-prompt textarea{width:100%;background:transparent;border:none;color:var(--green);font-family:'Space Mono',monospace;font-size:11px;line-height:1.6;resize:none;outline:none;min-height:180px}
+.action-row{display:flex;gap:12px;flex-wrap:wrap}
+.file-list{display:flex;flex-direction:column;gap:6px;padding:16px}
+.file-item{display:flex;align-items:center;gap:10px;font-size:11px;padding:6px 10px;background:var(--bg);border-radius:4px;border:1px solid var(--border)}
+.file-status{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.file-status.ok{background:var(--green)}.file-status.err{background:var(--red)}.file-status.loading{background:var(--yellow);animation:pulse 1s infinite}
+.divider{border:none;border-top:1px solid var(--border);margin:24px 0}
+.section-title{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div class="logo">IB</div>
+  <div class="header-text">
+    <h1>IronBridge Memory Console</h1>
+    <p>CLAUDE CONTEXT RESTORE — AGENT BOOT SYSTEM</p>
+  </div>
+  <div class="status-dot" id="statusLabel">READY</div>
+</div>
+<div class="token-section">
+  <label>GitHub Personal Access Token (read access to ironbridge-memory)</label>
+  <div class="token-row">
+    <input type="password" id="tokenInput" placeholder="ghp_..." autocomplete="off"/>
+    <button class="btn btn-primary" id="bootBtn" onclick="runBoot()">⚡ BOOT MEMORY</button>
+  </div>
+</div>
+<div class="status-grid">
+  <div class="stat-card"><div class="label">Team Status</div><div class="value green" id="teamStatus">—</div></div>
+  <div class="stat-card"><div class="label">Files Loaded</div><div class="value" id="filesLoaded">—</div></div>
+  <div class="stat-card"><div class="label">Last Session</div><div class="value yellow" id="lastSession">—</div></div>
+</div>
+<div class="output-section" id="fileSection" style="display:none">
+  <div class="output-header"><span>Memory Files</span><span id="fileCount">0 loaded</span></div>
+  <div class="output-body"><div class="file-list" id="fileList"></div></div>
+</div>
+<div id="bootPromptSection" style="display:none">
+  <div class="boot-prompt">
+    <div class="boot-prompt-label">
+      <span>📋 Claude Boot Prompt — paste this to restore full memory</span>
+      <button class="btn btn-secondary" onclick="copyPrompt()" id="copyBtn">Copy</button>
+    </div>
+    <textarea id="bootPromptOutput" readonly></textarea>
+  </div>
+  <div class="action-row">
+    <button class="btn btn-primary" onclick="copyPrompt()">Copy Boot Prompt</button>
+    <button class="btn btn-secondary" onclick="runBoot()">↻ Refresh</button>
+    <button class="btn btn-secondary" onclick="window.open('https://claude.ai','_blank')">Open Claude →</button>
+  </div>
+</div>
+<hr class="divider">
+<div class="section-title">Current Priorities</div>
+<div id="quickRef" style="display:none">
+  <div class="output-section">
+    <div class="output-header"><span>Live from command-center.md</span></div>
+    <div class="output-body" id="prioritiesOutput">—</div>
+  </div>
+</div>
+</div>
+<script>
+const REPO='IRONBRIDGE-Al/ironbridge-memory';
+const FILES=[
+  {path:'CLAUDE.md',label:'Master Boot File',required:true},
+  {path:'ops/command-center.md',label:'Command Center',required:true},
+  {path:'ops/GO-SIGNAL.md',label:'GO Signal',required:false},
+  {path:'ops/product-gaps-attack-plan.md',label:'Attack Plan',required:false},
+  {path:'ops/pricing-model.md',label:'Pricing Model',required:false},
+  {path:'ops/six-platform-priority-list.md',label:'6 Platforms',required:false},
+  {path:'ops/bnkr-department-plan.md',label:'BNKR Dept',required:false},
+  {path:'team/sterling.md',label:'Sterling',required:false},
+];
+let loaded={};
+async function fetchFile(t,p){
+  const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/'+p,{headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});
+  if(!r.ok)throw new Error(r.status);
+  const d=await r.json();
+  return atob(d.content.replace(/\n/g,''));
+}
+async function getLatestSession(t){
+  try{
+    const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/logs/sessions',{headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});
+    const files=await r.json();
+    const sessions=files.filter(f=>f.name.endsWith('.md')&&!f.name.includes('gitkeep')).sort((a,b)=>b.name.localeCompare(a.name));
+    if(!sessions.length)return null;
+    const c=await fetchFile(t,sessions[0].path);
+    return{name:sessions[0].name,content:c.slice(0,500)};
+  }catch{return null;}
+}
+function buildPrompt(files,sess){
+  const cc=files['ops/command-center.md']||'';
+  const sm=cc.match(/TOP 3 PRIORITIES[\s\S]{0,400}/i);
+  const sl=sess?'LATEST SESSION ('+sess.name+'):\n'+sess.content:'No session found.';
+  return '=== IRONBRIDGE MEMORY BOOT — '+new Date().toISOString().slice(0,10)+' ===\n\nYou are Claude, working with the Owner of IronBridge.\nIronBridge = one-click AI agent deployment to 6 platforms.\n\nREPO: github.com/IRONBRIDGE-Al/ironbridge-memory (private)\nSITE: ironbridge-jade.vercel.app\nSTATUS: GO — STANDBY LIFTED 2026-04-07\n\nTEAM: Dick (Orchestrator) | Paul (Product) | Oscar (Ops) | Rachel (Intel) | Gary (Growth) | Sam (Security) | Brooks (Ops) | Sterling (BNKR — defined, not running)\n\nFOUR RULES:\n1. Everything ready for humans at launch\n2. Easiest integration possible\n3. Cost-friendly — no uncapped spend\n4. Checks and balances at every level\n\nKEY DECISIONS:\n- GoClaw = primary platform\n- 6 platforms: Telegram | X | Discord | WhatsApp | Slack | Web\n- Pricing: Free / $10 Starter / $50 Growth / $200 Founder + 10% rev share\n- Integration Package: $500 + 10% ongoing swap fees\n- ClawRouter x402 = monetization engine (pending Owner YELLOW gate)\n- Sterling = BNKR Strength agent (activates post-Milestone 2)\n- XActions + Xquik approved | mem0 for all agents | SimpleMem for Rachel\n\nPRIORITIES:\n'+(sm?sm[0]:'See ops/command-center.md')+'\n\n'+sl+'\n\nPick up where we left off.\n\n=== END BOOT ===';
+}
+async function runBoot(){
+  const t=document.getElementById('tokenInput').value.trim();
+  if(!t){alert('Paste your GitHub token first');return;}
+  const btn=document.getElementById('bootBtn');
+  btn.disabled=true;btn.textContent='⟳ Loading...';
+  document.getElementById('statusLabel').textContent='LOADING';
+  document.getElementById('fileSection').style.display='block';
+  const fl=document.getElementById('fileList');fl.innerHTML='';
+  loaded={};let cnt=0;
+  for(const f of FILES){
+    const row=document.createElement('div');row.className='file-item';
+    row.innerHTML='<span class="file-status loading" id="s_'+f.path.replace(/\//g,'_')+'"></span><span style="flex:1;color:var(--muted)">'+f.label+'</span><span style="font-size:10px;color:var(--muted)">'+f.path+'</span>';
+    fl.appendChild(row);
+  }
+  await Promise.allSettled(FILES.map(async f=>{
+    const dot=document.getElementById('s_'+f.path.replace(/\//g,'_'));
+    try{loaded[f.path]=await fetchFile(t,f.path);dot.className='file-status ok';cnt++;document.getElementById('filesLoaded').textContent=cnt;}
+    catch{dot.className='file-status err';}
+  }));
+  const sess=await getLatestSession(t);
+  if(sess)document.getElementById('lastSession').textContent=sess.name.replace('.md','').slice(-20);
+  document.getElementById('bootPromptOutput').value=buildPrompt(loaded,sess);
+  document.getElementById('bootPromptSection').style.display='block';
+  document.getElementById('fileCount').textContent=cnt+'/'+FILES.length+' loaded';
+  const cc=loaded['ops/command-center.md']||'';
+  const isGo=cc.includes('GO')&&cc.includes('LIVE');
+  document.getElementById('teamStatus').textContent=isGo?'GO':'STANDBY';
+  document.getElementById('teamStatus').className='value '+(isGo?'green':'yellow');
+  const pm=cc.match(/TOP 3 PRIORITIES[\s\S]{0,400}/i);
+  if(pm){document.getElementById('quickRef').style.display='block';document.getElementById('prioritiesOutput').textContent=pm[0];}
+  btn.disabled=false;btn.textContent='⚡ BOOT MEMORY';
+  document.getElementById('statusLabel').textContent='LOADED';
+}
+function copyPrompt(){
+  const ta=document.getElementById('bootPromptOutput');
+  navigator.clipboard.writeText(ta.value).catch(()=>{ta.select();document.execCommand('copy');});
+  const b=document.getElementById('copyBtn');b.textContent='✓ Copied!';b.style.color='var(--green)';
+  setTimeout(()=>{b.textContent='Copy';b.style.color='';},2000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IronBridge — Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0a0a;--surface:#111;--border:rgba(255,255,255,0.07);
+  --border-bright:rgba(255,255,255,0.15);--text:#e8e6e0;--muted:#666660;
+  --accent:#c8a96e;--green:#4caf63;--yellow:#e6a817;--red:#e53935;
+  --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;padding:24px;}
+.cc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.cc-logo{font-family:var(--mono);font-size:10px;letter-spacing:4px;color:var(--accent);}
+.cc-title{font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:-1px;margin-top:4px;}
+.cc-time{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;}
+.status-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:4px 10px;border-radius:2px;margin-top:6px;}
+.sy{background:rgba(230,168,23,0.12);color:var(--yellow);border:1px solid rgba(230,168,23,0.25);}
+.dot{width:6px;height:6px;border-radius:50%;animation:pulse 2s infinite;}
+.dy{background:var(--yellow);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px;}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px;}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:16px;}
+.agent-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-bottom:16px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px 16px;}
+.card-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:8px;}
+.card-value{font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:-1px;line-height:1;}
+.card-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+.bar-track{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:10px;}
+.bar-fill{height:100%;border-radius:2px;}
+.bl-accent{border-left:3px solid var(--accent);}
+.bl-green{border-left:3px solid var(--green);}
+.bl-yellow{border-left:3px solid var(--yellow);}
+.bl-red{border-left:3px solid var(--red);}
+.sec{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
+.agent-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:12px 8px;text-align:center;opacity:0.45;}
+.avatar{width:36px;height:36px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;}
+.av-d{background:rgba(200,169,110,0.15);color:var(--accent);border:1px solid rgba(200,169,110,0.3);}
+.av-p{background:rgba(53,113,200,0.15);color:#5b9cf6;border:1px solid rgba(53,113,200,0.3);}
+.av-o{background:rgba(58,125,68,0.15);color:var(--green);border:1px solid rgba(58,125,68,0.3);}
+.av-r{background:rgba(160,80,180,0.15);color:#c084fc;border:1px solid rgba(160,80,180,0.3);}
+.av-g{background:rgba(234,120,30,0.15);color:#fb923c;border:1px solid rgba(234,120,30,0.3);}
+.av-s{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);}
+.av-b{background:rgba(100,100,100,0.15);color:#9ca3af;border:1px solid rgba(100,100,100,0.3);}
+.agent-name{font-family:var(--mono);font-size:9px;letter-spacing:1px;}
+.agent-role{font-size:9px;color:var(--muted);}
+.agent-status{margin-top:6px;font-family:var(--mono);font-size:8px;letter-spacing:1px;}
+.t-yellow{color:var(--yellow);}
+.t-green{color:var(--green);}
+.t-red{color:var(--red);}
+.t-muted{color:var(--muted);}
+.brief-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;}
+.p-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.p-item:last-child{border-bottom:none;}
+.p-num{font-family:var(--mono);font-size:10px;color:var(--accent);min-width:16px;padding-top:1px;}
+.p-text{color:var(--text);line-height:1.5;}
+.p-owner{font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:2px;}
+.h-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.h-row:last-child{border-bottom:none;}
+.h-key{color:var(--muted);font-size:11px;}
+.h-val{font-family:var(--mono);font-size:10px;letter-spacing:1px;}
+.footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border);margin-top:4px;}
+.ft{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1px;}
+.revive-btn{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent);background:rgba(200,169,110,0.08);border:1px solid rgba(200,169,110,0.25);border-radius:2px;padding:8px 16px;cursor:pointer;transition:all 0.2s;}
+.revive-btn:hover{background:rgba(200,169,110,0.18);border-color:rgba(200,169,110,0.5);}
+@media(max-width:768px){.grid4{grid-template-columns:repeat(2,1fr);}.agent-grid{grid-template-columns:repeat(4,1fr);}.grid2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="cc-header">
+  <div>
+    <div class="cc-logo">Ironbridge</div>
+    <div class="cc-title">Command Center</div>
+    <div class="status-pill sy"><span class="dot dy"></span>SYSTEM YELLOW</div>
+  </div>
+  <div class="cc-time">
+    <div id="clock" style="font-size:14px;color:#e8e6e0;margin-bottom:4px;"></div>
+    <div id="datestr"></div>
+    <div style="margin-top:6px;">Next brief: 09:30 AM</div>
+    <div style="margin-top:4px;">Phase: pre-launch</div>
+  </div>
+</div>
+
+<div class="sec">Mission metrics</div>
+<div class="grid4">
+  <div class="card bl-yellow">
+    <div class="card-label">Agent status</div>
+    <div class="card-value t-yellow" style="font-size:16px;">OFFLINE</div>
+    <div class="card-sub">Revival plan ready</div>
+    <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--yellow);"></div></div>
+  </div>
+  <div class="card bl-accent">
+    <div class="card-label">Waitlist</div>
+    <div class="card-value">0</div>
+    <div class="card-sub">Target: 1,000</div>
+    <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--accent);"></div></div>
+  </div>
+  <div class="card bl-green">
+    <div class="card-label">Monthly spend</div>
+    <div class="card-value">$0</div>
+    <div class="card-sub">Cap: $100/month</div>
+    <div class="bar-track"><div class="bar-fill" style="width:1%;background:var(--green);"></div></div>
+  </div>
+  <div class="card bl-green">
+    <div class="card-label">Launch ready</div>
+    <div class="card-value t-yellow">5%</div>
+    <div class="card-sub">ironbridge-jade.vercel.app</div>
+    <div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--yellow);"></div></div>
+  </div>
+</div>
+
+<div class="sec">Agent team</div>
+<div class="agent-grid">
+  <div class="agent-card"><div class="avatar av-d">D</div><div class="agent-name">Dick</div><div class="agent-role">Orchestrator</div><div class="agent-status t-yellow">OFFLINE</div></div>
+  <div class="agent-card"><div class="avatar av-p">P</div><div class="agent-name">Paul</div><div class="agent-role">Product</div><div class="agent-status t-yellow">OFFLINE</div></div>
+  <div class="agent-card"><div class="avatar av-o">O</div><div class="agent-name">Oscar</div><div class="agent-role">Ops</div><div class="agent-status t-yellow">OFFLINE</div></div>
+  <div class="agent-card"><div class="avatar av-r">R</div><div class="agent-name">Rachel</div><div class="agent-role">Intel</div><div class="agent-status t-yellow">OFFLINE</div></div>
+  <div class="agent-card"><div class="avatar av-g">G</div><div class="agent-name">Gary</div><div class="agent-role">Growth</div><div class="agent-status t-yellow">OFFLINE</div></div>
+  <div class="agent-card"><div class="avatar av-s">S</div><div class="agent-name">Sam</div><div class="agent-role">Security</div><div class="agent-status t-yellow">OFFLINE</div></div>
+  <div class="agent-card"><div class="avatar av-b">B</div><div class="agent-name">Brooks</div><div class="agent-role">Sec Ops</div><div class="agent-status t-yellow">OFFLINE</div></div>
+</div>
+
+<div class="grid2">
+  <div>
+    <div class="sec">Top priorities</div>
+    <div class="brief-card">
+      <div class="p-item"><span class="p-num">01</span><div><div class="p-text">Get Groq API key — free tier, brings entire team online</div><div class="p-owner">Owner → console.groq.com</div></div></div>
+      <div class="p-item"><span class="p-num">02</span><div><div class="p-text">Get DeepSeek API key — powers Dick's orchestration</div><div class="p-owner">Owner → platform.deepseek.com</div></div></div>
+      <div class="p-item"><span class="p-num">03</span><div><div class="p-text">Oscar executes agent revival runbook</div><div class="p-owner">Oscar → /ops/agent-revival-runbook.md</div></div></div>
+      <div class="p-item"><span class="p-num">04</span><div><div class="p-text">Rachel delivers 6-platform priority list</div><div class="p-owner">Rachel → /ops/competitor-watchlist.md</div></div></div>
+      <div class="p-item"><span class="p-num">05</span><div><div class="p-text">Build and launch the landing page</div><div class="p-owner">Paul → /ops/launch-checklist.md</div></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="sec">Health check</div>
+    <div class="brief-card">
+      <div class="h-row"><span class="h-key">Site</span><span class="h-val t-green">LIVE</span></div>
+      <div class="h-row"><span class="h-key">Agent (Dick)</span><span class="h-val t-yellow">OFFLINE</span></div>
+      <div class="h-row"><span class="h-key">Spend</span><span class="h-val t-green">$0 / $100</span></div>
+      <div class="h-row"><span class="h-key">Repo</span><span class="h-val t-green">30 commits</span></div>
+      <div class="h-row"><span class="h-key">Deploy</span><span class="h-val t-green">READY</span></div>
+      <div class="h-row"><span class="h-key">Security</span><span class="h-val t-green">CLEAN</span></div>
+      <div class="h-row"><span class="h-key">Launch</span><span class="h-val t-yellow">5%</span></div>
+    </div>
+    <div class="sec" style="margin-top:12px;">Stack</div>
+    <div class="brief-card">
+      <div class="h-row"><span class="h-key">Models</span><span class="h-val t-yellow">Keys pending</span></div>
+      <div class="h-row"><span class="h-key">Framework</span><span class="h-val t-green">OpenClaude</span></div>
+      <div class="h-row"><span class="h-key">Interface</span><span class="h-val t-green">Telegram</span></div>
+      <div class="h-row"><span class="h-key">Memory</span><span class="h-val t-green">ironbridge-memory</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">Weekly rhythm</div>
+<div class="grid4" style="margin-bottom:20px;">
+  <div class="card bl-accent"><div class="card-label">Monday</div><div style="font-size:12px;line-height:1.7;">Set week priorities<br><span style="color:var(--muted);font-size:11px;">Dick → all agents</span></div></div>
+  <div class="card"><div class="card-label">Tuesday</div><div style="font-size:12px;line-height:1.7;">Product roadmap sync<br><span style="color:var(--muted);font-size:11px;">Paul → Dick</span></div></div>
+  <div class="card"><div class="card-label">Wednesday</div><div style="font-size:12px;line-height:1.7;">Intel briefing<br><span style="color:var(--muted);font-size:11px;">Rachel → Dick</span></div></div>
+  <div class="card"><div class="card-label">Thursday</div><div style="font-size:12px;line-height:1.7;">Growth numbers<br><span style="color:var(--muted);font-size:11px;">Gary → Dick</span></div></div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="ft">IRONBRIDGE-Al / ironbridge-memory · phase: pre-launch · build</div>
+    <div class="ft" style="margin-top:3px;">Standing orders active · Agent gates enforced · Spend caps armed</div>
+  </div>
+  <a href="https://github.com/IRONBRIDGE-Al/ironbridge-memory/blob/main/ops/agent-revival-runbook.md" target="_blank">
+    <button class="revive-btn">Revival runbook ↗</button>
+  </a>
+</div>
+
+<script>
+function tick(){
+  const n=new Date();
+  document.getElementById('clock').textContent=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('datestr').textContent=n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "version": "2026-04-07",
+    "tagline": "Your agent. Everywhere your people are.",
+    "description": "One-click AI agent deployment. No code. No limit.",
+    "brand": "IronBridge"
+  },
+  "platforms": {
+    "live": [
+      "Telegram",
+      "Discord",
+      "X / Twitter"
+    ],
+    "building": [
+      "WhatsApp",
+      "Slack",
+      "Web Widget",
+      "Email",
+      "Instagram"
+    ],
+    "roadmap": [
+      "LinkedIn",
+      "TikTok",
+      "SMS / Voice",
+      "Teams"
+    ],
+    "web3": [
+      "Farcaster",
+      "Bluesky",
+      "Lens Protocol"
+    ],
+    "gaming": [
+      "Discord",
+      "Twitch",
+      "Roblox",
+      "Minecraft",
+      "Steam",
+      "Xbox"
+    ]
+  },
+  "verticals": [
+    {
+      "slug": "gaming",
+      "name": "Gaming",
+      "icon": "🎮",
+      "tagline": "Deploy your agent to every game community you play in.",
+      "url": "/gaming.html",
+      "package": "gaming"
+    },
+    {
+      "slug": "business",
+      "name": "Business",
+      "icon": "💼",
+      "tagline": "Your 24/7 customer support agent. No staff needed.",
+      "url": "/business.html",
+      "package": "business"
+    },
+    {
+      "slug": "creator",
+      "name": "Content Creator",
+      "icon": "🎬",
+      "tagline": "Reply to every fan. Grow on every platform.",
+      "url": "/creator.html",
+      "package": "creator"
+    },
+    {
+      "slug": "developer",
+      "name": "Developer",
+      "icon": "⚡",
+      "tagline": "Community management for open source projects.",
+      "url": "/developer.html",
+      "package": "developer"
+    },
+    {
+      "slug": "web3",
+      "name": "Crypto / Web3",
+      "icon": "🔗",
+      "tagline": "Run your community across every crypto platform.",
+      "url": "/web3.html",
+      "package": "web3"
+    },
+    {
+      "slug": "education",
+      "name": "Education",
+      "icon": "📚",
+      "tagline": "Answer student questions around the clock.",
+      "url": "/education.html",
+      "package": "education"
+    },
+    {
+      "slug": "wellness",
+      "name": "Wellness",
+      "icon": "💚",
+      "tagline": "Your clients always get a response.",
+      "url": "/wellness.html",
+      "package": "wellness"
+    }
+  ],
+  "games": [
+    {
+      "slug": "fortnite",
+      "name": "Fortnite",
+      "icon": "🎯",
+      "agentName": "FortniteBot",
+      "platforms": [
+        "Discord",
+        "Telegram",
+        "X / Twitter"
+      ]
+    },
+    {
+      "slug": "cod",
+      "name": "Call of Duty",
+      "icon": "🎖",
+      "agentName": "CODBot",
+      "platforms": [
+        "Discord",
+        "Telegram",
+        "X / Twitter"
+      ]
+    },
+    {
+      "slug": "roblox",
+      "name": "Roblox",
+      "icon": "🟥",
+      "agentName": "RobloxHelper",
+      "platforms": [
+        "Discord",
+        "Telegram"
+      ],
+      "kidSafe": true
+    },
+    {
+      "slug": "minecraft",
+      "name": "Minecraft",
+      "icon": "⛏",
+      "agentName": "CraftBot",
+      "platforms": [
+        "Discord",
+        "Telegram"
+      ]
+    },
+    {
+      "slug": "valorant",
+      "name": "Valorant",
+      "icon": "⚡",
+      "agentName": "ValorantCoach",
+      "platforms": [
+        "Discord",
+        "Telegram",
+        "X / Twitter"
+      ]
+    },
+    {
+      "slug": "lol",
+      "name": "League of Legends",
+      "icon": "⚔",
+      "agentName": "LeagueAdvisor",
+      "platforms": [
+        "Discord",
+        "Telegram"
+      ]
+    },
+    {
+      "slug": "apex",
+      "name": "Apex Legends",
+      "icon": "🦾",
+      "agentName": "ApexSquad",
+      "platforms": [
+        "Discord",
+        "Telegram",
+        "X / Twitter"
+      ]
+    },
+    {
+      "slug": "general",
+      "name": "Other Game",
+      "icon": "🎮",
+      "agentName": "GameAgent",
+      "platforms": [
+        "Discord",
+        "Telegram",
+        "Twitch"
+      ]
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Free",
+      "price": 0,
+      "period": "mo",
+      "platforms": 1,
+      "agents": 1,
+      "messages": 100,
+      "highlight": false
+    },
+    {
+      "name": "Pro",
+      "price": 10,
+      "period": "mo",
+      "platforms": -1,
+      "agents": 1,
+      "messages": -1,
+      "highlight": true
+    },
+    {
+      "name": "Team",
+      "price": 50,
+      "period": "mo",
+      "platforms": -1,
+      "agents": 3,
+      "messages": -1,
+      "highlight": false
+    },
+    {
+      "name": "Founder",
+      "price": 200,
+      "period": "mo",
+      "platforms": -1,
+      "agents": -1,
+      "messages": -1,
+      "highlight": false,
+      "revShare": true
+    }
+  ],
+  "packages": [
+    {
+      "slug": "gaming",
+      "name": "Gaming Pack",
+      "price": 500,
+      "includes": [
+        "Discord bot setup",
+        "Telegram group",
+        "50 game Q&A pairs",
+        "Tournament templates",
+        "30-day support"
+      ]
+    },
+    {
+      "slug": "business",
+      "name": "Business Pack",
+      "price": 500,
+      "includes": [
+        "WhatsApp setup",
+        "Web widget",
+        "Email autoresponder",
+        "50 FAQ pairs",
+        "30-day support"
+      ]
+    },
+    {
+      "slug": "web3",
+      "name": "Web3 Pack",
+      "price": 500,
+      "includes": [
+        "Telegram community",
+        "Discord server",
+        "Farcaster profile",
+        "Token FAQ setup",
+        "30-day support"
+      ]
+    },
+    {
+      "slug": "creator",
+      "name": "Creator Pack",
+      "price": 500,
+      "includes": [
+        "X automation",
+        "Instagram DMs",
+        "Discord community",
+        "Content templates",
+        "30-day support"
+      ]
+    }
+  ],
+  "team": [
+    {
+      "name": "Dick",
+      "role": "Orchestrator",
+      "status": "LIVE",
+      "telegram": true
+    },
+    {
+      "name": "Brooks",
+      "role": "Health Monitor",
+      "status": "LIVE",
+      "interval": "10min"
+    },
+    {
+      "name": "Oscar",
+      "role": "Ops Lead",
+      "status": "LIVE",
+      "interval": "5min"
+    },
+    {
+      "name": "Rachel",
+      "role": "Intel Lead",
+      "status": "LIVE",
+      "interval": "6hr"
+    },
+    {
+      "name": "Paul",
+      "role": "Product Lead",
+      "status": "STANDBY",
+      "gate": "pricing"
+    },
+    {
+      "name": "Gary",
+      "role": "Growth Lead",
+      "status": "STANDBY",
+      "gate": "pricing"
+    },
+    {
+      "name": "Sam",
+      "role": "Security Lead",
+      "status": "STANDBY"
+    },
+    {
+      "name": "Sterling",
+      "role": "BNKR Strength",
+      "status": "POST-M2"
+    }
+  ],
+  "sync": {
+    "protocol": "ops/sync-protocol.md",
+    "sourceOfTruth": "CLAUDE.md",
+    "frontendConfig": "public/ironbridge-config.json",
+    "lastUpdated": "2026-04-07",
+    "updateOrder": [
+      "CLAUDE.md",
+      "ops/command-center.md",
+      "public/ironbridge-config.json",
+      "ops/platform-vision.md",
+      "ops/game-packages.md"
+    ]
+  }
+}

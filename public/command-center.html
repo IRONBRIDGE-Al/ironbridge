@@ -6,121 +6,140 @@
 <title>IronBridge Command Center</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a0a;--s:#111;--s2:#161616;--bd:#1f1f1f;--g:#22c55e;--gd:#166534;--y:#eab308;--r:#ef4444;--b:#6366f1;--tx:#e5e5e5;--dm:#666}
-body{background:var(--bg);color:var(--tx);font-family:Inter,-apple-system,sans-serif;font-size:14px;display:grid;grid-template-columns:220px 1fr;min-height:100vh}
-.sb{background:var(--s);border-right:1px solid var(--bd);display:flex;flex-direction:column}
-.logo{padding:20px 18px 16px;border-bottom:1px solid var(--bd)}
-.brand{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.5px}
-.brand span{color:var(--g)}
-.ver{font-size:10px;color:var(--dm);margin-top:2px;letter-spacing:1px;text-transform:uppercase}
+:root{--bg:#0a0a0a;--surface:#111;--s2:#161616;--border:#1f1f1f;--green:#22c55e;--gd:#166534;--yellow:#eab308;--red:#ef4444;--blue:#6366f1;--text:#e5e5e5;--dim:#666}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif;font-size:14px;display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.logo-wrap{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
+.brand{font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.5px}
+.brand span{color:var(--green)}
+.ver{font-size:10px;color:var(--dim);margin-top:2px;letter-spacing:1px;text-transform:uppercase}
 .ns{padding:16px 10px 4px}
-.nl{font-size:10px;color:var(--dm);letter-spacing:2px;text-transform:uppercase;padding:0 8px;margin-bottom:6px}
-.ni{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;font-size:13px;color:var(--dm);cursor:pointer;transition:all .15s;margin-bottom:1px}
-.ni:hover{background:var(--s2);color:var(--tx)}
-.ni.active{background:var(--s2);color:var(--tx);font-weight:500}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--bd);flex-shrink:0}
-.dot.g{background:var(--g)}.dot.y{background:var(--y)}.dot.r{background:var(--r)}
-.bdg{margin-left:auto;background:var(--r);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:100px;min-width:18px;text-align:center}
-.bdg.b{background:var(--b)}
-.sf{margin-top:auto;padding:14px;border-top:1px solid var(--bd);font-size:12px;color:var(--dm);display:flex;align-items:center;gap:8px}
-.pulse{width:7px;height:7px;border-radius:50%;background:var(--g);animation:pulse 2s infinite;flex-shrink:0}
+.nl{font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;padding:0 8px;margin-bottom:6px}
+.ni{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;font-size:13px;color:var(--dim);cursor:pointer;transition:all .15s;margin-bottom:1px}
+.ni:hover{background:var(--s2);color:var(--text)}
+.ni.active{background:var(--s2);color:var(--text);font-weight:500}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0}
+.dg{background:var(--green)}.dy{background:var(--yellow)}.dr{background:var(--red)}
+.badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:100px;min-width:18px;text-align:center}
+.badge.b{background:var(--blue)}
+.sf{margin-top:auto;padding:14px;border-top:1px solid var(--border);font-size:12px;color:var(--dim);display:flex;align-items:center;gap:8px}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.4)}70%{opacity:.7;box-shadow:0 0 0 6px rgba(34,197,94,0)}}
 .main{overflow-y:auto}
-.tb{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--bd);background:var(--s);position:sticky;top:0;z-index:10}
-.tl{display:flex;align-items:center;gap:12px}
-.pt{font-size:16px;font-weight:600;color:#fff}
-.sp{display:flex;align-items:center;gap:6px;background:rgba(34,197,94,.1);border:1px solid var(--g);color:var(--g);padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
-.tr{font-size:12px;color:var(--dm);display:flex;gap:16px;align-items:center}
-.ct{padding:24px}
-.pg{display:none}.pg.active{display:block}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:10}
+.ptitle{font-size:16px;font-weight:600;color:#fff}
+.spill{display:flex;align-items:center;gap:6px;background:rgba(34,197,94,.1);border:1px solid var(--green);color:var(--green);padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-left:12px}
+.tr{font-size:12px;color:var(--dim);display:flex;gap:16px;align-items:center}
+.content{padding:24px;max-width:1100px}
 .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px}
-.met{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px}
-.ml{font-size:10px;color:var(--dm);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.metric{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.ml{font-size:10px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
 .mv{font-size:28px;font-weight:700;color:#fff;line-height:1}
-.mv.g{color:var(--g)}.mv.y{color:var(--y)}.mv.r{color:var(--r)}
-.ms{font-size:11px;color:var(--dm);margin-top:6px;line-height:1.4}
-.ms.w{color:var(--y)}
-.sec{margin-bottom:28px}
-.st{font-size:12px;font-weight:600;color:#fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
-.al{display:flex;flex-direction:column;gap:10px}
-.ac{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:18px 20px;display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:16px;transition:border-color .2s}
-.ac.r{border-left:3px solid var(--r)}.ac.y{border-left:3px solid var(--y)}.ac.act{border-left:3px solid var(--b)}
-.ac.appr{border-left:3px solid var(--g);opacity:.65}.ac.decl{border-left:3px solid var(--dm);opacity:.4}
-.gt{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:100px;text-align:center;white-space:nowrap}
-.gt.r{background:rgba(239,68,68,.1);color:var(--r);border:1px solid rgba(239,68,68,.3)}
-.gt.y{background:rgba(234,179,8,.1);color:var(--y);border:1px solid rgba(234,179,8,.3)}
-.gt.act{background:rgba(99,102,241,.1);color:var(--b);border:1px solid rgba(99,102,241,.3)}
-.gt.appr{background:rgba(34,197,94,.1);color:var(--g);border:1px solid rgba(34,197,94,.3)}
-.gt.decl{background:rgba(102,102,102,.1);color:var(--dm);border:1px solid rgba(102,102,102,.3)}
-.ab .ti{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
-.ab .su{font-size:12px;color:var(--dm);line-height:1.5}
-.ab .fo{font-size:11px;color:#444;margin-top:6px;font-style:italic}
-.aa{display:flex;gap:8px;flex-shrink:0}
-.btn-ok{background:rgba(34,197,94,.15);border:1px solid var(--g);color:var(--g);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
-.btn-ok:hover{background:rgba(34,197,94,.25)}
-.btn-no{background:transparent;border:1px solid var(--bd);color:var(--dm);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
-.btn-no:hover{border-color:#444;color:#888}
-.btn-done{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--g);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;cursor:default;white-space:nowrap}
-.btn-rst{background:transparent;border:1px solid var(--bd);color:var(--dm);padding:4px 10px;border-radius:4px;font-size:10px;cursor:pointer}
-.tg{background:var(--s);border:1px solid var(--bd);display:flex;flex-direction:column}
-.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.ag{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px;transition:border-color .15s}
-.ag.live{border-color:#166534}
-.ag.sb2{opacity:.55}
-.ah{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.av{width:36px;height:36px;border-radius:8px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--g)}
-.ag.sb2 .av{color:var(--dm)}
-.ab2{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:100px}
-.ab2.live{background:rgba(34,197,94,.1);color:var(--g);border:1px solid #166534}
-.ab2.sb{background:var(--s2);color:var(--dm);border:1px solid var(--bd)}
-.ab2.pm2{background:rgba(99,102,241,.1);color:var(--b);border:1px solid rgba(99,102,241,.3)}
-.an{font-size:14px;font-weight:600;color:#fff;margin-bottom:2px}
-.ar{font-size:11px;color:var(--dm);margin-bottom:8px}
-.ad{font-size:11px;color:var(--dm);line-height:1.5;padding-top:8px;border-top:1px solid var(--bd)}
-.rr{display:flex;flex-direction:column;gap:8px}
-.rrow{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--s);border:1px solid var(--bd);border-radius:8px;font-size:12px}
-.rf{font-weight:600;color:#fff;min-width:80px}
-.ra{color:var(--dm)}
-.rt{color:var(--tx);flex:1}
-.rq{color:var(--dm);font-size:11px;min-width:180px;text-align:right}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.cd{background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:16px}
-.cdl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dm);margin-bottom:6px}
-.cdn{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
-.cdd{font-size:11px;color:var(--dm);line-height:1.5}
-.dl{display:flex;flex-direction:column;gap:8px}
-.dr{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:12px 16px;display:flex;align-items:flex-start;gap:14px}
-.dts{font-size:10px;color:var(--dm);min-width:90px;margin-top:2px}
-.db{flex:1;font-size:13px;color:var(--tx)}
-.dbsub{font-size:11px;color:var(--dm);margin-top:3px}
-.empty{text-align:center;padding:48px;color:var(--dm);font-size:13px}
-.toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;border:1px solid var(--bd);border-radius:10px;padding:14px 20px;font-size:13px;color:var(--tx);z-index:1000;transform:translateY(100px);opacity:0;transition:all .3s;max-width:380px}
+.mv.g{color:var(--green)}.mv.y{color:var(--yellow)}.mv.r{color:var(--red)}
+.ms{font-size:11px;color:var(--dim);margin-top:6px;line-height:1.4}
+.ms.w{color:var(--yellow)}
+.section{margin-bottom:28px}
+.stitle{font-size:12px;font-weight:600;color:#fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+/* APPROVAL CARDS */
+.alist{display:flex;flex-direction:column;gap:10px}
+.acard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:16px;transition:border-color .2s}
+.acard.red{border-left:3px solid var(--red)}
+.acard.yellow{border-left:3px solid var(--yellow)}
+.acard.action{border-left:3px solid var(--blue)}
+.acard.approved{border-left:3px solid var(--green);opacity:.65}
+.acard.declined{border-left:3px solid var(--dim);opacity:.4}
+.gtag{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:100px;text-align:center;white-space:nowrap}
+.gtag.red{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.gtag.yellow{background:rgba(234,179,8,.1);color:var(--yellow);border:1px solid rgba(234,179,8,.3)}
+.gtag.action{background:rgba(99,102,241,.1);color:var(--blue);border:1px solid rgba(99,102,241,.3)}
+.gtag.approved{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.gtag.declined{background:rgba(102,102,102,.1);color:var(--dim);border:1px solid rgba(102,102,102,.3)}
+.abody .at{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.abody .as{font-size:12px;color:var(--dim);line-height:1.5}
+.abody .af{font-size:11px;color:#555;margin-top:6px}
+.abtns{display:flex;gap:8px;flex-shrink:0}
+.btn-approve{background:rgba(34,197,94,.15);border:1px solid var(--green);color:var(--green);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-approve:hover{background:rgba(34,197,94,.28)}
+.btn-decline{background:transparent;border:1px solid var(--border);color:var(--dim);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-decline:hover{border-color:#444;color:#888}
+.btn-done{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--green);padding:8px 18px;border-radius:6px;font-size:12px;cursor:default}
+.btn-x{background:transparent;border:1px solid var(--border);color:var(--dim);padding:6px 10px;border-radius:6px;font-size:10px;cursor:pointer}
+.btn-x:hover{border-color:#444;color:#888}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;border:1px solid var(--border);border-radius:10px;padding:14px 20px;font-size:13px;color:var(--text);z-index:1000;transform:translateY(100px);opacity:0;transition:all .3s;max-width:400px}
 .toast.show{transform:translateY(0);opacity:1}
-.toast.ok{border-color:var(--g);color:var(--g)}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.err{border-color:var(--red);color:var(--red)}
+/* TEAM */
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.agc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .15s}
+.agc.live{border-color:var(--gd)}
+.agc.standby{opacity:.55}
+.agh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.ava{width:36px;height:36px;border-radius:8px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--green)}
+.agc.standby .ava{color:var(--dim)}
+.ab{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:100px}
+.ab.live{background:rgba(34,197,94,.1);color:var(--green);border:1px solid var(--gd)}
+.ab.standby{background:var(--s2);color:var(--dim);border:1px solid var(--border)}
+.ab.post{background:rgba(99,102,241,.1);color:var(--blue);border:1px solid rgba(99,102,241,.3)}
+.agn{font-size:14px;font-weight:600;color:#fff;margin-bottom:2px}
+.agr{font-size:11px;color:var(--dim);margin-bottom:8px}
+.agd{font-size:11px;color:var(--dim);line-height:1.5;padding-top:8px;border-top:1px solid var(--border)}
+/* REPORTING */
+.rchain{display:flex;flex-direction:column;gap:8px}
+.rrow{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:12px}
+.rfrom{font-weight:600;color:#fff;min-width:80px}
+.rarrow{color:var(--dim)}
+.rto{color:var(--text);flex:1}
+.rfreq{color:var(--dim);font-size:11px;min-width:160px;text-align:right}
+/* STACK / DECISIONS */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.cl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.cn{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.cd{font-size:11px;color:var(--dim);line-height:1.5}
+.dlist{display:flex;flex-direction:column;gap:8px}
+.drow{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;align-items:flex-start;gap:14px}
+.dts{font-size:10px;color:var(--dim);min-width:90px;margin-top:2px;flex-shrink:0}
+.dbody{flex:1;font-size:13px;color:var(--text)}
+.dby{font-size:11px;color:var(--dim);margin-top:3px}
+.empty{text-align:center;padding:48px;color:var(--dim);font-size:13px}
+.plist{display:flex;flex-direction:column;gap:8px}
+.pitem{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.pitem.red{border-left:3px solid var(--red)}
+.pitem.yellow{border-left:3px solid var(--yellow)}
+.pitem.bl{border-left:3px solid var(--blue)}
+.pitem.gr{border-left:3px solid var(--green)}
+.pgat{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;min-width:70px}
+.pgat.r{color:var(--red)}.pgat.y{color:var(--yellow)}.pgat.b{color:var(--blue)}.pgat.g{color:var(--green)}
+.ptxt{font-size:13px;color:var(--text);flex:1}
+.psub{font-size:11px;color:var(--dim);margin-top:2px}
+.page{display:none}.page.active{display:block}
 </style>
 </head>
 <body>
-<div class="sb">
-  <div class="logo">
+
+<div class="sidebar">
+  <div class="logo-wrap">
     <div class="brand">Iron<span>Bridge</span></div>
     <div class="ver">Command Center v4</div>
   </div>
   <div class="ns">
     <div class="nl">Overview</div>
-    <div class="ni active" onclick="show('dash',this)"><span class="dot g"></span>Dashboard</div>
-    <div class="ni" onclick="show('report',this)"><span class="dot g"></span>Reporting Chain</div>
-    <div class="ni" onclick="show('dlog',this)"><span class="dot g"></span>Decision Log <span class="bdg b" id="dcnt">0</span></div>
+    <div class="ni active" id="nav-dashboard" onclick="show('dashboard',this)"><span class="dot dg"></span>Dashboard</div>
+    <div class="ni" id="nav-approvals" onclick="show('approvals',this)"><span class="dot dr"></span>Needs Owner <span class="badge" id="pendingCount">4</span></div>
+    <div class="ni" id="nav-decisions" onclick="show('decisions',this)"><span class="dot dg"></span>Decision Log <span class="badge b" id="decisionCount">0</span></div>
+    <div class="ni" id="nav-reporting" onclick="show('reporting',this)"><span class="dot dg"></span>Reporting Chain</div>
   </div>
   <div class="ns">
     <div class="nl">Team</div>
-    <div class="ni" onclick="show('agents',this)"><span class="dot g"></span>All Agents</div>
-    <div class="ni" onclick="show('appr',this)"><span class="dot r"></span>Needs Owner <span class="bdg" id="pcnt">4</span></div>
+    <div class="ni" id="nav-team" onclick="show('team',this)"><span class="dot dg"></span>All Agents</div>
   </div>
   <div class="ns">
     <div class="nl">Product</div>
-    <div class="ni" onclick="show('stack',this)"><span class="dot g"></span>Tech Stack</div>
-    <div class="ni" onclick="show('plat',this)"><span class="dot y"></span>Platforms</div>
-    <div class="ni" onclick="show('vert',this)"><span class="dot g"></span>Verticals</div>
+    <div class="ni" id="nav-stack" onclick="show('stack',this)"><span class="dot dg"></span>Tech Stack</div>
+    <div class="ni" id="nav-platforms" onclick="show('platforms',this)"><span class="dot dy"></span>Platforms</div>
+    <div class="ni" id="nav-verticals" onclick="show('verticals',this)"><span class="dot dg"></span>Verticals</div>
   </div>
   <div class="ns">
     <div class="nl">Links</div>
@@ -128,133 +147,135 @@ body{background:var(--bg);color:var(--tx);font-family:Inter,-apple-system,sans-s
     <div class="ni" onclick="window.open('/my-agent.html')"><span class="dot"></span>User Dashboard</div>
     <div class="ni" onclick="window.open('/gaming.html')"><span class="dot"></span>Gaming Page</div>
   </div>
-  <div class="sf"><span class="pulse"></span>5 agents live &nbsp;|&nbsp; Memory MCP active</div>
+  <div class="sf"><span class="pulse"></span>5/8 agents live</div>
 </div>
+
 <div class="main">
-  <div class="tb">
-    <div class="tl">
-      <div class="pt" id="ptitle">Dashboard</div>
-      <div class="sp"><span class="pulse" style="width:5px;height:5px"></span>GO SIGNAL ACTIVE</div>
+  <div class="topbar">
+    <div style="display:flex;align-items:center">
+      <div class="ptitle" id="pageTitle">Dashboard</div>
+      <div class="spill"><span class="pulse" style="width:5px;height:5px"></span>GO SIGNAL ACTIVE</div>
     </div>
     <div class="tr"><span id="clock"></span><span>Next brief: 9:30 AM</span></div>
   </div>
-  <div class="ct">
+
+  <div class="content">
 
     <!-- DASHBOARD -->
-    <div id="dash" class="pg active">
+    <div id="dashboard" class="page active">
       <div class="metrics">
-        <div class="met"><div class="ml">Agents Live</div><div class="mv g">5</div><div class="ms">Dick, Brooks, Oscar, Rachel, memory-mcp</div></div>
-        <div class="met"><div class="ml">Waitlist</div><div class="mv y">0</div><div class="ms w">Needs: pricing RED gate</div></div>
-        <div class="met"><div class="ml">Monthly Spend</div><div class="mv g">~$5</div><div class="ms">Cap $100 | Groq free + Railway</div></div>
-        <div class="met"><div class="ml">Tasks Done</div><div class="mv">37+</div><div class="ms">Stamped, Claude witnessed</div></div>
-        <div class="met"><div class="ml">Launch Ready</div><div class="mv y">20%</div><div class="ms w">Needs: pricing RED gate</div></div>
+        <div class="metric"><div class="ml">Agents Live</div><div class="mv g">5 / 8</div><div class="ms">Dick Brooks Oscar Rachel MCP</div></div>
+        <div class="metric"><div class="ml">Waitlist</div><div class="mv y">0</div><div class="ms w">Blocked: pricing RED gate</div></div>
+        <div class="metric"><div class="ml">Monthly Spend</div><div class="mv g">~$5</div><div class="ms">Cap $100 -- Groq free + Railway</div></div>
+        <div class="metric"><div class="ml">Tasks Done</div><div class="mv">37+</div><div class="ms">Stamped -- Claude witnessed</div></div>
+        <div class="metric"><div class="ml">Launch Ready</div><div class="mv y">20%</div><div class="ms w">Blocked: pricing RED gate</div></div>
       </div>
-      <div class="sec">
-        <div class="st">Needs Owner -- Click Approve or Decline</div>
+      <div class="section">
+        <div class="stitle">Needs Owner Now -- click to approve or decline</div>
         <div id="dashCards"></div>
       </div>
-      <div class="sec">
-        <div class="st">Gate System</div>
+      <div class="section">
+        <div class="stitle">Gate System</div>
         <div class="g3">
-          <div class="cd"><div class="cdl" style="color:var(--g)">GREEN</div><div class="cdd">Act immediately. Log after. No approval needed.</div></div>
-          <div class="cd"><div class="cdl" style="color:var(--y)">YELLOW</div><div class="cdd">Present to Dick before acting. Dick approves.</div></div>
-          <div class="cd"><div class="cdl" style="color:var(--r)">RED</div><div class="cdd">Hold for Owner only. Nothing ships without this.</div></div>
+          <div class="card"><div class="cl" style="color:var(--green)">GREEN</div><div class="cd">Act now. Log after. No approval needed.</div></div>
+          <div class="card"><div class="cl" style="color:var(--yellow)">YELLOW</div><div class="cd">Present to Dick before acting. Dick approves.</div></div>
+          <div class="card"><div class="cl" style="color:var(--red)">RED</div><div class="cd">Hold for Owner approval only. Nothing ships.</div></div>
         </div>
       </div>
     </div>
 
     <!-- NEEDS OWNER -->
-    <div id="appr" class="pg">
-      <div class="sec">
-        <div class="st">Pending Decisions -- Your Approval Required</div>
-        <div id="apprCards"></div>
+    <div id="approvals" class="page">
+      <div class="section">
+        <div class="stitle">Pending Decisions -- Your Approval Required</div>
+        <div id="approvalCards"></div>
       </div>
     </div>
 
     <!-- DECISION LOG -->
-    <div id="dlog" class="pg">
-      <div class="sec">
-        <div class="st">Decision Log</div>
-        <div class="dl" id="dlogList"><div class="empty">No decisions yet. Approve or decline items to build the log.</div></div>
+    <div id="decisions" class="page">
+      <div class="section">
+        <div class="stitle">Decision Log</div>
+        <div class="dlist" id="decisionLog"><div class="empty">No decisions yet. Approve or decline items above.</div></div>
       </div>
     </div>
 
     <!-- REPORTING CHAIN -->
-    <div id="report" class="pg">
-      <div class="sec">
-        <div class="st">Who Reports to Who</div>
-        <div class="rr">
-          <div class="rrow"><div class="rf">Dick</div><div class="ra">to</div><div class="rt">Owner via Telegram -- daily brief 9:30am</div><div class="rq">Auto, every day</div></div>
-          <div class="rrow"><div class="rf">Brooks</div><div class="ra">to</div><div class="rt">Owner via Telegram alert if any agent down</div><div class="rq">Immediate on failure</div></div>
-          <div class="rrow"><div class="rf">Rachel</div><div class="ra">to</div><div class="rt">Owner via Telegram -- intel + GitHub discovery</div><div class="rq">Every 6 hours + weekly</div></div>
-          <div class="rrow"><div class="rf">Oscar</div><div class="ra">to</div><div class="rt">Owner via Telegram if frontend down</div><div class="rq">Every 30 min</div></div>
-          <div class="rrow"><div class="rf">Dick</div><div class="ra">to</div><div class="rt">All leads via GitHub inbox files on /sync</div><div class="rq">On demand</div></div>
-          <div class="rrow"><div class="rf">Owner</div><div class="ra">to</div><div class="rt">Agents via this command center approve/decline</div><div class="rq">RED + YELLOW gates</div></div>
+    <div id="reporting" class="page">
+      <div class="section">
+        <div class="stitle">Who Reports to Who</div>
+        <div class="rchain">
+          <div class="rrow"><div class="rfrom">Dick</div><div class="rarrow">to</div><div class="rto">Owner via Telegram -- daily brief</div><div class="rfreq">Every day at 9:30 AM auto</div></div>
+          <div class="rrow"><div class="rfrom">Brooks</div><div class="rarrow">to</div><div class="rto">Owner via Telegram -- health alert</div><div class="rfreq">Immediate on failure</div></div>
+          <div class="rrow"><div class="rfrom">Rachel</div><div class="rarrow">to</div><div class="rto">Owner via Telegram -- intel report</div><div class="rfreq">Every 6 hours + weekly</div></div>
+          <div class="rrow"><div class="rfrom">Oscar</div><div class="rarrow">to</div><div class="rto">Owner via Telegram -- site alert</div><div class="rfreq">Every 30 min frontend check</div></div>
+          <div class="rrow"><div class="rfrom">Dick</div><div class="rarrow">to</div><div class="rto">All leads via GitHub inbox files</div><div class="rfreq">On /sync or task route</div></div>
+          <div class="rrow"><div class="rfrom">Owner</div><div class="rarrow">to</div><div class="rto">Agents via Command Center approve/decline</div><div class="rfreq">This page -- RED and YELLOW gates</div></div>
+          <div class="rrow"><div class="rfrom">Rachel</div><div class="rarrow">to</div><div class="rto">CLAUDE.md via Dream consolidation</div><div class="rfreq">Every 24h + 5 sessions</div></div>
         </div>
       </div>
     </div>
 
-    <!-- ALL AGENTS -->
-    <div id="agents" class="pg">
-      <div class="sec">
-        <div class="st">Agent Team</div>
+    <!-- TEAM -->
+    <div id="team" class="page">
+      <div class="section">
+        <div class="stitle">Agent Team</div>
         <div class="tgrid">
-          <div class="ag live"><div class="ah"><div class="av">D</div><div class="ab2 live">LIVE</div></div><div class="an">Dick</div><div class="ar">Orchestrator</div><div class="ad">Daily brief 9:30am | /sync /discover /reload | Reads CLAUDE.md on boot</div></div>
-          <div class="ag live"><div class="ah"><div class="av">B</div><div class="ab2 live">LIVE</div></div><div class="an">Brooks</div><div class="ar">Health Monitor</div><div class="ad">Health check every 10 min | Alerts Owner if agent down</div></div>
-          <div class="ag live"><div class="ah"><div class="av">O</div><div class="ab2 live">LIVE</div></div><div class="an">Oscar</div><div class="ar">Ops Lead</div><div class="ad">Inbox poll every 5 min | Railway API | Frontend check every 30 min</div></div>
-          <div class="ag live"><div class="ah"><div class="av">R</div><div class="ab2 live">LIVE</div></div><div class="an">Rachel</div><div class="ar">Intel Lead</div><div class="ad">Intel scan every 6hrs | GitHub discovery weekly | Dream daily</div></div>
-          <div class="ag live"><div class="ah"><div class="av">M</div><div class="ab2 live">LIVE</div></div><div class="an">Memory MCP</div><div class="ar">Context Server</div><div class="ad">Serves CLAUDE.md + status to Claude automatically | No manual paste</div></div>
-          <div class="ag sb2"><div class="ah"><div class="av">P</div><div class="ab2 sb">STANDBY</div></div><div class="an">Paul</div><div class="ar">Product Lead</div><div class="ad">Gate: pricing RED gate | Builds auth + database + provisioning</div></div>
-          <div class="ag sb2"><div class="ah"><div class="av">G</div><div class="ab2 sb">STANDBY</div></div><div class="an">Gary</div><div class="ar">Growth Lead</div><div class="ad">Gate: pricing RED gate | Waitlist + X strategy ready</div></div>
-          <div class="ag sb2"><div class="ah"><div class="av">S</div><div class="ab2 sb">STANDBY</div></div><div class="an">Sam</div><div class="ar">Security Lead</div><div class="ad">XActions SOP needed | Shannon scan | Code review</div></div>
-          <div class="ag sb2"><div class="ah"><div class="av">ST</div><div class="ab2 pm2">POST-M2</div></div><div class="an">Sterling</div><div class="ar">BNKR Strength</div><div class="ad">Activates post-Milestone 2 | Token launch</div></div>
+          <div class="agc live"><div class="agh"><div class="ava">D</div><div class="ab live">LIVE</div></div><div class="agn">Dick</div><div class="agr">Orchestrator</div><div class="agd">Railway + Telegram + Groq<br>Reads CLAUDE.md on boot<br>Daily brief 9:30am<br>/sync /discover /reload</div></div>
+          <div class="agc live"><div class="agh"><div class="ava">B</div><div class="ab live">LIVE</div></div><div class="agn">Brooks</div><div class="agr">Health Monitor</div><div class="agd">Health check every 10 min<br>Alerts Owner if agent down</div></div>
+          <div class="agc live"><div class="agh"><div class="ava">O</div><div class="ab live">LIVE</div></div><div class="agn">Oscar</div><div class="agr">Ops Lead</div><div class="agd">Inbox poll every 5 min<br>Frontend check every 30 min<br>Railway API + infra</div></div>
+          <div class="agc live"><div class="agh"><div class="ava">R</div><div class="ab live">LIVE</div></div><div class="agn">Rachel</div><div class="agr">Intel Lead</div><div class="agd">Intel scan every 6 hrs<br>GitHub discovery weekly<br>Dream memory daily</div></div>
+          <div class="agc live"><div class="agh"><div class="ava">M</div><div class="ab live">LIVE</div></div><div class="agn">Memory MCP</div><div class="agr">Context Server</div><div class="agd">Claude reads CLAUDE.md auto<br>No manual paste needed<br>get_memory + get_agent_status</div></div>
+          <div class="agc standby"><div class="agh"><div class="ava">P</div><div class="ab standby">STANDBY</div></div><div class="agn">Paul</div><div class="agr">Product Lead</div><div class="agd">Gate: pricing RED<br>Builds auth + database + provisioning</div></div>
+          <div class="agc standby"><div class="agh"><div class="ava">G</div><div class="ab standby">STANDBY</div></div><div class="agn">Gary</div><div class="agr">Growth Lead</div><div class="agd">Gate: pricing RED<br>Waitlist + X strategy</div></div>
+          <div class="agc standby"><div class="agh"><div class="ava">S</div><div class="ab standby">STANDBY</div></div><div class="agn">Sam</div><div class="agr">Security Lead</div><div class="agd">XActions SOP needed<br>Shannon scan + code review</div></div>
         </div>
       </div>
     </div>
 
-    <!-- TECH STACK -->
-    <div id="stack" class="pg">
-      <div class="sec">
-        <div class="st">Tech Stack</div>
+    <!-- STACK -->
+    <div id="stack" class="page">
+      <div class="section">
+        <div class="stitle">Tech Stack</div>
         <div class="g3">
-          <div class="cd"><div class="cdl">Engine</div><div class="cdn">Goose</div><div class="cdd">IRONBRIDGE-Al/goose | Rust | Apache 2.0 | 38k stars | fork of aaif-goose/goose</div></div>
-          <div class="cd"><div class="cdl">LLM Router</div><div class="cdn">rust-genai</div><div class="cdd">14+ providers | Groq default | swap via init-config.yaml | no rewrite needed</div></div>
-          <div class="cd"><div class="cdl">Default LLM</div><div class="cdn">Groq llama-3.3-70b</div><div class="cdd">Free tier | fast | fallback: DeepSeek (needs top-up)</div></div>
-          <div class="cd"><div class="cdl">Agent Logic</div><div class="cdn">YAML Recipes</div><div class="cdd">7 recipes in ironbridge-memory/recipes/ | beginners edit these | no code</div></div>
-          <div class="cd"><div class="cdl">Memory</div><div class="cdn">ironbridge-memory</div><div class="cdd">Private GitHub repo | CLAUDE.md = source of truth | sync-protocol.md = the law</div></div>
-          <div class="cd"><div class="cdl">Memory MCP</div><div class="cdn">memory-mcp (Railway)</div><div class="cdd">Serves CLAUDE.md automatically | Claude reads it on boot | No manual paste</div></div>
-          <div class="cd"><div class="cdl">Deployment</div><div class="cdn">Railway</div><div class="cdd">5 services live | powerful-friendship project | auto-deploy on git push</div></div>
-          <div class="cd"><div class="cdl">Frontend</div><div class="cdn">Vercel</div><div class="cdd">ironbridge-jade.vercel.app | /start.html | /gaming.html | /my-agent.html</div></div>
-          <div class="cd"><div class="cdl">Training</div><div class="cdn">Microsoft RustTraining</div><div class="cdd">7 books | MIT license | team upskilling | Rust community = token audience</div></div>
+          <div class="card"><div class="cl">Engine</div><div class="cn">Goose</div><div class="cd">IRONBRIDGE-Al/goose -- Rust -- Apache 2.0 -- fork of aaif-goose/goose -- 38k stars</div></div>
+          <div class="card"><div class="cl">LLM Router</div><div class="cn">rust-genai</div><div class="cd">14+ providers -- Groq default -- swap via init-config.yaml -- no rewrite</div></div>
+          <div class="card"><div class="cl">Default LLM</div><div class="cn">Groq llama-3.3-70b</div><div class="cd">Free tier -- fast -- fallback: DeepSeek (needs top-up)</div></div>
+          <div class="card"><div class="cl">Agent Logic</div><div class="cn">YAML Recipes</div><div class="cd">7 recipes in ironbridge-memory/recipes/ -- beginners edit these -- no code</div></div>
+          <div class="card"><div class="cl">Platform Bridges</div><div class="cn">Node.js Connectors</div><div class="cd">Thin connectors to goosed REST API -- Telegram LIVE -- others building</div></div>
+          <div class="card"><div class="cl">Memory</div><div class="cn">ironbridge-memory</div><div class="cd">Private GitHub repo -- CLAUDE.md = source of truth -- sync-protocol.md = law</div></div>
+          <div class="card"><div class="cl">Context Server</div><div class="cn">memory-mcp</div><div class="cd">Railway service -- Claude reads CLAUDE.md auto at session start -- no paste</div></div>
+          <div class="card"><div class="cl">Deployment</div><div class="cn">Railway</div><div class="cd">5 services live -- powerful-friendship project -- auto-deploy on git push</div></div>
+          <div class="card"><div class="cl">Frontend</div><div class="cn">Vercel</div><div class="cd">ironbridge-jade.vercel.app -- /start.html -- /gaming.html -- /my-agent.html</div></div>
         </div>
       </div>
     </div>
 
     <!-- PLATFORMS -->
-    <div id="plat" class="pg">
-      <div class="sec">
-        <div class="st">Platform Tiers -- No Limit</div>
-        <div class="al">
-          <div class="ac" style="border-left:3px solid var(--g)"><div class="gt appr">TIER 1 LIVE</div><div class="ab"><div class="ti">Telegram, Discord, X / Twitter</div><div class="su">Bridges built | agents running</div></div></div>
-          <div class="ac y"><div class="gt y">TIER 2 BUILDING</div><div class="ab"><div class="ti">WhatsApp, Slack, Web Widget, Email, Instagram</div><div class="su">WhatsApp needs Meta API key (RED gate)</div></div></div>
-          <div class="ac" style="border-left:3px solid var(--bd)"><div class="gt decl">TIER 3 ROADMAP</div><div class="ab"><div class="ti">LinkedIn, TikTok, SMS / Voice, Teams</div><div class="su">Post-Milestone 1</div></div></div>
-          <div class="ac act"><div class="gt act">TIER 4 WEB3</div><div class="ab"><div class="ti">Farcaster, Bluesky, Lens Protocol</div><div class="su">Post-token launch</div></div></div>
-          <div class="ac y"><div class="gt y">TIER 5 GAMING</div><div class="ab"><div class="ti">Discord, Twitch, Roblox, Minecraft, Steam, Xbox</div><div class="su">Discord LIVE | game packages: Fortnite, CoD, Roblox, Minecraft, Valorant, LoL, Apex</div></div></div>
+    <div id="platforms" class="page">
+      <div class="section">
+        <div class="stitle">Platform Tiers</div>
+        <div class="plist">
+          <div class="pitem gr"><div class="pgat g">TIER 1 LIVE</div><div><div class="ptxt">Telegram -- Discord -- X / Twitter</div><div class="psub">Bridges built -- agents running</div></div></div>
+          <div class="pitem yellow"><div class="pgat y">TIER 2 BUILDING</div><div><div class="ptxt">WhatsApp -- Slack -- Web Widget -- Email -- Instagram</div><div class="psub">WhatsApp needs Meta API key (RED gate)</div></div></div>
+          <div class="pitem" style="border-left:3px solid var(--border)"><div class="pgat" style="color:var(--dim)">TIER 3 ROADMAP</div><div><div class="ptxt">LinkedIn -- TikTok -- SMS Voice -- Teams</div><div class="psub">Post-Milestone 1</div></div></div>
+          <div class="pitem bl"><div class="pgat b">TIER 4 WEB3</div><div><div class="ptxt">Farcaster -- Bluesky -- Lens Protocol</div><div class="psub">Post-token launch</div></div></div>
+          <div class="pitem yellow"><div class="pgat y">TIER 5 GAMING</div><div><div class="ptxt">Discord -- Twitch -- Roblox -- Minecraft -- Steam -- Xbox</div><div class="psub">Discord LIVE -- Twitch coming -- game packages ready</div></div></div>
         </div>
       </div>
     </div>
 
     <!-- VERTICALS -->
-    <div id="vert" class="pg">
-      <div class="sec">
-        <div class="st">Verticals + Game Packages</div>
+    <div id="verticals" class="page">
+      <div class="section">
+        <div class="stitle">Verticals + Game Packages</div>
         <div class="g3">
-          <div class="cd"><div class="cdl">Gaming | ?package=gaming</div><div class="cdn">Fortnite, CoD, Roblox, Minecraft, Valorant, LoL, Apex</div><div class="cdd">Each game: pre-configured agent, platforms, personality, 50 Q+A pairs | $500 package</div></div>
-          <div class="cd"><div class="cdl">Business | ?package=business</div><div class="cdn">Customer Support Agent</div><div class="cdd">WhatsApp + Web Widget + Email | FAQs, booking | $500 package</div></div>
-          <div class="cd"><div class="cdl">Creator | ?package=creator</div><div class="cdn">Content Creator Agent</div><div class="cdd">X + Instagram + Discord | fan DMs, content | $500 package</div></div>
-          <div class="cd"><div class="cdl">Developer | ?package=developer</div><div class="cdn">Dev Community Agent</div><div class="cdd">Discord + Telegram + X | technical Q+A, docs | $500 package</div></div>
-          <div class="cd"><div class="cdl">Web3 | ?package=web3</div><div class="cdn">Crypto / Web3 Agent</div><div class="cdd">Telegram + Discord + Farcaster | token FAQ | $500 package</div></div>
-          <div class="cd"><div class="cdl">Education + Wellness</div><div class="cdn">Learning + Wellness Agents</div><div class="cdd">Education: Discord + Teams + Web | Wellness: WhatsApp + Instagram + Web</div></div>
+          <div class="card"><div class="cl">Gaming -- ?package=gaming</div><div class="cn">Fortnite CoD Roblox Minecraft Valorant LoL Apex</div><div class="cd">Each game: pre-configured agent + platforms + personality + 50 Q&amp;A -- $500 package</div></div>
+          <div class="card"><div class="cl">Business -- ?package=business</div><div class="cn">Customer Support Agent</div><div class="cd">WhatsApp + Web Widget + Email -- FAQs booking support -- $500 package</div></div>
+          <div class="card"><div class="cl">Creator -- ?package=creator</div><div class="cn">Content Creator Agent</div><div class="cd">X + Instagram + Discord -- fan DMs content growth -- $500 package</div></div>
+          <div class="card"><div class="cl">Developer -- ?package=developer</div><div class="cn">Dev Community Agent</div><div class="cd">Discord + Telegram + X -- technical Q&amp;A docs issues -- $500 package</div></div>
+          <div class="card"><div class="cl">Web3 -- ?package=web3</div><div class="cn">Crypto Web3 Agent</div><div class="cd">Telegram + Discord + Farcaster -- token FAQ community -- $500 package</div></div>
+          <div class="card"><div class="cl">Education + Wellness</div><div class="cn">Learning + Wellness Agents</div><div class="cd">Education: Discord + Teams + Web -- Wellness: WhatsApp + Instagram + Web</div></div>
         </div>
       </div>
     </div>
@@ -265,170 +286,189 @@ body{background:var(--bg);color:var(--tx);font-family:Inter,-apple-system,sans-s
 <div class="toast" id="toast"></div>
 
 <script>
-var GH = localStorage.getItem("ib_gh") || "";
+var GH = "";
 var TG = "8472679881:AAGEUJi0svu2PgQ2Rh94NJ9G_cj4NFX7gkU";
 var OC = "8165535063";
 var REPO = "IRONBRIDGE-Al/ironbridge-memory";
-var decisions = JSON.parse(localStorage.getItem("ib_dec") || "[]");
-var states = JSON.parse(localStorage.getItem("ib_st") || "{}");
 
-var ITEMS = [
-  { id:"pricing", gate:"r", label:"RED - CRITICAL", title:"Pricing approval", sub:"Free / $10 / $50 / $200 Founder + 10% rev share + $500 packages", fanout:"Unblocks Paul + Gary + waitlist deploy. Activates onboarding wizard and X distribution.",
-    inboxes:[{a:"paul",t:"OWNER APPROVED PRICING. Deploy 3-question onboarding wizard. Activate Clerk tiers. Pricing: Free/$10/$50/$200 Founder."},{a:"gary",t:"OWNER APPROVED PRICING. Launch waitlist on X. Deploy waitlist copy. Target 1000 signups."}],
-    msg:"Owner approved PRICING RED gate. Paul + Gary now ACTIVE. Waitlist deploying." },
-  { id:"deepseek", gate:"act", label:"ACTION", title:"DeepSeek top-up", sub:"Top up $5-10 at platform.deepseek.com to restore fallback LLM", fanout:"Restores DeepSeek as fallback when Groq rate limits hit.",
-    inboxes:[{a:"oscar",t:"DeepSeek topped up. Update Railway env vars with fresh key. Test fallback LLM."}],
-    msg:"DeepSeek top-up confirmed. Oscar updating LLM config." },
-  { id:"bnkr", gate:"y", label:"YELLOW", title:"BNKR Option A vs B", sub:"A: Sterling as sub-agent under Dick now. B: Dedicated post-M2 agent.", fanout:"Defines Sterling activation timeline and BNKR revenue strategy.",
-    inboxes:[{a:"oscar",t:"BNKR approved. Sterling activates per Owner decision. Prepare Railway service."}],
-    msg:"Owner decided on BNKR. Sterling activation queued." },
-  { id:"whatsapp", gate:"r", label:"RED", title:"WhatsApp Meta API key", sub:"Required to unlock WhatsApp bridge deployment (Tier 2 platform).", fanout:"Once key added, Oscar deploys WhatsApp bridge. 2B+ user reach unlocked.",
-    inboxes:[{a:"oscar",t:"WhatsApp Meta API key approved. Build and deploy WhatsApp bridge connector."}],
-    msg:"WhatsApp RED gate approved. Oscar deploying WhatsApp bridge." }
+var PENDING = [
+  { id:"pricing", gate:"red",    title:"Pricing approval",         sub:"Free / $10 / $50 / $200 Founder + 10% rev share + $500 packages", fanout:"Unblocks Paul + Gary + waitlist. Paul builds auth+db. Gary launches waitlist on X.", paul:"OWNER APPROVED PRICING. Deploy 3-question onboarding wizard. Activate Clerk tiers. Free/$10/$50/$200 Founder.", gary:"OWNER APPROVED PRICING. Launch waitlist on X. Target 1000 signups. Use Rust dev community.", dick:"Owner approved PRICING RED gate. Paul + Gary now ACTIVE." },
+  { id:"deepseek", gate:"action", title:"DeepSeek top-up $5-10",   sub:"platform.deepseek.com -- restores fallback LLM when Groq rate limits hit", fanout:"Oscar updates Railway env with fresh key.", oscar:"DeepSeek topped up. Update Railway env vars with fresh DeepSeek key. Test LLM fallback.", dick:"DeepSeek top-up confirmed. Oscar updating config." },
+  { id:"bnkr",     gate:"yellow", title:"BNKR Option A vs B",       sub:"A: Sterling activates under Dick now -- B: Sterling stays dedicated post-M2", fanout:"Defines Sterling activation and BNKR revenue timeline.", oscar:"BNKR decision made. Prepare Railway service for Sterling agent per Owner choice.", dick:"Owner decided on BNKR structure. Sterling activation queued." },
+  { id:"whatsapp", gate:"red",    title:"WhatsApp Meta API key",    sub:"Required to unlock WhatsApp bridge deployment -- Tier 2 platform -- 2B users", fanout:"Oscar deploys WhatsApp bridge. 2B user reach unlocked.", oscar:"WhatsApp Meta API key approved. Build and deploy WhatsApp bridge connector to goosed.", dick:"WhatsApp RED gate approved. Oscar deploying WhatsApp bridge." }
 ];
 
-function saveState() {
-  localStorage.setItem("ib_st", JSON.stringify(states));
-  localStorage.setItem("ib_dec", JSON.stringify(decisions));
-  var pending = ITEMS.filter(function(p){ return !states[p.id]; }).length;
-  document.getElementById("pcnt").textContent = pending;
-  document.getElementById("dcnt").textContent = decisions.length;
+var states = JSON.parse(localStorage.getItem("ib_states") || "{}");
+var decisions = JSON.parse(localStorage.getItem("ib_decisions") || "[]");
+
+function save() {
+  localStorage.setItem("ib_states", JSON.stringify(states));
+  localStorage.setItem("ib_decisions", JSON.stringify(decisions));
+  var p = PENDING.filter(function(x){ return !states[x.id]; }).length;
+  document.getElementById("pendingCount").textContent = p;
+  document.getElementById("decisionCount").textContent = decisions.length;
 }
 
-function toast(msg, ok) {
+function toast(msg, type) {
   var el = document.getElementById("toast");
   el.textContent = msg;
-  el.className = "toast show" + (ok ? " ok" : "");
-  setTimeout(function(){ el.className = "toast"; }, 3500);
+  el.className = "toast show" + (type ? " "+type : "");
+  setTimeout(function(){ el.classList.remove("show"); }, 3500);
 }
 
-function ghPut(path, content, msg) {
+function ghPut(path, content, msg, sha) {
   if (!GH) return Promise.resolve();
+  var bytes = new TextEncoder().encode(content);
+  var bin = ""; bytes.forEach(function(b){ bin += String.fromCharCode(b); });
+  var body = { message: msg, content: btoa(bin) };
+  if (sha) body.sha = sha;
   return fetch("https://api.github.com/repos/"+REPO+"/contents/"+path, {
-    headers: { "Authorization": "token "+GH, "Accept": "application/vnd.github.v3+json" }
-  }).then(function(r){ return r.json(); }).then(function(g) {
-    var b64 = g.content ? atob(g.content.split("\n").join("")) : "# "+path+"\n";
-    var cur = g.content ? b64 : "# inbox\n";
-    var entry = cur + "\n\n## OWNER " + new Date().toISOString().slice(0,16).replace("T"," ") + "\n" + content + "\n\n---";
-    var bytes = new TextEncoder().encode(entry);
-    var bin = ""; bytes.forEach(function(byte){ bin += String.fromCharCode(byte); });
-    var body = { message: msg, content: btoa(bin) };
-    if (g.sha) body.sha = g.sha;
-    return fetch("https://api.github.com/repos/"+REPO+"/contents/"+path, {
-      method: "PUT", headers: { "Authorization": "token "+GH, "Content-Type": "application/json", "Accept": "application/vnd.github.v3+json" },
-      body: JSON.stringify(body)
-    });
+    method: "PUT",
+    headers: { "Authorization": "token "+GH, "Content-Type": "application/json", "Accept": "application/vnd.github.v3+json" },
+    body: JSON.stringify(body)
   }).catch(function(){});
 }
 
-function tgSend(msg) {
-  if (!TG || !OC) return;
+function ghGet(path) {
+  if (!GH) return Promise.resolve(null);
+  return fetch("https://api.github.com/repos/"+REPO+"/contents/"+path, {
+    headers: { "Authorization": "token "+GH, "Accept": "application/vnd.github.v3+json" }
+  }).then(function(r){ return r.json(); }).catch(function(){ return null; });
+}
+
+function writeInbox(agent, task) {
+  if (!GH) return Promise.resolve();
+  var path = "logs/inbox/"+agent+"-inbox.md";
+  var ts = new Date().toISOString().slice(0,16).replace("T"," ");
+  return ghGet(path).then(function(g) {
+    var cur = "";
+    if (g && g.content) {
+      cur = atob(g.content.split("\n").join(""));
+    } else {
+      cur = "# "+agent+" inbox";
+    }
+    var entry = cur + "\n\n## OWNER DECISION "+ts+"\nStatus: ACTIVE\n\n"+task+"\n\n---";
+    return ghPut(path, entry, "[Owner] Decision to "+agent, g && g.sha);
+  });
+}
+
+function notifyDick(msg) {
   fetch("https://api.telegram.org/bot"+TG+"/sendMessage", {
-    method:"POST", headers:{"Content-Type":"application/json"},
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ chat_id: OC, text: "COMMAND CENTER\n\n"+msg })
   }).catch(function(){});
 }
 
 function approve(id) {
-  var item = ITEMS.find(function(p){ return p.id === id; });
+  var item = PENDING.find(function(p){ return p.id === id; });
   if (!item) return;
   var ts = new Date().toISOString().slice(0,16).replace("T"," ");
   states[id] = { action: "approved", ts: ts };
   decisions.unshift({ ts: ts, title: item.title, action: "APPROVED", gate: item.gate });
-  saveState();
-  renderAll();
-  if (GH) {
-    item.inboxes.forEach(function(inbox) {
-      ghPut("logs/inbox/"+inbox.a+"-inbox.md", inbox.t, "[Owner] Decision -> "+inbox.a);
-    });
-    ghPut("logs/decisions/approvals.md", item.title+" -- APPROVED "+ts, "[Owner] Approved: "+item.title);
-  }
-  tgSend(item.msg);
-  toast("Approved: "+item.title+" -- Team notified", true);
+  save();
+  renderCards();
+  renderDecisions();
+  var logEntry = "## APPROVED "+ts+"\n**Decision:** "+item.title+"\n**Gate:** "+item.gate.toUpperCase()+"\n**Fan-out:** "+item.fanout+"\n\n---\n";
+  ghGet("logs/decisions/approvals.md").then(function(g) {
+    var cur = (g && g.content) ? atob(g.content.split("\n").join("")) : "# Approvals\n";
+    return ghPut("logs/decisions/approvals.md", cur+logEntry, "[Owner] Approved: "+item.title, g && g.sha);
+  });
+  var inboxPromises = [];
+  if (item.paul) inboxPromises.push(writeInbox("paul", item.paul));
+  if (item.gary) inboxPromises.push(writeInbox("gary", item.gary));
+  if (item.oscar) inboxPromises.push(writeInbox("oscar", item.oscar));
+  if (item.sam) inboxPromises.push(writeInbox("sam", item.sam));
+  Promise.all(inboxPromises).then(function(){ notifyDick(item.dick || "Gate approved: "+item.title); });
+  toast("Approved: "+item.title+" -- agents notified", "ok");
 }
 
 function decline(id) {
-  var item = ITEMS.find(function(p){ return p.id === id; });
+  var item = PENDING.find(function(p){ return p.id === id; });
   if (!item) return;
   var ts = new Date().toISOString().slice(0,16).replace("T"," ");
   states[id] = { action: "declined", ts: ts };
   decisions.unshift({ ts: ts, title: item.title, action: "DECLINED", gate: item.gate });
-  saveState();
-  renderAll();
-  toast("Declined: "+item.title, false);
+  save();
+  renderCards();
+  renderDecisions();
+  toast("Declined: "+item.title, "");
 }
 
 function reset(id) {
   delete states[id];
-  saveState();
-  renderAll();
+  save();
+  renderCards();
 }
 
 function makeCard(item) {
-  var st = states[item.id];
+  var state = states[item.id];
   var div = document.createElement("div");
-  div.className = "ac " + (st ? (st.action === "approved" ? "appr" : "decl") : item.gate);
-  var gtClass = st ? st.action : item.gate;
-  var gtText = st ? st.action.toUpperCase() : item.label;
+  div.className = "acard " + (state ? (state.action === "approved" ? "approved" : "declined") : item.gate);
+  var gclass = state ? state.action : item.gate;
+  var gtext = state ? state.action.toUpperCase() : item.gate.toUpperCase();
   var btns = "";
-  if (!st) {
-    btns = "<button class='btn-ok' onclick='approve(\""+item.id+"\")'>Approve</button>" +
-           "<button class='btn-no' onclick='decline(\""+item.id+"\")'>Decline</button>";
-  } else if (st.action === "approved") {
-    btns = "<button class='btn-done'>Approved</button><button class='btn-rst' onclick='reset(\""+item.id+"\")'> Reset</button>";
+  if (!state) {
+    btns = '<button class="btn-approve" onclick="approve(\''+item.id+'\')">' + 'Approve</button>' + '<button class="btn-decline" onclick="decline(\''+item.id+'\')">' + 'Decline</button>';
+  } else if (state.action === "approved") {
+    btns = '<button class="btn-done">Approved</button>' + '<button class="btn-x" onclick="reset(\''+item.id+'\')">' + 'Reset</button>';
   } else {
-    btns = "<button class='btn-no' style='cursor:default'>Declined</button><button class='btn-rst' onclick='reset(\""+item.id+"\")'> Reset</button>";
+    btns = '<button class="btn-decline" style="cursor:default">Declined</button>' + '<button class="btn-x" onclick="reset(\''+item.id+'\')">' + 'Reset</button>';
   }
-  div.innerHTML = "<div class='gt "+gtClass+"'>" + gtText + "</div>" +
-    "<div class='ab'><div class='ti'>" + item.title + "</div><div class='su'>" + item.sub + "</div><div class='fo'>On approve: " + item.fanout + "</div></div>" +
-    "<div class='aa'>" + btns + "</div>";
+  div.innerHTML = '<div class="gtag '+gclass+'">'+gtext+'</div>' +
+    '<div class="abody"><div class="at">'+item.title+'</div><div class="as">'+item.sub+'</div><div class="af">On approve: '+item.fanout+'</div></div>' +
+    '<div class="abtns">'+btns+'</div>';
   return div;
 }
 
-function renderAll() {
-  ["dashCards","apprCards"].forEach(function(cid) {
+function renderCards() {
+  ["dashCards","approvalCards"].forEach(function(cid) {
     var c = document.getElementById(cid);
     if (!c) return;
-    c.innerHTML = "";
     var list = document.createElement("div");
-    list.className = "al";
-    ITEMS.forEach(function(item){ list.appendChild(makeCard(item)); });
+    list.className = "alist";
+    PENDING.forEach(function(item) { list.appendChild(makeCard(item)); });
+    c.innerHTML = "";
     c.appendChild(list);
   });
-  var dl = document.getElementById("dlogList");
-  if (!decisions.length) { dl.innerHTML = "<div class='empty'>No decisions yet.</div>"; return; }
-  dl.innerHTML = "";
+}
+
+function renderDecisions() {
+  var c = document.getElementById("decisionLog");
+  if (!decisions.length) { c.innerHTML = '<div class="empty">No decisions yet.</div>'; return; }
+  c.innerHTML = "";
   decisions.forEach(function(d) {
     var row = document.createElement("div");
-    row.className = "dr";
-    var color = d.action === "APPROVED" ? "var(--g)" : "var(--dm)";
-    row.innerHTML = "<div class='dts'>" + d.ts + "</div><div class='db'>" + d.title +
-      " <strong style='color:" + color + "'>" + d.action + "</strong><div class='dbsub'>Gate: " + d.gate.toUpperCase() + " | Owner via Command Center</div></div>";
-    dl.appendChild(row);
+    row.className = "drow";
+    var col = d.action === "APPROVED" ? "var(--green)" : "var(--dim)";
+    row.innerHTML = '<div class="dts">'+d.ts+'</div><div class="dbody">'+d.title+' <span style="color:'+col+';font-weight:700">'+d.action+'</span><div class="dby">Gate: '+d.gate.toUpperCase()+' -- Owner via Command Center</div></div>';
+    c.appendChild(row);
   });
 }
 
 function show(id, el) {
-  document.querySelectorAll(".pg").forEach(function(p){ p.classList.remove("active"); });
+  document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
   document.querySelectorAll(".ni").forEach(function(n){ n.classList.remove("active"); });
-  document.getElementById(id).classList.add("active");
-  if (el) el.classList.add("active");
-  var labels = { dash:"Dashboard", report:"Reporting Chain", dlog:"Decision Log", agents:"All Agents", appr:"Needs Owner", stack:"Tech Stack", plat:"Platforms", vert:"Verticals" };
-  document.getElementById("ptitle").textContent = labels[id] || id;
+  var page = document.getElementById(id);
+  if (page) page.classList.add("active");
+  if (el && el.classList) el.classList.add("active");
+  var navEl = document.getElementById("nav-"+id);
+  if (navEl) navEl.classList.add("active");
+  document.getElementById("pageTitle").textContent = el ? el.textContent.trim().replace(/[0-9]/g,"").trim() : id;
 }
 
 function updateClock() {
   document.getElementById("clock").textContent = new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"});
 }
 
-// Token setup -- stored in localStorage, only asked once
-if (!GH) {
-  var t = prompt("Optional: Enter GitHub token to enable full memory writes when approving. Leave blank to use approval-only mode.");
-  if (t && t.length > 10) { GH = t; localStorage.setItem("ib_gh", t); }
-}
+// Check if GH token is saved
+var saved = localStorage.getItem("ib_gh_token");
+if (saved) GH = saved;
+window.setToken = function(t) { GH = t; localStorage.setItem("ib_gh_token", t); toast("GitHub token saved -- approvals now write to memory", "ok"); };
 
-renderAll();
-saveState();
+renderCards();
+renderDecisions();
+save();
 updateClock();
 setInterval(updateClock, 1000);
 </script>

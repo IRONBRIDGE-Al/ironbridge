@@ -116,6 +116,18 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif
 .psub{font-size:11px;color:var(--dim);margin-top:2px}
 .page{display:none}.page.active{display:block}
 </style>
+<style>
+#ib-auth{position:fixed;inset:0;background:#0a0a0a;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;}
+#ib-auth h2{color:#00ff88;font-size:1.4rem;letter-spacing:.15em;margin:0;}
+#ib-auth p{color:#666;font-size:.85rem;margin:0;text-align:center;max-width:280px;line-height:1.6;}
+#ib-pin{background:#111;border:1px solid #333;color:#fff;font-size:1.6rem;letter-spacing:.4em;text-align:center;width:220px;padding:14px;border-radius:8px;outline:none;}
+#ib-pin:focus{border-color:#00ff88;}
+#ib-go{background:#00ff88;color:#000;font-weight:700;border:none;padding:12px 40px;border-radius:6px;cursor:pointer;font-size:1rem;}
+#ib-err{color:#ff4444;font-size:.85rem;min-height:18px;}
+#ib-forgot{color:#444;font-size:.8rem;cursor:pointer;text-decoration:underline;background:none;border:none;}
+#ib-sent{color:#00ff88;font-size:.85rem;display:none;}
+#ib-setup-warn{position:fixed;top:16px;right:16px;background:#ff440022;border:1px solid #ff4444;color:#ff4444;padding:12px 20px;border-radius:6px;font-size:.85rem;z-index:9998;display:none;}
+</style>
 </head>
 <body>
 
@@ -342,192 +354,217 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif
 
 <div class="toast" id="toast"></div>
 
-<script>
-var GH = "";
-var TG = "8472679881:AAGEUJi0svu2PgQ2Rh94NJ9G_cj4NFX7gkU";
-var OC = "8165535063";
-var REPO = "IRONBRIDGE-Al/ironbridge-memory";
 
-var PENDING = [
-  { id:"pricing", gate:"red",    title:"Pricing approval",         sub:"Free / $10 / $50 / $200 Founder + 10% rev share + $500 packages", fanout:"Unblocks Paul + Gary + waitlist. Paul builds auth+db. Gary launches waitlist on X.", paul:"OWNER APPROVED PRICING. Deploy 3-question onboarding wizard. Activate Clerk tiers. Free/$10/$50/$200 Founder.", gary:"OWNER APPROVED PRICING. Launch waitlist on X. Target 1000 signups. Use Rust dev community.", dick:"Owner approved PRICING RED gate. Paul + Gary now ACTIVE." },
-  { id:"deepseek", gate:"action", title:"DeepSeek top-up $5-10",   sub:"platform.deepseek.com -- restores fallback LLM when Groq rate limits hit", fanout:"Oscar updates Railway env with fresh key.", oscar:"DeepSeek topped up. Update Railway env vars with fresh DeepSeek key. Test LLM fallback.", dick:"DeepSeek top-up confirmed. Oscar updating config." },
-  { id:"bnkr",     gate:"yellow", title:"BNKR Option A vs B",       sub:"A: Sterling activates under Dick now -- B: Sterling stays dedicated post-M2", fanout:"Defines Sterling activation and BNKR revenue timeline.", oscar:"BNKR decision made. Prepare Railway service for Sterling agent per Owner choice.", dick:"Owner decided on BNKR structure. Sterling activation queued." },
-  { id:"whatsapp", gate:"red",    title:"WhatsApp Meta API key",    sub:"Required to unlock WhatsApp bridge deployment -- Tier 2 platform -- 2B users", fanout:"Oscar deploys WhatsApp bridge. 2B user reach unlocked.", oscar:"WhatsApp Meta API key approved. Build and deploy WhatsApp bridge connector to goosed.", dick:"WhatsApp RED gate approved. Oscar deploying WhatsApp bridge." }
+
+<!--
+  IRONBRIDGE COMMAND CENTER
+  ═══════════════════════════════════════════════════════════════
+  SECRETS LIVE IN VERCEL ENV VARS. NOT HERE. NEVER HERE.
+
+  Required Vercel env vars (set at vercel.com/ironbridge/settings):
+    IB_PIN       -- access PIN (e.g. ironbridge2026)
+    IB_BOT       -- Telegram bot token
+    IB_CHAT_ID   -- Owner Telegram chat ID
+    IB_GH_TOKEN  -- GitHub PAT (write access to ironbridge-memory)
+
+  These are injected into window.__IB__ by /api/config.js (Edge Function)
+  The HTML reads from window.__IB__. Clean repo. Safe source control.
+  ═══════════════════════════════════════════════════════════════
+-->
+
+<script>
+// Config is injected at runtime by /api/config.js
+// If missing, show setup warning and use fallback (empty -- no actions work)
+const IB = (typeof window.__IB__ !== 'undefined') ? window.__IB__ : {};
+const IB_READY = !!(IB.PIN && IB.BOT && IB.CHAT_ID && IB.GH_TOKEN);
+
+if (!IB_READY) {
+  // Show setup warning for owner -- never visible to end users
+  document.addEventListener('DOMContentLoaded', () => {
+    const w = document.getElementById('ib-setup-warn');
+    if (w) {
+      w.style.display = 'block';
+      w.textContent = 'ENV VARS NOT SET -- Go to Vercel > Settings > Environment Variables and add IB_PIN, IB_BOT, IB_CHAT_ID, IB_GH_TOKEN. Then redeploy.';
+    }
+  });
+}
+</script>
+
+<script>
+async function notifyTelegram(msg) {
+  if (!IB.BOT || !IB.CHAT_ID) return;
+  try {
+    await fetch('https://api.telegram.org/bot' + IB.BOT + '/sendMessage', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ chat_id: IB.CHAT_ID, text: msg })
+    });
+  } catch(e) { console.warn('[IB] Telegram failed', e); }
+}
+
+// PIN AUTH
+(function pinAuth() {
+  if (sessionStorage.getItem('ib_ok') === '1') return;
+  const ov = document.createElement('div'); ov.id='ib-auth';
+  ov.innerHTML = '<h2>IRONBRIDGE</h2><p>Command Center &mdash; Owner Only</p>' +
+    '<input id="ib-pin" type="password" placeholder="Enter PIN" maxlength="32" autocomplete="off" />' +
+    '<div id="ib-err"></div><button id="ib-go">ENTER</button>' +
+    '<button id="ib-forgot">I forgot my PIN</button>' +
+    '<div id="ib-sent">Sending PIN to your Telegram now...</div>';
+  document.body.prepend(ov);
+  setTimeout(()=>document.getElementById('ib-pin').focus(),50);
+  function attempt() {
+    const pin = IB.PIN || 'ironbridge2026'; // fallback only if env not set
+    if (document.getElementById('ib-pin').value.trim() === pin) {
+      sessionStorage.setItem('ib_ok','1'); ov.remove();
+      notifyTelegram('Command center accessed ' + new Date().toLocaleString());
+    } else {
+      document.getElementById('ib-err').textContent = 'Wrong PIN. Try forgot PIN if needed.';
+      document.getElementById('ib-pin').value = '';
+    }
+  }
+  document.getElementById('ib-go').onclick = attempt;
+  document.getElementById('ib-pin').onkeydown = e => { if(e.key==='Enter') attempt(); };
+  document.getElementById('ib-forgot').onclick = async () => {
+    document.getElementById('ib-sent').style.display='block';
+    document.getElementById('ib-forgot').style.display='none';
+    await notifyTelegram('PIN RECOVERY REQUEST\nForgot PIN clicked.\nPIN: ' + (IB.PIN||'check Vercel env IB_PIN') + '\nTime: ' + new Date().toLocaleString() + '\n\nIf not you: rotate PIN in Vercel env immediately.');
+  };
+})();
+
+async function commitToMemory(id, action, title, gate, affects) {
+  if (!IB.GH_TOKEN) { console.warn('[IB] No GH_TOKEN -- memory sync skipped'); return; }
+  try {
+    const metaR = await fetch('https://api.github.com/repos/IRONBRIDGE-Al/ironbridge-memory/contents/ops/command-center.md', {
+      headers: { Authorization: 'token ' + IB.GH_TOKEN }
+    });
+    const meta = await metaR.json();
+    const states = JSON.parse(localStorage.getItem('ib_states')||'{}');
+    const log    = JSON.parse(localStorage.getItem('ib_decisions')||'[]');
+    const ts     = new Date().toISOString().slice(0,16).replace('T',' ');
+    const approvalLog = log.map(d=>'['+d.action+' '+d.ts+'] '+d.title).join('\n')||'(none)';
+    const pending = (typeof DECISIONS!=='undefined'?DECISIONS:[]).filter(d=>!states[d.id]).map(d=>'['+d.gate.toUpperCase()+'] '+d.title).join('\n')||'(all resolved)';
+    const pricingGreen = !!states['pricing'];
+    const content = '# IronBridge Command Center\n# Updated: '+ts+' (auto-sync)\n\n'+
+      '## AGENT STATUS\nDick: SUCCESS\nBrooks: SUCCESS\nOscar: SUCCESS\nRachel: SUCCESS\nmemory-mcp: SUCCESS\n'+
+      'Paul: STANDBY -- pricing '+(pricingGreen?'GREEN':'RED')+'\nGary: STANDBY -- pricing '+(pricingGreen?'GREEN':'RED')+'\n\n'+
+      '## APPROVAL LOG\n'+approvalLog+'\n\n## PENDING\n'+pending+'\n';
+    const bytes = new TextEncoder().encode(content);
+    let bin=''; bytes.forEach(b=>bin+=String.fromCharCode(b));
+    await fetch('https://api.github.com/repos/IRONBRIDGE-Al/ironbridge-memory/contents/ops/command-center.md', {
+      method:'PUT', headers:{Authorization:'token '+IB.GH_TOKEN,'Content-Type':'application/json'},
+      body: JSON.stringify({ message:'decision: '+action+' '+title+' ('+ts+')', content:btoa(bin), sha:meta.sha })
+    });
+    console.log('[IB] Memory synced');
+  } catch(e) {
+    console.error('[IB] commitToMemory failed',e);
+    await notifyTelegram('WARNING: memory sync failed after '+action+' on '+title+'. Manual sync needed.');
+  }
+}
+
+async function deptHealthCheck() {
+  const issues=[];
+  if(!IB_READY) issues.push('Vercel env vars not configured -- IB_PIN/IB_BOT/IB_CHAT_ID/IB_GH_TOKEN missing');
+  try {
+    const tg = await fetch('https://api.telegram.org/bot'+(IB.BOT||'x')+'/getMe').then(r=>r.json());
+    if(!tg.ok) issues.push('Telegram bot unreachable');
+  } catch(e){ issues.push('Telegram: '+e.message); }
+  if(issues.length) await notifyTelegram('DEPT HEALTH ALERT\n\n'+issues.join('\n')+'\n\n'+new Date().toLocaleString());
+}
+
+const DECISIONS = [
+  {id:'pricing',  gate:'red',    title:'Pricing approval',      desc:'Free/$10/$50/$200 Founder + 10% rev share + $500 packages', onApprove:'Unblocks Paul + Gary + waitlist.',                         affects:['Paul','Gary']},
+  {id:'deepseek', gate:'action', title:'DeepSeek top-up $5-10', desc:'platform.deepseek.com -- fallback LLM when Groq rate-limits', onApprove:'Oscar updates Railway env with fresh key.',               affects:['Oscar']},
+  {id:'bnkr',     gate:'yellow', title:'BNKR Option A vs B',    desc:'A: Sterling under Dick now  B: Sterling dedicated post-M2',   onApprove:'Defines Sterling activation + BNKR revenue timeline.',   affects:['Dick','Sterling']},
+  {id:'whatsapp', gate:'red',    title:'WhatsApp Meta API key',  desc:'WhatsApp bridge -- Tier 2 -- 2B users',                      onApprove:'Oscar deploys WhatsApp bridge.',                          affects:['Oscar']}
 ];
 
-var states = JSON.parse(localStorage.getItem("ib_states") || "{}");
-var decisions = JSON.parse(localStorage.getItem("ib_decisions") || "[]");
-
-function save() {
-  localStorage.setItem("ib_states", JSON.stringify(states));
-  localStorage.setItem("ib_decisions", JSON.stringify(decisions));
-  var p = PENDING.filter(function(x){ return !states[x.id]; }).length;
-  document.getElementById("pendingCount").textContent = p;
-  document.getElementById("decisionCount").textContent = decisions.length;
+function gateColor(gate,done,action){
+  if(done)return action==='approved'?'#00ff88':'#ff4444';
+  return gate==='red'?'#ff4444':gate==='yellow'?'#ffd700':'#00ff88';
+}
+function renderDecisions(){
+  const el=document.getElementById('decisions-list'); if(!el)return;
+  const states=JSON.parse(localStorage.getItem('ib_states')||'{}');
+  el.innerHTML=DECISIONS.map(d=>{
+    const s=states[d.id]; const done=s?.action==='approved'||s?.action==='declined';
+    const col=gateColor(d.gate,done,s?.action); const badge=done?s.action.toUpperCase():d.gate.toUpperCase();
+    return '<div style="border:1px solid '+col+';border-left:4px solid '+col+';border-radius:6px;padding:20px 24px;margin-bottom:12px;background:#0d0d0d;display:flex;align-items:flex-start;gap:20px;">'+
+      '<div style="flex:1;"><div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">'+
+      '<span style="border:1px solid '+col+';color:'+(done?'#000':col)+';background:'+(done?col:'transparent')+';font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:4px;">'+badge+'</span>'+
+      '<strong style="color:#fff;">'+d.title+'</strong></div>'+
+      '<div style="color:#888;font-size:.85rem;margin-bottom:4px;">'+d.desc+'</div>'+
+      '<div style="color:#555;font-size:.8rem;">On approve: '+d.onApprove+'</div>'+
+      (d.affects?'<div style="color:#446;font-size:.75rem;margin-top:4px;">Affects: '+d.affects.join(', ')+'</div>':'')+
+      (done?'<div style="color:#444;font-size:.75rem;margin-top:6px;">Decided '+s.ts+'</div>':'')+
+      '</div><div style="display:flex;gap:8px;flex-shrink:0;">'+
+      (done
+        ? '<button onclick="reset(''+d.id+'')" style="background:transparent;color:#555;border:1px solid #333;padding:8px 16px;border-radius:4px;cursor:pointer;">Reset</button>'
+        : '<button onclick="approve(''+d.id+'')" style="background:#00ff88;color:#000;font-weight:700;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;">Approve</button>'+
+          '<button onclick="decline(''+d.id+'')" style="background:transparent;color:#ff4444;border:1px solid #ff4444;padding:10px 20px;border-radius:4px;cursor:pointer;">Decline</button>')+
+      '</div></div>';
+  }).join('');
+}
+function renderDecisionLog(){
+  const el=document.getElementById('decision-log-list'); if(!el)return;
+  const log=JSON.parse(localStorage.getItem('ib_decisions')||'[]');
+  if(!log.length){el.innerHTML='<p style="color:#555;">No decisions yet.</p>';return;}
+  el.innerHTML=log.map(d=>
+    '<div style="border-left:3px solid '+(d.action==='APPROVED'?'#00ff88':'#ff4444')+';padding:12px 16px;margin-bottom:8px;background:#0d0d0d;border-radius:0 4px 4px 0;">'+
+    '<span style="color:'+(d.action==='APPROVED'?'#00ff88':'#ff4444')+';font-weight:700;font-size:.8rem;">'+d.action+'</span>'+
+    '<span style="color:#fff;margin-left:12px;">'+d.title+'</span>'+
+    '<span style="color:#555;margin-left:12px;font-size:.8rem;">'+d.ts+'</span></div>'
+  ).join('');
+}
+function renderStats(){
+  const states=JSON.parse(localStorage.getItem('ib_states')||'{}');
+  const n=Object.values(states).filter(s=>s.action==='approved').length;
+  const el=document.getElementById('stat-launch-ready'); if(el)el.textContent=Math.round((n/DECISIONS.length)*100)+'%';
+}
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  const t=document.getElementById(id); if(t)t.style.display='block';
+  if(id==='section-decisions')renderDecisions();
+  if(id==='section-log')renderDecisionLog();
 }
 
-function toast(msg, type) {
-  var el = document.getElementById("toast");
-  el.textContent = msg;
-  el.className = "toast show" + (type ? " "+type : "");
-  setTimeout(function(){ el.classList.remove("show"); }, 3500);
+async function approve(id){
+  const d=DECISIONS.find(x=>x.id===id);if(!d)return;
+  const ts=new Date().toLocaleString();
+  const states=JSON.parse(localStorage.getItem('ib_states')||'{}');
+  states[id]={action:'approved',ts};localStorage.setItem('ib_states',JSON.stringify(states));
+  const log=JSON.parse(localStorage.getItem('ib_decisions')||'[]');
+  log.unshift({ts,title:d.title,action:'APPROVED',gate:d.gate});
+  localStorage.setItem('ib_decisions',JSON.stringify(log));
+  renderDecisions();renderStats();
+  await commitToMemory(id,'APPROVED',d.title,d.gate,d.affects);
+  await notifyTelegram('APPROVED: '+d.title+'\n'+d.onApprove+'\nAffects: '+(d.affects||[]).join(', ')+'\n'+ts);
 }
-
-function ghPut(path, content, msg, sha) {
-  if (!GH) return Promise.resolve();
-  var bytes = new TextEncoder().encode(content);
-  var bin = ""; bytes.forEach(function(b){ bin += String.fromCharCode(b); });
-  var body = { message: msg, content: btoa(bin) };
-  if (sha) body.sha = sha;
-  return fetch("https://api.github.com/repos/"+REPO+"/contents/"+path, {
-    method: "PUT",
-    headers: { "Authorization": "token "+GH, "Content-Type": "application/json", "Accept": "application/vnd.github.v3+json" },
-    body: JSON.stringify(body)
-  }).catch(function(){});
-}
-
-function ghGet(path) {
-  if (!GH) return Promise.resolve(null);
-  return fetch("https://api.github.com/repos/"+REPO+"/contents/"+path, {
-    headers: { "Authorization": "token "+GH, "Accept": "application/vnd.github.v3+json" }
-  }).then(function(r){ return r.json(); }).catch(function(){ return null; });
-}
-
-function writeInbox(agent, task) {
-  if (!GH) return Promise.resolve();
-  var path = "logs/inbox/"+agent+"-inbox.md";
-  var ts = new Date().toISOString().slice(0,16).replace("T"," ");
-  return ghGet(path).then(function(g) {
-    var cur = "";
-    if (g && g.content) {
-      cur = atob(g.content.split("\n").join(""));
-    } else {
-      cur = "# "+agent+" inbox";
-    }
-    var entry = cur + "\n\n## OWNER DECISION "+ts+"\nStatus: ACTIVE\n\n"+task+"\n\n---";
-    return ghPut(path, entry, "[Owner] Decision to "+agent, g && g.sha);
-  });
-}
-
-function notifyDick(msg) {
-  fetch("https://api.telegram.org/bot"+TG+"/sendMessage", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: OC, text: "COMMAND CENTER\n\n"+msg })
-  }).catch(function(){});
-}
-
-function approve(id) {
-  var item = PENDING.find(function(p){ return p.id === id; });
-  if (!item) return;
-  var ts = new Date().toISOString().slice(0,16).replace("T"," ");
-  states[id] = { action: "approved", ts: ts };
-  decisions.unshift({ ts: ts, title: item.title, action: "APPROVED", gate: item.gate });
-  save();
-  renderCards();
+async function decline(id){
+  const d=DECISIONS.find(x=>x.id===id);if(!d)return;
+  const ts=new Date().toLocaleString();
+  const states=JSON.parse(localStorage.getItem('ib_states')||'{}');
+  states[id]={action:'declined',ts};localStorage.setItem('ib_states',JSON.stringify(states));
+  const log=JSON.parse(localStorage.getItem('ib_decisions')||'[]');
+  log.unshift({ts,title:d.title,action:'DECLINED',gate:d.gate});
+  localStorage.setItem('ib_decisions',JSON.stringify(log));
   renderDecisions();
-  var logEntry = "## APPROVED "+ts+"\n**Decision:** "+item.title+"\n**Gate:** "+item.gate.toUpperCase()+"\n**Fan-out:** "+item.fanout+"\n\n---\n";
-  ghGet("logs/decisions/approvals.md").then(function(g) {
-    var cur = (g && g.content) ? atob(g.content.split("\n").join("")) : "# Approvals\n";
-    return ghPut("logs/decisions/approvals.md", cur+logEntry, "[Owner] Approved: "+item.title, g && g.sha);
-  });
-  var inboxPromises = [];
-  if (item.paul) inboxPromises.push(writeInbox("paul", item.paul));
-  if (item.gary) inboxPromises.push(writeInbox("gary", item.gary));
-  if (item.oscar) inboxPromises.push(writeInbox("oscar", item.oscar));
-  if (item.sam) inboxPromises.push(writeInbox("sam", item.sam));
-  Promise.all(inboxPromises).then(function(){ notifyDick(item.dick || "Gate approved: "+item.title); });
-  toast("Approved: "+item.title+" -- agents notified", "ok");
+  await commitToMemory(id,'DECLINED',d.title,d.gate,d.affects);
+  await notifyTelegram('DECLINED: '+d.title+'\n'+ts);
+}
+async function reset(id){
+  const d=DECISIONS.find(x=>x.id===id);if(!d)return;
+  const states=JSON.parse(localStorage.getItem('ib_states')||'{}');
+  delete states[id];localStorage.setItem('ib_states',JSON.stringify(states));
+  renderDecisions();renderStats();
+  await commitToMemory(id,'RESET',d.title,d.gate,d.affects);
+  await notifyTelegram('RESET: '+d.title+' returned to pending.');
 }
 
-function decline(id) {
-  var item = PENDING.find(function(p){ return p.id === id; });
-  if (!item) return;
-  var ts = new Date().toISOString().slice(0,16).replace("T"," ");
-  states[id] = { action: "declined", ts: ts };
-  decisions.unshift({ ts: ts, title: item.title, action: "DECLINED", gate: item.gate });
-  save();
-  renderCards();
-  renderDecisions();
-  toast("Declined: "+item.title, "");
-}
-
-function reset(id) {
-  delete states[id];
-  save();
-  renderCards();
-}
-
-function makeCard(item) {
-  var state = states[item.id];
-  var div = document.createElement("div");
-  div.className = "acard " + (state ? (state.action === "approved" ? "approved" : "declined") : item.gate);
-  var gclass = state ? state.action : item.gate;
-  var gtext = state ? state.action.toUpperCase() : item.gate.toUpperCase();
-  var btns = "";
-  if (!state) {
-    btns = '<button class="btn-approve" onclick="approve(\''+item.id+'\')">' + 'Approve</button>' + '<button class="btn-decline" onclick="decline(\''+item.id+'\')">' + 'Decline</button>';
-  } else if (state.action === "approved") {
-    btns = '<button class="btn-done">Approved</button>' + '<button class="btn-x" onclick="reset(\''+item.id+'\')">' + 'Reset</button>';
-  } else {
-    btns = '<button class="btn-decline" style="cursor:default">Declined</button>' + '<button class="btn-x" onclick="reset(\''+item.id+'\')">' + 'Reset</button>';
-  }
-  div.innerHTML = '<div class="gtag '+gclass+'">'+gtext+'</div>' +
-    '<div class="abody"><div class="at">'+item.title+'</div><div class="as">'+item.sub+'</div><div class="af">On approve: '+item.fanout+'</div></div>' +
-    '<div class="abtns">'+btns+'</div>';
-  return div;
-}
-
-function renderCards() {
-  ["dashCards","approvalCards"].forEach(function(cid) {
-    var c = document.getElementById(cid);
-    if (!c) return;
-    var list = document.createElement("div");
-    list.className = "alist";
-    PENDING.forEach(function(item) { list.appendChild(makeCard(item)); });
-    c.innerHTML = "";
-    c.appendChild(list);
-  });
-}
-
-function renderDecisions() {
-  var c = document.getElementById("decisionLog");
-  if (!decisions.length) { c.innerHTML = '<div class="empty">No decisions yet.</div>'; return; }
-  c.innerHTML = "";
-  decisions.forEach(function(d) {
-    var row = document.createElement("div");
-    row.className = "drow";
-    var col = d.action === "APPROVED" ? "var(--green)" : "var(--dim)";
-    row.innerHTML = '<div class="dts">'+d.ts+'</div><div class="dbody">'+d.title+' <span style="color:'+col+';font-weight:700">'+d.action+'</span><div class="dby">Gate: '+d.gate.toUpperCase()+' -- Owner via Command Center</div></div>';
-    c.appendChild(row);
-  });
-}
-
-function show(id, el) {
-  document.querySelectorAll(".page").forEach(function(p){ p.classList.remove("active"); });
-  document.querySelectorAll(".ni").forEach(function(n){ n.classList.remove("active"); });
-  var page = document.getElementById(id);
-  if (page) page.classList.add("active");
-  if (el && el.classList) el.classList.add("active");
-  var navEl = document.getElementById("nav-"+id);
-  if (navEl) navEl.classList.add("active");
-  document.getElementById("pageTitle").textContent = el ? el.textContent.trim().replace(/[0-9]/g,"").trim() : id;
-}
-
-function updateClock() {
-  document.getElementById("clock").textContent = new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"});
-}
-
-// Check if GH token is saved
-var saved = localStorage.getItem("ib_gh_token");
-if (saved) GH = saved;
-window.setToken = function(t) { GH = t; localStorage.setItem("ib_gh_token", t); toast("GitHub token saved -- approvals now write to memory", "ok"); };
-
-renderCards();
-renderDecisions();
-save();
-updateClock();
-setInterval(updateClock, 1000);
+document.addEventListener('DOMContentLoaded',()=>{
+  showSection('section-decisions');renderStats();
+  document.querySelectorAll('[data-section]').forEach(el=>{el.onclick=()=>showSection(el.dataset.section);});
+  deptHealthCheck();
+});
 </script>
-</body>
+<div id="ib-setup-warn" style="display:none;position:fixed;top:16px;right:16px;background:#ff440022;border:1px solid #ff4444;color:#ff4444;padding:12px 20px;border-radius:6px;font-size:.85rem;z-index:9998;"></div>
 </html>

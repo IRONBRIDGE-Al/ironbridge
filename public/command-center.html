@@ -130,6 +130,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif
     <div class="ni" id="nav-approvals" onclick="show('approvals',this)"><span class="dot dr"></span>Needs Owner <span class="badge" id="pendingCount">4</span></div>
     <div class="ni" id="nav-decisions" onclick="show('decisions',this)"><span class="dot dg"></span>Decision Log <span class="badge b" id="decisionCount">0</span></div>
     <div class="ni" id="nav-reporting" onclick="show('reporting',this)"><span class="dot dg"></span>Reporting Chain</div>
+    <div class="ni" id="nav-memory" onclick="show('memory',this)"><span class="dot dg"></span>Memory Boot</div>
   </div>
   <div class="ns">
     <div class="nl">Team</div>
@@ -280,6 +281,62 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif
       </div>
     </div>
 
+
+    <!-- MEMORY BOOT -- integrated from memory-boot.html -->
+    <div id="memory" class="page">
+      <div class="section">
+        <div class="stitle">Memory Boot Console</div>
+        <p style="font-size:13px;color:var(--dim);margin-bottom:20px;line-height:1.6">Generate a boot prompt from CLAUDE.md and paste into any new Claude session. Full context in 15 seconds. For beginners: the memory-mcp server does this automatically -- they never see this page.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+          <div class="card">
+            <div class="cl">Quick Restore URLs</div>
+            <div style="font-size:11px;color:var(--dim);margin-bottom:12px">Copy and paste these raw URLs into Claude at session start</div>
+            <div style="background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:11px;color:#888;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+              <span id="url1" style="word-break:break-all">https://raw.githubusercontent.com/IRONBRIDGE-Al/ironbridge-memory/main/CLAUDE.md</span>
+              <button onclick="copyText('url1')" style="background:transparent;border:1px solid var(--border);color:var(--dim);padding:3px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin-left:8px;white-space:nowrap">Copy</button>
+            </div>
+            <div style="background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:11px;color:#888;display:flex;justify-content:space-between;align-items:center">
+              <span id="url2" style="word-break:break-all">https://raw.githubusercontent.com/IRONBRIDGE-Al/ironbridge-memory/main/ops/command-center.md</span>
+              <button onclick="copyText('url2')" style="background:transparent;border:1px solid var(--border);color:var(--dim);padding:3px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin-left:8px;white-space:nowrap">Copy</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="cl">Session Start Prompt</div>
+            <div style="font-size:11px;color:var(--dim);margin-bottom:12px">Copy this and paste at the start of every Claude session</div>
+            <div style="background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:11px;color:#888;line-height:1.6;position:relative">
+              <span id="bootPrompt">IronBridge session restore. Fetch these two files: https://raw.githubusercontent.com/IRONBRIDGE-Al/ironbridge-memory/main/CLAUDE.md and https://raw.githubusercontent.com/IRONBRIDGE-Al/ironbridge-memory/main/ops/command-center.md -- Then check all Railway agents. Project: 84730a82-9a41-46af-af8f-563e18d0cd25 Token: 434ff302-a646-4f4f-9b24-6faeb578a66c -- Then confirm ironbridge-jade.vercel.app/command-center.html is working. Next: approve pricing RED gate, deploy goosed, wire Telegram bridge.</span>
+              <button onclick="copyText('bootPrompt')" style="background:transparent;border:1px solid var(--border);color:var(--dim);padding:3px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin-top:8px;display:block">Copy Boot Prompt</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:16px">
+          <div class="cl">Generate Live Boot Prompt</div>
+          <div style="font-size:11px;color:var(--dim);margin-bottom:12px">Fetches CLAUDE.md + command-center.md right now and generates a current boot prompt</div>
+          <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:12px">
+            <input id="ghTokenInput" type="password" placeholder="GitHub token (ghp_...)" style="background:var(--s2);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:6px;font-size:12px;outline:none">
+            <button onclick="saveGHToken()" style="background:var(--s2);border:1px solid var(--border);color:var(--dim);padding:9px 16px;border-radius:6px;font-size:12px;cursor:pointer;white-space:nowrap">Save Token</button>
+          </div>
+          <button onclick="generateBoot()" style="background:var(--gd);border:1px solid var(--green);color:var(--green);padding:10px 20px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-bottom:12px">Generate Boot Prompt</button>
+          <div id="bootOutput" style="background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:11px;color:#666;line-height:1.8;white-space:pre-wrap;min-height:80px;position:relative">
+            Click Generate to fetch current CLAUDE.md and build your boot prompt.
+            <button onclick="copyText('bootOutput')" style="position:absolute;top:8px;right:8px;background:var(--s2);border:1px solid var(--border);color:var(--dim);padding:3px 8px;border-radius:4px;font-size:10px;cursor:pointer">Copy</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cl">How Memory Works -- For the Team</div>
+          <div style="font-size:12px;color:var(--dim);line-height:1.7">
+            <strong style="color:#ccc">For Owner (you):</strong> Use the boot prompt above at session start. Takes 15 seconds. Full context instantly.<br>
+            <strong style="color:#ccc">For Claude sessions:</strong> Fetch the two raw URLs above. CLAUDE.md is the source of truth.<br>
+            <strong style="color:#ccc">For agents (Dick/Oscar/Rachel/Brooks):</strong> They read CLAUDE.md automatically via the memory-mcp server. No manual step.<br>
+            <strong style="color:#ccc">For beginners (users):</strong> They never see this. Their agent reads its recipe YAML. Memory-mcp runs in background.<br>
+            <strong style="color:#ccc">When vision changes:</strong> Update CLAUDE.md first. Everything else syncs. See ops/sync-protocol.md.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

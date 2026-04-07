@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My Agent — IronBridge Command Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#00ff88;--dark:#080808;--card:#0f0f0f;--border:#1a1a1a;--text:#d0d0d0;--accent:#7c3aed;--yellow:#ffbb00;--red:#ff4444}
+body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,monospace;min-height:100vh}
+.topbar{background:#0d0d0d;border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.logo{font-size:15px;font-weight:800;color:#fff;letter-spacing:-1px}
+.logo span{color:var(--green)}
+.agent-name{font-size:13px;color:#555;display:flex;align-items:center;gap:8px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+.status-dot.offline{background:var(--red);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-right{display:flex;align-items:center;gap:16px}
+.settings-btn{background:transparent;border:1px solid var(--border);color:#555;padding:7px 14px;border-radius:6px;font-size:12px;cursor:pointer;transition:all .2s}
+.settings-btn:hover{border-color:#555;color:var(--text)}
+.layout{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 53px)}
+.sidebar{background:#0a0a0a;border-right:1px solid var(--border);padding:20px 0}
+.sidebar-section{margin-bottom:4px}
+.sidebar-label{font-size:9px;letter-spacing:3px;color:#2a2a2a;padding:8px 18px 4px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 18px;font-size:12px;color:#444;cursor:pointer;transition:all .15s;border-left:2px solid transparent}
+.nav-item:hover{color:#888;background:#111}
+.nav-item.active{color:#ccc;background:#111;border-left-color:#555}
+.nav-item .icon{font-size:14px;min-width:16px}
+.content{padding:24px;overflow-y:auto}
+.page{display:none}
+.page.active{display:block}
+.welcome{background:linear-gradient(135deg,#050a05,#050510);border:1px solid #1a2a1a;border-radius:12px;padding:28px;margin-bottom:20px}
+.welcome h2{font-size:20px;font-weight:800;color:#fff;margin-bottom:6px}
+.welcome p{font-size:13px;color:#6060a0;line-height:1.6}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.metric{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.metric-label{font-size:9px;letter-spacing:2px;color:#333;text-transform:uppercase;margin-bottom:8px}
+.metric-val{font-size:26px;font-weight:800;color:#fff}
+.metric-val.green{color:var(--green)}
+.metric-val.yellow{color:var(--yellow)}
+.metric-sub{font-size:10px;color:#333;margin-top:4px}
+.section-title{font-size:10px;letter-spacing:3px;color:#444;text-transform:uppercase;margin-bottom:14px;margin-top:24px}
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.platform-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center;transition:all .2s;cursor:pointer}
+.platform-card:hover{border-color:#333;transform:translateY(-1px)}
+.platform-card.connected{border-color:#003300;background:#030d03}
+.platform-card.connected .plat-status{color:var(--green)}
+.plat-icon{font-size:24px;margin-bottom:8px}
+.plat-name{font-size:12px;font-weight:700;color:#ccc;margin-bottom:4px}
+.plat-status{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#333}
+.connect-btn{margin-top:8px;background:var(--accent);color:#fff;border:none;padding:5px 12px;border-radius:4px;font-size:10px;cursor:pointer;transition:all .2s}
+.connect-btn.connected{background:#003300;color:var(--green)}
+.msg-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.msg-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;gap:12px;align-items:flex-start}
+.msg-platform{font-size:18px;min-width:24px}
+.msg-body{flex:1}
+.msg-user{font-size:11px;color:#555;margin-bottom:4px}
+.msg-text{font-size:13px;color:#ccc;margin-bottom:4px}
+.msg-reply{font-size:12px;color:#446644;font-style:italic}
+.msg-time{font-size:10px;color:#333;min-width:60px;text-align:right}
+.agent-config{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:16px}
+.config-label{font-size:10px;letter-spacing:2px;color:#444;text-transform:uppercase;margin-bottom:8px}
+.config-val{font-size:14px;color:#ccc;margin-bottom:16px;padding:10px 14px;background:#080808;border:1px solid var(--border);border-radius:6px}
+.config-input{width:100%;font-size:14px;color:#ccc;padding:10px 14px;background:#080808;border:1px solid var(--border);border-radius:6px;outline:none;margin-bottom:16px;transition:border .2s}
+.config-input:focus{border-color:#555}
+.save-btn{background:var(--green);color:#050510;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:700;border:none;cursor:pointer}
+.health-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #0d0d0d;font-size:12px}
+.health-row:last-child{border-bottom:none}
+.health-label{color:#555}
+.health-ok{color:var(--green)}
+.health-warn{color:var(--yellow)}
+.health-bad{color:var(--red)}
+.quick-action{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;cursor:pointer;transition:all .2s}
+.quick-action:hover{border-color:#333;background:#111}
+.qa-title{font-size:13px;color:#ccc}
+.qa-desc{font-size:11px;color:#444;margin-top:2px}
+.qa-arrow{color:#333;font-size:16px}
+.empty-state{text-align:center;padding:48px 20px;color:#333}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.empty-text{font-size:14px;color:#444;margin-bottom:20px}
+.empty-btn{background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:700;border:none;cursor:pointer}
+.onboard-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.onboard-step{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .2s}
+.onboard-step:hover{border-color:#333}
+.onboard-step.done{border-color:#003300;background:#030d03}
+.step-num{width:28px;height:28px;border-radius:50%;background:#1a1a1a;color:#555;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.onboard-step.done .step-num{background:#003300;color:var(--green)}
+.step-body{flex:1}
+.step-title{font-size:13px;color:#ccc;margin-bottom:2px}
+.step-desc{font-size:11px;color:#444}
+.step-check{font-size:16px;color:#333}
+.onboard-step.done .step-check{color:var(--green)}
+.progress-bar{background:#111;border-radius:100px;height:4px;margin-bottom:24px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:100px;transition:width .5s;width:33%}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">Iron<span>Bridge</span></div>
+  <div class="agent-name">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="agentNameDisplay">My Agent</span>
+    <span style="color:#2a2a2a">|</span>
+    <span id="agentStatusText" style="color:var(--green);font-size:11px">LIVE</span>
+  </div>
+  <div class="nav-right">
+    <button class="settings-btn" onclick="show('settings',this)">Settings</button>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Overview</div>
+      <div class="nav-item active" onclick="show('dashboard',this)"><span class="icon">▸</span> Dashboard</div>
+      <div class="nav-item" onclick="show('messages',this)"><span class="icon">▸</span> Messages</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">My Agent</div>
+      <div class="nav-item" onclick="show('platforms',this)"><span class="icon">▸</span> Platforms</div>
+      <div class="nav-item" onclick="show('personality',this)"><span class="icon">▸</span> Personality</div>
+      <div class="nav-item" onclick="show('health',this)"><span class="icon">▸</span> Health</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Account</div>
+      <div class="nav-item" onclick="show('settings',this)"><span class="icon">▸</span> Settings</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="page active">
+      <div class="welcome">
+        <h2>Welcome to your Command Center</h2>
+        <p>Your agent is live and running. Everything is set up and ready to go.<br>Add more platforms below or customize your agent personality.</p>
+      </div>
+
+      <div class="section-title">Setup Progress</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="onboard-steps">
+        <div class="onboard-step done">
+          <div class="step-num">1</div>
+          <div class="step-body"><div class="step-title">Agent created</div><div class="step-desc">Your agent is named and configured</div></div>
+          <div class="step-check">✓</div>
+        </div>
+        <div class="onboard-step done" id="step2">
+          <div class="step-num">2</div>
+          <div class="step-body"><div class="step-title">First platform connected</div><div class="step-desc">Telegram is live and receiving messages</div></div>
+          <div class="step-check">✓</div>
+        </div>
+        <div class="onboard-step" id="step3" onclick="show('platforms',document.querySelector('.nav-item:nth-child(4)'))">
+          <div class="step-num">3</div>
+          <div class="step-body"><div class="step-title">Add a second platform</div><div class="step-desc">Connect Discord, WhatsApp, or X to reach more people</div></div>
+          <div class="step-check">›</div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric"><div class="metric-label">Status</div><div class="metric-val green">LIVE</div><div class="metric-sub">All systems go</div></div>
+        <div class="metric"><div class="metric-label">Messages Today</div><div class="metric-val" id="msgCount">0</div><div class="metric-sub">Answered by your agent</div></div>
+        <div class="metric"><div class="metric-label">Platforms</div><div class="metric-val yellow" id="platCount">1</div><div class="metric-sub">Connected</div></div>
+        <div class="metric"><div class="metric-label">Uptime</div><div class="metric-val green">100%</div><div class="metric-sub">Last 24 hours</div></div>
+      </div>
+
+      <div class="section-title">Quick Actions</div>
+      <div class="quick-action" onclick="show('platforms',this)">
+        <div><div class="qa-title">Add a Platform</div><div class="qa-desc">Connect Discord, WhatsApp, X, or more</div></div>
+        <div class="qa-arrow">›</div>
+      </div>
+      <div class="quick-action" onclick="show('personality',this)">
+        <div><div class="qa-title">Customize Agent Personality</div><div class="qa-desc">Change how your agent talks and what it knows</div></div>
+        <div class="qa-arrow">›</div>
+      </div>
+      <div class="quick-action" onclick="show('messages',this)">
+        <div><div class="qa-title">View Recent Messages</div><div class="qa-desc">See what your agent has been answering</div></div>
+        <div class="qa-arrow">›</div>
+      </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div id="messages" class="page">
+      <div class="section-title">Recent Messages</div>
+      <div class="msg-list" id="msgList">
+        <div class="empty-state">
+          <div class="empty-icon">💬</div>
+          <div class="empty-text">No messages yet. Your agent is ready and waiting.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLATFORMS -->
+    <div id="platforms" class="page">
+      <div class="section-title">Connected Platforms</div>
+      <div class="platform-grid">
+        <div class="platform-card connected">
+          <div class="plat-icon">📡</div>
+          <div class="plat-name">Telegram</div>
+          <div class="plat-status">Connected</div>
+          <button class="connect-btn connected">Live</button>
+        </div>
+        <div class="platform-card" onclick="connectPlatform(this,'Discord')">
+          <div class="plat-icon">💬</div>
+          <div class="plat-name">Discord</div>
+          <div class="plat-status">Not connected</div>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="platform-card" onclick="connectPlatform(this,'WhatsApp')">
+          <div class="plat-icon">💚</div>
+          <div class="plat-name">WhatsApp</div>
+          <div class="plat-status">Not connected</div>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="platform-card" onclick="connectPlatform(this,'X / Twitter')">
+          <div class="plat-icon">🐦</div>
+          <div class="plat-name">X / Twitter</div>
+          <div class="plat-status">Not connected</div>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="platform-card" onclick="connectPlatform(this,'Twitch')">
+          <div class="plat-icon">🎙</div>
+          <div class="plat-name">Twitch</div>
+          <div class="plat-status">Not connected</div>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="platform-card" onclick="connectPlatform(this,'Web Widget')">
+          <div class="plat-icon">🌐</div>
+          <div class="plat-name">Web Widget</div>
+          <div class="plat-status">Not connected</div>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="platform-card" onclick="connectPlatform(this,'Slack')">
+          <div class="plat-icon">🟣</div>
+          <div class="plat-name">Slack</div>
+          <div class="plat-status">Not connected</div>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="platform-card" onclick="connectPlatform(this,'Instagram')">
+          <div class="plat-icon">📸</div>
+          <div class="plat-name">Instagram</div>
+          <div class="plat-status">Not connected</div>
+          <button class="connect-btn">Connect</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERSONALITY -->
+    <div id="personality" class="page">
+      <div class="section-title">Agent Personality</div>
+      <div class="agent-config">
+        <div class="config-label">Agent Name</div>
+        <input class="config-input" id="agentNameInput" placeholder="My Agent" value="My Agent" oninput="document.getElementById('agentNameDisplay').textContent=this.value||'My Agent'">
+        <div class="config-label">What does your agent do?</div>
+        <input class="config-input" placeholder="e.g. Answer questions about my Discord server and help new members" id="agentPurpose">
+        <div class="config-label">Tone</div>
+        <select class="config-input" id="agentTone">
+          <option>Friendly and helpful</option>
+          <option>Professional and direct</option>
+          <option>Casual and fun</option>
+          <option>Gaming hype energy</option>
+          <option>Calm and supportive</option>
+        </select>
+        <div class="config-label">What should your agent NOT do?</div>
+        <input class="config-input" placeholder="e.g. Don't discuss competitor products, don't make promises about pricing" id="agentRestrictions">
+        <button class="save-btn" onclick="savePersonality()">Save Changes</button>
+      </div>
+    </div>
+
+    <!-- HEALTH -->
+    <div id="health" class="page">
+      <div class="section-title">Agent Health</div>
+      <div class="agent-config">
+        <div class="health-row"><div class="health-label">Agent Status</div><div class="health-ok">Live</div></div>
+        <div class="health-row"><div class="health-label">Telegram Connection</div><div class="health-ok">Connected</div></div>
+        <div class="health-row"><div class="health-label">AI Model</div><div class="health-ok">Groq llama-3.3-70b</div></div>
+        <div class="health-row"><div class="health-label">Response Time</div><div class="health-ok">~1.2s average</div></div>
+        <div class="health-row"><div class="health-label">Uptime (24h)</div><div class="health-ok">100%</div></div>
+        <div class="health-row"><div class="health-label">Messages Today</div><div class="health-ok" id="healthMsgCount">0</div></div>
+        <div class="health-row"><div class="health-label">Plan</div><div class="health-warn">Free (100/day limit)</div></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="settings" class="page">
+      <div class="section-title">Account Settings</div>
+      <div class="agent-config">
+        <div class="config-label">Email</div>
+        <input class="config-input" type="email" placeholder="you@example.com">
+        <div class="config-label">Plan</div>
+        <div class="config-val">Free — <a href="/pricing" style="color:var(--accent)">Upgrade to Pro</a></div>
+        <div class="config-label">Danger Zone</div>
+        <button style="background:transparent;border:1px solid var(--red);color:var(--red);padding:8px 18px;border-radius:6px;font-size:12px;cursor:pointer">Delete Agent</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var page = document.getElementById(id);
+  if (page) page.classList.add('active');
+  if (el && el.classList && el.classList.contains('nav-item')) el.classList.add('active');
+}
+
+function connectPlatform(card, name) {
+  card.classList.add('connected');
+  var status = card.querySelector('.plat-status');
+  var btn = card.querySelector('.connect-btn');
+  if (status) status.textContent = 'Connected';
+  if (btn) { btn.textContent = 'Live'; btn.classList.add('connected'); }
+  var count = document.querySelectorAll('.platform-card.connected').length;
+  var el = document.getElementById('platCount');
+  if (el) el.textContent = count;
+  var prog = document.getElementById('progressFill');
+  if (prog) prog.style.width = Math.min(100, 33 + count*20) + '%';
+  var step3 = document.getElementById('step3');
+  if (step3 && count >= 2) step3.classList.add('done');
+  alert(name + ' connected! Your agent is now live on ' + name + '.');
+}
+
+function savePersonality() {
+  var name = document.getElementById('agentNameInput').value || 'My Agent';
+  document.getElementById('agentNameDisplay').textContent = name;
+  alert('Saved! Your agent is now called "' + name + '" and has been updated.');
+}
+</script>
+
+</body>
+</html>

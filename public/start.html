@@ -8,311 +8,277 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--green:#00ff88;--dark:#050510;--card:#0a0a1a;--border:#1a1a3a;--text:#c0c0e0;--accent:#7c3aed;--dim:#6060a0}
 body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
-.container{width:100%;max-width:560px}
-.logo{text-align:center;margin-bottom:40px}
+.container{width:100%;max-width:580px}
+.logo{text-align:center;margin-bottom:36px}
 .logo-text{font-size:22px;font-weight:800;color:#fff;letter-spacing:-1px}
 .logo-text span{color:var(--green)}
 .logo-sub{font-size:13px;color:var(--dim);margin-top:4px}
-.progress{display:flex;gap:8px;justify-content:center;margin-bottom:40px}
-.progress-dot{width:8px;height:8px;border-radius:50%;background:#1a1a3a;transition:all .3s}
-.progress-dot.active{background:var(--green);width:24px;border-radius:100px}
-.progress-dot.done{background:#004422}
+.progress{display:flex;gap:8px;justify-content:center;margin-bottom:36px}
+.pd{width:8px;height:8px;border-radius:50%;background:#1a1a3a;transition:all .3s}
+.pd.active{background:var(--green);width:24px;border-radius:100px}
+.pd.done{background:#004422}
 .step{display:none}
-.step.active{display:block;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.step-label{font-size:10px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;text-align:center}
-.step-title{font-size:clamp(22px,5vw,32px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;text-align:center;letter-spacing:-1px}
-.step-sub{font-size:14px;color:var(--dim);text-align:center;margin-bottom:32px;line-height:1.6}
-.name-input{width:100%;font-size:20px;font-weight:700;color:#fff;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:18px 20px;outline:none;transition:border .2s;text-align:center;letter-spacing:-0.5px}
-.name-input:focus{border-color:var(--green)}
-.name-input::placeholder{color:#2a2a4a;font-weight:400;font-size:16px}
-.name-hint{font-size:12px;color:var(--dim);text-align:center;margin-top:10px}
-.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
-.plat{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .2s}
-.plat:hover{border-color:#3a3a6a;transform:translateY(-1px)}
-.plat.selected{border-color:var(--green);background:#020d07}
-.plat-icon{font-size:22px;margin-bottom:6px}
-.plat-name{font-size:12px;font-weight:700;color:#c0c0e0}
-.plat-sub{font-size:10px;color:var(--dim);margin-top:2px}
-.plat.selected .plat-name{color:var(--green)}
-.plat.coming{opacity:.45;cursor:default}
-.plat.coming:hover{border-color:var(--border);transform:none}
-.hint{font-size:12px;color:var(--dim);text-align:center;margin-top:10px;margin-bottom:32px}
-.template-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px}
-.template{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:all .2s}
-.template:hover{border-color:#3a3a6a}
-.template.selected{border-color:var(--green);background:#020d07}
-.template-icon{font-size:24px;margin-bottom:8px}
-.template-name{font-size:13px;font-weight:700;color:#c0c0e0;margin-bottom:4px}
-.template-desc{font-size:11px;color:var(--dim);line-height:1.4}
-.template.selected .template-name{color:var(--green)}
-.btn-primary{width:100%;padding:17px;background:var(--green);color:#050510;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;transition:all .2s;letter-spacing:.3px}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(0,255,136,.25)}
-.btn-primary:disabled{background:#1a3a2a;color:#2a5a3a;cursor:default;transform:none;box-shadow:none}
-.btn-back{background:transparent;border:none;color:var(--dim);font-size:13px;cursor:pointer;display:block;text-align:center;margin-top:16px;padding:8px;transition:color .2s}
-.btn-back:hover{color:var(--text)}
+.step.active{display:block;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.slabel{font-size:10px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;text-align:center}
+.stitle{font-size:clamp(22px,5vw,32px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;text-align:center;letter-spacing:-1px}
+.ssub{font-size:14px;color:var(--dim);text-align:center;margin-bottom:28px;line-height:1.6}
+.ni{width:100%;font-size:20px;font-weight:700;color:#fff;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:18px 20px;outline:none;transition:border .2s;text-align:center}
+.ni:focus{border-color:var(--green)}
+.ni::placeholder{color:#2a2a4a;font-weight:400;font-size:16px}
+.nh{font-size:12px;color:var(--dim);text-align:center;margin-top:10px}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
+.pc{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s}
+.pc:hover{border-color:#3a3a6a;transform:translateY(-1px)}
+.pc.sel{border-color:var(--green);background:#020d07}
+.pc.sel .pn{color:var(--green)}
+.pi{font-size:20px;margin-bottom:5px}
+.pn{font-size:12px;font-weight:700;color:#c0c0e0}
+.ps{font-size:10px;color:var(--dim);margin-top:2px}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.tc{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s}
+.tc:hover{border-color:#3a3a6a}
+.tc.sel{border-color:var(--green);background:#020d07}
+.tc.sel .tn{color:var(--green)}
+.ti{font-size:22px;margin-bottom:6px}
+.tn{font-size:13px;font-weight:700;color:#c0c0e0;margin-bottom:3px}
+.td{font-size:11px;color:var(--dim);line-height:1.4}
+.ggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:28px}
+.gc{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s}
+.gc:hover{border-color:#3a3a6a;transform:translateY(-1px)}
+.gc.sel{border-color:var(--green);background:#020d07}
+.gc.sel .gn{color:var(--green)}
+.gi{font-size:20px;margin-bottom:4px}
+.gn{font-size:11px;font-weight:700;color:#c0c0e0}
+.btn{width:100%;padding:16px;background:var(--green);color:#050510;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;transition:all .2s;margin-top:4px}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(0,255,136,.25)}
+.btn:disabled{background:#1a3a2a;color:#2a5a3a;cursor:default;transform:none;box-shadow:none}
+.bk{background:transparent;border:none;color:var(--dim);font-size:13px;cursor:pointer;display:block;text-align:center;margin-top:14px;padding:8px;transition:color .2s;width:100%}
+.bk:hover{color:var(--text)}
+.pkg{background:#0d0d2a;border:1px solid #2a2a6a;border-radius:8px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:13px;color:#a0a0e0}
+.pkg-clear{margin-left:auto;font-size:11px;color:var(--dim);cursor:pointer;background:none;border:none}
+.hint{font-size:12px;color:var(--dim);text-align:center;margin-top:8px;margin-bottom:28px}
 .launching{text-align:center;padding:40px 0}
-.launch-icon{font-size:48px;margin-bottom:16px;animation:bounce 1s infinite}
+.li{font-size:48px;margin-bottom:16px;animation:bounce 1s infinite}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.launch-title{font-size:24px;font-weight:800;color:#fff;margin-bottom:8px}
-.launch-steps{list-style:none;margin-top:24px;text-align:left}
-.launch-step{padding:10px 0;border-bottom:1px solid #0d0d1a;font-size:13px;color:var(--dim);display:flex;align-items:center;gap:12px}
-.launch-step:last-child{border-bottom:none}
-.launch-step .check{font-size:14px;color:var(--green);opacity:0;transition:opacity .3s}
-.launch-step .check.visible{opacity:1}
-.package-banner{background:#0d0d2a;border:1px solid #2a2a6a;border-radius:8px;padding:12px 16px;margin-bottom:24px;display:flex;align-items:center;gap:10px;font-size:13px;color:#a0a0e0}
-.package-icon{font-size:18px}
-.package-name{font-weight:700;color:#c0c0ff}
-.package-clear{margin-left:auto;font-size:11px;color:var(--dim);cursor:pointer;background:none;border:none}
-.package-clear:hover{color:var(--text)}
+.lt{font-size:24px;font-weight:800;color:#fff;margin-bottom:8px}
+.ls{list-style:none;margin-top:24px;text-align:left}
+.lsi{padding:10px 0;border-bottom:1px solid #0d0d1a;font-size:13px;color:var(--dim);display:flex;align-items:center;gap:12px}
+.lsi:last-child{border-bottom:none}
+.ck{font-size:14px;color:var(--green);opacity:0;transition:opacity .3s}
+.ck.v{opacity:1}
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="logo">
     <div class="logo-text">Iron<span>Bridge</span></div>
     <div class="logo-sub">Your agent. Everywhere your people are.</div>
   </div>
-
   <div class="progress">
-    <div class="progress-dot active" id="dot1"></div>
-    <div class="progress-dot" id="dot2"></div>
-    <div class="progress-dot" id="dot3"></div>
+    <div class="pd active" id="d1"></div>
+    <div class="pd" id="d2"></div>
+    <div class="pd" id="d3"></div>
   </div>
 
   <!-- STEP 1: NAME -->
-  <div class="step active" id="step1">
-    <div class="step-label">Step 1 of 3</div>
-    <div class="step-title">What should your<br>agent be called?</div>
-    <div class="step-sub">This is the name your community will know. You can change it any time.</div>
-    <div id="packageBanner" style="display:none" class="package-banner">
-      <span class="package-icon" id="pkgIcon">🎮</span>
-      <div><div class="package-name" id="pkgName">Gaming Package</div><div style="font-size:11px;color:var(--dim)">Platforms and personality pre-configured for you</div></div>
-      <button class="package-clear" onclick="clearPackage()">Change</button>
+  <div class="step active" id="s1">
+    <div class="slabel">Step 1 of 3</div>
+    <div class="stitle">What should your<br>agent be called?</div>
+    <div class="ssub">This is the name your community will know. You can change it any time.</div>
+    <div id="pkgBanner" style="display:none" class="pkg">
+      <span id="pkgIcon">🎮</span>
+      <div><strong id="pkgName" style="color:#c0c0ff">Gaming Package</strong><div style="font-size:11px;color:var(--dim)">Pre-configured for you</div></div>
+      <button class="pkg-clear" onclick="clearPkg()">Change</button>
     </div>
-    <input class="name-input" id="agentName" placeholder="e.g. GameBot, SupportAI, MyAssistant" maxlength="32" oninput="checkStep1()">
-    <div class="name-hint">Pick anything. No spaces required. Just a name.</div>
+    <input class="ni" id="agentName" placeholder="e.g. GameBot, SupportAI, MyAssistant" maxlength="32" oninput="chk1()">
+    <div class="nh">Pick anything. Just a name your community will know.</div>
     <br>
-    <button class="btn-primary" id="btn1" onclick="goStep(2)" disabled>Continue</button>
+    <button class="btn" id="b1" onclick="go(2)" disabled>Continue</button>
+  </div>
+
+  <!-- STEP 1b: GAME PICKER (only for gaming package) -->
+  <div class="step" id="s1b">
+    <div class="slabel">Choose Your Game</div>
+    <div class="stitle">Which game is your<br>community about?</div>
+    <div class="ssub">Your agent comes pre-configured for that game. Everything ready to go.</div>
+    <div class="ggrid">
+      <div class="gc" onclick="pickGame(this,'fortnite','FortniteBot','🎯')"><div class="gi">🎯</div><div class="gn">Fortnite</div></div>
+      <div class="gc" onclick="pickGame(this,'cod','CODBot','🎖')"><div class="gi">🎖</div><div class="gn">Call of Duty</div></div>
+      <div class="gc" onclick="pickGame(this,'roblox','RobloxHelper','🟥')"><div class="gi">🟥</div><div class="gn">Roblox</div></div>
+      <div class="gc" onclick="pickGame(this,'minecraft','CraftBot','⛏')"><div class="gi">⛏</div><div class="gn">Minecraft</div></div>
+      <div class="gc" onclick="pickGame(this,'valorant','ValorantCoach','⚡')"><div class="gi">⚡</div><div class="gn">Valorant</div></div>
+      <div class="gc" onclick="pickGame(this,'lol','LeagueAdvisor','⚔')"><div class="gi">⚔</div><div class="gn">League</div></div>
+      <div class="gc" onclick="pickGame(this,'apex','ApexSquad','🦾')"><div class="gi">🦾</div><div class="gn">Apex</div></div>
+      <div class="gc" onclick="pickGame(this,'general','GameAgent','🎮')"><div class="gi">🎮</div><div class="gn">Other Game</div></div>
+    </div>
+    <button class="btn" id="b1b" onclick="go(2)" disabled>Continue</button>
+    <button class="bk" onclick="go(1)">Back</button>
   </div>
 
   <!-- STEP 2: PLATFORMS -->
-  <div class="step" id="step2">
-    <div class="step-label">Step 2 of 3</div>
-    <div class="step-title">Where does your<br>community live?</div>
-    <div class="step-sub">Pick every platform you want your agent on. Start with one if unsure.</div>
-    <div class="platform-grid" id="platformGrid">
-      <div class="plat" onclick="togglePlatform(this,'Telegram')">
-        <div class="plat-icon">📡</div>
-        <div class="plat-name">Telegram</div>
-        <div class="plat-sub">Ready now</div>
-      </div>
-      <div class="plat" onclick="togglePlatform(this,'Discord')">
-        <div class="plat-icon">💬</div>
-        <div class="plat-name">Discord</div>
-        <div class="plat-sub">Ready now</div>
-      </div>
-      <div class="plat" onclick="togglePlatform(this,'X / Twitter')">
-        <div class="plat-icon">🐦</div>
-        <div class="plat-name">X / Twitter</div>
-        <div class="plat-sub">Ready now</div>
-      </div>
-      <div class="plat" onclick="togglePlatform(this,'WhatsApp')">
-        <div class="plat-icon">💚</div>
-        <div class="plat-name">WhatsApp</div>
-        <div class="plat-sub">Ready now</div>
-      </div>
-      <div class="plat" onclick="togglePlatform(this,'Instagram')">
-        <div class="plat-icon">📸</div>
-        <div class="plat-name">Instagram</div>
-        <div class="plat-sub">Ready now</div>
-      </div>
-      <div class="plat" onclick="togglePlatform(this,'Web Widget')">
-        <div class="plat-icon">🌐</div>
-        <div class="plat-name">Web Widget</div>
-        <div class="plat-sub">Ready now</div>
-      </div>
-      <div class="plat" onclick="togglePlatform(this,'Twitch')">
-        <div class="plat-icon">🎙</div>
-        <div class="plat-name">Twitch</div>
-        <div class="plat-sub">Coming soon</div>
-      </div>
-      <div class="plat" onclick="togglePlatform(this,'Slack')">
-        <div class="plat-icon">🟣</div>
-        <div class="plat-name">Slack</div>
-        <div class="plat-sub">Ready now</div>
-      </div>
-      <div class="plat" onclick="togglePlatform(this,'Email')">
-        <div class="plat-icon">📧</div>
-        <div class="plat-name">Email</div>
-        <div class="plat-sub">Ready now</div>
-      </div>
+  <div class="step" id="s2">
+    <div class="slabel">Step 2 of 3</div>
+    <div class="stitle">Where does your<br>community live?</div>
+    <div class="ssub">Pick every platform you want your agent on.</div>
+    <div class="pgrid">
+      <div class="pc" onclick="togP(this,'Telegram')"><div class="pi">📡</div><div class="pn">Telegram</div><div class="ps">Live now</div></div>
+      <div class="pc" onclick="togP(this,'Discord')"><div class="pi">💬</div><div class="pn">Discord</div><div class="ps">Live now</div></div>
+      <div class="pc" onclick="togP(this,'X / Twitter')"><div class="pi">🐦</div><div class="pn">X / Twitter</div><div class="ps">Live now</div></div>
+      <div class="pc" onclick="togP(this,'WhatsApp')"><div class="pi">💚</div><div class="pn">WhatsApp</div><div class="ps">Live now</div></div>
+      <div class="pc" onclick="togP(this,'Instagram')"><div class="pi">📸</div><div class="pn">Instagram</div><div class="ps">Live now</div></div>
+      <div class="pc" onclick="togP(this,'Web Widget')"><div class="pi">🌐</div><div class="pn">Web Widget</div><div class="ps">Live now</div></div>
+      <div class="pc" onclick="togP(this,'Twitch')"><div class="pi">🎙</div><div class="pn">Twitch</div><div class="ps">Coming soon</div></div>
+      <div class="pc" onclick="togP(this,'Slack')"><div class="pi">🟣</div><div class="pn">Slack</div><div class="ps">Live now</div></div>
+      <div class="pc" onclick="togP(this,'Email')"><div class="pi">📧</div><div class="pn">Email</div><div class="ps">Live now</div></div>
     </div>
     <div class="hint">Pick at least one. Add more any time from your dashboard.</div>
-    <button class="btn-primary" id="btn2" onclick="goStep(3)" disabled>Continue</button>
-    <button class="btn-back" onclick="goStep(1)">Back</button>
+    <button class="btn" id="b2" onclick="go(3)" disabled>Continue</button>
+    <button class="bk" onclick="go(st.isGaming?'1b':1)">Back</button>
   </div>
 
-  <!-- STEP 3: WHAT DOES IT DO -->
-  <div class="step" id="step3">
-    <div class="step-label">Step 3 of 3</div>
-    <div class="step-title">What does your<br>agent do?</div>
-    <div class="step-sub">Pick the closest match. Your agent comes pre-configured and ready to go.</div>
-    <div class="template-grid">
-      <div class="template" onclick="selectTemplate(this,'Gaming Community','tournament info, game questions, member welcome, community rules')">
-        <div class="template-icon">🎮</div>
-        <div class="template-name">Gaming Community</div>
-        <div class="template-desc">Tournament brackets, game info, server moderation, clan management</div>
-      </div>
-      <div class="template" onclick="selectTemplate(this,'Customer Support','FAQs, appointment booking, order status, product info')">
-        <div class="template-icon">💼</div>
-        <div class="template-name">Customer Support</div>
-        <div class="template-desc">Answer questions, book appointments, handle FAQs 24/7</div>
-      </div>
-      <div class="template" onclick="selectTemplate(this,'Content Creator','fan questions, content updates, DM replies, community engagement')">
-        <div class="template-icon">🎬</div>
-        <div class="template-name">Content Creator</div>
-        <div class="template-desc">Reply to fans, answer DMs, promote content, collect feedback</div>
-      </div>
-      <div class="template" onclick="selectTemplate(this,'Developer Community','technical questions, issue routing, docs help, contribution guide')">
-        <div class="template-icon">⚡</div>
-        <div class="template-name">Developer Community</div>
-        <div class="template-desc">Technical Q&A, GitHub issues, docs, community management</div>
-      </div>
-      <div class="template" onclick="selectTemplate(this,'Crypto / Web3','tokenomics, roadmap, trading, community announcements, FAQ')">
-        <div class="template-icon">🔗</div>
-        <div class="template-name">Crypto / Web3</div>
-        <div class="template-desc">Token FAQ, roadmap questions, community management, signals</div>
-      </div>
-      <div class="template" onclick="selectTemplate(this,'General Assistant','general questions, bookings, info requests, custom tasks')">
-        <div class="template-icon">🤖</div>
-        <div class="template-name">General Assistant</div>
-        <div class="template-desc">I will configure it myself — give me a blank slate</div>
-      </div>
+  <!-- STEP 3: TEMPLATE -->
+  <div class="step" id="s3">
+    <div class="slabel">Step 3 of 3</div>
+    <div class="stitle">What does your<br>agent do?</div>
+    <div class="ssub">Pick the closest match. Pre-configured and ready.</div>
+    <div class="tgrid">
+      <div class="tc" onclick="selT(this,'Gaming Community','tournament info, game Q&A, community rules, member welcome')"><div class="ti">🎮</div><div class="tn">Gaming Community</div><div class="td">Tournaments, game info, server mod, clan management</div></div>
+      <div class="tc" onclick="selT(this,'Customer Support','FAQs, booking, order status, product info')"><div class="ti">💼</div><div class="tn">Customer Support</div><div class="td">Answer questions, book appointments, handle FAQs 24/7</div></div>
+      <div class="tc" onclick="selT(this,'Content Creator','fan DMs, content updates, community engagement')"><div class="ti">🎬</div><div class="tn">Content Creator</div><div class="td">Reply to fans, answer DMs, promote content</div></div>
+      <div class="tc" onclick="selT(this,'Developer Community','technical Q&A, issue routing, docs, contributions')"><div class="ti">⚡</div><div class="tn">Developer Community</div><div class="td">Technical Q&A, GitHub issues, docs, community</div></div>
+      <div class="tc" onclick="selT(this,'Crypto / Web3','tokenomics, roadmap, community, trading signals')"><div class="ti">🔗</div><div class="tn">Crypto / Web3</div><div class="td">Token FAQ, roadmap, community management</div></div>
+      <div class="tc" onclick="selT(this,'General Assistant','general questions, custom tasks, information')"><div class="ti">🤖</div><div class="tn">General Assistant</div><div class="td">Configure it yourself — blank slate</div></div>
     </div>
-    <button class="btn-primary" id="btn3" onclick="launch()" disabled>Launch My Agent</button>
-    <button class="btn-back" onclick="goStep(2)">Back</button>
+    <button class="btn" id="b3" onclick="launch()" disabled>Launch My Agent</button>
+    <button class="bk" onclick="go(2)">Back</button>
   </div>
 
   <!-- LAUNCHING -->
-  <div class="step" id="stepLaunch">
+  <div class="step" id="sL">
     <div class="launching">
-      <div class="launch-icon">🚀</div>
-      <div class="launch-title">Launching <span id="launchName" style="color:var(--green)"></span></div>
-      <div style="font-size:14px;color:var(--dim);margin-top:8px">Setting everything up for you...</div>
-      <ul class="launch-steps">
-        <li class="launch-step"><span class="check" id="lc1">✓</span> Creating your agent</li>
-        <li class="launch-step"><span class="check" id="lc2">✓</span> Configuring personality</li>
-        <li class="launch-step"><span class="check" id="lc3">✓</span> Connecting platforms</li>
-        <li class="launch-step"><span class="check" id="lc4">✓</span> Building your command center</li>
-        <li class="launch-step"><span class="check" id="lc5">✓</span> Agent is live</li>
+      <div class="li">🚀</div>
+      <div class="lt">Launching <span id="lname" style="color:var(--green)"></span></div>
+      <div style="font-size:14px;color:var(--dim);margin-top:8px">Setting everything up...</div>
+      <ul class="ls">
+        <li class="lsi"><span class="ck" id="c1">✓</span> Creating your agent</li>
+        <li class="lsi"><span class="ck" id="c2">✓</span> Loading game knowledge</li>
+        <li class="lsi"><span class="ck" id="c3">✓</span> Connecting platforms</li>
+        <li class="lsi"><span class="ck" id="c4">✓</span> Building your command center</li>
+        <li class="lsi"><span class="ck" id="c5">✓</span> Agent is live</li>
       </ul>
     </div>
   </div>
 </div>
 
 <script>
-var state = { name:'', platforms:[], template:'', templateDesc:'', package:null };
+var st = { name:'', platforms:[], template:'', game:null, isGaming:false, pkg:null };
 
-function getParams() {
-  var p = new URLSearchParams(window.location.search);
-  return { package: p.get('package') || p.get('pkg') };
-}
+var PKGS = {
+  gaming:    { name:'Gaming Package',    icon:'🎮', platforms:['Telegram','Discord'],          template:'Gaming Community'    },
+  business:  { name:'Business Package',  icon:'💼', platforms:['WhatsApp','Web Widget','Email'], template:'Customer Support'    },
+  creator:   { name:'Creator Package',   icon:'🎬', platforms:['X / Twitter','Instagram','Discord'], template:'Content Creator' },
+  developer: { name:'Developer Package', icon:'⚡', platforms:['Discord','Telegram','X / Twitter'], template:'Developer Community' },
+  web3:      { name:'Web3 Package',      icon:'🔗', platforms:['Telegram','Discord','X / Twitter'], template:'Crypto / Web3'   }
+};
 
-var PACKAGES = {
-  gaming: { name:'Gaming Package', icon:'🎮', platforms:['Telegram','Discord','Twitch'], template:'Gaming Community', desc:'tournament info, game questions, member welcome, community rules' },
-  business: { name:'Business Package', icon:'💼', platforms:['WhatsApp','Web Widget','Email'], template:'Customer Support', desc:'FAQs, appointment booking, order status, product info' },
-  creator: { name:'Creator Package', icon:'🎬', platforms:['X / Twitter','Instagram','Discord'], template:'Content Creator', desc:'fan questions, content updates, DM replies, community engagement' },
-  developer: { name:'Developer Package', icon:'⚡', platforms:['Discord','Telegram','X / Twitter'], template:'Developer Community', desc:'technical questions, issue routing, docs help, contribution guide' },
-  web3: { name:'Web3 Package', icon:'🔗', platforms:['Telegram','Discord','X / Twitter'], template:'Crypto / Web3', desc:'tokenomics, roadmap, trading, community announcements, FAQ' }
+var GAMES = {
+  fortnite:  { name:'FortniteBot',      platforms:['Discord','Telegram','X / Twitter'] },
+  cod:       { name:'CODBot',           platforms:['Discord','Telegram','X / Twitter'] },
+  roblox:    { name:'RobloxHelper',     platforms:['Discord','Telegram'] },
+  minecraft: { name:'CraftBot',         platforms:['Discord','Telegram'] },
+  valorant:  { name:'ValorantCoach',    platforms:['Discord','Telegram','X / Twitter'] },
+  lol:       { name:'LeagueAdvisor',    platforms:['Discord','Telegram'] },
+  apex:      { name:'ApexSquad',        platforms:['Discord','Telegram','X / Twitter'] },
+  general:   { name:'GameAgent',        platforms:['Discord','Telegram'] }
 };
 
 function init() {
-  var params = getParams();
-  if (params.package && PACKAGES[params.package]) {
-    var pkg = PACKAGES[params.package];
-    state.package = params.package;
-    state.platforms = pkg.platforms.slice();
-    state.template = pkg.template;
-    state.templateDesc = pkg.desc;
-    document.getElementById('pkgIcon').textContent = pkg.icon;
-    document.getElementById('pkgName').textContent = pkg.name;
-    document.getElementById('packageBanner').style.display = 'flex';
+  var p = new URLSearchParams(window.location.search);
+  var pkg = p.get('package'); var game = p.get('game');
+  if(pkg && PKGS[pkg]) {
+    var P = PKGS[pkg];
+    st.pkg=pkg; st.platforms=P.platforms.slice(); st.template=P.template;
+    st.isGaming = pkg==='gaming';
+    document.getElementById('pkgIcon').textContent=P.icon;
+    document.getElementById('pkgName').textContent=P.name;
+    document.getElementById('pkgBanner').style.display='flex';
+  }
+  if(game && GAMES[game]) {
+    st.game=game; st.isGaming=true;
+    var G=GAMES[game];
+    st.platforms=G.platforms.slice();
+    document.getElementById('agentName').value=G.name;
+    st.name=G.name;
+    document.getElementById('b1').disabled=false;
   }
 }
 
-function clearPackage() {
-  state.package = null;
-  state.platforms = [];
-  state.template = '';
-  document.getElementById('packageBanner').style.display = 'none';
+function clearPkg(){ st.pkg=null; st.platforms=[]; st.template=''; st.isGaming=false; document.getElementById('pkgBanner').style.display='none'; }
+
+function chk1(){ st.name=document.getElementById('agentName').value.trim(); document.getElementById('b1').disabled=st.name.length<2; }
+
+function pickGame(el, slug, name, icon) {
+  document.querySelectorAll('.gc').forEach(function(g){g.classList.remove('sel');});
+  el.classList.add('sel');
+  st.game=slug; var G=GAMES[slug];
+  st.platforms=G.platforms.slice();
+  document.getElementById('agentName').value=name;
+  st.name=name;
+  document.getElementById('b1b').disabled=false;
 }
 
-function checkStep1() {
-  var val = document.getElementById('agentName').value.trim();
-  state.name = val;
-  document.getElementById('btn1').disabled = val.length < 2;
+function togP(el, name) {
+  var i=st.platforms.indexOf(name);
+  if(i>=0){st.platforms.splice(i,1);el.classList.remove('sel');}
+  else{st.platforms.push(name);el.classList.add('sel');}
+  document.getElementById('b2').disabled=st.platforms.length===0;
 }
 
-function togglePlatform(el, name) {
-  var idx = state.platforms.indexOf(name);
-  if (idx >= 0) {
-    state.platforms.splice(idx, 1);
-    el.classList.remove('selected');
-  } else {
-    state.platforms.push(name);
-    el.classList.add('selected');
+function selT(el, name, desc) {
+  document.querySelectorAll('.tc').forEach(function(t){t.classList.remove('sel');});
+  el.classList.add('sel'); st.template=name;
+  document.getElementById('b3').disabled=false;
+}
+
+function go(n) {
+  // If gaming package and going from step 1, insert game picker
+  if(n===2 && st.isGaming && !st.game) { showStep('1b'); return; }
+  showStep(n);
+  if(n===2) {
+    document.querySelectorAll('.pc').forEach(function(el){
+      var name=el.querySelector('.pn').textContent;
+      el.classList.toggle('sel', st.platforms.indexOf(name)>=0);
+    });
+    document.getElementById('b2').disabled=st.platforms.length===0;
   }
-  document.getElementById('btn2').disabled = state.platforms.length === 0;
+  if(n===3 && st.template) {
+    document.querySelectorAll('.tc').forEach(function(el){
+      if(el.querySelector('.tn').textContent===st.template) el.classList.add('sel');
+    });
+    document.getElementById('b3').disabled=false;
+  }
 }
 
-function selectTemplate(el, name, desc) {
-  document.querySelectorAll('.template').forEach(function(t){ t.classList.remove('selected'); });
-  el.classList.add('selected');
-  state.template = name;
-  state.templateDesc = desc;
-  document.getElementById('btn3').disabled = false;
-}
-
-function goStep(n) {
-  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById('step'+n).classList.add('active');
-  ['dot1','dot2','dot3'].forEach(function(id, i) {
-    var dot = document.getElementById(id);
-    dot.classList.remove('active','done');
-    if (i+1 < n) dot.classList.add('done');
-    else if (i+1 === n) dot.classList.add('active');
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});
+  var id = n==='1b'?'s1b':'s'+n;
+  document.getElementById(id).classList.add('active');
+  var num = n==='1b'?1:n;
+  ['d1','d2','d3'].forEach(function(id,i){
+    var d=document.getElementById(id);
+    d.classList.remove('active','done');
+    if(i+1<num) d.classList.add('done');
+    else if(i+1===num) d.classList.add('active');
   });
-  if (n === 2 && state.platforms.length > 0) {
-    document.querySelectorAll('.plat').forEach(function(el) {
-      var name = el.querySelector('.plat-name').textContent;
-      if (state.platforms.indexOf(name) >= 0) el.classList.add('selected');
-    });
-    document.getElementById('btn2').disabled = false;
-  }
-  if (n === 3 && state.template) {
-    document.querySelectorAll('.template').forEach(function(el) {
-      if (el.querySelector('.template-name').textContent === state.template) el.classList.add('selected');
-    });
-    document.getElementById('btn3').disabled = false;
-  }
 }
 
 function launch() {
-  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById('stepLaunch').classList.add('active');
-  document.getElementById('launchName').textContent = state.name;
-  var checks = ['lc1','lc2','lc3','lc4','lc5'];
-  var delays = [600,1200,1900,2600,3400];
-  checks.forEach(function(id, i) {
-    setTimeout(function() {
-      document.getElementById(id).classList.add('visible');
-    }, delays[i]);
-  });
-  setTimeout(function() {
-    var params = '?name='+encodeURIComponent(state.name)+'&template='+encodeURIComponent(state.template)+'&platforms='+encodeURIComponent(state.platforms.join(','));
-    window.location.href = '/my-agent.html'+params;
+  showStep('L');
+  document.getElementById('lname').textContent=st.name;
+  [1,2,3,4,5].forEach(function(i){ setTimeout(function(){ document.getElementById('c'+i).classList.add('v'); }, i*700); });
+  setTimeout(function(){
+    window.location.href='/my-agent.html?name='+encodeURIComponent(st.name)+'&template='+encodeURIComponent(st.template)+'&game='+encodeURIComponent(st.game||'')+'&platforms='+encodeURIComponent(st.platforms.join(','));
   }, 4200);
 }
 

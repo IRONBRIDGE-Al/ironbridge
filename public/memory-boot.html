@@ -2,178 +2,184 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IronBridge Memory — Boot Console</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>IronBridge — Memory Boot Console</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
-:root{--bg:#0a0a0f;--surface:#11111a;--border:#1e1e2e;--accent:#ff6b2b;--accent2:#2bffb0;--text:#e8e8f0;--muted:#5a5a7a;--green:#2bffb0;--yellow:#ffd166;--red:#ff4757}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;opacity:.4;pointer-events:none;z-index:0}
-.container{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:40px 24px}
-.header{display:flex;align-items:center;gap:16px;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.logo{width:44px;height:44px;background:var(--accent);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#0a0a0f;flex-shrink:0}
-.header-text h1{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.5px}
-.header-text p{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.5px}
-.status-dot{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--green)}
-.status-dot::before{content:'';width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.token-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:24px}
-.token-section label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:10px}
-.token-row{display:flex;gap:10px}
-.token-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:10px 14px;color:var(--text);font-family:'Space Mono',monospace;font-size:12px;outline:none;transition:border-color .2s}
-.token-row input:focus{border-color:var(--accent)}
-.token-row input::placeholder{color:var(--muted)}
-.btn{padding:10px 20px;border:none;border-radius:4px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.5px}
-.btn-primary{background:var(--accent);color:#0a0a0f}
-.btn-primary:hover{background:#ff8c5a;transform:translateY(-1px)}
-.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text)}
-.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
-.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px}
-.stat-card .label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.stat-card .value{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
-.stat-card .value.green{color:var(--green)}.stat-card .value.yellow{color:var(--yellow)}.stat-card .value.red{color:var(--red)}
-.output-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:24px;overflow:hidden}
-.output-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(255,107,43,.05)}
-.output-header span{font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;font-weight:700}
-.output-body{padding:20px;font-size:12px;line-height:1.7;color:var(--text);white-space:pre-wrap;max-height:400px;overflow-y:auto;min-height:100px}
-.output-body::-webkit-scrollbar{width:4px}.output-body::-webkit-scrollbar-track{background:var(--bg)}.output-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.boot-prompt{background:var(--bg);border:1px solid var(--accent);border-radius:8px;padding:20px;margin-bottom:24px}
-.boot-prompt-label{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.boot-prompt textarea{width:100%;background:transparent;border:none;color:var(--green);font-family:'Space Mono',monospace;font-size:11px;line-height:1.6;resize:none;outline:none;min-height:180px}
-.action-row{display:flex;gap:12px;flex-wrap:wrap}
-.file-list{display:flex;flex-direction:column;gap:6px;padding:16px}
-.file-item{display:flex;align-items:center;gap:10px;font-size:11px;padding:6px 10px;background:var(--bg);border-radius:4px;border:1px solid var(--border)}
-.file-status{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.file-status.ok{background:var(--green)}.file-status.err{background:var(--red)}.file-status.loading{background:var(--yellow);animation:pulse 1s infinite}
-.divider{border:none;border-top:1px solid var(--border);margin:24px 0}
-.section-title{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+body{background:#080808;color:#d0d0d0;font-family:'Courier New',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}
+.header{text-align:center;margin-bottom:36px}
+.logo{font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-bottom:10px}
+h1{font-size:26px;color:#fff;letter-spacing:1px;margin-bottom:8px}
+.sub{font-size:12px;color:#444;line-height:1.6;max-width:520px;margin:0 auto}
+.card{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:4px;width:100%;max-width:660px;margin-bottom:14px;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid #1a1a1a}
+.tab{padding:11px 18px;font-size:10px;letter-spacing:2px;color:#333;cursor:pointer;border-bottom:2px solid transparent;text-transform:uppercase;transition:all .15s}
+.tab:hover{color:#666}.tab.active{color:#aaa;border-bottom-color:#555}
+.tab-content{display:none;padding:24px}.tab-content.active{display:block}
+.field{margin-bottom:14px}
+label{font-size:9px;color:#444;letter-spacing:2px;display:block;margin-bottom:5px;text-transform:uppercase}
+input,textarea{width:100%;background:#0a0a0a;border:1px solid #1e1e1e;color:#ccc;padding:9px 12px;font-family:'Courier New',monospace;font-size:12px;border-radius:2px;outline:none;transition:border .15s}
+input:focus,textarea:focus{border-color:#333}
+textarea{height:70px;resize:vertical}
+.btn{width:100%;padding:11px;background:#1a1a00;border:1px solid #333300;color:#aaaa00;font-family:'Courier New',monospace;font-size:11px;letter-spacing:2px;cursor:pointer;border-radius:2px;text-transform:uppercase;transition:all .15s;margin-top:4px}
+.btn:hover{background:#222200;border-color:#555500;color:#eee000}
+.btn.g{background:#001500;border-color:#003300;color:#00cc00}
+.btn.g:hover{background:#002200;color:#00ff00}
+.out{background:#0a0a0a;border:1px solid #141414;border-radius:2px;padding:14px;font-size:11px;color:#666;line-height:1.8;white-space:pre-wrap;min-height:100px;margin-top:12px;position:relative;word-break:break-word}
+.cpbtn{position:absolute;top:8px;right:8px;font-size:9px;padding:3px 9px;background:#111;border:1px solid #1e1e1e;color:#333;cursor:pointer;border-radius:2px;font-family:'Courier New',monospace}
+.cpbtn:hover{color:#888;border-color:#333}.cpbtn.ok{color:#00aa00;border-color:#003300}
+.qrow{display:flex;align-items:center;gap:10px;background:#0a0a0a;border:1px solid #141414;border-radius:2px;padding:9px 12px;margin-top:6px;font-size:11px;color:#555;word-break:break-all}
+.qrow span{flex:1}
+.step{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid #0d0d0d;font-size:11px;color:#555}
+.step:last-child{border-bottom:none}
+.sn{color:#222;min-width:18px}
+.tip{font-size:10px;color:#252525;margin-top:10px;line-height:1.6}
+.sdot{width:5px;height:5px;border-radius:50%;background:#00aa00;display:inline-block;margin-right:5px;animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+footer{font-size:10px;color:#222;text-align:center;margin-top:6px}
+footer a{color:#333;text-decoration:none}footer a:hover{color:#666}
 </style>
 </head>
 <body>
-<div class="container">
 <div class="header">
-  <div class="logo">IB</div>
-  <div class="header-text">
-    <h1>IronBridge Memory Console</h1>
-    <p>CLAUDE CONTEXT RESTORE — AGENT BOOT SYSTEM</p>
+  <div class="logo">IronBridge</div>
+  <h1>🧠 Memory Boot Console</h1>
+  <div class="sub">Generate a boot prompt from your GitHub memory repo. Paste into Claude. Full context in 15 seconds.</div>
+</div>
+
+<div class="card">
+  <div class="tabs">
+    <div class="tab active" onclick="st('boot',this)">Boot Prompt</div>
+    <div class="tab" onclick="st('quickurl',this)">Quick URL</div>
+    <div class="tab" onclick="st('log',this)">Session Log</div>
+    <div class="tab" onclick="st('howto',this)">How To Use</div>
   </div>
-  <div class="status-dot" id="statusLabel">READY</div>
-</div>
-<div class="token-section">
-  <label>GitHub Personal Access Token (read access to ironbridge-memory)</label>
-  <div class="token-row">
-    <input type="password" id="tokenInput" placeholder="ghp_..." autocomplete="off"/>
-    <button class="btn btn-primary" id="bootBtn" onclick="runBoot()">⚡ BOOT MEMORY</button>
+
+  <div id="boot" class="tab-content active">
+    <div class="field"><label>GitHub Token (read access)</label><input type="password" id="t" placeholder="ghp_..."></div>
+    <div class="field"><label>Repo (org/repo)</label><input type="text" id="r" placeholder="IRONBRIDGE-Al/ironbridge-memory" value="IRONBRIDGE-Al/ironbridge-memory"></div>
+    <div class="field"><label>Boot file</label><input type="text" id="bf" value="CLAUDE.md"></div>
+    <div class="field"><label>Status file (optional)</label><input type="text" id="sf" value="ops/command-center.md"></div>
+    <button class="btn" onclick="genBoot()">⚡ GENERATE BOOT PROMPT</button>
+    <div style="position:relative"><div class="out" id="bo">Enter repo details above and click Generate.</div><button class="cpbtn" onclick="cp('bo',this)">COPY</button></div>
+    <div class="tip">💡 Paste the generated prompt at the start of any new Claude conversation. Full context instantly.</div>
   </div>
-</div>
-<div class="status-grid">
-  <div class="stat-card"><div class="label">Team Status</div><div class="value green" id="teamStatus">—</div></div>
-  <div class="stat-card"><div class="label">Files Loaded</div><div class="value" id="filesLoaded">—</div></div>
-  <div class="stat-card"><div class="label">Last Session</div><div class="value yellow" id="lastSession">—</div></div>
-</div>
-<div class="output-section" id="fileSection" style="display:none">
-  <div class="output-header"><span>Memory Files</span><span id="fileCount">0 loaded</span></div>
-  <div class="output-body"><div class="file-list" id="fileList"></div></div>
-</div>
-<div id="bootPromptSection" style="display:none">
-  <div class="boot-prompt">
-    <div class="boot-prompt-label">
-      <span>📋 Claude Boot Prompt — paste this to restore full memory</span>
-      <button class="btn btn-secondary" onclick="copyPrompt()" id="copyBtn">Copy</button>
+
+  <div id="quickurl" class="tab-content">
+    <p style="font-size:11px;color:#444;margin-bottom:16px;line-height:1.6">The fastest restore. Give Claude this raw URL — it reads your CLAUDE.md directly. Bookmark it.</p>
+    <div class="field"><label>Repo (org/repo)</label><input type="text" id="qr" placeholder="IRONBRIDGE-Al/ironbridge-memory" oninput="uq()"></div>
+    <div class="field"><label>Branch</label><input type="text" id="qb" value="main" oninput="uq()"></div>
+    <div class="field"><label>File</label><input type="text" id="qf" value="CLAUDE.md" oninput="uq()"></div>
+    <label style="font-size:9px;color:#333;letter-spacing:2px;display:block;margin-bottom:6px;text-transform:uppercase">Your Memory URL</label>
+    <div class="qrow"><span id="qu">https://raw.githubusercontent.com/YOUR-ORG/YOUR-REPO/main/CLAUDE.md</span><button class="cpbtn" onclick="cpTxt(document.getElementById('qu').textContent,this)" style="position:static">COPY</button></div>
+    <div class="tip" style="margin-top:14px">Tell Claude: <em style="color:#444">"Fetch and read this URL: [paste URL]"</em></div>
+    <div style="margin-top:20px">
+      <label style="font-size:9px;color:#333;letter-spacing:2px;display:block;margin-bottom:8px;text-transform:uppercase">IronBridge Restore URLs</label>
+      <div class="qrow"><span>https://raw.githubusercontent.com/IRONBRIDGE-Al/ironbridge-memory/main/CLAUDE.md</span><button class="cpbtn" onclick="cpTxt('https://raw.githubusercontent.com/IRONBRIDGE-Al/ironbridge-memory/main/CLAUDE.md',this)" style="position:static">COPY</button></div>
+      <div class="qrow" style="margin-top:6px"><span>https://raw.githubusercontent.com/IRONBRIDGE-Al/ironbridge-memory/main/ops/command-center.md</span><button class="cpbtn" onclick="cpTxt('https://raw.githubusercontent.com/IRONBRIDGE-Al/ironbridge-memory/main/ops/command-center.md',this)" style="position:static">COPY</button></div>
     </div>
-    <textarea id="bootPromptOutput" readonly></textarea>
   </div>
-  <div class="action-row">
-    <button class="btn btn-primary" onclick="copyPrompt()">Copy Boot Prompt</button>
-    <button class="btn btn-secondary" onclick="runBoot()">↻ Refresh</button>
-    <button class="btn btn-secondary" onclick="window.open('https://claude.ai','_blank')">Open Claude →</button>
+
+  <div id="log" class="tab-content">
+    <p style="font-size:11px;color:#444;margin-bottom:16px;line-height:1.6">Write what happened this session. Next session picks up exactly here.</p>
+    <div class="field"><label>GitHub Token (write access)</label><input type="password" id="lt" placeholder="ghp_..."></div>
+    <div class="field"><label>Repo</label><input type="text" id="lr" value="IRONBRIDGE-Al/ironbridge-memory"></div>
+    <div class="field"><label>What was decided</label><textarea id="ld" placeholder="- Decision A&#10;- Decision B"></textarea></div>
+    <div class="field"><label>What was completed</label><textarea id="lc" placeholder="- Task A&#10;- Task B"></textarea></div>
+    <div class="field"><label>What's next</label><textarea id="ln" placeholder="- Priority 1&#10;- Priority 2"></textarea></div>
+    <button class="btn g" onclick="wLog()">✅ COMMIT SESSION LOG</button>
+    <div class="out" id="lo" style="margin-top:12px">Log will commit to logs/sessions/[date].md</div>
+  </div>
+
+  <div id="howto" class="tab-content">
+    <div class="step"><div class="sn">01</div><div>Create a private GitHub repo for your project memory</div></div>
+    <div class="step"><div class="sn">02</div><div>Copy <code style="color:#555">templates/solo/CLAUDE.md</code> from <a href="https://github.com/IRONBRIDGE-Al/claude-memory" style="color:#444">github.com/IRONBRIDGE-Al/claude-memory</a> — fill it in</div></div>
+    <div class="step"><div class="sn">03</div><div>Session start → Boot Prompt tab → Generate → Copy → Paste into Claude</div></div>
+    <div class="step"><div class="sn">04</div><div>Work with Claude. It has full context.</div></div>
+    <div class="step"><div class="sn">05</div><div>Session end → Session Log tab → write what happened → Commit</div></div>
+    <div class="step"><div class="sn">06</div><div>Next session: Boot again. Claude picks up exactly where you left off.</div></div>
+    <div style="margin-top:20px">
+      <label style="font-size:9px;color:#333;letter-spacing:2px;display:block;margin-bottom:8px;text-transform:uppercase">IronBridge Live Memory Files</label>
+      <div class="step"><div class="sn"><span class="sdot"></span></div><div>CLAUDE.md — master boot, read first every session</div></div>
+      <div class="step"><div class="sn"><span class="sdot"></span></div><div>ops/command-center.md — team status + 37 completed tasks</div></div>
+      <div class="step"><div class="sn"><span class="sdot"></span></div><div>logs/health/[date].md — Brooks writes every 10 min</div></div>
+      <div class="step"><div class="sn"><span class="sdot"></span></div><div>logs/intel/[date].md — Rachel writes every 6 hrs</div></div>
+      <div class="step"><div class="sn"><span class="sdot"></span></div><div>logs/sessions/[date].md — session logs after each conversation</div></div>
+    </div>
   </div>
 </div>
-<hr class="divider">
-<div class="section-title">Current Priorities</div>
-<div id="quickRef" style="display:none">
-  <div class="output-section">
-    <div class="output-header"><span>Live from command-center.md</span></div>
-    <div class="output-body" id="prioritiesOutput">—</div>
-  </div>
-</div>
-</div>
+
+<footer>Built by <a href="https://ironbridge-jade.vercel.app">IronBridge</a> &nbsp;·&nbsp; <a href="https://github.com/IRONBRIDGE-Al/claude-memory">claude-memory on GitHub</a> &nbsp;·&nbsp; <a href="https://ironbridge-jade.vercel.app/command-center.html">Command Center</a></footer>
+
 <script>
-const REPO='IRONBRIDGE-Al/ironbridge-memory';
-const FILES=[
-  {path:'CLAUDE.md',label:'Master Boot File',required:true},
-  {path:'ops/command-center.md',label:'Command Center',required:true},
-  {path:'ops/GO-SIGNAL.md',label:'GO Signal',required:false},
-  {path:'ops/product-gaps-attack-plan.md',label:'Attack Plan',required:false},
-  {path:'ops/pricing-model.md',label:'Pricing Model',required:false},
-  {path:'ops/six-platform-priority-list.md',label:'6 Platforms',required:false},
-  {path:'ops/bnkr-department-plan.md',label:'BNKR Dept',required:false},
-  {path:'team/sterling.md',label:'Sterling',required:false},
-];
-let loaded={};
-async function fetchFile(t,p){
-  const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/'+p,{headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});
-  if(!r.ok)throw new Error(r.status);
-  const d=await r.json();
-  return atob(d.content.replace(/\n/g,''));
-}
-async function getLatestSession(t){
+function st(id,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.getElementById(id).classList.add('active');}
+function uq(){const r=document.getElementById('qr').value||'YOUR-ORG/YOUR-REPO';const b=document.getElementById('qb').value||'main';const f=document.getElementById('qf').value||'CLAUDE.md';document.getElementById('qu').textContent='https://raw.githubusercontent.com/'+r+'/'+b+'/'+f;}
+function cp(id,btn){const txt=document.getElementById(id).textContent;navigator.clipboard.writeText(txt).then(()=>{btn.textContent='COPIED';btn.classList.add('ok');setTimeout(()=>{btn.textContent='COPY';btn.classList.remove('ok');},2000);});}
+function cpTxt(txt,btn){navigator.clipboard.writeText(txt).then(()=>{btn.textContent='COPIED';btn.classList.add('ok');setTimeout(()=>{btn.textContent='COPY';btn.classList.remove('ok');},2000);});}
+async function genBoot(){
+  const token=document.getElementById('t').value.trim();
+  const repo=document.getElementById('r').value.trim();
+  const bf=document.getElementById('bf').value.trim()||'CLAUDE.md';
+  const sf=document.getElementById('sf').value.trim();
+  const out=document.getElementById('bo');
+  if(!repo){out.textContent='Enter a repo first.';return;}
+  out.textContent='Fetching from GitHub...';
   try{
-    const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/logs/sessions',{headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});
-    const files=await r.json();
-    const sessions=files.filter(f=>f.name.endsWith('.md')&&!f.name.includes('gitkeep')).sort((a,b)=>b.name.localeCompare(a.name));
-    if(!sessions.length)return null;
-    const c=await fetchFile(t,sessions[0].path);
-    return{name:sessions[0].name,content:c.slice(0,500)};
-  }catch{return null;}
+    const hdrs=token?{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}:{'Accept':'application/vnd.github.v3+json'};
+    const fetchF=async(p)=>{const r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+p,{headers:hdrs});if(!r.ok)return null;const d=await r.json();return d.content?atob(d.content.replace(/
+/g,'')):null;};
+    const[bc,sc]=await Promise.all([fetchF(bf),sf?fetchF(sf):null]);
+    const date=new Date().toISOString().slice(0,10);
+    let p='=== MEMORY BOOT — '+date+' ===
+
+';
+    p+='--- '+bf.toUpperCase()+' ---
+'+(bc||'File not found. Check token and repo.')+'
+
+';
+    if(sc){p+='--- '+sf.toUpperCase()+' ---
+'+sc.slice(0,2500)+(sc.length>2500?'
+[truncated]':'')+'
+
+';}
+    p+='=== END BOOT ===
+
+Full context restored. Pick up where we left off.';
+    out.textContent=p;
+  }catch(e){out.textContent='Error: '+e.message;}
 }
-function buildPrompt(files,sess){
-  const cc=files['ops/command-center.md']||'';
-  const sm=cc.match(/TOP 3 PRIORITIES[\s\S]{0,400}/i);
-  const sl=sess?'LATEST SESSION ('+sess.name+'):\n'+sess.content:'No session found.';
-  return '=== IRONBRIDGE MEMORY BOOT — '+new Date().toISOString().slice(0,10)+' ===\n\nYou are Claude, working with the Owner of IronBridge.\nIronBridge = one-click AI agent deployment to 6 platforms.\n\nREPO: github.com/IRONBRIDGE-Al/ironbridge-memory (private)\nSITE: ironbridge-jade.vercel.app\nSTATUS: GO — STANDBY LIFTED 2026-04-07\n\nTEAM: Dick (Orchestrator) | Paul (Product) | Oscar (Ops) | Rachel (Intel) | Gary (Growth) | Sam (Security) | Brooks (Ops) | Sterling (BNKR — defined, not running)\n\nFOUR RULES:\n1. Everything ready for humans at launch\n2. Easiest integration possible\n3. Cost-friendly — no uncapped spend\n4. Checks and balances at every level\n\nKEY DECISIONS:\n- GoClaw = primary platform\n- 6 platforms: Telegram | X | Discord | WhatsApp | Slack | Web\n- Pricing: Free / $10 Starter / $50 Growth / $200 Founder + 10% rev share\n- Integration Package: $500 + 10% ongoing swap fees\n- ClawRouter x402 = monetization engine (pending Owner YELLOW gate)\n- Sterling = BNKR Strength agent (activates post-Milestone 2)\n- XActions + Xquik approved | mem0 for all agents | SimpleMem for Rachel\n\nPRIORITIES:\n'+(sm?sm[0]:'See ops/command-center.md')+'\n\n'+sl+'\n\nPick up where we left off.\n\n=== END BOOT ===';
-}
-async function runBoot(){
-  const t=document.getElementById('tokenInput').value.trim();
-  if(!t){alert('Paste your GitHub token first');return;}
-  const btn=document.getElementById('bootBtn');
-  btn.disabled=true;btn.textContent='⟳ Loading...';
-  document.getElementById('statusLabel').textContent='LOADING';
-  document.getElementById('fileSection').style.display='block';
-  const fl=document.getElementById('fileList');fl.innerHTML='';
-  loaded={};let cnt=0;
-  for(const f of FILES){
-    const row=document.createElement('div');row.className='file-item';
-    row.innerHTML='<span class="file-status loading" id="s_'+f.path.replace(/\//g,'_')+'"></span><span style="flex:1;color:var(--muted)">'+f.label+'</span><span style="font-size:10px;color:var(--muted)">'+f.path+'</span>';
-    fl.appendChild(row);
-  }
-  await Promise.allSettled(FILES.map(async f=>{
-    const dot=document.getElementById('s_'+f.path.replace(/\//g,'_'));
-    try{loaded[f.path]=await fetchFile(t,f.path);dot.className='file-status ok';cnt++;document.getElementById('filesLoaded').textContent=cnt;}
-    catch{dot.className='file-status err';}
-  }));
-  const sess=await getLatestSession(t);
-  if(sess)document.getElementById('lastSession').textContent=sess.name.replace('.md','').slice(-20);
-  document.getElementById('bootPromptOutput').value=buildPrompt(loaded,sess);
-  document.getElementById('bootPromptSection').style.display='block';
-  document.getElementById('fileCount').textContent=cnt+'/'+FILES.length+' loaded';
-  const cc=loaded['ops/command-center.md']||'';
-  const isGo=cc.includes('GO')&&cc.includes('LIVE');
-  document.getElementById('teamStatus').textContent=isGo?'GO':'STANDBY';
-  document.getElementById('teamStatus').className='value '+(isGo?'green':'yellow');
-  const pm=cc.match(/TOP 3 PRIORITIES[\s\S]{0,400}/i);
-  if(pm){document.getElementById('quickRef').style.display='block';document.getElementById('prioritiesOutput').textContent=pm[0];}
-  btn.disabled=false;btn.textContent='⚡ BOOT MEMORY';
-  document.getElementById('statusLabel').textContent='LOADED';
-}
-function copyPrompt(){
-  const ta=document.getElementById('bootPromptOutput');
-  navigator.clipboard.writeText(ta.value).catch(()=>{ta.select();document.execCommand('copy');});
-  const b=document.getElementById('copyBtn');b.textContent='✓ Copied!';b.style.color='var(--green)';
-  setTimeout(()=>{b.textContent='Copy';b.style.color='';},2000);
+async function wLog(){
+  const token=document.getElementById('lt').value.trim();
+  const repo=document.getElementById('lr').value.trim();
+  if(!token||!repo){document.getElementById('lo').textContent='Token and repo required.';return;}
+  const out=document.getElementById('lo');
+  out.textContent='Writing...';
+  const date=new Date().toISOString().slice(0,10);
+  const time=new Date().toISOString().slice(11,16);
+  const content='# Session Log — '+date+'
+Time: '+time+' UTC
+
+## Decided
+'+(document.getElementById('ld').value||'Nothing noted')+'
+
+## Completed
+'+(document.getElementById('lc').value||'Nothing noted')+'
+
+## Next
+'+(document.getElementById('ln').value||'Nothing noted')+'
+';
+  const path='logs/sessions/'+date+'-session.md';
+  try{
+    let sha;
+    const g=await fetch('https://api.github.com/repos/'+repo+'/contents/'+path,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
+    if(g.ok){const e=await g.json();sha=e.sha;}
+    const body={message:'[Memory] Session log '+date,content:btoa(unescape(encodeURIComponent(content)))};
+    if(sha)body.sha=sha;
+    const r=await fetch('https://api.github.com/repos/'+repo+'/contents/'+path,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});
+    const d=await r.json();
+    out.textContent=d.commit?'✅ Committed: '+path+'
+SHA: '+d.commit.sha.slice(0,7):'Error: '+JSON.stringify(d).slice(0,100);
+  }catch(e){out.textContent='Error: '+e.message;}
 }
 </script>
 </body>

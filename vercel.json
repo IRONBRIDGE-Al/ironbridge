@@ -1,0 +1,1 @@
+{"version":2,"functions":{"api/intel.js":{"maxDuration":10}},"routes":[{"src":"/.well-known/x402.json","dest":"/api/x402-manifest.js"},{"src":"/api/(.*)","dest":"/api/$1"}]}

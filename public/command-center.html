@@ -359,7 +359,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif
 
 <!--
   IRONBRIDGE COMMAND CENTER
-  âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
   SECRETS LIVE IN VERCEL ENV VARS. NOT HERE. NEVER HERE.
 
   Required Vercel env vars (set at vercel.com/ironbridge/settings):
@@ -370,7 +370,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif
 
   These are injected into window.__IB__ by /api/config.js (Edge Function)
   The HTML reads from window.__IB__. Clean repo. Safe source control.
-  âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 -->
 
 <script>
@@ -415,6 +415,7 @@ async function notifyTelegram(msg) {
   setTimeout(()=>document.getElementById('ib-pin').focus(),50);
   function attempt() {
     const pin = IB.PIN || 'ironbridge2026'; // fallback only if env not set
+    pin = (window.__IB__||{}).PIN || pin; // read live in case config.js loaded after IB init
     if (document.getElementById('ib-pin').value.trim() === pin) {
       sessionStorage.setItem('ib_ok','1'); ov.remove();
       notifyTelegram('Command center accessed ' + new Date().toLocaleString());

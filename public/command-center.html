@@ -358,7 +358,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif
 
 <!--
   IRONBRIDGE COMMAND CENTER
-  âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  ═══════════════════════════════════════════════════════════════
   SECRETS LIVE IN VERCEL ENV VARS. NOT HERE. NEVER HERE.
 
   Required Vercel env vars (set at vercel.com/ironbridge/settings):
@@ -369,7 +369,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif
 
   These are injected into window.__IB__ by /api/config.js (Edge Function)
   The HTML reads from window.__IB__. Clean repo. Safe source control.
-  âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  ═══════════════════════════════════════════════════════════════
 -->
 
 <script>
@@ -498,9 +498,9 @@ function renderDecisions(){
       (done?'<div style="color:#444;font-size:.75rem;margin-top:6px;">Decided '+s.ts+'</div>':'')+
       '</div><div style="display:flex;gap:8px;flex-shrink:0;">'+
       (done
-        ? '<button onclick="reset(''+d.id+'')" style="background:transparent;color:#555;border:1px solid #333;padding:8px 16px;border-radius:4px;cursor:pointer;">Reset</button>'
-        : '<button onclick="approve(''+d.id+'')" style="background:#00ff88;color:#000;font-weight:700;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;">Approve</button>'+
-          '<button onclick="decline(''+d.id+'')" style="background:transparent;color:#ff4444;border:1px solid #ff4444;padding:10px 20px;border-radius:4px;cursor:pointer;">Decline</button>')+
+        ? '<button onclick="reset("+d.id+")" style="background:transparent;color:#555;border:1px solid #333;padding:8px 16px;border-radius:4px;cursor:pointer;">Reset</button>'
+        : '<button onclick="approve("+d.id+")" style="background:#00ff88;color:#000;font-weight:700;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;">Approve</button>'+
+          '<button onclick="decline("+d.id+")" style="background:transparent;color:#ff4444;border:1px solid #ff4444;padding:10px 20px;border-radius:4px;cursor:pointer;">Decline</button>')+
       '</div></div>';
   }).join('');
 }

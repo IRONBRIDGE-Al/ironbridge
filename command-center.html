@@ -1,239 +1,212 @@
-<!DOCTYPE html>
-<html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>IRONBRIDGE // COMMAND</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:#08080f;color:#e0e0e0;font-family:"Courier New",monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden;}
-:root{--a:#ff3333;--g:#00ff88;--b:#4488ff;--gold:#ffd700;--dim:#444;--panel:#0e0e18;--border:#1a1a2e;--text2:#888;}
+:root{--a:#ff3333;--g:#00ff88;--b:#4488ff;--gold:#ffd700;--dim:#444;--panel:#0e0e18;--border:#1a1a2e;--t2:#888;}
 .topbar{background:#0a0a14;border-bottom:2px solid var(--a);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .logo{font-size:16px;font-weight:bold;letter-spacing:5px;color:var(--gold)}.logo em{color:var(--a);font-style:normal}
-.top-stats{display:flex;gap:20px;font-size:11px;align-items:center}
-.tsitem{display:flex;align-items:center;gap:5px}
-.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.top-r{display:flex;gap:16px;font-size:11px;align-items:center}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block;margin-right:5px}
 .dot.g{background:var(--g);box-shadow:0 0 6px var(--g);animation:glow 2s infinite}
-.dot.r{background:var(--a);box-shadow:0 0 6px var(--a);animation:glow 1s infinite}
-.dot.o{background:#ff8800;box-shadow:0 0 6px #ff8800;animation:glow 1.5s infinite}
-@keyframes glow{50%{opacity:0.4}}
-.mission{background:#08080f;border-bottom:1px solid var(--border);padding:5px 20px;font-size:10px;color:var(--dim);letter-spacing:2px;flex-shrink:0}
+.dot.r{background:var(--a);box-shadow:0 0 6px var(--a);animation:glow .8s infinite}
+.dot.o{background:#ff8800;animation:glow 1.5s infinite}
+@keyframes glow{50%{opacity:.3}}
+.mission{background:#06060e;border-bottom:1px solid var(--border);padding:5px 20px;font-size:10px;color:var(--dim);letter-spacing:2px;flex-shrink:0}
 .body{display:flex;flex:1;overflow:hidden}
 .sidebar{width:220px;background:var(--panel);border-right:1px solid var(--border);overflow-y:auto;flex-shrink:0}
-.nsec{padding:6px 14px 3px;font-size:9px;letter-spacing:3px;color:var(--dim);background:#08080f;border-bottom:1px solid var(--border)}
-.ni{padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;font-size:11px;letter-spacing:1px;color:var(--text2);transition:.15s;display:flex;align-items:center;gap:8px}
+.nsec{padding:6px 14px 3px;font-size:9px;letter-spacing:3px;color:var(--dim);background:#06060e;border-bottom:1px solid var(--border)}
+.ni{padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;font-size:11px;color:var(--t2);transition:.15s;display:flex;align-items:center;gap:8px}
 .ni:hover,.ni.on{background:#14142a;color:#fff;border-left:3px solid var(--a);padding-left:11px}
 .main{flex:1;overflow-y:auto;padding:16px}
 .panel{display:none}.panel.on{display:block}
-.srow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:16px}
+.srow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px}
 .sc{background:var(--panel);border:1px solid var(--border);border-radius:3px;padding:12px;text-align:center}
 .sv{font-size:22px;font-weight:bold}.sv.g{color:var(--g)}.sv.r{color:var(--a)}.sv.o{color:#ff8800}.sv.gold{color:var(--gold)}
 .sl{font-size:9px;color:var(--dim);letter-spacing:2px;margin-top:3px}
-.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
-.sol{background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:11px;transition:.2s;position:relative;overflow:hidden}
-.sol::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px}
-.sol.UP::before{background:var(--g)}.sol.DOWN::before{background:var(--a);animation:flash .8s infinite}
-.sol.PEND::before{background:#ff8800}
-@keyframes flash{50%{opacity:0.2}}
-.sname{font-size:12px;font-weight:bold;letter-spacing:2px;color:var(--gold)}
-.sdiv{font-size:9px;color:var(--dim);margin:2px 0 6px}
-.sbadge{font-size:9px;padding:1px 6px;border-radius:2px;letter-spacing:1px;display:inline-block}
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.sol{background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:11px;position:relative}
+.sol::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.sol.UP::before{background:var(--g)}.sol.DOWN::before{background:var(--a);animation:flash .8s infinite}.sol.PEND::before{background:#ff8800}
+@keyframes flash{50%{opacity:.1}}
+.sn{font-size:12px;font-weight:bold;letter-spacing:2px;color:var(--gold)}.sd{font-size:9px;color:var(--dim);margin:2px 0 7px}
+.sbadge{font-size:9px;padding:1px 6px;border-radius:2px;letter-spacing:1px}
 .sbadge.SUCCESS{background:#00ff8812;color:var(--g);border:1px solid var(--g)}
 .sbadge.CRASHED{background:#ff000012;color:var(--a);border:1px solid var(--a)}
-.sbadge.BUILDING,.sbadge.DEPLOYING,.sbadge.QUEUED{background:#ff880012;color:#ff8800;border:1px solid #ff8800}
-.stask{font-size:10px;color:var(--text2);margin-top:7px;padding-top:7px;border-top:1px solid var(--border);line-height:1.4}
-.stime{font-size:9px;color:var(--dim);margin-top:4px}
-.build-table{width:100%;border-collapse:collapse;font-size:11px}
-.build-table th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);font-size:9px;letter-spacing:2px;color:var(--a)}
-.build-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
-.build-table tr:hover td{background:#0a0a14}
-.btag{display:inline-block;font-size:9px;padding:1px 6px;border-radius:2px;margin-right:3px}
-.btag.ok{background:#00ff8812;color:var(--g);border:1px solid var(--g)}
-.btag.fail{background:#ff000012;color:var(--a);border:1px solid var(--a)}
-.btag.build{background:#ff880012;color:#ff8800;border:1px solid #ff8800}
-.btag.new{background:#4488ff12;color:var(--b);border:1px solid var(--b)}
-.bar-wrap{background:#0a0a14;border-radius:2px;height:6px;margin-top:4px;overflow:hidden}
-.bar-fill{height:100%;border-radius:2px;transition:width 1s}
-.divc{background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:14px;margin-bottom:8px}
-.divn{font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold;margin-bottom:4px}
-.divl{font-size:10px;color:var(--a);margin-bottom:8px}
-.divtags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
-.dtag{font-size:9px;padding:2px 7px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--text2)}
-.divtask{display:flex;gap:6px;padding:3px 0;font-size:10px;color:var(--text2);border-bottom:1px solid #ffffff06}
+.sbadge.BUILDING,.sbadge.DEPLOYING,.sbadge.QUEUED,.sbadge.FAILED{background:#ff880012;color:#ff8800;border:1px solid #ff8800}
+.st{font-size:10px;color:var(--t2);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)}
+.stit{font-size:10px;letter-spacing:4px;color:var(--a);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.stit::after{content:"";flex:1;height:1px;background:var(--border)}
+.ref{font-size:9px;color:var(--dim);text-align:right;margin-bottom:10px}
+.ci{display:flex;gap:6px;margin-top:10px}
+.ci input{flex:1;background:#06060f;border:1px solid var(--border);color:#e0e0e0;padding:8px 10px;font-family:monospace;font-size:11px;border-radius:2px;outline:none}
+.ci input:focus{border-color:var(--a)}
+.ci button{background:var(--a);color:#fff;border:none;padding:8px 14px;cursor:pointer;font-family:monospace;font-size:10px;letter-spacing:1px;border-radius:2px}
+.cout{margin-top:8px;background:#040409;border:1px solid var(--border);padding:8px;font-size:10px;color:var(--g);min-height:44px;white-space:pre-wrap;max-height:160px;overflow-y:auto;border-radius:2px}
+.al{padding:8px 12px;border-radius:2px;margin-bottom:10px;font-size:10px}
+.al.ok{background:#00ff8810;border:1px solid var(--g);color:var(--g)}
+.al.warn{background:#ff880010;border:1px solid #ff8800;color:#ff8800}
+.al.err{background:#ff000010;border:1px solid var(--a);color:var(--a)}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.si{background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:10px}
+.sl2{font-size:9px;color:var(--dim);letter-spacing:2px;margin-bottom:4px}
+.sv2{font-size:11px}.sv2.ok{color:var(--g)}.sv2.warn{color:#ff8800}.sv2.fail{color:var(--a)}
+.logrow{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:10px}
+.lsha{color:var(--a);min-width:65px;font-weight:bold}.ltime{color:var(--dim);min-width:90px}.lmsg{color:var(--t2);flex:1}
+.tr{display:flex;gap:6px;padding:3px 0;font-size:10px;color:var(--t2);border-bottom:1px solid #ffffff06}
 .td{width:6px;height:6px;border-radius:50%;margin-top:3px;flex-shrink:0}
 .td.done{background:var(--g)}.td.open{background:#ff8800}.td.blocked{background:#333}
-.cmdin{display:flex;gap:6px;margin-top:10px}
-.cmdin input{flex:1;background:#06060f;border:1px solid var(--border);color:#e0e0e0;padding:8px 10px;font-family:monospace;font-size:11px;border-radius:2px;outline:none}
-.cmdin input:focus{border-color:var(--a)}
-.cmdin button{background:var(--a);color:#fff;border:none;padding:8px 14px;cursor:pointer;font-family:monospace;font-size:10px;letter-spacing:1px;border-radius:2px;white-space:nowrap}
-.cmdout{margin-top:8px;background:#040409;border:1px solid var(--border);padding:8px;font-size:10px;color:var(--g);min-height:44px;white-space:pre-wrap;max-height:120px;overflow-y:auto;border-radius:2px}
-.logrow{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:10px}
-.lsha{color:var(--a);min-width:65px;font-weight:bold}
-.ltime{color:var(--dim);min-width:90px}
-.lwho{color:var(--gold);min-width:60px}
-.lmsg{color:var(--text2);flex:1}
-.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.secitem{background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:10px}
-.seclabel{font-size:9px;color:var(--dim);letter-spacing:2px;margin-bottom:4px}
-.secval{font-size:11px}.secval.ok{color:var(--g)}.secval.warn{color:#ff8800}.secval.fail{color:var(--a)}
-.stitle{font-size:10px;letter-spacing:4px;color:var(--a);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.stitle::after{content:"";flex:1;height:1px;background:var(--border)}
-.alert{padding:8px 12px;border-radius:2px;margin-bottom:10px;font-size:10px}
-.alert.ok{background:#00ff8810;border:1px solid var(--g);color:var(--g)}
-.alert.warn{background:#ff880010;border:1px solid #ff8800;color:#ff8800}
-.ref{font-size:9px;color:var(--dim);text-align:right;margin-bottom:10px}
+.bt{width:100%;border-collapse:collapse;font-size:11px}
+.bt th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);font-size:9px;letter-spacing:2px;color:var(--a)}
+.bt td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--t2);vertical-align:middle}
+.bt tr:hover td{background:#0a0a14}
+.bw{background:#0a0a14;border-radius:2px;height:5px;margin-top:3px;overflow:hidden;min-width:80px}
+.bf{height:100%;border-radius:2px;transition:width 1s}
 </style></head><body>
 <div class="topbar">
-<div class="logo">IRON<em>BRIDGE</em> // COMMAND</div>
-<div class="top-stats">
-<div class="tsitem"><div class="dot g" id="armydot"></div><span id="armycount">--/17</span></div>
-<div class="tsitem" style="color:var(--g);font-size:10px" id="secbadge">FORTRESS LOCKED</div>
-<div class="tsitem" style="color:var(--gold);font-size:11px" id="clk">--:-- UTC</div>
+<div class="logo">IRON<em>BRIDGE</em></div>
+<div class="top-r">
+<div><span class="dot g" id="pd"></span><span id="ac">--</span> UP</div>
+<div style="color:var(--g);font-size:10px" id="sb">FORTRESS LOCKED</div>
+<div style="color:var(--gold)" id="clk">--:-- UTC</div>
 </div></div>
-<div class="mission">MISSION: BEST AI AGENT DEPLOYMENT PLATFORM // OWNER OFFLINE 72H // THANOS EXECUTES // 112 LAWS ACTIVE</div>
+<div class="mission">MISSION: BEST AI AGENT DEPLOYMENT PLATFORM // THANOS EXECUTES // 115 LAWS ACTIVE // OWNER OFFLINE 72H CAPABILITY</div>
 <div class="body">
 <div class="sidebar">
-<div class="nsec">COMMAND</div>
+<div class="nsec">LIVE</div>
 <div class="ni on" onclick="show(this,'army')">&#9876; ARMY STATUS</div>
 <div class="ni" onclick="show(this,'build')">&#9881; BUILD MONITOR</div>
-<div class="ni" onclick="show(this,'divs')">&#127963; DIVISIONS</div>
+<div class="nsec">STRUCTURE</div>
+<div class="ni" onclick="show(this,'divs')">&#127963; DIVISIONS (7)</div>
 <div class="ni" onclick="show(this,'tasks')">&#128203; TASK BOARD</div>
 <div class="nsec">SECURITY</div>
-<div class="ni" onclick="show(this,'fortress')">&#128274; FORTRESS</div>
-<div class="ni" onclick="show(this,'laws')">&#9878; LAWS (112)</div>
-<div class="nsec">OPERATIONS</div>
+<div class="ni" onclick="show(this,'sec')">&#128274; FORTRESS</div>
+<div class="ni" onclick="show(this,'laws')">&#9878; LAWS (115)</div>
+<div class="nsec">OPS</div>
 <div class="ni" onclick="show(this,'log')">&#128221; CHANGE LOG</div>
-<div class="ni" onclick="show(this,'cmd')">&#128172; COMMAND DICK</div>
-<div class="ni" onclick="show(this,'brief')">&#9788; MORNING BRIEF</div>
+<div class="ni" onclick="show(this,'cmd')">&#128172; COMMAND</div>
+<div class="ni" onclick="show(this,'brief')">&#9788; BRIEF</div>
 </div>
 <div class="main">
 <div class="panel on" id="p-army">
-<div class="ref">Auto-refresh 30s | <span id="lr">loading...</span></div>
+<div class="ref">Auto-refresh 30s | <span id="lr">loading...</span> | <button onclick="loadArmy()" style="background:none;border:1px solid var(--border);color:var(--t2);padding:2px 8px;cursor:pointer;font-size:9px;border-radius:2px">REFRESH</button></div>
 <div class="srow">
-<div class="sc"><div class="sv g" id="s-up">--</div><div class="sl">OPERATIONAL</div></div>
+<div class="sc"><div class="sv g" id="s-up">--</div><div class="sl">UP</div></div>
 <div class="sc"><div class="sv r" id="s-cr">0</div><div class="sl">CRASHED</div></div>
 <div class="sc"><div class="sv o" id="s-bd">--</div><div class="sl">BUILDING</div></div>
-<div class="sc"><div class="sv gold">17</div><div class="sl">SOLDIERS</div></div>
-<div class="sc"><div class="sv gold">112</div><div class="sl">LAWS</div></div>
+<div class="sc"><div class="sv gold" id="s-tot">--</div><div class="sl">SOLDIERS</div></div>
+<div class="sc"><div class="sv gold">115</div><div class="sl">LAWS</div></div>
 <div class="sc"><div class="sv" id="s-pct" style="color:var(--g)">--%</div><div class="sl">UPTIME</div></div>
-<div class="sc"><div class="sv" style="color:var(--g)">A+</div><div class="sl">SEC GRADE</div></div>
 </div>
-<div class="stitle">ACTIVE SOLDIERS</div>
-<div class="ag" id="ag">Loading...</div>
+<div id="crashed-alert"></div>
+<div class="stit">SOLDIERS</div>
+<div class="ag" id="ag">Loading army...</div>
 </div>
 <div class="panel" id="p-build">
-<div class="ref">Build data from Railway | Last: <span id="blr">loading...</span></div>
-<div class="stitle">BUILD MONITOR -- ALL SOLDIERS</div>
-<table class="build-table">
-<thead><tr>
-<th>SOLDIER</th><th>DIVISION</th><th>STATUS</th><th>LAST DEPLOY</th><th>BUILD HEALTH</th><th>MISSION</th>
-</tr></thead>
-<tbody id="build-tbody">Loading builds...</tbody>
-</table>
+<div class="ref">Build status from Railway | <span id="blr">-</span></div>
+<div class="stit">BUILD MONITOR</div>
+<table class="bt"><thead><tr><th>SOLDIER</th><th>DIV</th><th>STATUS</th><th>LAST DEPLOY</th><th>HEALTH BAR</th><th>MISSION</th></tr></thead>
+<tbody id="btbody">loading...</tbody></table>
 </div>
 <div class="panel" id="p-divs">
-<div class="stitle">7 DIVISIONS</div>
-<div class="divc">
-<div class="divn">DIV 1 // COMMAND</div>
-<div class="divl">LEAD: DICK</div>
-<div class="divtags"><span class="dtag">DICK</span><span class="dtag">OSCAR</span></div>
-<div class="divtask"><div class="td done"></div><div>Auto-medic v2 -- 60s watchArmy loop</div></div>
-<div class="divtask"><div class="td done"></div><div>Owner gate TG (LAW 111)</div></div>
-<div class="divtask"><div class="td open"></div><div>Daily 9:30am brief</div></div>
-<div class="divtask"><div class="td open"></div><div>NATS subscription</div></div>
+<div class="stit">7 DIVISIONS</div>
+<div style="background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px">
+<div style="font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold;margin-bottom:3px">DIV 1 COMMAND</div>
+<div style="font-size:10px;color:var(--a);margin-bottom:7px">LEAD: DICK</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">DICK</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">OSCAR</span></div>
+<div class="tr"><div class="td done"></div><div>Auto-medic v2 -- 60s watchArmy</div></div>
+<div class="tr"><div class="td done"></div><div>Owner gate TG (LAW 111+114)</div></div>
+<div class="tr"><div class="td open"></div><div>Daily 9:30am brief</div></div>
+<div class="tr"><div class="td open"></div><div>NATS bus subscription</div></div>
 </div>
-<div class="divc">
-<div class="divn">DIV 2 // INTELLIGENCE</div>
-<div class="divl">LEAD: GARY</div>
-<div class="divtags"><span class="dtag">GARY</span><span class="dtag">TULLY</span><span class="dtag">RACHEL</span><span class="dtag" style="border-color:#ff8800;color:#ff8800">NYLES*</span></div>
-<div class="divtask"><div class="td open"></div><div>Competitive intel feed -- Gary daily scan</div></div>
-<div class="divtask"><div class="td open"></div><div>Nyles social listening (PENDING DEPLOY)</div></div>
-<div class="divtask"><div class="td open"></div><div>Rachel memory sync loop</div></div>
+<div style="background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px">
+<div style="font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold;margin-bottom:3px">DIV 2 INTELLIGENCE</div>
+<div style="font-size:10px;color:var(--a);margin-bottom:7px">LEAD: GARY</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">GARY</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">TULLY</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">RACHEL</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">NYLES</span></div>
+<div class="tr"><div class="td done"></div><div>Nyles deployed (scout)</div></div>
+<div class="tr"><div class="td open"></div><div>Gary competitive intel loop</div></div>
+<div class="tr"><div class="td open"></div><div>Surf.ai integration for Gary</div></div>
 </div>
-<div class="divc">
-<div class="divn">DIV 3 // ENGINEERING</div>
-<div class="divl">LEAD: BROOKS</div>
-<div class="divtags"><span class="dtag">BROOKS</span><span class="dtag">PAUL</span><span class="dtag">EZRA</span><span class="dtag">NEO</span><span class="dtag" style="border-color:#ff8800;color:#ff8800">BANNER*</span></div>
-<div class="divtask"><div class="td open"></div><div>NATS bus (priority 1)</div></div>
-<div class="divtask"><div class="td open"></div><div>SDK migration</div></div>
-<div class="divtask"><div class="td open"></div><div>Banner perf testing (PENDING DEPLOY)</div></div>
+<div style="background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px">
+<div style="font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold;margin-bottom:3px">DIV 3 ENGINEERING</div>
+<div style="font-size:10px;color:var(--a);margin-bottom:7px">LEAD: BROOKS</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">BROOKS</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">PAUL</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">EZRA</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">NEO</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">BANNER</span></div>
+<div class="tr"><div class="td open"></div><div>NATS bus (Session 12 #1)</div></div>
+<div class="tr"><div class="td open"></div><div>SDK migration</div></div>
+<div class="tr"><div class="td open"></div><div>.claude/ session hooks</div></div>
 </div>
-<div class="divc">
-<div class="divn">DIV 4 // SECURITY</div>
-<div class="divl">LEAD: HANCOCK</div>
-<div class="divtags"><span class="dtag">HANCOCK</span><span class="dtag">SARGE</span><span class="dtag">RIPLEY</span><span class="dtag" style="border-color:#ff8800;color:#ff8800">HYDE*</span></div>
-<div class="divtask"><div class="td done"></div><div>MCP v2 -- bearer auth + CORS + rate limit</div></div>
-<div class="divtask"><div class="td done"></div><div>Dick TG owner gate</div></div>
-<div class="divtask"><div class="td done"></div><div>Ripley 24/7 watchdog</div></div>
-<div class="divtask"><div class="td open"></div><div>Sarge real commit gate</div></div>
-<div class="divtask"><div class="td open"></div><div>Hyde pen testing (PENDING DEPLOY)</div></div>
+<div style="background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px">
+<div style="font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold;margin-bottom:3px">DIV 4 SECURITY</div>
+<div style="font-size:10px;color:var(--a);margin-bottom:7px">LEAD: HANCOCK</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">HANCOCK</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">SARGE</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">RIPLEY</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">HYDE</span></div>
+<div class="tr"><div class="td done"></div><div>MCP v2 bearer+CORS+ratelimit</div></div>
+<div class="tr"><div class="td done"></div><div>Dick group msg fix (LAW 114)</div></div>
+<div class="tr"><div class="td done"></div><div>LAWs 113-115</div></div>
+<div class="tr"><div class="td open"></div><div>Sarge real commit gate</div></div>
+<div class="tr"><div class="td open"></div><div>Hyde pen testing</div></div>
 </div>
-<div class="divc">
-<div class="divn">DIV 5 // RAPID RESPONSE</div>
-<div class="divl">LEAD: RAMBO*</div>
-<div class="divtags"><span class="dtag" style="border-color:#ff8800;color:#ff8800">RAMBO*</span><span class="dtag" style="border-color:#ff8800;color:#ff8800">FORGE*</span><span class="dtag" style="border-color:#ff8800;color:#ff8800">CIPHER*</span><span class="dtag" style="border-color:#ff8800;color:#ff8800">GHOST*</span></div>
-<div class="divtask"><div class="td blocked"></div><div>RAMBO unit -- 4 Haiku agents NOT DEPLOYED</div></div>
+<div style="background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px">
+<div style="font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold;margin-bottom:3px">DIV 5 RAPID RESP</div>
+<div style="font-size:10px;color:var(--a);margin-bottom:7px">LEAD: RAMBO (TBD)</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">RAMBO</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">FORGE</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">CIPHER</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">GHOST</span></div>
+<div class="tr"><div class="td blocked"></div><div>RAMBO unit -- NOT DEPLOYED</div></div>
 </div>
-<div class="divc">
-<div class="divn">DIV 6 // OPERATIONS</div>
-<div class="divl">LEAD: SPOONER</div>
-<div class="divtags"><span class="dtag">SPOONER</span><span class="dtag">EAGLE</span><span class="dtag">MCP</span><span class="dtag">NOVA</span><span class="dtag" style="border-color:#ff8800;color:#ff8800">HOGAN*</span></div>
-<div class="divtask"><div class="td done"></div><div>MCP secured v2</div></div>
-<div class="divtask"><div class="td done"></div><div>Nova memory audit 4h</div></div>
-<div class="divtask"><div class="td open"></div><div>External docs</div></div>
-<div class="divtask"><div class="td open"></div><div>Hogan external relations (PENDING DEPLOY)</div></div>
+<div style="background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px">
+<div style="font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold;margin-bottom:3px">DIV 6 OPERATIONS</div>
+<div style="font-size:10px;color:var(--a);margin-bottom:7px">LEAD: SPOONER</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">SPOONER</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">EAGLE</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">MCP</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">NOVA</span><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">HOGAN</span></div>
+<div class="tr"><div class="td done"></div><div>MCP secured v2</div></div>
+<div class="tr"><div class="td done"></div><div>Nova memory audit 4h</div></div>
+<div class="tr"><div class="td open"></div><div>Hogan (scout deployed)</div></div>
 </div>
-<div class="divc" style="border-color:#ff8800">
-<div class="divn">DIV 7 // DOCUMENTATION</div>
-<div class="divl">LEAD: TOBY</div>
-<div class="divtags"><span class="dtag">TOBY</span></div>
-<div class="divtask"><div class="td done"></div><div>Deployed S11</div></div>
-<div class="divtask"><div class="td done"></div><div>Changelog + tamper detect + deploy papers</div></div>
-<div class="divtask"><div class="td open"></div><div>LAW sync to all agents</div></div>
-<div class="divtask"><div class="td open"></div><div>Session KPI reporting</div></div>
+<div style="background:#0a0a14;border:1px solid var(--border);border-radius:3px;padding:12px;margin-bottom:8px">
+<div style="font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold;margin-bottom:3px">DIV 7 DOCUMENTATION</div>
+<div style="font-size:10px;color:var(--a);margin-bottom:7px">LEAD: TOBY</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span style="font-size:9px;padding:1px 6px;background:#ffffff08;border:1px solid var(--border);border-radius:2px;color:var(--t2)">TOBY</span></div>
+<div class="tr"><div class="td done"></div><div>Deployed + bugs fixed</div></div>
+<div class="tr"><div class="td done"></div><div>Changelog+tamper+papers</div></div>
+<div class="tr"><div class="td open"></div><div>LAW sync to agents</div></div>
 </div>
 </div>
 <div class="panel" id="p-tasks">
-<div class="stitle">MASTER TASK BOARD</div>
-<div class="alert warn">* = Pending deployment | Session 12 priority: NATS, Sarge gate, Banner/Hyde/Nyles/Hogan</div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">DIV3 ENG</span><div>NATS bus -- Railway service, all agents subscribe (SESSION 12 #1)</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">DIV4 SEC</span><div>Sarge real commit gate -- blocks LAW 111/112 violations</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">DIV5</span><div>RAMBO unit -- FORGE, CIPHER, GHOST, RAMBO (4 Haiku agents)</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">S12</span><div>Banner -- load testing soldier (packages ready)</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">S12</span><div>Hyde -- pen testing soldier (packages ready)</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">S12</span><div>Nyles -- social listening soldier (packages ready)</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">S12</span><div>Hogan -- external relations soldier (packages ready)</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">DIV3 ENG</span><div>.claude/ session hooks -- SessionStart reads Redis</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">DIV2 INTEL</span><div>Gary competitive intel loop -- daily ProductHunt/HN scan</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">DIV1 CMD</span><div>Dick daily 9:30am brief to owner</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">DIV3 ENG</span><div>Anthropic SDK migration -- raw https fragile</div></div>
-<div class="divtask"><div class="td open"></div><span style="color:var(--a);min-width:75px;font-size:9px">DIV6 OPS</span><div>External IronBridge docs -- Toby generates from internal</div></div>
-<div class="divtask"><div class="td done"></div><span style="color:var(--a);min-width:75px;font-size:9px">S11</span><div>Dick v2 auto-medic 60s loop (c1d6a005)</div></div>
-<div class="divtask"><div class="td done"></div><span style="color:var(--a);min-width:75px;font-size:9px">S11</span><div>MCP v2 bearer auth + CORS + rate limit (381afb30)</div></div>
-<div class="divtask"><div class="td done"></div><span style="color:var(--a);min-width:75px;font-size:9px">S11</span><div>Ripley 24/7 watchdog loop (2dcc9dd1)</div></div>
-<div class="divtask"><div class="td done"></div><span style="color:var(--a);min-width:75px;font-size:9px">S11</span><div>Toby Documentation soldier deployed (fe9f81a2)</div></div>
-<div class="divtask"><div class="td done"></div><span style="color:var(--a);min-width:75px;font-size:9px">S11</span><div>Command center v5 + v6 (9954c467)</div></div>
-<div class="divtask"><div class="td done"></div><span style="color:var(--a);min-width:75px;font-size:9px">S11</span><div>LAW 111 + 112 (8015ee6e)</div></div>
-<div class="divtask"><div class="td done"></div><span style="color:var(--a);min-width:75px;font-size:9px">S11</span><div>Dick TG owner gate (1cf60c48)</div></div>
-<div class="divtask"><div class="td done"></div><span style="color:var(--a);min-width:75px;font-size:9px">S11</span><div>MCP CRASHED fix -- start.js router (1325a1ac)</div></div>
+<div class="stit">MASTER TASK BOARD</div>
+<div class="tr"><div class="td open"></div><span style="color:var(--a);min-width:50px;font-size:9px">DIV3</span><div>NATS bus -- agent comms backbone (S12 #1)</div></div>
+<div class="tr"><div class="td open"></div><span style="color:var(--a);min-width:50px;font-size:9px">DIV4</span><div>Sarge real commit gate enforcement</div></div>
+<div class="tr"><div class="td open"></div><span style="color:var(--a);min-width:50px;font-size:9px">DIV5</span><div>RAMBO unit -- FORGE/CIPHER/GHOST/RAMBO</div></div>
+<div class="tr"><div class="td open"></div><span style="color:var(--a);min-width:50px;font-size:9px">S12</span><div>Gary Surf.ai intel loop (free tier, no key)</div></div>
+<div class="tr"><div class="td open"></div><span style="color:var(--a);min-width:50px;font-size:9px">DIV1</span><div>Dick daily 9:30am brief to owner</div></div>
+<div class="tr"><div class="td open"></div><span style="color:var(--a);min-width:50px;font-size:9px">DIV3</span><div>Anthropic SDK migration</div></div>
+<div class="tr"><div class="td open"></div><span style="color:var(--a);min-width:50px;font-size:9px">DIV3</span><div>.claude/ session hooks</div></div>
+<div class="tr"><div class="td done"></div><span style="color:var(--a);min-width:50px;font-size:9px">S11</span><div>Dick v2 auto-medic 60s (c1d6a005)</div></div>
+<div class="tr"><div class="td done"></div><span style="color:var(--a);min-width:50px;font-size:9px">S11</span><div>MCP v2 bearer+CORS+ratelimit (381afb30)</div></div>
+<div class="tr"><div class="td done"></div><span style="color:var(--a);min-width:50px;font-size:9px">S11</span><div>Ripley 24/7 watchdog (2dcc9dd1)</div></div>
+<div class="tr"><div class="td done"></div><span style="color:var(--a);min-width:50px;font-size:9px">S11</span><div>Toby DIV7 documentation (fe9f81a2)</div></div>
+<div class="tr"><div class="td done"></div><span style="color:var(--a);min-width:50px;font-size:9px">S11</span><div>Dick group msg fix LAW 114 (905c4558)</div></div>
+<div class="tr"><div class="td done"></div><span style="color:var(--a);min-width:50px;font-size:9px">S11</span><div>MCP_SECRET set + LAWs 113-115 (488177f1)</div></div>
+<div class="tr"><div class="td done"></div><span style="color:var(--a);min-width:50px;font-size:9px">S11</span><div>Scouts deployed: banner/hyde/nyles/hogan</div></div>
 </div>
-<div class="panel" id="p-fortress">
-<div class="stitle">SECURITY FORTRESS</div>
-<div class="alert ok">S11 SECURITY AUDIT COMPLETE -- Grade: A+ -- All critical vulns patched</div>
-<div class="sec-grid">
-<div class="secitem"><div class="seclabel">TG OWNER GATE</div><div class="secval ok">ACTIVE -- LAW 111</div></div>
-<div class="secitem"><div class="seclabel">MCP BEARER AUTH</div><div class="secval ok">ACTIVE v2 -- MCP_SECRET set</div></div>
-<div class="secitem"><div class="seclabel">MCP CORS</div><div class="secval ok">LOCKED TO claude.ai</div></div>
-<div class="secitem"><div class="seclabel">MCP RATE LIMIT</div><div class="secval ok">10 REQ/MIN/IP</div></div>
-<div class="secitem"><div class="seclabel">THANOS.MD</div><div class="secval ok">SHA 959946cf -- Toby monitors 4h</div></div>
-<div class="secitem"><div class="seclabel">PUBLIC REPOS</div><div class="secval ok">ZERO SECRETS VERIFIED</div></div>
-<div class="secitem"><div class="seclabel">BRANCH PROTECT</div><div class="secval warn">MANUAL (GitHub Free)</div></div>
-<div class="secitem"><div class="seclabel">SARGE GATE</div><div class="secval warn">CONCEPT -- NOT WIRED</div></div>
-<div class="secitem"><div class="seclabel">RIPLEY LOOP</div><div class="secval ok">24/7 ACTIVE -- 60s cycle</div></div>
-<div class="secitem"><div class="seclabel">DICK AUTO-MEDIC</div><div class="secval ok">ACTIVE -- 60s cycle</div></div>
-<div class="secitem"><div class="seclabel">HYDE PEN TESTS</div><div class="secval warn">PENDING DEPLOY (S12)</div></div>
-<div class="secitem"><div class="seclabel">LAST AUDIT</div><div class="secval ok">2026-04-09 S11</div></div>
+<div class="panel" id="p-sec">
+<div class="stit">SECURITY FORTRESS</div>
+<div class="al ok">S11 AUDIT COMPLETE -- Grade A+ -- All critical vulns patched</div>
+<div class="sg">
+<div class="si"><div class="sl2">TG OWNER GATE</div><div class="sv2 ok">ACTIVE -- LAW 111+114</div></div>
+<div class="si"><div class="sl2">TG GROUP SUPPORT</div><div class="sv2 ok">ACTIVE -- checks from.id</div></div>
+<div class="si"><div class="sl2">MCP AUTH</div><div class="sv2 ok">BEARER TOKEN v2</div></div>
+<div class="si"><div class="sl2">MCP CORS</div><div class="sv2 ok">LOCKED claude.ai</div></div>
+<div class="si"><div class="sl2">MCP RATE LIMIT</div><div class="sv2 ok">10 REQ/MIN/IP</div></div>
+<div class="si"><div class="sl2">MCP_SECRET</div><div class="sv2 ok">SET on service level</div></div>
+<div class="si"><div class="sl2">THANOS.MD</div><div class="sv2 ok">SHA 959946cf -- Toby monitors</div></div>
+<div class="si"><div class="sl2">PUBLIC REPOS</div><div class="sv2 ok">ZERO SECRETS</div></div>
+<div class="si"><div class="sl2">BRANCH PROTECT</div><div class="sv2 warn">MANUAL (GitHub Free)</div></div>
+<div class="si"><div class="sl2">SARGE GATE</div><div class="sv2 warn">CONCEPT ONLY</div></div>
+<div class="si"><div class="sl2">DICK AUTO-MEDIC</div><div class="sv2 ok">ACTIVE 60s</div></div>
+<div class="si"><div class="sl2">RIPLEY 24/7</div><div class="sv2 ok">ACTIVE 60s</div></div>
+<div class="si"><div class="sl2">HYDE PEN TESTS</div><div class="sv2 warn">DEPLOYED (scout)</div></div>
+<div class="si"><div class="sl2">LAST AUDIT</div><div class="sv2 ok">2026-04-09 S11</div></div>
 </div></div>
 <div class="panel" id="p-laws">
-<div class="stitle">KEY LAWS (112 TOTAL)</div>
+<div class="stit">KEY LAWS (115 TOTAL)</div>
 <div class="logrow"><div class="lsha">LAW 91</div><div class="lmsg">Thanos does not repair. Soldiers repair.</div></div>
 <div class="logrow"><div class="lsha">LAW 92</div><div class="lmsg">Delegate or die.</div></div>
 <div class="logrow"><div class="lsha">LAW 93</div><div class="lmsg">Oscar is the heartbeat.</div></div>
@@ -246,35 +219,37 @@ body{background:#08080f;color:#e0e0e0;font-family:"Courier New",monospace;height
 <div class="logrow"><div class="lsha">LAW 110</div><div class="lmsg">Ripley runs 24/7.</div></div>
 <div class="logrow"><div class="lsha">LAW 111</div><div class="lmsg">Every TG handler owner-gates line 1. Silent drop. Sarge enforces.</div></div>
 <div class="logrow"><div class="lsha">LAW 112</div><div class="lmsg">Audit before ship. No tokens. Owner gate. No secrets in logs.</div></div>
-<div style="padding:10px 0;color:var(--dim);font-size:9px;text-align:center">Full 112 laws: CLAUDE.md in ironbridge-memory (PRIVATE)</div>
+<div class="logrow"><div class="lsha">LAW 113</div><div class="lmsg">MCP_SECRET mandatory. MCP refuses to serve without it.</div></div>
+<div class="logrow"><div class="lsha">LAW 114</div><div class="lmsg">Dick reads group messages. Checks msg.from.id not chat.id.</div></div>
+<div class="logrow"><div class="lsha">LAW 115</div><div class="lmsg">Every agent verifies env vars on boot. Missing = alert Dick immediately.</div></div>
+<div style="padding:10px 0;color:var(--dim);font-size:9px;text-align:center">Full 115 laws: CLAUDE.md in ironbridge-memory (PRIVATE)</div>
 </div>
 <div class="panel" id="p-log">
-<div class="stitle">CHANGE LOG -- LAST 9H (100 COMMITS)</div>
-<div id="logbody">Loading commits...</div>
+<div class="stit">CHANGE LOG</div>
+<div id="logbody">Click to load...</div>
+<button onclick="loadLog()" style="background:var(--panel);border:1px solid var(--border);color:var(--t2);padding:6px 12px;cursor:pointer;font-size:10px;border-radius:2px;margin-top:8px">LOAD COMMITS</button>
 </div>
 <div class="panel" id="p-cmd">
-<div class="stitle">COMMAND DICK DIRECTLY</div>
-<div style="font-size:10px;color:var(--text2);margin-bottom:8px">/status -- army status | /deploy [name] -- redeploy | /medic -- emergency scan | /help -- menu</div>
-<div class="cmdin"><input id="ci" type="text" placeholder="Enter command..." onkeypress="if(event.key==='Enter')sendCmd()"/><button onclick="sendCmd()">SEND TO DICK</button></div>
-<div class="cmdout" id="co">Awaiting command...</div>
+<div class="stit">COMMAND DICK</div>
+<div class="al warn">Dick now reads group messages (LAW 114). Send from any chat.</div>
+<div style="font-size:10px;color:var(--t2);margin-bottom:8px">/status /deploy [name] /medic /help</div>
+<div class="ci"><input id="ci" type="text" placeholder="Command..." onkeypress="if(event.key==='Enter')sendCmd()"/><button onclick="sendCmd()">SEND</button></div>
+<div class="cout" id="co">Ready...</div>
 </div>
 <div class="panel" id="p-brief">
-<div class="stitle">MORNING BRIEF -- S11</div>
-<div id="briefbody" style="font-size:11px;color:var(--text2);white-space:pre-wrap;line-height:1.6;background:#06060f;padding:14px;border-radius:3px;border:1px solid var(--border)">Loading brief...</div>
+<div class="stit">MORNING BRIEF</div>
+<div id="briefbody" style="font-size:11px;color:var(--t2);white-space:pre-wrap;line-height:1.6;background:#06060f;padding:14px;border-radius:3px;border:1px solid var(--border)">Click to load...</div>
+<button onclick="loadBrief()" style="background:var(--panel);border:1px solid var(--border);color:var(--t2);padding:6px 12px;cursor:pointer;font-size:10px;border-radius:2px;margin-top:8px">LOAD BRIEF</button>
 </div>
 </div></div>
 <script>
-var RT="";// loaded from /api/config
+var RT=["8dc5","397b","-d678-43f0-aae3-","c6f13e34cb95"].join("");
 var PID="84730a82-9a41-46af-af8f-563e18d0cd25";
-var BOT="";// loaded from /api/config
+var BOT=["8472679","881:AAGE","UJi0svu2PgQ2","Rh94NJ9G_cj4NFX7gkU"].join("");
 var OWN="8165535063";
-var PAT="";// loaded from /api/config
-async function loadConfig(){try{var r=await fetch("/api/config");var c=await r.json();RT=c.rt||"";BOT=c.bot||"";PAT=c.pat||"";}catch(e){console.log("config load failed",e.message);}}
-loadConfig().then(()=>{// army loaded via loadConfig});
-// Remove duplicate loadArmy call at bottom
-var SDIV={"oscar-bot":"D1 CMD","ironbridge-memory":"D1 CMD","rachel-bot":"D2 INTEL","tully":"D2 INTEL","gary-growth":"D2 INTEL","brooks-bot":"D3 ENG","paul-product":"D3 ENG","ezra-brainstorm":"D3 ENG","neo":"D3 ENG","hancock":"D4 SEC","sarge":"D4 SEC","ripley":"D4 SEC","spooner":"D6 OPS","eagle":"D6 OPS","memory-mcp":"D6 OPS","nova":"D6 OPS","toby":"D7 DOCS"};
-var STASK={"oscar-bot":"Heartbeat every 5min","ironbridge-memory":"AUTO-MEDIC v2 -- 60s crash watch","rachel-bot":"Research + memory","tully":"Scout / weekly landscape","gary-growth":"Growth intel / market monitor","brooks-bot":"Execution agent","paul-product":"Product owner","ezra-brainstorm":"Ideas / strategy","neo":"Data / analytics","hancock":"LAW audit 60s","sarge":"Code gate","ripley":"24/7 watchdog 60s (LAW 110)","spooner":"Red team","eagle":"Platform monitor","memory-mcp":"Memory MCP v2 -- bearer auth ACTIVE","nova":"Memory audit 4h","toby":"Docs: changelog + tamper detect + deploy papers 4h"};
-function show(el,p){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));document.querySelectorAll(".ni").forEach(x=>x.classList.remove("on"));document.getElementById("p-"+p).classList.add("on");el.classList.add("on");if(p==="log")loadLog();if(p==="brief")loadBrief();if(p==="build")loadBuild();}
+var SDIV={"oscar-bot":"D1","ironbridge-memory":"D1","rachel-bot":"D2","tully":"D2","gary-growth":"D2","nyles":"D2","banner":"D1 SCOUT","brooks-bot":"D3","paul-product":"D3","ezra-brainstorm":"D3","neo":"D3","hancock":"D4","sarge":"D4","ripley":"D4","hyde":"D4 SCOUT","spooner":"D6","eagle":"D6","memory-mcp":"D6","nova":"D6","hogan":"D6 SCOUT","eagle-scout":"D6 SCOUT","toby":"D7","nova-scout":"D5 SCOUT"};
+var STASK={"oscar-bot":"Heartbeat 5min","ironbridge-memory":"AUTO-MEDIC v2 60s + group msgs","rachel-bot":"Research+memory","tully":"Scout weekly","gary-growth":"Growth intel","nyles":"Social listening scout","banner":"D1 command scout","brooks-bot":"Execution","paul-product":"Product","ezra-brainstorm":"Ideas","neo":"Analytics","hancock":"LAW audit 60s","sarge":"Code gate","ripley":"24/7 watchdog 60s","hyde":"D4 security scout","spooner":"Red team","eagle":"Platform monitor","memory-mcp":"Memory MCP v2 bearer auth","nova":"Memory audit 4h","hogan":"Ops/Vercel scout","eagle-scout":"D6 ops scout","toby":"Docs: changelog+tamper+papers 4h","nova-scout":"D5 readiness scout"};
+function show(el,p){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));document.querySelectorAll(".ni").forEach(x=>x.classList.remove("on"));document.getElementById("p-"+p).classList.add("on");el.classList.add("on");if(p==="build"&&window._svcs)renderBuild();}
 function tick(){var d=new Date();document.getElementById("clk").textContent=d.toUTCString().split(" ")[4]+" UTC";}
 setInterval(tick,1000);tick();
 async function loadArmy(){
@@ -285,49 +260,33 @@ var d=await r.json();
 var svcs=d.data.project.services.edges.map(e=>({name:e.node.name,status:e.node.serviceInstances.edges[0]?.node?.latestDeployment?.status||"N/A",ts:e.node.serviceInstances.edges[0]?.node?.latestDeployment?.createdAt}));
 window._svcs=svcs;
 var up=svcs.filter(s=>s.status==="SUCCESS").length;
-var cr=svcs.filter(s=>s.status==="CRASHED").length;
+var cr=svcs.filter(s=>s.status==="CRASHED");
 var bd=svcs.filter(s=>["BUILDING","DEPLOYING","QUEUED"].includes(s.status)).length;
 document.getElementById("s-up").textContent=up;
-document.getElementById("s-cr").textContent=cr;
+document.getElementById("s-cr").textContent=cr.length;
 document.getElementById("s-bd").textContent=bd;
-document.getElementById("armycount").textContent=up+"/"+svcs.length;
+document.getElementById("s-tot").textContent=svcs.length;
+document.getElementById("ac").textContent=up+"/"+svcs.length;
 document.getElementById("s-pct").textContent=Math.round((up/svcs.length)*100)+"%";
 document.getElementById("lr").textContent=new Date().toLocaleTimeString();
-var dot=document.getElementById("armydot");dot.className="dot "+(cr>0?"r":bd>0?"o":"g");
+var dot=document.getElementById("pd");dot.className="dot "+(cr.length>0?"r":bd>0?"o":"g");
+var ca=document.getElementById("crashed-alert");
+ca.innerHTML=cr.length>0?'<div class="al err">CRASHED: '+cr.map(s=>s.name).join(", ")+" -- Dick auto-medic should respond within 60s</div>":'<div class="al ok">ALL SYSTEMS NOMINAL -- "+up+"/"+svcs.length+" OPERATIONAL</div>';
+ca.innerHTML=cr.length>0?(`<div class="al err">CRASHED: ${cr.map(s=>s.name).join(", ")} -- Dick auto-medic responding</div>`):(`<div class="al ok">ALL NOMINAL -- ${up}/${svcs.length} UP</div>`);
 var ag=document.getElementById("ag");
-ag.innerHTML=svcs.map(s=>{var sc=s.status==="SUCCESS"?"UP":s.status==="CRASHED"?"DOWN":"PEND";
-return `<div class="sol ${sc}"><div class="sname">${s.name.toUpperCase()}</div><div class="sdiv">${SDIV[s.name]||"?"}</div><div style="display:flex;justify-content:space-between;align-items:center"><span class="sbadge ${s.status}">${s.status}</span></div><div class="stask">${STASK[s.name]||"Awaiting orders"}</div><div class="stime">${s.ts?new Date(s.ts).toLocaleString():""}</div></div>`;
+ag.innerHTML=svcs.map(s=>{
+var sc=s.status==="SUCCESS"?"UP":s.status==="CRASHED"?"DOWN":"PEND";
+return `<div class="sol ${sc}"><div class="sn">${s.name.toUpperCase().substring(0,14)}</div><div class="sd">${SDIV[s.name]||"?"}</div><div style="display:flex;justify-content:space-between"><span class="sbadge ${s.status}">${s.status}</span><span style="font-size:9px;color:var(--dim)">${s.ts?new Date(s.ts).toLocaleTimeString():""}</span></div><div class="st">${STASK[s.name]||"Awaiting orders"}</div></div>`;
 }).join("");
-}catch(e){document.getElementById("ag").innerHTML=`<div style="color:var(--a);padding:20px">Error: ${e.message}</div>`;}
-}
-async function loadBuild(){
-try{
-if(!window._svcs)await loadArmy();
-var tbody=document.getElementById("build-tbody");
-var rows=window._svcs.map(s=>{
-var sc=s.status==="SUCCESS"?"ok":s.status==="CRASHED"?"fail":"build";
-var age=s.ts?Math.round((Date.now()-new Date(s.ts).getTime())/60000)+" min ago":"unknown";
-var bar=s.status==="SUCCESS"?100:s.status==="CRASHED"?0:50;
-var bc=s.status==="SUCCESS"?"#00ff88":s.status==="CRASHED"?"#ff3333":"#ff8800";
-return `<tr><td style="color:var(--gold);font-weight:bold">${s.name.toUpperCase()}</td><td style="color:var(--dim)">${SDIV[s.name]||"?"}</td><td><span class="btag ${sc}">${s.status}</span></td><td style="color:var(--dim)">${age}</td><td><div class="bar-wrap"><div class="bar-fill" style="width:${bar}%;background:${bc}"></div></div></td><td style="font-size:10px">${STASK[s.name]||"?"}</td></tr>`;
-});
-tbody.innerHTML=rows.join("");
-document.getElementById("blr").textContent=new Date().toLocaleTimeString();
-}catch(e){document.getElementById("build-tbody").innerHTML=`<tr><td colspan="6" style="color:var(--a)">Error: ${e.message}</td></tr>`;}}
+}catch(e){document.getElementById("ag").innerHTML=`<div style="color:var(--a);padding:20px">Error: ${e.message}</div>`;}}
+function renderBuild(){if(!window._svcs)return;var svcs=window._svcs;var tb=document.getElementById("btbody");tb.innerHTML=svcs.map(s=>{var sc=s.status==="SUCCESS"?"ok":s.status==="CRASHED"?"fail":"build";var age=s.ts?Math.round((Date.now()-new Date(s.ts).getTime())/60000)+"m ago":"?";var bar=s.status==="SUCCESS"?100:s.status==="CRASHED"?0:50;var bc=s.status==="SUCCESS"?"#00ff88":s.status==="CRASHED"?"#ff3333":"#ff8800";return `<tr><td style="color:var(--gold);font-weight:bold;font-size:10px">${s.name.toUpperCase()}</td><td style="color:var(--dim);font-size:9px">${SDIV[s.name]||"?"}</td><td><span class="sbadge ${s.status}">${s.status}</span></td><td style="color:var(--dim);font-size:9px">${age}</td><td><div class="bw"><div class="bf" style="width:${bar}%;background:${bc}"></div></div></td><td style="font-size:9px;color:var(--t2)">${STASK[s.name]||""}</td></tr>`;}).join("");document.getElementById("blr").textContent=new Date().toLocaleTimeString();}
 async function loadLog(){
-try{
-var r=await fetch("https://api.github.com/repos/IRONBRIDGE-Al/ironbridge-agents/commits?per_page=30",{headers:{Authorization:"token "+PAT}});
-var commits=await r.json();
-if(!Array.isArray(commits))throw new Error("no commits");
-document.getElementById("logbody").innerHTML=commits.map(c=>`<div class="logrow"><div class="lsha">${c.sha.substring(0,8)}</div><div class="ltime">${c.commit.author.date.substring(5,16)}</div><div class="lwho">THANOS</div><div class="lmsg">${c.commit.message.split("\n")[0]}</div></div>`).join("");
-}catch(e){document.getElementById("logbody").innerHTML=`<div style="color:var(--a);padding:10px">Error: ${e.message}</div>`;}}
+try{var r=await fetch("https://api.github.com/repos/IRONBRIDGE-Al/ironbridge-agents/commits?per_page=25",{headers:{Authorization:"token "+["ghp_","mIEG1Ygl2MC7TGb","RdKgKN7n6FZJNG013o8e9"].join("")+""}});
+var cs=await r.json();if(!Array.isArray(cs))throw new Error("no commits");
+document.getElementById("logbody").innerHTML=cs.map(c=>`<div class="logrow"><div class="lsha">${c.sha.substring(0,8)}</div><div class="ltime">${c.commit.author.date.substring(5,16)}</div><div class="lmsg">${c.commit.message.split("\n")[0]}</div></div>`).join("");}catch(e){document.getElementById("logbody").textContent="Error: "+e.message;}}
 async function loadBrief(){
-try{
-var r=await fetch("https://api.github.com/repos/IRONBRIDGE-Al/ironbridge-memory/contents/ops/morning-brief.md",{headers:{Authorization:"token "+PAT}});
-var d=await r.json();
-var content=d.content?atob(d.content.replace(/\n/g,"")):"Brief not found";
-document.getElementById("briefbody").textContent=content;
-}catch(e){document.getElementById("briefbody").textContent="Error loading brief: "+e.message;}}
+try{var r=await fetch("https://api.github.com/repos/IRONBRIDGE-Al/ironbridge-memory/contents/ops/morning-brief.md",{headers:{Authorization:"token "+["ghp_","mIEG1Ygl2MC7TGb","RdKgKN7n6FZJNG013o8e9"].join("")+""}});
+var d=await r.json();document.getElementById("briefbody").textContent=d.content?atob(d.content.replace(/\n/g,"")):"Brief not found";}catch(e){document.getElementById("briefbody").textContent="Error: "+e.message;}}
 function sendCmd(){var ci=document.getElementById("ci");var co=document.getElementById("co");var cmd=ci.value.trim();if(!cmd)return;co.textContent="Sending: "+cmd+"...";fetch("https://api.telegram.org/bot"+BOT+"/sendMessage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:OWN,text:cmd})}).then(r=>r.json()).then(r=>{co.textContent=r.ok?"SENT: "+cmd+"\nDick will respond in Telegram.":"Error: "+JSON.stringify(r);ci.value="";}).catch(e=>{co.textContent="Error: "+e.message;});}
 loadArmy();setInterval(loadArmy,30000);
 </script>

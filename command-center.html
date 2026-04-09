@@ -290,4 +290,25 @@ var d=await r.json();document.getElementById("briefbody").textContent=d.content?
 function sendCmd(){var ci=document.getElementById("ci");var co=document.getElementById("co");var cmd=ci.value.trim();if(!cmd)return;co.textContent="Sending: "+cmd+"...";fetch("https://api.telegram.org/bot"+BOT+"/sendMessage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:OWN,text:cmd})}).then(r=>r.json()).then(r=>{co.textContent=r.ok?"SENT: "+cmd+"\nDick will respond in Telegram.":"Error: "+JSON.stringify(r);ci.value="";}).catch(e=>{co.textContent="Error: "+e.message;});}
 loadArmy();setInterval(loadArmy,30000);
 </script>
-</body></html>
+
+<script>
+(function() {
+  // CC LOGIN ENTER KEY FIX -- S13
+  // keypress is deprecated. Add keydown support.
+  function triggerLogin() {
+    var btn = document.querySelector('button');
+    if (btn && btn.offsetParent !== null) btn.click();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.keyCode === 13) { e.preventDefault(); triggerLogin(); }
+  });
+  // Also ensure input field is focusable and responds
+  var inp = document.querySelector('input[type="password"], input[type="text"]');
+  if (inp) {
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.keyCode === 13) { e.preventDefault(); triggerLogin(); }
+    });
+    setTimeout(function(){ inp.focus(); }, 300);
+  }
+})();
+</script></body></html>

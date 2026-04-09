@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IronBridge Session Console</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d0d0d;color:#e8e8e8;min-height:100vh;padding:24px}
+.console{max-width:900px;margin:0 auto}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.logo{width:36px;height:36px;background:#6c63ff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff}
+.title{font-size:18px;font-weight:600;color:#fff}
+.subtitle{font-size:12px;color:#888}
+.badge{font-size:11px;padding:4px 10px;border-radius:5px;font-weight:500;border:none}
+.badge-ok{background:#1a3a1a;color:#4ade80}
+.badge-warn{background:#3a2a00;color:#fbbf24}
+.badge-err{background:#3a1a1a;color:#f87171}
+.badge-gray{background:#1e1e1e;color:#888}
+.tabs{display:flex;gap:0;border-bottom:1px solid #222;margin-bottom:20px}
+.tab{padding:10px 18px;font-size:13px;cursor:pointer;border:none;border-bottom:2px solid transparent;color:#666;background:none}
+.tab:hover{color:#ccc}
+.tab.active{color:#fff;border-bottom:2px solid #6c63ff}
+.panel{display:none}
+.panel.active{display:block}
+.section{margin-bottom:20px}
+.section-label{font-size:11px;font-weight:500;color:#555;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.card{background:#141414;border:1px solid #222;border-radius:10px;padding:16px 20px;margin-bottom:8px}
+.army-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.soldier{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:12px}
+.soldier-name{font-size:13px;font-weight:500;color:#ddd;margin-bottom:6px}
+.soldier-status{font-size:11px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px}
+.dot-up{background:#22c55e}
+.dot-down{background:#ef4444}
+.dot-loading{background:#555}
+.input-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.input-row label{font-size:13px;color:#666;min-width:100px}
+.input-row input{flex:1;padding:7px 10px;font-size:13px;border:1px solid #2a2a2a;border-radius:6px;background:#0d0d0d;color:#e8e8e8}
+.btn{padding:8px 16px;font-size:13px;border:1px solid #2a2a2a;border-radius:6px;cursor:pointer;background:#141414;color:#e8e8e8}
+.btn:hover{background:#1e1e1e}
+.btn-primary{background:#6c63ff;border-color:#6c63ff;color:#fff;font-weight:500}
+.btn-primary:hover{background:#5a52e0}
+.btn-danger{border-color:#7f1d1d;color:#f87171}
+.btn-danger:hover{background:#3a1a1a}
+.store-content{font-family:'SF Mono',Consolas,monospace;font-size:11px;background:#0a0a0a;border-radius:6px;padding:12px;white-space:pre-wrap;word-break:break-word;max-height:240px;overflow-y:auto;color:#aaa;line-height:1.7;border:1px solid #1a1a1a}
+.task-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #1e1e1e}
+.task-row:last-child{border-bottom:none}
+.task-num{font-size:11px;color:#555;min-width:30px;font-family:monospace}
+.task-text{flex:1;font-size:13px;color:#ddd}
+.task-status{font-size:11px;padding:2px 8px;border-radius:4px}
+.status-done{background:#1a3a1a;color:#4ade80}
+.status-open{background:#1a2a4a;color:#60a5fa}
+.status-blocked{background:#3a2a00;color:#fbbf24}
+.q-row{padding:9px 0;border-bottom:1px solid #1e1e1e}
+.q-row:last-child{border-bottom:none}
+.q-text{font-size:13px;color:#ddd;margin-bottom:5px}
+.q-ans{display:flex;align-items:center;gap:6px}
+.owner-blocker{background:#1f1500;border:1px solid #3a2a00;border-radius:8px;padding:10px 14px;margin-bottom:8px}
+.owner-blocker-title{font-weight:500;color:#fbbf24;font-size:12px;margin-bottom:2px}
+.owner-blocker-detail{color:#d97706;font-size:13px}
+.log{font-family:'SF Mono',Consolas,monospace;font-size:11px;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px;padding:12px;max-height:200px;overflow-y:auto;line-height:1.9;color:#555}
+.log-ok{color:#4ade80}
+.log-err{color:#f87171}
+.log-warn{color:#fbbf24}
+.log-info{color:#60a5fa}
+.divider{height:1px;background:#1e1e1e;margin:16px 0}
+.flex-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+textarea.store-edit{width:100%;min-height:130px;font-family:'SF Mono',Consolas,monospace;font-size:11px;border:1px solid #2a2a2a;border-radius:6px;padding:10px;background:#0d0d0d;color:#e8e8e8;resize:vertical}
+.close-check{display:flex;flex-direction:column;gap:7px}
+.check-item{display:flex;align-items:flex-start;gap:9px;font-size:13px}
+.check-item input[type=checkbox]{margin-top:2px;cursor:pointer;accent-color:#6c63ff}
+.check-item label{cursor:pointer;color:#ccc}
+.check-item label.done{color:#444;text-decoration:line-through}
+.summary-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.metric{background:#111;border:1px solid #1e1e1e;border-radius:8px;padding:12px;text-align:center}
+.metric-val{font-size:28px;font-weight:600;color:#fff}
+.metric-label{font-size:11px;color:#555;margin-top:3px}
+</style>
+</head>
+<body>
+<div class="console">
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">IB</div>
+    <div>
+      <div class="title">IronBridge Session Console</div>
+      <div class="subtitle">Thanos operating core &mdash; <span id="session-ts"></span></div>
+    </div>
+  </div>
+  <div class="flex-row">
+    <span id="session-badge" class="badge badge-gray">not loaded</span>
+    <button class="btn btn-primary" onclick="bootSession()">Boot session</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('open',this)">Session open</button>
+  <button class="tab" onclick="showTab('army',this)">Army</button>
+  <button class="tab" onclick="showTab('tasks',this)">Tasks</button>
+  <button class="tab" onclick="showTab('stores',this)">Three stores</button>
+  <button class="tab" onclick="showTab('close',this)">Session close</button>
+</div>
+
+<div id="tab-open" class="panel active">
+  <div class="section">
+    <div class="section-label">Configuration</div>
+    <div class="card">
+      <div class="input-row"><label>GitHub PAT</label><input type="password" id="cfg-pat" placeholder="ghp_..." /></div>
+      <div class="input-row"><label>Railway token</label><input type="password" id="cfg-rail" placeholder="434ff302-..." /></div>
+      <div class="input-row"><label>Project ID</label><input type="text" id="cfg-proj" placeholder="84730a82-..." /></div>
+      <div class="input-row"><label>Env ID</label><input type="text" id="cfg-env" placeholder="cfd243f8-..." /></div>
+      <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+        <button class="btn btn-primary" onclick="saveConfig()">Save</button>
+        <button class="btn" onclick="loadSavedConfig()">Load saved</button>
+        <span id="cfg-status" style="font-size:11px;color:#555;font-family:monospace"></span>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Boot sequence</div>
+    <div class="log" id="boot-log"><span class="log-info">Ready to boot...</span></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Owner-action blockers from prior session</div>
+    <div id="blockers-panel"><div class="card" style="color:#555;font-size:13px">Boot to load</div></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Session brief</div>
+    <div class="store-content" id="session-brief">Boot session to load</div>
+  </div>
+</div>
+
+<div id="tab-army" class="panel">
+  <div class="summary-bar">
+    <div class="metric"><div class="metric-val" id="army-up">-</div><div class="metric-label">up</div></div>
+    <div class="metric"><div class="metric-val" id="army-down" style="color:#ef4444">-</div><div class="metric-label">crashed</div></div>
+    <div class="metric"><div class="metric-val">8</div><div class="metric-label">total</div></div>
+  </div>
+  <div class="army-grid" id="army-grid">
+    <div class="soldier"><div class="soldier-name">Dick</div><div class="soldier-status" id="svc-dick"><span class="dot dot-loading"></span>not checked</div></div><div class="soldier"><div class="soldier-name">Brooks</div><div class="soldier-status" id="svc-brooks"><span class="dot dot-loading"></span>not checked</div></div><div class="soldier"><div class="soldier-name">Oscar</div><div class="soldier-status" id="svc-oscar"><span class="dot dot-loading"></span>not checked</div></div><div class="soldier"><div class="soldier-name">Rachel</div><div class="soldier-status" id="svc-rachel"><span class="dot dot-loading"></span>not checked</div></div><div class="soldier"><div class="soldier-name">Ezra</div><div class="soldier-status" id="svc-ezra"><span class="dot dot-loading"></span>not checked</div></div><div class="soldier"><div class="soldier-name">Gary</div><div class="soldier-status" id="svc-gary"><span class="dot dot-loading"></span>not checked</div></div><div class="soldier"><div class="soldier-name">Paul</div><div class="soldier-status" id="svc-paul"><span class="dot dot-loading"></span>not checked</div></div><div class="soldier"><div class="soldier-name">Nova</div><div class="soldier-status" id="svc-nova"><span class="dot dot-loading"></span>not checked</div></div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:8px;align-items:flex-start">
+    <button class="btn btn-primary" onclick="checkArmy(false)">Check now</button>
+    <div class="log" id="army-log" style="flex:1;min-height:60px"></div>
+  </div>
+</div>
+
+<div id="tab-tasks" class="panel">
+  <div class="section">
+    <div class="section-label">Open tasks</div>
+    <div class="card" id="tasks-panel"><div style="color:#555;font-size:13px">Boot to load</div></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Questions this session</div>
+    <div class="card" id="questions-panel"><div style="color:#555;font-size:13px">No questions logged</div></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <input type="text" id="q-input" placeholder="Owner asked: ..." style="flex:1;padding:7px 10px;font-size:13px;border:1px solid #2a2a2a;border-radius:6px;background:#0d0d0d;color:#e8e8e8" />
+      <select id="q-status" style="padding:7px 10px;font-size:13px;border:1px solid #2a2a2a;border-radius:6px;background:#141414;color:#e8e8e8">
+        <option value="open">unanswered</option>
+        <option value="done">answered</option>
+      </select>
+      <button class="btn" onclick="addQuestion()">Add</button>
+    </div>
+  </div>
+</div>
+
+<div id="tab-stores" class="panel">
+  <div class="section"><div class="section-label">THANOS.md</div><div class="store-content" id="thanos-content">Boot to load</div></div>
+  <div class="divider"></div>
+  <div class="section"><div class="section-label">CLAUDE.md</div><div class="store-content" id="claude-content">Boot to load</div></div>
+  <div class="divider"></div>
+  <div class="section"><div class="section-label">Diff check</div><div id="diff-panel" class="card" style="font-size:13px;color:#555">Boot to run</div></div>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="btn" onclick="loadStores()">Reload</button>
+    <button class="btn" onclick="runDiff()">Diff check</button>
+  </div>
+</div>
+
+<div id="tab-close" class="panel">
+  <div class="section">
+    <div class="section-label">Close checklist</div>
+    <div class="card"><div class="close-check" id="close-checklist"></div></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Owner-action blockers to log</div>
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <input type="text" id="blocker-input" placeholder="Nova env vars -- Railway UI only..." style="flex:1;padding:7px 10px;font-size:13px;border:1px solid #2a2a2a;border-radius:6px;background:#0d0d0d;color:#e8e8e8" />
+      <button class="btn" onclick="addBlocker()">Add</button>
+    </div>
+    <div id="blockers-list"></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Session state (auto-fills)</div>
+    <textarea class="store-edit" id="close-state" placeholder="Summarize session..."></textarea>
+  </div>
+  <div class="section">
+    <div class="section-label">Commit SHAs this session</div>
+    <input type="text" id="close-shas" placeholder="abc1234, def5678..." style="width:100%;padding:7px 10px;font-size:13px;border:1px solid #2a2a2a;border-radius:6px;background:#0d0d0d;color:#e8e8e8" />
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="btn btn-primary" onclick="runCloseSequence()">Run close sequence</button>
+    <button class="btn" onclick="generateClosePrompt()">Generate close prompt</button>
+  </div>
+  <div class="log" id="close-log" style="margin-top:10px"><span class="log-info">Not started</span></div>
+</div>
+</div>
+
+<script>
+const SERVICES=[{name:'Dick',id:'2be3f716'},{name:'Brooks',id:'d7037abd'},{name:'Oscar',id:'01268167'},{name:'Rachel',id:'3fe94fe4'},{name:'Ezra',id:'9ffb8cea'},{name:'Gary',id:'ac07e487'},{name:'Paul',id:'b7de1fd3'},{name:'Nova',id:'cee3199b'}];
+const CLOSE_ITEMS=['A1. Scroll back -- list every question owner asked','A2. Confirm each question is fully answered. Answer any missed.','A3. Log all owner-action blockers below','B1. Update THANOS.md SESSION STATE block','B2. Update CLAUDE.md session brief (must match THANOS.md)','B3. Verify CLAUDE.md laws sequential, no gaps, no non-ASCII','B4. Update TASKS.md -- done/in progress/blocked','B5. Update memory session-end entry with SHAs + open tasks','B6. Update gotchas entry if new ones found','B7. Update ironbridge-skills INDEX if any skill changed','C1. Commit all from ironbridge-jade tab -- verify status 200','C2. Read back THANOS.md + CLAUDE.md -- confirm they match','C3. Send final message to owner'];
+let state={pat:'',railToken:'',projId:'',envId:'',thanosMd:'',claudeMd:'',thanosShа:'',claudeSha:'',questions:[],blockers:[],tasks:[]};
+function log(el,msg,cls){const d=document.getElementById(el);if(!d)return;const line=document.createElement('div');if(cls)line.className=cls;line.textContent=msg;d.appendChild(line);d.scrollTop=d.scrollHeight;}
+function clearLog(el){const d=document.getElementById(el);if(d)d.innerHTML='';}
+function showTab(name,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+name).classList.add('active');}
+function saveConfig(){state.pat=document.getElementById('cfg-pat').value.trim();state.railToken=document.getElementById('cfg-rail').value.trim();state.projId=document.getElementById('cfg-proj').value.trim();state.envId=document.getElementById('cfg-env').value.trim();try{localStorage.setItem('ib_cfg',JSON.stringify({pat:state.pat,rail:state.railToken,proj:state.projId,env:state.envId}));document.getElementById('cfg-status').textContent='saved';}catch(e){document.getElementById('cfg-status').textContent='saved in memory';}}
+function loadSavedConfig(){try{const c=JSON.parse(localStorage.getItem('ib_cfg')||'{}');if(c.pat){document.getElementById('cfg-pat').value=c.pat;state.pat=c.pat;}if(c.rail){document.getElementById('cfg-rail').value=c.rail;state.railToken=c.rail;}if(c.proj){document.getElementById('cfg-proj').value=c.proj;state.projId=c.proj;}if(c.env){document.getElementById('cfg-env').value=c.env;state.envId=c.env;}document.getElementById('cfg-status').textContent='loaded';}catch(e){}}
+async function ghGet(path){const r=await fetch('https://api.github.com/repos/IRONBRIDGE-Al/ironbridge-memory/contents/'+path,{headers:{Authorization:'token '+state.pat,Accept:'application/vnd.github.v3+json'}});const d=await r.json();if(d.message)throw new Error(d.message);const text=new TextDecoder().decode(Uint8Array.from(atob(d.content.replace(/
+/g,'')),c=>c.charCodeAt(0)));return{text,sha:d.sha};}
+async function bootSession(){if(!state.pat){saveConfig();}if(!state.pat){alert('Enter GitHub PAT first');return;}clearLog('boot-log');document.getElementById('session-badge').className='badge badge-gray';document.getElementById('session-badge').textContent='booting...';document.getElementById('session-ts').textContent=new Date().toLocaleTimeString();log('boot-log','[1/5] Reading THANOS.md...','log-info');try{const t=await ghGet('THANOS.md');state.thanosMd=t.text;state.thanosShа=t.sha;const m=t.text.match(/SESSION STATE[sS]{0,50}
+([sS]*?)(?=
+#|$)/i);const brief=m?m[1].trim().substring(0,800):'(no SESSION STATE block)';document.getElementById('thanos-content').textContent=brief;document.getElementById('session-brief').textContent=brief;log('boot-log','[1/5] THANOS.md loaded ('+t.text.length+' chars)','log-ok');parseBlockers(t.text);}catch(e){log('boot-log','[1/5] THANOS.md FAILED: '+e.message,'log-err');}log('boot-log','[2/5] Reading CLAUDE.md...','log-info');try{const c=await ghGet('CLAUDE.md');state.claudeMd=c.text;state.claudeSha=c.sha;const m=c.text.match(/SESSION BRIEF[sS]{0,50}
+([sS]*?)(?=
+#|$)/i);const brief=m?m[1].trim().substring(0,600):c.text.substring(0,600);document.getElementById('claude-content').textContent=brief;const lawCount=(c.text.match(/^LAW d+/mg)||[]).length;log('boot-log','[2/5] CLAUDE.md loaded -- '+lawCount+' laws','log-ok');parseTasks(c.text);}catch(e){log('boot-log','[2/5] CLAUDE.md FAILED: '+e.message,'log-err');}log('boot-log','[3/5] Checking army...','log-info');await checkArmy(true);log('boot-log','[4/5] ASCII check...','log-info');const na=(state.thanosMd.match(/[^\x00-\x7F]/g)||[]).length;if(na>0){log('boot-log','[4/5] WARNING: '+na+' non-ASCII in THANOS.md','log-warn');}else{log('boot-log','[4/5] THANOS.md clean','log-ok');}log('boot-log','[5/5] Boot complete','log-ok');document.getElementById('session-badge').className='badge badge-ok';document.getElementById('session-badge').textContent='session active';}
+function parseBlockers(text){const panel=document.getElementById('blockers-panel');const matches=[...text.matchAll(/OWNER ACTION REQUIRED[:\s]+([^\n]+)/gi)];if(!matches.length){panel.innerHTML='<div class="card" style="color:#555;font-size:13px">No owner-action blockers in THANOS.md</div>';return;}panel.innerHTML='';matches.forEach(m=>{const b=document.createElement('div');b.className='owner-blocker';b.innerHTML='<div class="owner-blocker-title">OWNER ACTION REQUIRED</div><div class="owner-blocker-detail">'+m[1]+'</div>';panel.appendChild(b);});}
+function parseTasks(text){const panel=document.getElementById('tasks-panel');const matches=[...text.matchAll(/T(\d+)[:.\s]+([^\n]{5,80})/gi)];if(!matches.length){panel.innerHTML='<div style="color:#555;font-size:13px">No tasks found</div>';return;}panel.innerHTML='';matches.slice(0,15).forEach(m=>{const row=document.createElement('div');row.className='task-row';row.innerHTML='<span class="task-num">T'+m[1]+'</span><span class="task-text">'+m[2].trim()+'</span><span class="task-status status-open">open</span>';panel.appendChild(row);});state.tasks=matches.slice(0,15).map(m=>({num:m[1],text:m[2].trim(),status:'open'}));}
+async function checkArmy(silent){if(!state.railToken){if(!silent)alert('Configure Railway token first');return;}const q='{project(id:"84730a82-9a41-46af-af8f-563e18d0cd25"){services{edges{node{name serviceInstances{edges{node{latestDeployment{status}}}}}}}}}';if(!silent)clearLog('army-log');let up=0,down=0;try{const r=await fetch('https://backboard.railway.app/graphql/v2',{method:'POST',headers:{Authorization:'Bearer '+state.railToken,'Content-Type':'application/json'},body:JSON.stringify({query:q})});const d=await r.json();const svcs=d?.data?.project?.services?.edges||[];const sm={};svcs.forEach(e=>{sm[e.node.name]=(e.node.serviceInstances?.edges?.[0]?.node?.latestDeployment?.status||'UNKNOWN');});const grid=document.getElementById('army-grid');grid.innerHTML='';SERVICES.forEach(svc=>{const status=Object.entries(sm).find(([k])=>k.toLowerCase().includes(svc.name.toLowerCase()))?.[1]||'UNKNOWN';const isUp=status==='SUCCESS'||status==='ACTIVE'||status==='DEPLOYING';if(isUp)up++;else down++;const el=document.createElement('div');el.className='soldier';el.innerHTML='<div class="soldier-name">'+svc.name+'</div><div class="soldier-status"><span class="dot '+(isUp?'dot-up':'dot-down')+'"></span><span style="color:'+(isUp?'#4ade80':'#f87171')+'">'+status+'</span></div>';grid.appendChild(el);});document.getElementById('army-up').textContent=up;document.getElementById('army-down').textContent=down;document.getElementById('army-down').style.color=down>0?'#ef4444':'#4ade80';if(!silent){log('army-log',up+'/8 up'+(down>0?', '+down+' CRASHED':''),down>0?'log-err':'log-ok');}if(!silent&&down>0)log('army-log','Fix crashed services before proceeding','log-err');if(silent)log('boot-log','[3/5] Army: '+up+'/8 up'+(down>0?', '+down+' CRASHED -- fix first':''),'down>0?log-warn:log-ok');}catch(e){if(!silent)log('army-log','Railway check failed: '+e.message,'log-err');else log('boot-log','[3/5] Railway check failed: '+e.message,'log-warn');}}
+async function loadStores(){if(!state.pat)return;try{const t=await ghGet('THANOS.md');state.thanosMd=t.text;state.thanosShа=t.sha;document.getElementById('thanos-content').textContent=t.text.substring(0,1500);}catch(e){}try{const c=await ghGet('CLAUDE.md');state.claudeMd=c.text;state.claudeSha=c.sha;document.getElementById('claude-content').textContent=c.text.substring(0,1500);}catch(e){}runDiff();}
+function runDiff(){const p=document.getElementById('diff-panel');if(!state.thanosMd||!state.claudeMd){p.innerHTML='<span style="color:#555">Load stores first</span>';return;}const issues=[];if(!/SESSION STATE/i.test(state.thanosMd))issues.push('THANOS.md missing SESSION STATE block');if(!/SESSION BRIEF|SESSION START/i.test(state.claudeMd))issues.push('CLAUDE.md missing session brief block');const tna=(state.thanosMd.match(/[^\x00-\x7F]/g)||[]).length;const cna=(state.claudeMd.match(/[^\x00-\x7F]/g)||[]).length;if(tna>0)issues.push('THANOS.md: '+tna+' non-ASCII chars');if(cna>0)issues.push('CLAUDE.md: '+cna+' non-ASCII chars');const lc=(state.claudeMd.match(/^LAW \d+/mg)||[]).length;if(lc<50)issues.push('CLAUDE.md: only '+lc+' laws (expected 60)');p.innerHTML=issues.length===0?'<span style="color:#4ade80;font-weight:500">All checks passed. Stores are clean.</span>':'<span style="color:#f87171;font-weight:500">'+issues.length+' issue(s):</span>'+issues.map(i=>'<div style="color:#f87171;font-size:12px;margin-top:4px">&bull; '+i+'</div>').join('');}
+function buildChecklist(){const el=document.getElementById('close-checklist');el.innerHTML='';CLOSE_ITEMS.forEach((item,i)=>{const row=document.createElement('div');row.className='check-item';const cb=document.createElement('input');cb.type='checkbox';cb.id='chk'+i;cb.onchange=function(){document.getElementById('lbl'+i).className=this.checked?'done':'';};const lbl=document.createElement('label');lbl.htmlFor='chk'+i;lbl.id='lbl'+i;lbl.textContent=item;row.appendChild(cb);row.appendChild(lbl);el.appendChild(row);});}
+function addQuestion(){const inp=document.getElementById('q-input');const sel=document.getElementById('q-status');const text=inp.value.trim();if(!text)return;state.questions.push({text,status:sel.value});renderQuestions();inp.value='';}
+function renderQuestions(){const p=document.getElementById('questions-panel');if(!state.questions.length){p.innerHTML='<div style="color:#555;font-size:13px">No questions logged</div>';return;}p.innerHTML='';state.questions.forEach((q,i)=>{const row=document.createElement('div');row.className='q-row';row.innerHTML='<div class="q-text">'+q.text+'</div><div class="q-ans"><span class="badge '+(q.status==='done'?'badge-ok':'badge-warn')+'">'+(q.status==='done'?'answered':'UNANSWERED')+'</span><button class="btn" style="font-size:11px;padding:2px 8px" onclick="toggleQ('+i+')">toggle</button></div>';p.appendChild(row);});}
+function toggleQ(i){state.questions[i].status=state.questions[i].status==='done'?'open':'done';renderQuestions();}
+function addBlocker(){const inp=document.getElementById('blocker-input');const text=inp.value.trim();if(!text)return;state.blockers.push(text);renderBlockers();inp.value='';}
+function renderBlockers(){const p=document.getElementById('blockers-list');p.innerHTML='';state.blockers.forEach((b,i)=>{const el=document.createElement('div');el.className='owner-blocker';el.style.display='flex';el.style.justifyContent='space-between';el.style.alignItems='center';el.innerHTML='<div><div class="owner-blocker-title">OWNER ACTION REQUIRED</div><div class="owner-blocker-detail">'+b+'</div></div><button class="btn btn-danger" style="font-size:11px;padding:2px 8px" onclick="removeBlocker('+i+')">remove</button>';p.appendChild(el);});}
+function removeBlocker(i){state.blockers.splice(i,1);renderBlockers();}
+function generateClosePrompt(){const openQ=state.questions.filter(q=>q.status==='open').map(q=>q.text);const bs=state.blockers;const ot=state.tasks.filter(t=>t.status==='open').map(t=>'T'+t.num+': '+t.text);let p='IRONBRIDGE SESSION CLOSE -- I am Thanos.\n\n';if(openQ.length)p+='UNANSWERED QUESTIONS (answer first):\n'+openQ.map(q=>'- '+q).join('\n')+'\n\n';if(bs.length)p+='OWNER ACTION BLOCKERS:\n'+bs.map(b=>'- OWNER ACTION REQUIRED: '+b).join('\n')+'\n\n';if(ot.length)p+='OPEN TASKS:\n'+ot.join('\n')+'\n\n';p+='Run close: update THANOS.md, CLAUDE.md, TASKS.md, memory entries. Commit all. Verify 200. Diff check.';document.getElementById('close-state').value=p;}
+function runCloseSequence(){clearLog('close-log');const openQ=state.questions.filter(q=>q.status==='open');if(openQ.length){log('close-log','BLOCKED: '+openQ.length+' unanswered question(s)','log-err');openQ.forEach(q=>log('close-log','  -- '+q.text,'log-warn'));return;}log('close-log','All questions answered','log-ok');const unchecked=CLOSE_ITEMS.filter((_,i)=>!document.getElementById('chk'+i)?.checked);if(unchecked.length){log('close-log',unchecked.length+' checklist items incomplete:','log-warn');unchecked.forEach(u=>log('close-log','  -- '+u,'log-warn'));}else{log('close-log','All '+CLOSE_ITEMS.length+' checklist items complete','log-ok');log('close-log','Session close verified. Send final message.','log-ok');}}
+document.getElementById('session-ts').textContent=new Date().toLocaleString();
+buildChecklist();
+loadSavedConfig();
+</script>
+</body>
+</html>

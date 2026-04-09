@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IronBridge Command Center</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060A0F;--surface:#0D1520;--border:#1A2840;--accent:#00FF88;
+  --warn:#FFB800;--danger:#FF3344;--dim:#8899AA;--text:#E8F0FF;
+  --div1:#0066FF;--div2:#00CCFF;--div3:#FF6600;--div4:#CC00FF;--div5:#FF0044;--div6:#00FF88;
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
+.scanline{position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,136,0.015) 2px,rgba(0,255,136,0.015) 4px);pointer-events:none;z-index:999}
+
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid var(--border);background:rgba(13,21,32,0.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--accent);text-shadow:0 0 20px rgba(0,255,136,0.4)}
+.logo span{color:var(--dim);font-size:13px;display:block;letter-spacing:8px;font-family:'Share Tech Mono',monospace;margin-top:-4px}
+.header-right{display:flex;align-items:center;gap:24px}
+.clock{font-family:'Share Tech Mono',monospace;font-size:14px;color:var(--dim)}
+.mission-status{font-size:11px;letter-spacing:3px;color:var(--accent);text-transform:uppercase}
+
+/* ARMY STATUS BAR */
+.status-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
+.stat-box{background:var(--surface);padding:16px 24px;text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1}
+.stat-num.green{color:var(--accent);text-shadow:0 0 30px rgba(0,255,136,0.5)}
+.stat-num.red{color:var(--danger);text-shadow:0 0 30px rgba(255,51,68,0.5)}
+.stat-num.yellow{color:var(--warn)}
+.stat-label{font-size:10px;letter-spacing:3px;color:var(--dim);text-transform:uppercase;margin-top:4px}
+
+/* MAIN GRID */
+.main{padding:24px 32px;display:grid;grid-template-columns:1fr 360px;gap:24px;max-width:1400px;margin:0 auto}
+
+/* DIVISIONS */
+.divisions{display:flex;flex-direction:column;gap:16px}
+.division{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.div-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}
+.div-title{display:flex;align-items:center;gap:10px}
+.div-badge{width:8px;height:8px;border-radius:50%}
+.div-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px}
+.div-role{font-size:10px;color:var(--dim);letter-spacing:2px}
+.div-commander{font-size:11px;color:var(--dim)}
+.div-commander span{color:var(--text)}
+.soldiers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;padding:12px}
+.soldier{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:10px 12px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.soldier:hover{border-color:var(--accent);transform:translateY(-1px)}
+.soldier.up{border-left:3px solid var(--accent)}
+.soldier.down{border-left:3px solid var(--danger)}
+.soldier.building{border-left:3px solid var(--warn)}
+.soldier-name{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.soldier-status{font-size:10px;margin-top:3px;font-family:'Share Tech Mono',monospace}
+.soldier-status.up{color:var(--accent)}
+.soldier-status.down{color:var(--danger)}
+.soldier-status.building{color:var(--warn)}
+.soldier-time{font-size:9px;color:var(--dim);margin-top:2px}
+.pulse{position:absolute;top:8px;right:8px;width:6px;height:6px;border-radius:50%}
+.pulse.up{background:var(--accent);box-shadow:0 0 6px var(--accent);animation:pulse 2s infinite}
+.pulse.down{background:var(--danger)}
+.pulse.building{background:var(--warn);animation:pulse 0.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.panel-header{padding:12px 16px;border-bottom:1px solid var(--border);font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:var(--dim)}
+.panel-body{padding:16px}
+
+/* CHAIN OF COMMAND */
+.chain{display:flex;flex-direction:column;gap:0}
+.chain-level{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.chain-level:last-child{border:none}
+.chain-rank{font-size:9px;letter-spacing:2px;color:var(--dim);width:80px;text-transform:uppercase}
+.chain-name{font-size:13px;font-weight:600}
+.chain-role{font-size:10px;color:var(--dim)}
+.chain-dot{width:4px;height:4px;background:var(--border);border-radius:50%;margin-left:auto}
+
+/* REDIS MEMORY */
+.memory-status{display:flex;flex-direction:column;gap:8px}
+.mem-row{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.mem-key{color:var(--dim);font-family:'Share Tech Mono',monospace;font-size:10px}
+.mem-val{color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:10px}
+.mem-badge{padding:2px 8px;border-radius:2px;font-size:9px;letter-spacing:2px;font-weight:600}
+.mem-badge.live{background:rgba(0,255,136,0.15);color:var(--accent)}
+.mem-badge.dead{background:rgba(255,51,68,0.15);color:var(--danger)}
+
+/* LAWS */
+.law-count{font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--accent);text-align:center;line-height:1}
+.law-sub{text-align:center;font-size:10px;letter-spacing:3px;color:var(--dim);margin-top:4px}
+
+/* LAST EVENTS */
+.event-list{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto}
+.event{display:flex;gap:8px;font-size:11px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.event:last-child{border:none}
+.event-time{color:var(--dim);font-family:'Share Tech Mono',monospace;font-size:10px;flex-shrink:0}
+.event-msg{color:var(--text)}
+
+/* REFRESH */
+.refresh-bar{height:2px;background:var(--border);position:relative;overflow:hidden}
+.refresh-progress{height:100%;background:var(--accent);transition:width 0.1s;opacity:0.6}
+
+/* FOOTER */
+footer{text-align:center;padding:16px;font-size:10px;color:var(--dim);letter-spacing:2px;border-top:1px solid var(--border);margin-top:24px}
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+<header>
+  <div class="logo">IRONBRIDGE<span>COMMAND CENTER</span></div>
+  <div class="header-right">
+    <div class="mission-status" id="missionStatus">LOADING...</div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+</header>
+<div class="refresh-bar"><div class="refresh-progress" id="refreshBar" style="width:0%"></div></div>
+
+<div class="status-bar">
+  <div class="stat-box"><div class="stat-num green" id="statUp">-</div><div class="stat-label">Soldiers UP</div></div>
+  <div class="stat-box"><div class="stat-num red" id="statDown">-</div><div class="stat-label">Soldiers DOWN</div></div>
+  <div class="stat-box"><div class="stat-num yellow" id="statLaws">110</div><div class="stat-label">Active Laws</div></div>
+  <div class="stat-box"><div class="stat-num green" id="statRedis">-</div><div class="stat-label">Memory Layer</div></div>
+</div>
+
+<div class="main">
+<div class="divisions" id="divisionsContainer">
+  <!-- Divisions rendered here -->
+</div>
+<div class="sidebar">
+  <div class="panel">
+    <div class="panel-header">CHAIN OF COMMAND</div>
+    <div class="panel-body">
+      <div class="chain">
+        <div class="chain-level"><div class="chain-rank">OWNER</div><div><div class="chain-name">Owner</div><div class="chain-role">Supreme Commander</div></div></div>
+        <div class="chain-level"><div class="chain-rank">THANOS</div><div><div class="chain-name">Thanos</div><div class="chain-role">Commanding Intelligence</div></div></div>
+        <div class="chain-level"><div class="chain-rank">CORPS</div><div><div class="chain-name">Dick</div><div class="chain-role">Army Commander</div></div></div>
+        <div class="chain-level"><div class="chain-rank">DIV</div><div><div class="chain-name">Oscar</div><div class="chain-role">Front Door + Heartbeat</div></div></div>
+        <div class="chain-level"><div class="chain-rank">BRIG</div><div><div class="chain-name">Ripley</div><div class="chain-role">Watchdog -- Never Sleeps</div></div></div>
+        <div class="chain-level"><div class="chain-rank">BRIG</div><div><div class="chain-name">Sarge</div><div class="chain-role">Code Gate -- Nothing Ships</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-header">MEMORY LAYERS</div>
+    <div class="panel-body">
+      <div class="memory-status">
+        <div class="mem-row"><span class="mem-key">LAYER 1</span><span class="mem-badge live">GITHUB</span></div>
+        <div class="mem-row"><span class="mem-key">LAYER 2</span><span class="mem-badge live">CLAUDE MEM</span></div>
+        <div class="mem-row"><span class="mem-key">LAYER 3</span><span class="mem-badge live">THANOS.MD</span></div>
+        <div class="mem-row"><span class="mem-key">LAYER 4</span><span class="mem-badge live" id="redisStatus">UPSTASH</span></div>
+        <div class="mem-row"><span class="mem-key">LAYER 5</span><span class="mem-badge dead">PENDING</span></div>
+        <div style="margin-top:12px;font-size:10px;color:var(--dim);font-family:'Share Tech Mono',monospace" id="redisLastWrite">Checking Redis...</div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-header">ACTIVE LAWS</div>
+    <div class="panel-body" style="text-align:center">
+      <div class="law-count">110</div>
+      <div class="law-sub">LAWS COMMITTED</div>
+      <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10px">
+        <div style="color:var(--dim)">Army Laws<div style="color:var(--text);font-size:14px;font-weight:600">6</div></div>
+        <div style="color:var(--dim)">Division Laws<div style="color:var(--text);font-size:14px;font-weight:600">4</div></div>
+        <div style="color:var(--dim)">Command Laws<div style="color:var(--text);font-size:14px;font-weight:600">Pending</div></div>
+        <div style="color:var(--dim)">Thanos Laws<div style="color:var(--text);font-size:14px;font-weight:600">Permanent</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-header">RECENT EVENTS</div>
+    <div class="panel-body">
+      <div class="event-list" id="eventList">
+        <div class="event"><div class="event-time">--:--</div><div class="event-msg">Loading...</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<footer>IRONBRIDGE v9 &nbsp;|&nbsp; 16 SOLDIERS &nbsp;|&nbsp; 6 DIVISIONS &nbsp;|&nbsp; 110 LAWS &nbsp;|&nbsp; NEVER LEAVE ANYONE BEHIND</footer>
+
+<script>
+const RAILWAY_TOKEN = '8dc5397b-d678-43f0-aae3-c6f13e34cb95';
+const PROJECT_ID = '84730a82-9a41-46af-af8f-563e18d0cd25';
+const UPSTASH_URL = 'https://above-python-94996.upstash.io';
+const UPSTASH_TOKEN = 'gQAAAAAAAXMUAAIncDE3ZjdhY2Y1ZDY4NDQ0MDZjYTNmZmZmZGNiM2E0NjJhNHAxOTQ5OTY';
+
+const DIVISIONS = [
+  { id:1, name:'COMMAND', color:'var(--div1)', commander:'Dick', role:'Chain of Command', soldiers:['oscar-bot','ironbridge-memory'] },
+  { id:2, name:'INTELLIGENCE', color:'var(--div2)', commander:'Gary', role:'Intel + Research + Memory', soldiers:['gary-growth','tully','rachel-bot'] },
+  { id:3, name:'ENGINEERING', color:'var(--div3)', commander:'Brooks', role:'Build + Product + Numeric', soldiers:['brooks-bot','paul-product','ezra-brainstorm','neo'] },
+  { id:4, name:'SECURITY & AUDIT', color:'var(--div4)', commander:'Hancock', role:'Law Audit + Gate + Watchdog', soldiers:['hancock','sarge','ripley'] },
+  { id:5, name:'RAPID RESPONSE', color:'var(--div5)', commander:'RAMBO', role:'Green Beret -- Emergency', soldiers:[] },
+  { id:6, name:'OPERATIONS', color:'var(--div6)', commander:'Spooner', role:'Platform + Memory Server', soldiers:['spooner','eagle','memory-mcp','nova'] },
+];
+
+let armyData = {};
+let events = [];
+let refreshInterval = 30;
+let refreshCount = 0;
+
+function addEvent(msg) {
+  const t = new Date().toTimeString().slice(0,8);
+  events.unshift({ time:t, msg });
+  if (events.length > 20) events.pop();
+  renderEvents();
+}
+
+function renderEvents() {
+  const el = document.getElementById('eventList');
+  el.innerHTML = events.map(e =>
+    '<div class="event"><div class="event-time">'+e.time+'</div><div class="event-msg">'+e.msg+'</div></div>'
+  ).join('') || '<div class="event"><div class="event-msg" style="color:var(--dim)">No events yet</div></div>';
+}
+
+async function fetchArmy() {
+  try {
+    const q = `query { project(id: "${PROJECT_ID}") { services { edges { node { name serviceInstances { edges { node { latestDeployment { status createdAt } } } } } } } } }`;
+    const r = await fetch('https://backboard.railway.app/graphql/v2', {
+      method:'POST',
+      headers:{ 'Authorization':'Bearer '+RAILWAY_TOKEN, 'Content-Type':'application/json' },
+      body:JSON.stringify({ query:q })
+    });
+    const j = await r.json();
+    const svcs = j.data?.project?.services?.edges || [];
+    svcs.forEach(e => {
+      const dep = e.node.serviceInstances?.edges?.[0]?.node?.latestDeployment;
+      const prev = armyData[e.node.name]?.status;
+      const curr = dep?.status || 'UNKNOWN';
+      armyData[e.node.name] = { status:curr, time:(dep?.createdAt||'').slice(11,19) };
+      if (prev && prev !== curr) addEvent(e.node.name+': '+prev+' -> '+curr);
+    });
+    renderAll();
+  } catch(e) { addEvent('Railway poll error: '+e.message); }
+}
+
+async function checkRedis() {
+  try {
+    const r = await fetch(UPSTASH_URL+'/get/ironbridge:session:latest', {
+      headers:{ Authorization:'Bearer '+UPSTASH_TOKEN }
+    });
+    const j = await r.json();
+    const ts = j.result ? parseInt(j.result) : null;
+    const ago = ts ? Math.round((Date.now()-ts)/1000)+'s ago' : 'no data';
+    document.getElementById('redisLastWrite').textContent = 'Last write: '+ago;
+    document.getElementById('statRedis').textContent = 'LIVE';
+  } catch(e) {
+    document.getElementById('redisLastWrite').textContent = 'Redis: offline';
+    document.getElementById('statRedis').textContent = 'ERR';
+  }
+}
+
+function getStatusClass(s) {
+  if (s==='SUCCESS') return 'up';
+  if (s==='BUILDING'||s==='QUEUED'||s==='DEPLOYING') return 'building';
+  return 'down';
+}
+
+function renderAll() {
+  let up=0, down=0;
+  Object.values(armyData).forEach(s => {
+    if (s.status==='SUCCESS') up++;
+    else if (s.status!=='NO_DEPLOY') down++;
+  });
+  document.getElementById('statUp').textContent = up;
+  document.getElementById('statDown').textContent = down;
+
+  const total = up + down;
+  if (total > 0) {
+    document.getElementById('missionStatus').textContent = up===16 ? 'ALL SYSTEMS GO' : up+'/'+total+' OPERATIONAL';
+    document.getElementById('missionStatus').style.color = up===total ? 'var(--accent)' : 'var(--danger)';
+  }
+
+  const container = document.getElementById('divisionsContainer');
+  container.innerHTML = DIVISIONS.map(div => {
+    const soldiers = div.soldiers.map(name => {
+      const d = armyData[name] || { status:'UNKNOWN', time:'--' };
+      const cls = getStatusClass(d.status);
+      const label = d.status==='SUCCESS'?'ONLINE':d.status==='NO_DEPLOY'?'STANDBY':d.status;
+      return `<div class="soldier ${cls}">
+        <div class="pulse ${cls}"></div>
+        <div class="soldier-name">${name.replace('-bot','').replace('-growth','').replace('-product','').replace('-brainstorm','')}</div>
+        <div class="soldier-status ${cls}">${label}</div>
+        <div class="soldier-time">${d.time||'--'}</div>
+      </div>`;
+    }).join('');
+
+    const ramboPending = div.id===5 ? '<div style="padding:16px;font-size:11px;color:var(--dim);letter-spacing:2px">FORGE + CIPHER + GHOST + RAMBO<br><span style="color:var(--danger)">DEPLOYING SESSION 10</span></div>' : '';
+
+    return `<div class="division">
+      <div class="div-header">
+        <div class="div-title">
+          <div class="div-badge" style="background:${div.color}"></div>
+          <div>
+            <div class="div-name" style="color:${div.color}">DIV ${div.id} -- ${div.name}</div>
+            <div class="div-role">${div.role}</div>
+          </div>
+        </div>
+        <div class="div-commander">CMD: <span>${div.commander}</span></div>
+      </div>
+      <div class="soldiers-grid">${soldiers}${ramboPending}</div>
+    </div>`;
+  }).join('');
+}
+
+function updateClock() {
+  document.getElementById('clock').textContent = new Date().toTimeString().slice(0,8)+' UTC';
+}
+
+function updateRefreshBar() {
+  refreshCount++;
+  const pct = (refreshCount % (refreshInterval*10)) / (refreshInterval*10) * 100;
+  document.getElementById('refreshBar').style.width = pct + '%';
+  if (refreshCount % (refreshInterval*10) === 0) {
+    fetchArmy();
+    checkRedis();
+    addEvent('Auto-refresh -- army polled');
+  }
+}
+
+// Init
+fetchArmy();
+checkRedis();
+addEvent('Command center online');
+setInterval(updateClock, 1000);
+setInterval(updateRefreshBar, 100);
+updateClock();
+renderEvents();
+</script>
+</body>
+</html>

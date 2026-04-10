@@ -1,41 +1,48 @@
-var https = require('https');
+// /api/dick.js -- Vercel Edge Function
+// Dick v9.2 -- TG webhook handler
+// Tokens from Vercel env vars. Never in source.
 
-module.exports = function(req, res) {
-  if (req.method !== 'POST') return res.status(200).json({ok:true,v:'dick-v9.0'});
+export const config = { runtime: 'edge' };
+
+export default async function handler(req) {
+  if (req.method !== 'POST') {
+    return new Response(JSON.stringify({ok:true,v:'dick-v9.2',status:'online'}),
+      {headers:{'Content-Type':'application/json'}});
+  }
   var BOT = process.env.IB_BOT || '';
   var CHAT = process.env.IB_CHAT_ID || '';
-  var body = req.body;
-  if (!body || !body.message) return res.status(200).json({ok:true});
+  var body;
+  try { body = await req.json(); } catch(e) {
+    return new Response(JSON.stringify({ok:true}),{headers:{'Content-Type':'application/json'}});
+  }
+  if (!body || !body.message || !body.message.text) {
+    return new Response(JSON.stringify({ok:true}),{headers:{'Content-Type':'application/json'}});
+  }
   var msg = body.message;
-  if (!msg.text) return res.status(200).json({ok:true});
   var fromId = msg.from ? String(msg.from.id) : '';
-  if (fromId !== CHAT) return res.status(200).json({ok:true});
+  if (fromId !== CHAT) {
+    return new Response(JSON.stringify({ok:true}),{headers:{'Content-Type':'application/json'}});
+  }
   var t = (msg.text || '').toLowerCase().trim();
   var reply = '';
   if (t === '/status' || t === 'status') {
-    reply = 'DICK v9.0 ONLINE | Vercel | PRIVACY-SECURITY-MEMORY | S21';
+    reply = 'DICK v9.2 ONLINE | Vercel Edge | PRIVACY-SECURITY-MEMORY | S21 | Boss->Thanos->Dick->Army';
   } else if (t === '/help' || t === 'help') {
     reply = 'Commands: /status /help /brief /ping';
   } else if (t === '/brief' || t === 'brief') {
-    reply = 'DICK v9.0 | Vercel | Boss->Thanos->Dick->Army | S21';
+    reply = 'DICK v9.2 | Vercel Edge | Laws:314 | Sanctum Protocol ACTIVE | S21';
   } else if (t === '/ping' || t === 'ping') {
-    reply = 'PONG v9.0 | ' + new Date().toISOString();
+    reply = 'PONG v9.2 | ' + new Date().toISOString();
   } else {
-    reply = 'DICK v9.0 ack: ' + msg.text;
+    reply = 'DICK v9.2 ack: ' + msg.text;
   }
-  var postData = JSON.stringify({chat_id: CHAT, text: reply});
-  var r2 = https.request({
-    hostname: 'api.telegram.org',
-    path: '/bot' + BOT + '/sendMessage',
-    method: 'POST',
-    headers: {'Content-Type':'application/json','Content-Length':Buffer.byteLength(postData)}
-  }, function(resp) {
-    var d = '';
-    resp.on('data', function(c) { d += c; });
-    resp.on('end', function() { console.log('DICK_SENT:', d.substring(0,50)); });
-  });
-  r2.on('error', function(e) { console.error('DICK_ERR:', e.message); });
-  r2.write(postData);
-  r2.end();
-  return res.status(200).json({ok:true});
-};
+  var url = 'https://api.telegram.org/bot' + BOT + '/sendMessage';
+  try {
+    await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: CHAT, text: reply})
+    });
+  } catch(e) { /* silent */ }
+  return new Response(JSON.stringify({ok:true}),{headers:{'Content-Type':'application/json'}});
+}

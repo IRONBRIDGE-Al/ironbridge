@@ -1,50 +1,24 @@
-// api/railway-proxy.js
-// Server-side proxy for Railway GraphQL API
-// RAILWAY_TOKEN is never exposed to the client
-const https = require('https');
-
-module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://ironbridge-jade.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') { res.status(200).end(); return; }
-  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
-
-  const RAILWAY_TOKEN = process.env.RAILWAY_TOKEN;
-  if (!RAILWAY_TOKEN) { res.status(500).json({ error: 'Railway not configured' }); return; }
-
-  // Verify PIN before proxying
-  const IB_PIN = process.env.IB_PIN;
-  const pin = req.headers['x-ib-pin'] || req.body?.pin;
-  if (IB_PIN && pin !== IB_PIN) { res.status(401).json({ error: 'Unauthorized' }); return; }
-
+// Railway Proxy v2 - server-side (LAW 319)
+// No tokens reach browser
+export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,X-IB-PIN");
+  if (req.method === "OPTIONS") return res.status(200).end();
+  var pin = req.headers["x-ib-pin"] || req.query.pin;
+  if (pin !== process.env.IB_PIN) return res.status(403).json({error:"DENIED"});
+  var T = process.env.RAILWAY_TOKEN;
+  if (!T) return res.status(500).json({error:"RAILWAY_TOKEN missing"});
+  var PID = "84730a82-9a41-46af-af8f-563e18d0cd25";
   try {
-    const body = JSON.stringify(req.body);
-    const options = {
-      hostname: 'backboard.railway.com',
-      path: '/graphql/v2',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + RAILWAY_TOKEN,
-        'Content-Length': Buffer.byteLength(body)
-      }
-    };
-
-    const result = await new Promise((resolve, reject) => {
-      const proxyReq = https.request(options, (proxyRes) => {
-        let data = '';
-        proxyRes.on('data', (chunk) => { data += chunk; });
-        proxyRes.on('end', () => { try { resolve(JSON.parse(data)); } catch(e) { resolve({ raw: data }); } });
-      });
-      proxyReq.on('error', reject);
-      proxyReq.write(body);
-      proxyReq.end();
+    var q = "query{project(id:\""+PID+"\"){services{edges{node{id name updatedAt deployments(first:1){edges{node{id status createdAt}}}}}}}}";
+    var r2 = await fetch("https://backboard.railway.app/graphql/v2",{method:"POST",headers:{"Authorization":"Bearer "+T,"Content-Type":"application/json"},body:JSON.stringify({query:q})});
+    var d = await r2.json();
+    if(d.errors) return res.status(502).json({error:"Railway API error"});
+    var soldiers = d.data.project.services.edges.map(function(e){
+      var s=e.node,dep=s.deployments.edges[0]?s.deployments.edges[0].node:null;
+      return{id:s.id,name:s.name,status:dep?dep.status:"NO_DEPLOY",deployedAt:dep?dep.createdAt:null};
     });
-
-    res.status(200).json(result);
-  } catch(e) {
-    res.status(500).json({ error: e.message });
-  }
-};
+    return res.status(200).json({ok:true,ts:new Date().toISOString(),count:soldiers.length,soldiers:soldiers});
+  } catch(e){return res.status(500).json({error:e.message});}
+}

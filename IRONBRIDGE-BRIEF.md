@@ -8,6 +8,7 @@
 - Pushes back when things aren't being delegated properly
 - Goal: agent runs itself, owner just sets direction
 
+
 ## The Project — Ironbridge Assistant
 - AI agent team running on agnt.social (OpenClaw platform)
 - Accessible via Telegram bot

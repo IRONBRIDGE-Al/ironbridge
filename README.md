@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>🧲 IronForge — Launch Your Meme Coin in Under 10 Minutes</title>
     <meta name="description" content="No code, super cheap & easy on Base + $BNKR. Launch for $49-$199.">
     <meta property="og:title" content="🧲 IronForge — Launch Your Meme Coin">

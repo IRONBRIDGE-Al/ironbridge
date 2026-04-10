@@ -1,50 +1,51 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IronBridge War Room</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;background:#0a0a0a;color:#e0e0e0;min-height:100vh;padding:15px}.hdr{text-align:center;border-bottom:1px solid #333;padding-bottom:15px;margin-bottom:15px}.hdr h1{color:#00d4ff;font-size:1.5rem}.sb{display:flex;justify-content:center;gap:15px;margin-top:8px;flex-wrap:wrap}.si{padding:4px 12px;border-radius:15px;font-size:11px}.up{background:#00ff8820;color:#00ff88;border:1px solid #00ff88}.dn{background:#ff444420;color:#ff4444;border:1px solid #ff4444}.cd{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px;margin-bottom:15px}.cd h2{color:#00d4ff;font-size:0.9rem;margin-bottom:8px}.cb{background:#000;border:1px solid #333;height:220px;overflow-y:auto;padding:8px;font-family:monospace;font-size:12px;margin-bottom:8px}.msg{margin:4px 0;padding:4px 8px;border-radius:3px}.msg.u{background:#00d4ff20;border-left:2px solid #00d4ff}.msg.d{background:#00ff8820;border-left:2px solid #00ff88}.msg.s{color:#666;font-size:10px}.ir{display:flex;gap:8px}.ir input{flex:1;background:#222;border:1px solid #444;color:#fff;padding:10px;border-radius:4px;font-size:14px}.ir button{background:#00d4ff;color:#000;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold}.ag{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222;font-size:13px}.ag:last-child{border:none}.on{color:#00ff88}.of{color:#ff4444}.bt{background:#333;color:#fff;border:1px solid #555;padding:8px 12px;border-radius:4px;cursor:pointer;margin:3px;font-size:12px}.bt:hover{background:#444}.bt.p{background:#00d4ff;color:#000;border:none}</style></head>
-<body><div class="hdr"><h1>IRONBRIDGE WAR ROOM</h1><div class="sb"><span class="si" id="api">API:...</span><span class="si" id="army">Army:...</span></div></div>
-<div class="cd"><h2>TALK TO DICK</h2><div class="cb" id="c"></div><div class="ir"><input id="i" placeholder="Give Dick an order..." onkeypress="if(event.key==='Enter')send()"><button onclick="send()">SEND</button></div></div>
-<div class="cd"><h2>ARMY STATUS</h2><div id="a">Click WAKE to activate all agents</div><button class="bt p" onclick="wake()" style="width:100%;margin-top:8px">WAKE ALL AGENTS</button></div>
-<div class="cd"><h2>SOLDIERS ON COMMAND CENTER</h2><div id="soldiers"><div class="ag"><span>Oscar</span><span class="on">Frontend health monitoring</span></div><div class="ag"><span>Brooks</span><span class="on">Code integrity checks</span></div><div class="ag"><span>Ezra</span><span class="on">Security scanning</span></div></div></div>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IronBridge</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;background:#0a0a0a;color:#e0e0e0;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.login{text-align:center}.login h1{color:#00d4ff;margin-bottom:10px}.login p{color:#666;margin-bottom:20px;font-size:14px}
+.login input{background:#1a1a1a;border:1px solid #333;color:#fff;padding:15px;font-size:18px;text-align:center;width:200px;border-radius:8px;letter-spacing:8px}
+.login input:focus{outline:none;border-color:#00d4ff}
+.login button{display:block;width:200px;margin:20px auto 0;background:#00d4ff;color:#000;border:none;padding:12px;border-radius:8px;cursor:pointer;font-weight:bold}
+.login .err{color:#ff4444;margin-top:10px;font-size:12px;display:none}
+.war{display:none}.hdr{text-align:center;border-bottom:1px solid #333;padding:15px;margin-bottom:15px}.hdr h1{color:#00d4ff;font-size:1.5rem}
+.sb{display:flex;justify-content:center;gap:15px;margin-top:8px;flex-wrap:wrap}.si{padding:4px 12px;border-radius:15px;font-size:11px}
+.up{background:#00ff8820;color:#00ff88;border:1px solid #00ff88}.dn{background:#ff444420;color:#ff4444;border:1px solid #ff4444}
+.cd{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px;margin:15px}.cd h2{color:#00d4ff;font-size:0.9rem;margin-bottom:8px}
+.cb{background:#000;border:1px solid #333;height:200px;overflow-y:auto;padding:8px;font-family:monospace;font-size:12px;margin-bottom:8px}
+.msg{margin:4px 0;padding:4px 8px;border-radius:3px}.msg.u{background:#00d4ff20;border-left:2px solid #00d4ff}.msg.d{background:#00ff8820;border-left:2px solid #00ff88}.msg.s{color:#666;font-size:10px}
+.ir{display:flex;gap:8px}.ir input{flex:1;background:#222;border:1px solid #444;color:#fff;padding:10px;border-radius:4px;font-size:14px;letter-spacing:0}
+.ir button{background:#00d4ff;color:#000;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold}
+.ag{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222;font-size:13px}.ag:last-child{border:none}.on{color:#00ff88}.of{color:#ff4444}
+.bt{background:#333;color:#fff;border:1px solid #555;padding:8px 12px;border-radius:4px;cursor:pointer;margin:3px;font-size:12px}.bt:hover{background:#444}.bt.p{background:#00d4ff;color:#000;border:none}
+</style></head>
+<body>
+<div class="login" id="login">
+<h1>IRONBRIDGE</h1>
+<p>Command Center - Owner Only</p>
+<input type="password" id="pin" placeholder="PIN" maxlength="6" onkeypress="if(event.key==='Enter')auth()">
+<button onclick="auth()">ENTER</button>
+<div class="err" id="err">Invalid PIN</div>
+</div>
+
+<div class="war" id="war">
+<div class="hdr"><h1>IRONBRIDGE WAR ROOM</h1><div class="sb"><span class="si" id="api">API:...</span><span class="si" id="army">Army:...</span></div></div>
+<div class="cd"><h2>TALK TO DICK</h2><div class="cb" id="c"></div><div class="ir"><input id="i" placeholder="Order..." onkeypress="if(event.key==='Enter')send()"><button onclick="send()">SEND</button></div></div>
+<div class="cd"><h2>ARMY</h2><div id="a">Click WAKE</div><button class="bt p" onclick="wake()" style="width:100%;margin-top:8px">WAKE ARMY</button></div>
+<div class="cd"><h2>3 SOLDIERS ON COMMAND CENTER DUTY</h2><div><div class="ag"><span>Oscar</span><span class="on">Frontend monitoring</span></div><div class="ag"><span>Brooks</span><span class="on">Code integrity</span></div><div class="ag"><span>Ezra</span><span class="on">Security scanning</span></div></div></div>
+</div>
+
 <script>
-const API='/api';
+async function auth(){
+  const p=document.getElementById('pin').value;
+  try{
+    const r=await fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:p})});
+    const d=await r.json();
+    if(d.ok){document.getElementById('login').style.display='none';document.getElementById('war').style.display='block';boot();}
+    else{document.getElementById('err').style.display='block';}
+  }catch(e){document.getElementById('err').style.display='block';document.getElementById('err').textContent='Auth failed: '+e.message;}
+}
 const c=document.getElementById('c'),i=document.getElementById('i');
 function add(x,t){const d=document.createElement('div');d.className='msg '+t;d.textContent=(t==='u'?'BOSS: ':t==='d'?'DICK: ':'')+x;c.appendChild(d);c.scrollTop=c.scrollHeight}
-
-async function chk(){
-  try{
-    const r=await fetch(API+'/army');
-    if(r.ok){document.getElementById('api').textContent='API:UP';document.getElementById('api').className='si up';}
-    else throw new Error();
-  }catch(e){document.getElementById('api').textContent='API:DOWN';document.getElementById('api').className='si dn';}
-}
-
-async function send(){
-  const m=i.value.trim();if(!m)return;i.value='';add(m,'u');
-  add('Processing...','s');
-  try{
-    const r=await fetch(API+'/dick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:m})});
-    const d=await r.json();
-    c.removeChild(c.lastChild);
-    add(d.reply||d.error||'No response','d');
-  }catch(e){c.removeChild(c.lastChild);add('Error: '+e.message,'s');}
-}
-
-async function wake(){
-  document.getElementById('a').innerHTML='<div class="ag">Waking agents...</div>';
-  document.getElementById('army').textContent='Army:WAKING';
-  try{
-    const r=await fetch(API+'/army');
-    const d=await r.json();
-    let h='';
-    for(const a of d.army||[]){h+='<div class="ag"><span>'+a.agent+'</span><span class="'+(a.status.includes('OFFLINE')?'of':'on')+'">'+a.status+'</span></div>';}
-    document.getElementById('a').innerHTML=h||'<div class="ag">No response</div>';
-    document.getElementById('army').textContent='Army:UP';document.getElementById('army').className='si up';
-    add('All agents reporting for duty, Boss.','d');
-  }catch(e){
-    document.getElementById('a').innerHTML='<div class="ag"><span>Error</span><span class="of">'+e.message+'</span></div>';
-    document.getElementById('army').textContent='Army:DOWN';document.getElementById('army').className='si dn';
-  }
-}
-
-window.onload=()=>{chk();add('Dick Commander standing by. What are your orders, Boss?','d');}
+async function boot(){try{await fetch('/api/army');document.getElementById('api').textContent='API:UP';document.getElementById('api').className='si up';}catch(e){document.getElementById('api').className='si dn';}add('Dick Commander online. Orders, Boss?','d');}
+async function send(){const m=i.value.trim();if(!m)return;i.value='';add(m,'u');add('...','s');try{const r=await(await fetch('/api/dick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:m})})).json();c.removeChild(c.lastChild);add(r.reply||r.error,'d');}catch(e){c.removeChild(c.lastChild);add('Error: '+e.message,'s');}}
+async function wake(){document.getElementById('a').innerHTML='Waking...';try{const r=await(await fetch('/api/army')).json();let h='';for(const a of r.army||[]){h+='<div class="ag"><span>'+a.agent+'</span><span class="on">'+a.status+'</span></div>';}document.getElementById('a').innerHTML=h;document.getElementById('army').textContent='Army:UP';document.getElementById('army').className='si up';add('All agents ready, Boss.','d');}catch(e){document.getElementById('a').innerHTML='Error';}}
 </script></body></html>

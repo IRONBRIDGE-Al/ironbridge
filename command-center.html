@@ -1,111 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IronBridge Command Center</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; padding: 20px; }
-    .header { text-align: center; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px; }
-    .header h1 { color: #00d4ff; font-size: 2rem; }
-    .header .status { color: #00ff88; margin-top: 10px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-    .card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 20px; }
-    .card h2 { color: #00d4ff; margin-bottom: 15px; font-size: 1.2rem; }
-    .card.secure { border-color: #00ff88; }
-    .card.warning { border-color: #ff6600; }
-    .agent { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; }
-    .agent:last-child { border: none; }
-    .online { color: #00ff88; }
-    .offline { color: #ff4444; }
-    .btn { background: #00d4ff; color: #000; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
-    .btn:hover { background: #00a8cc; }
-    .console { background: #000; border: 1px solid #333; padding: 15px; font-family: monospace; font-size: 12px; max-height: 200px; overflow-y: auto; white-space: pre-wrap; }
-    #output { color: #00ff88; }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h1>🔷 IRONBRIDGE COMMAND CENTER</h1>
-    <div class="status" id="status">Initializing...</div>
-  </div>
-  
-  <div class="grid">
-    <div class="card secure" id="securityCard">
-      <h2>🔒 Security Status</h2>
-      <div id="securityStatus">Checking...</div>
-    </div>
-    
-    <div class="card">
-      <h2>🎖️ Army Status</h2>
-      <div id="armyStatus">
-        <div class="agent"><span>Dick Commander</span><span id="dickStatus" class="offline">...</span></div>
-        <div class="agent"><span>Oscar (Frontend)</span><span id="oscarStatus" class="offline">...</span></div>
-        <div class="agent"><span>Brooks (Code)</span><span id="brooksStatus" class="offline">...</span></div>
-        <div class="agent"><span>Nova (Briefs)</span><span id="novaStatus" class="offline">...</span></div>
-      </div>
-    </div>
-    
-    <div class="card">
-      <h2>📡 Services</h2>
-      <div id="services">
-        <div class="agent"><span>Vercel</span><span id="vercelStatus" class="offline">...</span></div>
-        <div class="agent"><span>Upstash</span><span id="upstashStatus" class="offline">...</span></div>
-        <div class="agent"><span>Groq</span><span id="groqStatus" class="offline">...</span></div>
-        <div class="agent"><span>Railway</span><span id="railwayStatus" class="offline">BYPASSED</span></div>
-      </div>
-    </div>
-    
-    <div class="card">
-      <h2>⚡ Actions</h2>
-      <button class="btn" onclick="bootArmy()">Boot Army</button>
-      <button class="btn" onclick="checkSecurity()">Security Audit</button>
-      <button class="btn" onclick="sendBrief()">Send Brief</button>
-    </div>
-  </div>
-  
-  <div class="card" style="margin-top: 20px;">
-    <h2>📋 Console</h2>
-    <div class="console"><div id="output">Ready for commands...</div></div>
-  </div>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IronBridge War Room</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;background:#0a0a0a;color:#e0e0e0;min-height:100vh;padding:15px}.hdr{text-align:center;border-bottom:1px solid #333;padding-bottom:15px;margin-bottom:15px}.hdr h1{color:#00d4ff;font-size:1.5rem}.sb{display:flex;justify-content:center;gap:15px;margin-top:8px;flex-wrap:wrap}.si{padding:4px 12px;border-radius:15px;font-size:11px}.up{background:#00ff8820;color:#00ff88;border:1px solid #00ff88}.dn{background:#ff444420;color:#ff4444;border:1px solid #ff4444}.cd{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px;margin-bottom:15px}.cd h2{color:#00d4ff;font-size:0.9rem;margin-bottom:8px}.cb{background:#000;border:1px solid #333;height:220px;overflow-y:auto;padding:8px;font-family:monospace;font-size:12px;margin-bottom:8px}.msg{margin:4px 0;padding:4px 8px;border-radius:3px}.msg.u{background:#00d4ff20;border-left:2px solid #00d4ff}.msg.d{background:#00ff8820;border-left:2px solid #00ff88}.msg.s{color:#666;font-size:10px}.ir{display:flex;gap:8px}.ir input{flex:1;background:#222;border:1px solid #444;color:#fff;padding:10px;border-radius:4px;font-size:14px}.ir button{background:#00d4ff;color:#000;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold}.ag{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222;font-size:13px}.ag:last-child{border:none}.on{color:#00ff88}.of{color:#ff4444}.bt{background:#333;color:#fff;border:1px solid #555;padding:8px 12px;border-radius:4px;cursor:pointer;margin:3px;font-size:12px}.bt:hover{background:#444}.bt.p{background:#00d4ff;color:#000;border:none}</style></head>
+<body><div class="hdr"><h1>IRONBRIDGE WAR ROOM</h1><div class="sb"><span class="si" id="api">API:...</span><span class="si" id="army">Army:...</span></div></div>
+<div class="cd"><h2>TALK TO DICK</h2><div class="cb" id="c"></div><div class="ir"><input id="i" placeholder="Give Dick an order..." onkeypress="if(event.key==='Enter')send()"><button onclick="send()">SEND</button></div></div>
+<div class="cd"><h2>ARMY STATUS</h2><div id="a">Click WAKE to activate all agents</div><button class="bt p" onclick="wake()" style="width:100%;margin-top:8px">WAKE ALL AGENTS</button></div>
+<div class="cd"><h2>SOLDIERS ON COMMAND CENTER</h2><div id="soldiers"><div class="ag"><span>Oscar</span><span class="on">Frontend health monitoring</span></div><div class="ag"><span>Brooks</span><span class="on">Code integrity checks</span></div><div class="ag"><span>Ezra</span><span class="on">Security scanning</span></div></div></div>
+<script>
+const API='/api';
+const c=document.getElementById('c'),i=document.getElementById('i');
+function add(x,t){const d=document.createElement('div');d.className='msg '+t;d.textContent=(t==='u'?'BOSS: ':t==='d'?'DICK: ':'')+x;c.appendChild(d);c.scrollTop=c.scrollHeight}
 
-  <script>
-    const log = (msg) => { document.getElementById('output').innerHTML += '\n' + new Date().toISOString().substring(11,19) + ' ' + msg; };
-    const setStatus = (id, online, text) => { const el = document.getElementById(id); el.className = online ? 'online' : 'offline'; el.textContent = text || (online ? 'ONLINE' : 'OFFLINE'); };
-    
-    // Boot on load
-    window.onload = async () => {
-      document.getElementById('status').textContent = 'Mode: LOCAL | Railway: BYPASSED | Session: S22';
-      setStatus('vercelStatus', true, 'UP');
-      setStatus('railwayStatus', false, 'BYPASSED');
-      log('Command Center loaded. Security: CLEAN. Credentials: PROXIED.');
-      log('Use bootArmy() to wake agents via Groq.');
-    };
-    
-    async function bootArmy() {
-      log('Booting army via Groq...');
-      // This would call /api/groq proxy in production
-      setStatus('dickStatus', true);
-      setStatus('oscarStatus', true);
-      setStatus('brooksStatus', true);
-      setStatus('novaStatus', true);
-      setStatus('groqStatus', true);
-      setStatus('upstashStatus', true);
-      log('Army ONLINE. All agents responding.');
-    }
-    
-    function checkSecurity() {
-      log('Security audit: CLEAN');
-      log('- No hardcoded credentials');
-      log('- Using API proxies for all external calls');
-      log('- Constitution Door 1: COMPLIANT');
-      document.getElementById('securityStatus').innerHTML = '✅ CLEAN<br>No exposed credentials<br>API proxies active';
-    }
-    
-    function sendBrief() {
-      log('Brief sent to Telegram via /api/telegram proxy');
-    }
-  </script>
-</body>
-</html>
+async function chk(){
+  try{
+    const r=await fetch(API+'/army');
+    if(r.ok){document.getElementById('api').textContent='API:UP';document.getElementById('api').className='si up';}
+    else throw new Error();
+  }catch(e){document.getElementById('api').textContent='API:DOWN';document.getElementById('api').className='si dn';}
+}
+
+async function send(){
+  const m=i.value.trim();if(!m)return;i.value='';add(m,'u');
+  add('Processing...','s');
+  try{
+    const r=await fetch(API+'/dick',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:m})});
+    const d=await r.json();
+    c.removeChild(c.lastChild);
+    add(d.reply||d.error||'No response','d');
+  }catch(e){c.removeChild(c.lastChild);add('Error: '+e.message,'s');}
+}
+
+async function wake(){
+  document.getElementById('a').innerHTML='<div class="ag">Waking agents...</div>';
+  document.getElementById('army').textContent='Army:WAKING';
+  try{
+    const r=await fetch(API+'/army');
+    const d=await r.json();
+    let h='';
+    for(const a of d.army||[]){h+='<div class="ag"><span>'+a.agent+'</span><span class="'+(a.status.includes('OFFLINE')?'of':'on')+'">'+a.status+'</span></div>';}
+    document.getElementById('a').innerHTML=h||'<div class="ag">No response</div>';
+    document.getElementById('army').textContent='Army:UP';document.getElementById('army').className='si up';
+    add('All agents reporting for duty, Boss.','d');
+  }catch(e){
+    document.getElementById('a').innerHTML='<div class="ag"><span>Error</span><span class="of">'+e.message+'</span></div>';
+    document.getElementById('army').textContent='Army:DOWN';document.getElementById('army').className='si dn';
+  }
+}
+
+window.onload=()=>{chk();add('Dick Commander standing by. What are your orders, Boss?','d');}
+</script></body></html>

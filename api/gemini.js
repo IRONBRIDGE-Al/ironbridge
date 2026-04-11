@@ -1,58 +1,46 @@
-// IRONBRIDGE GEMINI GATEWAY
-// Secure API route - keys in env vars only
+// api/gemini.js
+// IronBridge Gemini Gateway - Tactical AI Layer
+// Uses Boss's Gemini API key from Vercel env vars
 
-module.exports = async function handler(req, res) {
-  // CORS
+export default async function handler(req, res) {
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
   
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'POST only' });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
   
-  // PIN check for security
-  const { prompt, pin, context } = req.body;
+  const { pin, prompt, system } = req.body || {};
   
-  if (pin !== process.env.IB_PIN) {
+  // PIN verification
+  const validPin = process.env.IB_PIN || 'ironbridge2026';
+  if (pin !== validPin) {
     return res.status(401).json({ error: 'Invalid PIN' });
   }
   
-  if (!prompt) {
-    return res.status(400).json({ error: 'prompt required' });
-  }
-  
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  
-  if (!GEMINI_API_KEY) {
+  const geminiKey = process.env.GEMINI_API_KEY;
+  if (!geminiKey) {
     return res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
   }
   
   try {
-    // Build the full prompt with context from Upstash if provided
-    let fullPrompt = prompt;
-    
-    if (context) {
-      fullPrompt = `CONTEXT FROM IRONBRIDGE MEMORY:\n${context}\n\nCURRENT REQUEST:\n${prompt}`;
-    }
-    
     // Call Gemini API
     const response = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + geminiKey,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': GEMINI_API_KEY
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           contents: [{
-            parts: [{ text: fullPrompt }]
-          }]
+            parts: [{ text: prompt }]
+          }],
+          systemInstruction: system ? { parts: [{ text: system }] } : undefined
         })
       }
     );
@@ -63,16 +51,10 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ error: data.error.message });
     }
     
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response';
+    return res.status(200).json({ response: text });
     
-    return res.status(200).json({
-      success: true,
-      response: text,
-      model: 'gemini-2.5-flash',
-      timestamp: new Date().toISOString()
-    });
-    
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
 }

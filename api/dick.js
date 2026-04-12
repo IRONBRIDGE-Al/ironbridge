@@ -1,31 +1,46 @@
+// Dick v11 - Vercel Webhook Edition
+// IronBridge Commander - LAW 22: use msg.chat.id
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-
-  const { message } = req.body || {};
-  if (!message) return res.status(400).json({ error: 'No message' });
-
-  try {
-    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + process.env.GROQ_API_KEY,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [
-          { role: 'system', content: 'You are Dick Commander of IronBridge army. Direct, military, efficient. Boss gives orders - execute.' },
-          { role: 'user', content: message }
-        ],
-        max_tokens: 300
-      })
-    });
-    const data = await r.json();
-    res.status(200).json({ reply: data.choices?.[0]?.message?.content || 'No response' });
-  } catch(e) {
-    res.status(500).json({ error: e.message });
+  if (req.method !== 'POST') return res.status(200).send('OK');
+  
+  const TG = process.env.IB_BOT;
+  const UP_URL = process.env.UPSTASH_REST_URL;
+  const UP_TOKEN = process.env.UPSTASH_REST_TOKEN;
+  
+  const update = req.body;
+  if (!update?.message) return res.status(200).send('OK');
+  
+  const msg = update.message;
+  const chatId = msg.chat.id; // LAW 22
+  const text = msg.text || '';
+  
+  // Log
+  await fetch(UP_URL + '/lpush/ironbridge:dick:log/' + encodeURIComponent(JSON.stringify({ts:Date.now(),from:chatId,text})), {
+    headers: { Authorization: 'Bearer ' + UP_TOKEN }
+  }).catch(()=>{});
+  
+  let reply = 'Received: ' + text;
+  
+  if (text === '/ping') reply = 'PONG';
+  else if (text === '/status') reply = 'DICK ONLINE v11 Vercel';
+  else if (text === '/help') reply = '/ping /status /army /brief';
+  else if (text === '/army') {
+    const r = await fetch(UP_URL + '/get/ironbridge:army:status', { headers: { Authorization: 'Bearer ' + UP_TOKEN } });
+    const d = await r.json();
+    reply = 'Army: ' + JSON.stringify(d.result || 'none');
   }
+  else if (text === '/brief') {
+    const r = await fetch(UP_URL + '/get/ironbridge:thanos:brief', { headers: { Authorization: 'Bearer ' + UP_TOKEN } });
+    const d = await r.json();
+    reply = 'Brief: ' + JSON.stringify(d.result || 'none');
+  }
+  
+  await fetch('https://api.telegram.org/bot' + TG + '/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text: reply })
+  });
+  
+  res.status(200).send('OK');
 }

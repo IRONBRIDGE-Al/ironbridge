@@ -66,7 +66,7 @@ Command Deck (Cowork) is L2 Translator per FRD-1.0 — emits structured dispatch
 | 13 | **CANDOR** | PDS / User-Facing Intel | PII redaction, memory coherence, voice scrubbing | Template | 5min | (0 built) | 14 skills across 3 modules | Privacy guardrail |
 | 14 | **WICK** | Personal Security Lead | Boss personal security: OSINT, threat intel, digital footprint | Template | 5min | (0 built) | 12 skills across 3 modules | Boss Discord DM |
 | 15 | **ARGUS** | Empire Auditor (LAW 333) | Independent cold-log verify, reports to Boss not DICK | Template | 5min | `cold-log-integrity-verify`, `cross-auditor-check` (2) | 4 more | Weekly empire audit |
-| 16 | **COFFEY** | The Healer | Internal army healing + external x402-gated healing. Watches ALL soldiers. Pattern library grows with every fix. | Partial -- `soldiers/coffey/src/skills/heartbeat-watchdog/` | 60s | `heartbeat-watchdog` (1) | `auto-recovery`, `resource-monitor`, `staggered-boot`, `comms-failover`, `bridge-spinner`, `agent-diagnostics` (x402), `service-healer` (x402), `pattern-library`, `health-report` (9 more) | All channels (senses, does not wait) |
+| 16 | **COFFEY** | The Healer | Internal army healing + external x402-gated healing. Watches ALL soldiers. Pattern library grows with every fix. | YES — `soldiers/coffey/src/index.ts` | 60s | `heartbeat-watchdog`, `platform-health-monitor` (13 platforms), `provider-health-check` (3) | `auto-recovery`, `resource-monitor`, `staggered-boot`, `comms-failover`, `bridge-spinner`, `agent-diagnostics` (x402), `service-healer` (x402), `pattern-library`, `health-report` (7 more) | All channels (senses, does not wait) |
 
 **Total skills built: 25. Total planned: ~178. Gap analysis: `GAP-ANALYSIS.md`**
 
@@ -378,24 +378,34 @@ COFFEY watches everything. Not a dashboard. A healer.
 
 ---
 
-## 14. CURRENT OPERATIONAL STATUS (S67)
+## 14. CURRENT OPERATIONAL STATUS (S69)
 
 ### 14.1 P0 issues (fix now)
 
-- **DICK heartbeat missing** — `ironbridge:heartbeat:dick` not in Upstash, DICK boot failing at step 1. Ticket: `IB-0417-DICK-HEARTBEAT-BUG-001`. pm2 shows online but not completing boot.
-- **GitHub cold store stale** — Last full sync from S36. Three-store is 2/3.
 - **Upstash ACL isolation** — Shared token across all soldiers. Open since S61.
+- **COFFEY rebuild needed** — platform-health-monitor.ts integrated but not yet compiled/deployed to Hetzner. Queue ticket: `IB-0417-S69-DEPLOY-COFFEY-CC.yml`.
 
-### 14.2 P1 issues (fix this session)
+### 14.2 P1 issues (fix next session)
 
+- **CC redeploy to Vercel** — route.ts updated with SOLDIER_META fix + health panel but not yet deployed. Vercel auto-deploys on push to deployment branch.
 - **Solvr API key needed** — Adapter built (`core/oracle-interface/adapters/solvr.ts`), needs `solvr_*` key stored in `ironbridge:keys:solvr`
 - **X account for IronBridge brand** — Not created yet. GARY needs this for social posting.
 - **integrations/INDEX.md stale** — Says 10 soldiers, missing Clerk, Solvr, Anthropic, fraud detection, oracle interface.
-- **Skills gap** — 23 built of 168 claimed. See `GAP-ANALYSIS.md`.
+- **Skills gap** — 25 built of ~178 planned. See `GAP-ANALYSIS.md`.
 
-### 14.3 Queue summary
+### 14.3 RESOLVED in S69
 
-80 tickets in `queue/`. Categories: heartbeat audit (mass), credential rotation, oracle interface, treasury prereqs, soldier charters, branding, broadcast.
+- **ecosystem.config.js env propagation** (ROOT CAUSE) — Credential read-order bug fixed. Env object now takes priority over stale pm2 daemon cache. Hetzner rebooted, pm2 kill+start forced fresh daemon. All 16 soldiers receiving correct credentials.
+- **DICK heartbeat restored** — Boot completing, heartbeat in Upstash.
+- **GitHub cold store synced** — Commits e7f799a, 58c0bb2, 08cb797. Three-store is 2/3 (warm = Mac-only).
+- **SOLDIER_META skill counts aligned** — route.ts matches Handbook Rolodex.
+- **Platform health monitor built** — COFFEY integrated with 13-platform Bobby Fischer monitor.
+- **Credential write hook built** — HMAC-verified rotation with liveness checks in template.
+- **Multi-channel broadcast sent** — 16 inboxes + 16 Upstash channels + army status + audit log + dead-drop + replay.
+
+### 14.4 Queue summary
+
+~81 tickets in `queue/`. New: `IB-0417-S69-DEPLOY-COFFEY-CC.yml` (RIPLEY: deploy COFFEY + CC).
 
 ---
 
@@ -478,4 +488,4 @@ All credentials live in Upstash `ironbridge:keys:*` ONLY (LAW 336). NEVER in cod
 
 *Every soldier boot sequence MUST cite this handbook in its read-trail.*
 
-**Version**: HANDBOOK-2.1 | **Session**: S67 | **Last updated**: 2026-04-17 | **Army**: 16 soldiers | **Three-store sync**: Required
+**Version**: HANDBOOK-2.2 | **Session**: S69 | **Last updated**: 2026-04-17 | **Army**: 16 soldiers | **Three-store sync**: Required

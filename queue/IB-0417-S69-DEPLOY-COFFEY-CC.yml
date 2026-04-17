@@ -1,0 +1,37 @@
+---
+id: IB-0417-S69-DEPLOY-COFFEY-CC
+title: "Deploy COFFEY rebuild + CC redeploy (S69 changes)"
+owner: ripley
+priority: P1
+status: pending
+filed_by: thanos
+filed_at: "2026-04-17"
+session: S69
+dispatch_to: ripley
+requires_capital: false
+approval_gate: dick_sufficient
+---
+
+## Description
+
+S69 made changes to COFFEY (platform-health-monitor integration) and Command Deck (SOLDIER_META fix + health panel). Both need deployment.
+
+## Steps
+
+### COFFEY (Hetzner)
+1. SSH to 178.156.251.119:22922 as ironbridge
+2. cd /home/ironbridge/soldiers/coffey
+3. git pull (or sync from cold store)
+4. npm run build
+5. pm2 restart coffey --update-env
+6. Verify: check ironbridge:health:platforms populating in Upstash
+
+### Command Deck (Vercel)
+1. Push route.ts changes to command-deck repo
+2. Vercel auto-deploys on push
+3. Verify: ironbridge-command-deck.vercel.app shows platform health panel
+
+## Verification
+- COFFEY heartbeat alive within 60s of restart
+- ironbridge:health:platforms key has 13 results
+- CC SSE stream includes platformHealth section

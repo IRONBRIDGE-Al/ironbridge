@@ -99,7 +99,7 @@ Organizational structure follows this command chain:
       SARGE (Sergeant @ Arms - Exception Handler, P0 direct to Boss)
 ```
 
-**Active Roster**: 15 soldiers (10 original + VETTER + ATHENA ratified S65 + CANDOR + WICK ratified S66 + ARGUS ratified S66)
+**Active Roster**: 16 soldiers (10 original + VETTER + ATHENA ratified S65 + CANDOR + WICK ratified S66 + ARGUS ratified S66 + COFFEY ratified S67)
 
 **Key Relationships**:
 - **CHAINLINK** → All: Governance enforcement on every hop (signHop/verifyHop/verifyChain)

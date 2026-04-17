@@ -68,7 +68,7 @@ Command Deck (Cowork) is L2 Translator per FRD-1.0 — emits structured dispatch
 | 15 | **ARGUS** | Empire Auditor (LAW 333) | Independent cold-log verify, reports to Boss not DICK | Template | 5min | `cold-log-integrity-verify`, `cross-auditor-check` (2) | 4 more | Weekly empire audit |
 | 16 | **COFFEY** | The Healer | Internal army healing + external x402-gated healing. Watches ALL soldiers. Pattern library grows with every fix. | YES — `soldiers/coffey/src/index.ts` | 60s | `heartbeat-watchdog`, `platform-health-monitor` (13 platforms), `provider-health-check` (3) | `auto-recovery`, `resource-monitor`, `staggered-boot`, `comms-failover`, `bridge-spinner`, `agent-diagnostics` (x402), `service-healer` (x402), `pattern-library`, `health-report` (7 more) | All channels (senses, does not wait) |
 
-**Total skills built: 26 (S69). Total planned: ~178. Gap analysis: `GAP-ANALYSIS.md`**
+**Total skills built: 29 (S69 disk-verified). Total planned: ~178. Gap analysis: `GAP-ANALYSIS.md`**
 
 ---
 

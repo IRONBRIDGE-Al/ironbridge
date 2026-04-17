@@ -19,7 +19,7 @@ author: claude-opus-4-6 under Boss directive
 
 **Claimed arsenal** (per `skills/INDEX.md`): ~178 skills planned across 16 soldiers.
 **Claimed arsenal** (per `skills/MASTER-ASSIGNMENTS.md`): 168 assignments after ZHC additions.
-**Runnable arsenal** (verified S69): **26 SRP-1.0 skill modules across 7 soldiers (SARGE: 10, DICK: 4, HERMES: 3, EZRA: 3, COFFEY: 3, ARGUS: 2, VETTER: 1). S69 added platform-health-monitor + provider-health-check (COFFEY), session-ingest + git-log-router (DICK). S66 added 6 pipeline skills. Original 13 law-predicate skills.**
+**Runnable arsenal** (verified S69, disk audit): **29 SRP-1.0 skill modules across 9 soldiers (SARGE: 11, RACHEL: 3, EZRA: 3, DICK: 2, HERMES: 2, COFFEY: 2, ARGUS: 2, RIPLEY: 2, VETTER: 2). S69 added platform-health-monitor (COFFEY), session-ingest + git-log-router (DICK). S66 added pipeline skills. RACHEL has 3 skills (competitor-watch, session-log-intel, trend-analysis). RIPLEY has 2 (multi-deploy, staggered-boot). Previous count of 26 was wrong — undercounted RACHEL, RIPLEY, VETTER, SARGE; overcounted DICK, HERMES, COFFEY.**
 
 Skills today are conceptual routing labels with a growing concrete foundation. `soldiers/dick/src/index.ts:38-67` has a 67-entry `SKILL_ROUTING` map that maps skill-name-strings to soldier-id-strings. The first runnable skill modules are now implemented as SRP-1.0 compliant units. Phase 2 continues building skills across the remaining ~155 claimed assignments.
 

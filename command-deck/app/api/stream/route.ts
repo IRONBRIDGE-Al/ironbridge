@@ -34,22 +34,22 @@ const SOLDIERS = [
  * skillsPlanned = total assigned in SKILL_ROUTING dispatch table.
  */
 const SOLDIER_META: Record<string, { name: string; role: string; skillsBuilt: number; skillsPlanned: number }> = {
-  dick:    { name: 'DICK',    role: 'Commander / 2IC',           skillsBuilt: 4,  skillsPlanned: 24 },
-  hermes:  { name: 'HERMES',  role: 'Memory & Sync',             skillsBuilt: 3,  skillsPlanned: 8 },
-  sarge:   { name: 'SARGE',   role: 'Security Chief',            skillsBuilt: 10, skillsPlanned: 10 },
+  dick:    { name: 'DICK',    role: 'Commander / 2IC',           skillsBuilt: 2,  skillsPlanned: 24 },
+  hermes:  { name: 'HERMES',  role: 'Memory & Sync',             skillsBuilt: 2,  skillsPlanned: 8 },
+  sarge:   { name: 'SARGE',   role: 'Security Chief',            skillsBuilt: 11, skillsPlanned: 15 },
   ezra:    { name: 'EZRA',    role: 'QA & Audit',                skillsBuilt: 3,  skillsPlanned: 7 },
   brooks:  { name: 'BROOKS',  role: 'Code Quality',              skillsBuilt: 0,  skillsPlanned: 16 },
   oscar:   { name: 'OSCAR',   role: 'Frontend',                  skillsBuilt: 0,  skillsPlanned: 12 },
-  rachel:  { name: 'RACHEL',  role: 'Intelligence',              skillsBuilt: 0,  skillsPlanned: 9 },
+  rachel:  { name: 'RACHEL',  role: 'Intelligence',              skillsBuilt: 3,  skillsPlanned: 9 },
   gary:    { name: 'GARY',    role: 'Growth & Partnerships',     skillsBuilt: 0,  skillsPlanned: 17 },
   paul:    { name: 'PAUL',    role: 'Product',                   skillsBuilt: 0,  skillsPlanned: 10 },
-  ripley:  { name: 'RIPLEY',  role: 'Deployment',                skillsBuilt: 0,  skillsPlanned: 8 },
-  vetter:  { name: 'VETTER',  role: 'Discovery & Vetting',       skillsBuilt: 1,  skillsPlanned: 22 },
+  ripley:  { name: 'RIPLEY',  role: 'Deployment',                skillsBuilt: 2,  skillsPlanned: 8 },
+  vetter:  { name: 'VETTER',  role: 'Discovery & Vetting',       skillsBuilt: 2,  skillsPlanned: 22 },
   athena:  { name: 'ATHENA',  role: 'Continuous Improvement',    skillsBuilt: 0,  skillsPlanned: 5 },
   candor:  { name: 'CANDOR',  role: 'PDS / User-Facing Intel',   skillsBuilt: 0,  skillsPlanned: 14 },
   wick:    { name: 'WICK',    role: 'Personal Security Lead',    skillsBuilt: 0,  skillsPlanned: 12 },
   argus:   { name: 'ARGUS',   role: 'Empire Auditor (LAW 333)',  skillsBuilt: 2,  skillsPlanned: 5 },
-  coffey:  { name: 'COFFEY',  role: 'The Healer (x402 Revenue)', skillsBuilt: 3,  skillsPlanned: 10 },
+  coffey:  { name: 'COFFEY',  role: 'The Healer (x402 Revenue)', skillsBuilt: 2,  skillsPlanned: 10 },
 };
 
 // Default Fischer 7-move recovery plan

@@ -1,6 +1,6 @@
 # IronBridge Skills Index
 
-Master skill registry for the IronBridge Army. 26 skills built across 16 soldiers, ~178 total planned. See `GAP-ANALYSIS.md` for full coverage. Updated S69.
+Master skill registry for the IronBridge Army. **29 skills built** across 9 soldiers with code, ~178 total planned across 16. See `GAP-ANALYSIS.md` for full coverage. Updated S69 (verified against disk).
 
 ## Skill Allocation by Soldier
 

@@ -2,12 +2,12 @@
 tags: [agents, ironbridge, command-center]
 status: ACTIVE
 deployment_phase: S61-S63
-last_updated: 2026-04-15
+last_updated: 2026-04-17
 ---
 
 # IronBridge Agent Command Center
 
-Master index of all IronBridge agents (15 total: 15 ratified as of S66).
+Master index of all IronBridge agents (16 total: 16 ratified as of S67, COFFEY added S67).
 
 ## Agent Roster
 
@@ -28,6 +28,7 @@ Master index of all IronBridge agents (15 total: 15 ratified as of S66).
 | [[candor\|Candor]] | PDS / User-Facing Intelligence | RATIFIED | 14 | S65 | Memory + Privacy + Voice. Ratified S66. |
 | [[wick\|Wick]] | Personal Security Lead | RATIFIED | 12 | S65 | Boss protection, threat intel, OSINT, investigation. Restored LAW 71 original mission. Ratified S66. |
 | [[argus\|Argus]] | Empire Auditor | RATIFIED | 6 | S66 | LAW 333 independent read-only auditor. Cold log integrity, cross-audit, governance drift. |
+| [[coffey\|Coffey]] | The Healer | DEPLOYED | 10 | S67 | Infrastructure resilience. Heartbeat watchdog, platform health monitor (13 platforms), auto-recovery. Custom code active S69. |
 
 ## Deployment Schedule
 

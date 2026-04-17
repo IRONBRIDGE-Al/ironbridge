@@ -8,9 +8,9 @@ IronBridge vault. Mac host path: `/Users/leaux/Ironbridge/`. Cowork VM mount var
 
 ## Governance order
 
-Boss → CHAINLINK protocol → DICK (field commander) → EZRA (QA pre-dispatch) + ARGUS (independent post-audit, LAW 333) → SARGE / HERMES / BROOKS / OSCAR / RACHEL / GARY / PAUL / RIPLEY / VETTER / ATHENA / CANDOR / WICK (soldiers = 15 total).
+Boss → CHAINLINK protocol → DICK (field commander) → EZRA (QA pre-dispatch) + ARGUS (independent post-audit, LAW 333) → SARGE / HERMES / BROOKS / OSCAR / RACHEL / GARY / PAUL / RIPLEY / VETTER / ATHENA / CANDOR / WICK / COFFEY (soldiers = 16 total).
 
-## Session boot — MANDATORY read order (HANDBOOK-1.0 §0)
+## Session boot — MANDATORY read order (HANDBOOK-2.2 §0)
 
 1. `governance/CONSTITUTION.md` — values, hierarchy
 2. `governance/IRONBRIDGE-OPERATIONAL-HANDBOOK.md` — **SINGLE SOURCE OF TRUTH** for every soldier's operational behavior (rolodex, DICK-down failover, escalation paths, authority matrix)

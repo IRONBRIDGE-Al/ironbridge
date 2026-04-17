@@ -12,7 +12,7 @@ For full operational context, see `governance/IRONBRIDGE-OPERATIONAL-HANDBOOK.md
 |-------|-----------|------|---------|-------|--------|
 | **Upstash Redis** | REST API | HOT — heartbeats, broadcasts, real-time | Live | All soldiers | Online (ACL isolation P1 open) |
 | **Obsidian** | HERMES JWT proxy (port 27125) | WARM — knowledge base, append-only | 5min | HERMES | Online |
-| **GitHub** | API blob pattern | COLD — immutable archive, signed commits | 5min | RIPLEY (push), HERMES (commit) | Online (last full sync stale) |
+| **GitHub** | API blob pattern | COLD — immutable archive, signed commits | 5min | RIPLEY (push), HERMES (commit) | Online (synced S69) |
 
 ---
 

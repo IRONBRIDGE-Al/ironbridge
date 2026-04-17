@@ -57,7 +57,7 @@ What platforms IronBridge uses, who owns each, how they connect. COMPUTE / MEMOR
 
 Command structure, soldier profiles, universal boot sequence, idle work priority queue.
 
-**Status**: 15 soldiers ratified (S66). 2 with custom code (DICK, HERMES), 4 with real skills (SARGE: 10, EZRA: 3, DICK: 2, ARGUS: 2, VETTER: 1 = 19 total), 9 bare templates. SRP-1.0 skill runtime ratified. S66 added session-ingest + git-log-router pipeline skills for DICK, plus github-ops + credential-rotation + doc-tracker for SARGE. claude-mem integration planned (four-store architecture).
+**Status**: 16 soldiers ratified (S67, COFFEY added). 3 with custom code (DICK, HERMES, COFFEY), 7 with runnable skills (SARGE: 10, DICK: 4, HERMES: 3, EZRA: 3, COFFEY: 3, ARGUS: 2, VETTER: 1 = 26 total), 9 bare templates. SRP-1.0 skill runtime ratified. S69 added platform-health-monitor + credential-write-hook. claude-mem integration planned (four-store architecture).
 
 ### PART 3 — Job Lifecycle (§427-477)
 
@@ -161,7 +161,7 @@ Items the MOC says but current reality contradicts. These are tracked for resolu
 | MOC claim | Current reality | Owner |
 |---|---|---|
 | "Only ONE soldier deployed" (§11) | 2 deployed (DICK, HERMES) + 8 templates + VETTER ratified | n/a — outdated prose, updated above |
-| "101 skills across 10 soldiers" (§11) | 19 runnable skill modules (SARGE: 10, EZRA: 3, DICK: 2, ARGUS: 2, VETTER: 1); 15 soldiers. S66 added session-ingest + git-log-router (DICK), doc-tracker + github-ops + credential-rotation (SARGE). | `skills/GAP-ANALYSIS.md` tracks this |
+| "101 skills across 10 soldiers" (§11) | 26 runnable skill modules across 7 soldiers (SARGE: 10, DICK: 4, HERMES: 3, EZRA: 3, COFFEY: 3, ARGUS: 2, VETTER: 1); 16 soldiers total. S69 updated. | `skills/GAP-ANALYSIS.md` tracks this |
 | "344 laws (345 after this plan)" (§11) | 346 laws | LAWS-INDEX |
 | "Three-store sync every 5 minutes" (§44) | Drift detected since S62, no automated remediation | HERMES / IB-0416-VAULT-SYNC-CHECK-FAILED (S66: three-store-drift-check skill built) |
 | "SSH: Key-only auth" (§116) | Password auth still active | SARGE / audit/violations/OPEN.md P0 |

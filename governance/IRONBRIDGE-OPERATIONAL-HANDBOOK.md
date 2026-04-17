@@ -1,7 +1,7 @@
 ---
 tags: [governance, handbook, operational, rolodex, soldiers, integrations, revenue, sync, streamline, law-0]
 status: RATIFIED S67 — single source of truth for every soldier's operational behavior
-version: HANDBOOK-2.0
+version: HANDBOOK-2.2
 ratified_by: boss
 ratification_date: 2026-04-17
 supersedes: HANDBOOK-1.0
@@ -9,7 +9,7 @@ authored_under: Boss directive "this all needs to be in one handbook... easily t
 three_store_sync: true
 ---
 
-# IRONBRIDGE OPERATIONAL HANDBOOK (HANDBOOK-2.0)
+# IRONBRIDGE OPERATIONAL HANDBOOK (HANDBOOK-2.2)
 
 **The one document every soldier reads first.** Everything else is reference. If this handbook conflicts with another doc, this handbook wins and the other doc gets patched. This handbook syncs to all three stores (Upstash hot, Obsidian warm, GitHub cold).
 
@@ -47,7 +47,7 @@ Command Deck (Cowork) is L2 Translator per FRD-1.0 — emits structured dispatch
 
 ---
 
-## 2. ROLODEX — all 15 soldiers
+## 2. ROLODEX — all 16 soldiers
 
 | # | Soldier | Role | Charter | Custom code? | Heartbeat | Skills built | Skills planned | Channel |
 |---|---------|------|---------|-------------|-----------|-------------|----------------|---------|
@@ -145,7 +145,7 @@ DICK down > 10 min = ARGUS P0 ticket. Memory-sync-daemon and army-status-5min ar
 |-------|------|-----------|-------------|--------|
 | **Upstash Redis** | HOT — real-time, heartbeats, broadcasts | REST API | Live | Online (ACL isolation P1 open) |
 | **Obsidian** | WARM — knowledge base, append-only | HERMES JWT proxy (port 27125, localhost:27124) | 5min | Online (API key rotation pending) |
-| **GitHub** | COLD — immutable archive, signed commits | API blob pattern | 5min | Online (last full sync stale — needs attention) |
+| **GitHub** | COLD — immutable archive, signed commits | API blob pattern | 5min | Online (synced S69 — commits 08cb797, e2dfe11, d73fd6d) |
 
 TTL policy (LAW 345): Episodic 72h, Semantic permanent, Heartbeat 5min, Broadcast 1hr. Degraded mode: SQLite fallback when Upstash unreachable > 30s.
 
@@ -212,7 +212,7 @@ VETTER uses both Solvr and X for discovery/vetting on the social layer. GARY is 
 |----------|----------|--------|
 | **Hetzner VPS** | 178.156.251.119:22922 (user: ironbridge) | SSH key at `.ssh-keys/id_ironbridge` |
 | **Vercel** | Command Deck (`ironbridge-command-deck.vercel.app`) | Reads `ironbridge:status:army:current` |
-| **pm2** | Process manager for all 15 soldiers | `ecosystem.config.js` |
+| **pm2** | Process manager for all 16 soldiers | `ecosystem.config.js` |
 
 ### 7.7 Task and Job Management
 
@@ -352,7 +352,7 @@ COFFEY watches everything. Not a dashboard. A healer.
 
 | What COFFEY watches | How | Escalation |
 |---------------------|-----|-----------|
-| All 15 soldier heartbeats | heartbeat-watchdog (60s cadence) | Silent > 5min = auto-recovery attempt, then P0 |
+| All 15 other soldier heartbeats | heartbeat-watchdog (60s cadence) | Silent > 5min = auto-recovery attempt, then P0 |
 | DICK specifically | heartbeat:dick TTL + dispatch loop health | DICK down > 90s = trigger DICK-DOWN failover, alert Boss |
 | Comms channels | Discord ping, Upstash connectivity, GitHub API health | Channel degraded = switch to backup (comms-failover module) |
 | Resource usage | RAM, CPU, disk, queue depth on Hetzner | 85% threshold = alert, 95% = auto-rebalance |
@@ -390,7 +390,7 @@ COFFEY watches everything. Not a dashboard. A healer.
 - **CC redeploy to Vercel** — route.ts updated with SOLDIER_META fix + health panel but not yet deployed. Vercel auto-deploys on push to deployment branch.
 - **Solvr API key needed** — Adapter built (`core/oracle-interface/adapters/solvr.ts`), needs `solvr_*` key stored in `ironbridge:keys:solvr`
 - **X account for IronBridge brand** — Not created yet. GARY needs this for social posting.
-- **integrations/INDEX.md stale** — Says 10 soldiers, missing Clerk, Solvr, Anthropic, fraud detection, oracle interface.
+- **integrations/INDEX.md** — Updated to 16 soldiers S69. Clerk, Solvr, Anthropic, fraud detection, oracle interface all present.
 - **Skills gap** — 25 built of ~178 planned. See `GAP-ANALYSIS.md`.
 
 ### 14.3 RESOLVED in S69
